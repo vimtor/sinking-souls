@@ -35,7 +35,7 @@ public class InputHandler : MonoBehaviour{
 
         InputInfo.LeftJoystick = new Vector2(Input.GetAxis("JOYSTICK_LH"), Input.GetAxis("JOYSTICK_LV"));
         InputInfo.RightJoystick = new Vector2(Input.GetAxis("JOYSTICK_RH"), Input.GetAxis("JOYSTICK_RV"));
-        Debug.Log(InputInfo.Button);
+   
     }
 
 }

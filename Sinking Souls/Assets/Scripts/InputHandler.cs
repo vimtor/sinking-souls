@@ -24,7 +24,7 @@ public class InputHandler : MonoBehaviour{
     }
 
 
-    private void Update() {
+    private void FixedUpdate() {
 
         if (Input.GetButtonDown("BUTTON_A"))        InputInfo.Button = ButtonType.BUTTON_A;
         else if (Input.GetButtonDown("BUTTON_B"))   InputInfo.Button = ButtonType.BUTTON_B;
@@ -35,7 +35,7 @@ public class InputHandler : MonoBehaviour{
 
         InputInfo.LeftJoystick = new Vector2(Input.GetAxis("JOYSTICK_LH"), Input.GetAxis("JOYSTICK_LV"));
         InputInfo.RightJoystick = new Vector2(Input.GetAxis("JOYSTICK_RH"), Input.GetAxis("JOYSTICK_RV"));
-
+        Debug.Log(InputInfo.Button);
     }
 
 }

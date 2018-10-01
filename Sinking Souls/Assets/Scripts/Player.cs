@@ -23,34 +23,67 @@ public class Player : Entity{
 
     public void HandleInput() {
 
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")) state = State.STATE_IDLE;
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_1")) state = State.STATE_ATTACK_1;
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("RUN")) state = State.STATE_MOVEMENT;
+        Debug.Log(InputHandler.InputInfo.LeftJoystick.x);
         switch (state) {
-        case State.STATE_IDLE:
+            case State.STATE_IDLE:
+            animator.SetBool("STOP_RUN", false);
             if (InputHandler.InputInfo.Button == InputHandler.ButtonType.BUTTON_X) {
                 animator.SetBool("ATTACK_1", true);
-                state = State.STATE_ATTACK_1;
+            }     
+            if(InputHandler.InputInfo.LeftJoystick.x != 0|| InputHandler.InputInfo.LeftJoystick.y != 0) {
+                animator.SetBool("RUN", true);
             }
-        break;
-        case State.STATE_ATTACK_1:
-
-            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")) {
-                state = State.STATE_IDLE;
+            break;
+            case State.STATE_ATTACK_1:
+            break;
+            case State.STATE_ATTACK_2:
+            break;
+            case State.STATE_ATTACK_3:
+            break;
+            case State.STATE_MOVEMENT:
+            if (InputHandler.InputInfo.LeftJoystick.x == 0) {
+                animator.SetBool("STOP_RUN", true);
             }
-        break;
-        case State.STATE_ATTACK_2:
-        break;
-        case State.STATE_ATTACK_3:
-        break;
-        case State.STATE_MOVEMENT:
-        break;
-        case State.STATE_ABILITY:
-        break;
-        case State.STATE_DASH:
-        break;
-        default:
-        break;
+            break;
+            case State.STATE_ABILITY:
+            break;
+            case State.STATE_DASH:
+            break;
+            default:
+            break;
         }
-        if(state != State.STATE_IDLE)
         Debug.Log(state);
+        //switch (state) {
+        //case State.STATE_IDLE:
+        //    if (InputHandler.InputInfo.Button == InputHandler.ButtonType.BUTTON_X) {
+        //        animator.SetBool("ATTACK_1", true);
+        //        state = State.STATE_ATTACK_1;
+        //    }
+        //break;
+        //case State.STATE_ATTACK_1:
+
+        //    if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")) {
+        //        state = State.STATE_IDLE;
+        //    }
+        //break;
+        //case State.STATE_ATTACK_2:
+        //break;
+        //case State.STATE_ATTACK_3:
+        //break;
+        //case State.STATE_MOVEMENT:
+        //break;
+        //case State.STATE_ABILITY:
+        //break;
+        //case State.STATE_DASH:
+        //break;
+        //default:
+        //break;
+        //}
+        //if(state != State.STATE_IDLE)
+        //Debug.Log(state);
     }
     public void Ability() { }
     public void Dash() { }

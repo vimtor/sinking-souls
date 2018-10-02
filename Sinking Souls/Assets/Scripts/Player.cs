@@ -25,10 +25,14 @@ public class Player : Entity{
 
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")) state = State.STATE_IDLE;
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_1")) state = State.STATE_ATTACK_1;
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_2")) state = State.STATE_ATTACK_2;
+        if (animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_3")) state = State.STATE_ATTACK_3;
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("RUN")) state = State.STATE_MOVEMENT;
         Debug.Log(InputHandler.InputInfo.LeftJoystick.x);
+
         switch (state) {
             case State.STATE_IDLE:
+
             animator.SetBool("STOP_RUN", false);
             if (InputHandler.InputInfo.Button == InputHandler.ButtonType.BUTTON_X) {
                 animator.SetBool("ATTACK_1", true);
@@ -38,14 +42,38 @@ public class Player : Entity{
             }
             break;
             case State.STATE_ATTACK_1:
+
+            if (InputHandler.InputInfo.Button == InputHandler.ButtonType.BUTTON_X) {
+                Debug.Log("click2");
+                animator.SetBool("ATTACK_2", true);
+                
+            }
+            if (InputHandler.InputInfo.LeftJoystick.x != 0 || InputHandler.InputInfo.LeftJoystick.y != 0) {
+                animator.SetBool("RUN", true);
+            }
+            if(InputHandler.InputInfo.Button == InputHandler.ButtonType.NONE) {
+                animator.SetBool("IDLE", true);
+            }
             break;
             case State.STATE_ATTACK_2:
+
+            if (InputHandler.InputInfo.Button == InputHandler.ButtonType.BUTTON_X) {
+                Debug.Log("click3");
+                animator.SetBool("ATTACK_3", true);
+            }
+            if (InputHandler.InputInfo.LeftJoystick.x != 0 || InputHandler.InputInfo.LeftJoystick.y != 0) {
+                animator.SetBool("RUN", true);
+            }
             break;
             case State.STATE_ATTACK_3:
             break;
             case State.STATE_MOVEMENT:
+
             if (InputHandler.InputInfo.LeftJoystick.x == 0) {
                 animator.SetBool("STOP_RUN", true);
+            }
+            if(InputHandler.InputInfo.Button == InputHandler.ButtonType.BUTTON_X) {
+                animator.SetBool("ATTACK_1", true);
             }
             break;
             case State.STATE_ABILITY:

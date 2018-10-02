@@ -17,24 +17,24 @@ public class InputHandler : MonoBehaviour{
         BUTTON_RT
     }
 
-	public static class InputInfo {
-        public static ButtonType Button;
-        public static Vector2 LeftJoystick;
-        public static Vector2 RightJoystick;
-    }
+
+    public static ButtonType Button;
+    public static Vector2 LeftJoystick;
+    public static Vector2 RightJoystick;
+
 
 
     private void FixedUpdate() {
 
-        if (Input.GetButtonDown("BUTTON_A"))        InputInfo.Button = ButtonType.BUTTON_A;
-        else if (Input.GetButtonDown("BUTTON_B"))   InputInfo.Button = ButtonType.BUTTON_B;
-        else if (Input.GetButtonDown("BUTTON_X"))   InputInfo.Button = ButtonType.BUTTON_X;
-        else if (Input.GetButtonDown("BUTTON_Y"))   InputInfo.Button = ButtonType.BUTTON_Y;
-        else if (Input.GetAxis("BUTTON_RT") >= 0.5) InputInfo.Button = ButtonType.BUTTON_RT;
-        else InputInfo.Button = ButtonType.NONE;
+        if (Input.GetButtonDown("BUTTON_A"))        Button = ButtonType.BUTTON_A;
+        else if (Input.GetButtonDown("BUTTON_B"))   Button = ButtonType.BUTTON_B;
+        else if (Input.GetButtonDown("BUTTON_X"))   Button = ButtonType.BUTTON_X;
+        else if (Input.GetButtonDown("BUTTON_Y"))   Button = ButtonType.BUTTON_Y;
+        else if (Input.GetAxis("BUTTON_RT") >= 0.5) Button = ButtonType.BUTTON_RT;
+        else Button = ButtonType.NONE;
 
-        InputInfo.LeftJoystick = new Vector2(Input.GetAxis("JOYSTICK_LH"), Input.GetAxis("JOYSTICK_LV"));
-        InputInfo.RightJoystick = new Vector2(Input.GetAxis("JOYSTICK_RH"), Input.GetAxis("JOYSTICK_RV"));
+        LeftJoystick = new Vector2(Input.GetAxis("JOYSTICK_LH"), Input.GetAxis("JOYSTICK_LV"));
+        RightJoystick = new Vector2(Input.GetAxis("JOYSTICK_RH"), Input.GetAxis("JOYSTICK_RV"));
    
     }
 

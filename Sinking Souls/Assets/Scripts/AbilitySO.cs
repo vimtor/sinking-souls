@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Ability", menuName = "Abilities")]
+[CreateAssetMenu(fileName = "Ability", menuName = "Ability")]
 public class AbilitySO : ScriptableObject {
 
     public int cooldown;
@@ -13,7 +13,7 @@ public class AbilitySO : ScriptableObject {
         set { _modifier = value; }
     }
 
-    public void Use(GameObject player) {
+    public virtual void Use(GameObject player) {
 
     }
 }

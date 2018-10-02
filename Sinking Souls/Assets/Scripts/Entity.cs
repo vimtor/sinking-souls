@@ -5,7 +5,8 @@ using UnityEngine;
 public class Entity : MonoBehaviour {
 
     private float life;
-    private WeaponSO weapon;
+    public WeaponSO weapon;
+    public GameObject hand;
 
     public float walkSpeed;
     public ModifierSO baseModifier;

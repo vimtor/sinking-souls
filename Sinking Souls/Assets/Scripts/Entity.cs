@@ -6,8 +6,8 @@ public class Entity : MonoBehaviour {
 
     private float life;
     private WeaponSO weapon;
-    private float walkSpeed;
 
+    public float walkSpeed;
     public ModifierSO baseModifier;
 
     public void Apply(GameObject other) {

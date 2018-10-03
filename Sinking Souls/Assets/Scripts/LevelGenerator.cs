@@ -129,11 +129,78 @@ public class LevelGenerator : MonoBehaviour {
     }
 
     private void CreateMap() {
+        int roomSize = 10/2;
+        int roomCount = 1;
         Debug.Log("Map created successfully.");
-        foreach(Vector2 pos in takenPos) {
-            Debug.Log(pos);
+
+        foreach(Room room in grid) {
+            if (room == null) continue;
+            //all on true
+            if(room.doorTop == true && room.doorBot == true && room.doorLeft == true && room.doorRight == true) { 
+                room.prefab = RoomsE[Random.Range(0,RoomsE.Count - 1)];
+            }
+            //3 on true 1 on false
+            else if(room.doorTop == true && room.doorBot == true && room.doorLeft == true && room.doorRight == false) {
+                room.prefab = RoomsD[Random.Range(0, RoomsD.Count - 1)];
+            }
+            else if (room.doorTop == true && room.doorBot == true && room.doorLeft == false && room.doorRight == true) {
+                room.prefab = RoomsD[Random.Range(0, RoomsD.Count - 1)];
+            }
+            else if (room.doorTop == true && room.doorBot == false && room.doorLeft == true && room.doorRight == true) {
+                room.prefab = RoomsD[Random.Range(0, RoomsD.Count - 1)];
+            }
+            else if (room.doorTop == false && room.doorBot == true && room.doorLeft == true && room.doorRight == true) {
+                room.prefab = RoomsD[Random.Range(0, RoomsD.Count - 1)];
+            }
+
+            //2 on true 2 on false
+                // confronted
+            else if (room.doorTop == true && room.doorBot == true && room.doorLeft == false && room.doorRight == false) {
+                room.prefab = RoomsC[Random.Range(0, RoomsC.Count - 1)];
+            }
+            else if (room.doorTop == false && room.doorBot == false && room.doorLeft == true && room.doorRight == true) {
+                room.prefab = RoomsC[Random.Range(0, RoomsC.Count - 1)];
+            }
+                //corner
+            else if (room.doorTop == true && room.doorBot == false && room.doorLeft == false && room.doorRight == true) {
+                room.prefab = RoomsB[Random.Range(0, RoomsB.Count - 1)];
+            }
+            else if (room.doorTop == false && room.doorBot == true && room.doorLeft == false && room.doorRight == true) {
+                room.prefab = RoomsB[Random.Range(0, RoomsB.Count - 1)];
+            }
+            else if (room.doorTop == false && room.doorBot == true && room.doorLeft == true && room.doorRight == false) {
+                room.prefab = RoomsB[Random.Range(0, RoomsB.Count - 1)];
+            }
+            else if (room.doorTop == true && room.doorBot == false && room.doorLeft == true && room.doorRight == false) {
+                room.prefab = RoomsB[Random.Range(0, RoomsB.Count - 1)];
+            }
+
+            //3 on false 1 false
+            else if (room.doorTop == false && room.doorBot == false && room.doorLeft == true && room.doorRight == false) {
+                room.prefab = RoomsA[Random.Range(0, RoomsA.Count - 1)];
+            }
+            else if (room.doorTop == true && room.doorBot == false && room.doorLeft == false && room.doorRight == false) {
+                room.prefab = RoomsA[Random.Range(0, RoomsA.Count - 1)];
+            }
+            else if (room.doorTop == false && room.doorBot == false && room.doorLeft == false && room.doorRight == true) {
+                room.prefab = RoomsA[Random.Range(0, RoomsA.Count - 1)];
+            }
+            else if (room.doorTop == false && room.doorBot == true && room.doorLeft == false && room.doorRight == false) {
+                room.prefab = RoomsA[Random.Range(0, RoomsA.Count - 1)];
+            }
+
+            SpawnRoom(room, roomSize, roomCount);
+            roomCount++;
         }
     }
 
+    private void SpawnRoom(Room room, int roomSize, int roomCount) {
+        Vector3 realPosition = new Vector3(room.gridPos.x, 0, room.gridPos.y);
+        realPosition *= roomSize;
+        room.prefab.transform.position = transform.position + realPosition;
 
+        GameObject _room = Instantiate(room.prefab, room.prefab.transform);
+        _room.name = "Room_" + roomCount;
+        _room.transform.parent = gameObject.transform;
+    }
 }

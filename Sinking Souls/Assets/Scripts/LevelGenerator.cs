@@ -135,66 +135,101 @@ public class LevelGenerator : MonoBehaviour {
 
         foreach(Room room in grid) {
             if (room == null) continue;
+            GameObject currentRoom;
             //all on true
             if(room.doorTop == true && room.doorBot == true && room.doorLeft == true && room.doorRight == true) { 
                 room.prefab = RoomsE[Random.Range(0,RoomsE.Count - 1)];
+                currentRoom = SpawnRoom(room, roomSize, roomCount);
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             }
             //3 on true 1 on false
             else if(room.doorTop == true && room.doorBot == true && room.doorLeft == true && room.doorRight == false) {
                 room.prefab = RoomsD[Random.Range(0, RoomsD.Count - 1)];
+                currentRoom = SpawnRoom(room, roomSize, roomCount);
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             }
             else if (room.doorTop == true && room.doorBot == true && room.doorLeft == false && room.doorRight == true) {
                 room.prefab = RoomsD[Random.Range(0, RoomsD.Count - 1)];
+                currentRoom = SpawnRoom(room, roomSize, roomCount);
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
             }
             else if (room.doorTop == true && room.doorBot == false && room.doorLeft == true && room.doorRight == true) {
                 room.prefab = RoomsD[Random.Range(0, RoomsD.Count - 1)];
+                currentRoom = SpawnRoom(room, roomSize, roomCount);
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
             }
             else if (room.doorTop == false && room.doorBot == true && room.doorLeft == true && room.doorRight == true) {
                 room.prefab = RoomsD[Random.Range(0, RoomsD.Count - 1)];
+                currentRoom = SpawnRoom(room, roomSize, roomCount);
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 270, 0));
             }
 
             //2 on true 2 on false
                 // confronted
             else if (room.doorTop == true && room.doorBot == true && room.doorLeft == false && room.doorRight == false) {
                 room.prefab = RoomsC[Random.Range(0, RoomsC.Count - 1)];
+                currentRoom = SpawnRoom(room, roomSize, roomCount);
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             }
             else if (room.doorTop == false && room.doorBot == false && room.doorLeft == true && room.doorRight == true) {
                 room.prefab = RoomsC[Random.Range(0, RoomsC.Count - 1)];
+                currentRoom = SpawnRoom(room, roomSize, roomCount);
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
             }
                 //corner
             else if (room.doorTop == true && room.doorBot == false && room.doorLeft == false && room.doorRight == true) {
                 room.prefab = RoomsB[Random.Range(0, RoomsB.Count - 1)];
+                currentRoom = SpawnRoom(room, roomSize, roomCount);
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
             }
             else if (room.doorTop == false && room.doorBot == true && room.doorLeft == false && room.doorRight == true) {
                 room.prefab = RoomsB[Random.Range(0, RoomsB.Count - 1)];
+                currentRoom = SpawnRoom(room, roomSize, roomCount);
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
             }
             else if (room.doorTop == false && room.doorBot == true && room.doorLeft == true && room.doorRight == false) {
                 room.prefab = RoomsB[Random.Range(0, RoomsB.Count - 1)];
+                currentRoom = SpawnRoom(room, roomSize, roomCount);
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 270, 0));
             }
             else if (room.doorTop == true && room.doorBot == false && room.doorLeft == true && room.doorRight == false) {
                 room.prefab = RoomsB[Random.Range(0, RoomsB.Count - 1)];
+                currentRoom = SpawnRoom(room, roomSize, roomCount);
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             }
 
-            //3 on false 1 false
+            //3 on false 1 true
             else if (room.doorTop == false && room.doorBot == false && room.doorLeft == true && room.doorRight == false) {
                 room.prefab = RoomsA[Random.Range(0, RoomsA.Count - 1)];
+                currentRoom = SpawnRoom(room, roomSize, roomCount);
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+                //room.prefab.transform.rotation = Quaternion.Euler(new Vector3(0,90,0));
             }
             else if (room.doorTop == true && room.doorBot == false && room.doorLeft == false && room.doorRight == false) {
                 room.prefab = RoomsA[Random.Range(0, RoomsA.Count - 1)];
+                currentRoom = SpawnRoom(room, roomSize, roomCount);
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
+                //room.prefab.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
             }
             else if (room.doorTop == false && room.doorBot == false && room.doorLeft == false && room.doorRight == true) {
                 room.prefab = RoomsA[Random.Range(0, RoomsA.Count - 1)];
+                currentRoom = SpawnRoom(room, roomSize, roomCount);
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 270, 0));
+                //room.prefab.transform.rotation = Quaternion.Euler(new Vector3(0, 270, 0));
             }
             else if (room.doorTop == false && room.doorBot == true && room.doorLeft == false && room.doorRight == false) {
                 room.prefab = RoomsA[Random.Range(0, RoomsA.Count - 1)];
+                currentRoom = SpawnRoom(room, roomSize, roomCount);
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                //room.prefab.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             }
 
-            SpawnRoom(room, roomSize, roomCount);
+            //SpawnRoom(room, roomSize, roomCount);
             roomCount++;
         }
     }
 
-    private void SpawnRoom(Room room, int roomSize, int roomCount) {
+    private GameObject SpawnRoom(Room room, int roomSize, int roomCount) {
         Vector3 realPosition = new Vector3(room.gridPos.x, 0, room.gridPos.y);
         realPosition *= roomSize;
         room.prefab.transform.position = transform.position + realPosition;
@@ -202,5 +237,8 @@ public class LevelGenerator : MonoBehaviour {
         GameObject _room = Instantiate(room.prefab, room.prefab.transform);
         _room.name = "Room_" + roomCount;
         _room.transform.parent = gameObject.transform;
+        Debug.Log(_room.name + " " + room.gridPos + " " + realPosition);
+        return _room;
+
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : Entity{
+
     enum State {
         IDLE,
         ATTACK_1,
@@ -14,9 +15,6 @@ public class Player : Entity{
     };
 
     private State state;
-    private Animator animator;
-    private Vector3 facingDir;
-    private Rigidbody rb;
     private float weaponUseDelay;
 
     private Dictionary<Enemy.EnemyType, int> inventory;
@@ -24,11 +22,10 @@ public class Player : Entity{
     public AbilitySO ability;
 
     private void Start() {
-        rb = GetComponent<Rigidbody>();
+        OnStart();
         state = State.IDLE;
-        facingDir = new Vector3(InputHandler.LeftJoystick.y, 0, InputHandler.LeftJoystick.x); ;
-        animator = GetComponent<Animator>();
-        weapon.Instantiate(hand);
+        
+        EquipWeapon();
     }
 
     private void FixedUpdate() {
@@ -56,19 +53,18 @@ public class Player : Entity{
 
     public void HandleInput() {
 
-        // Set rotation of the player to the one on the left joy.
+        // Set rotation of the player to the one on the left joystick.
         if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
             facingDir = new Vector3(InputHandler.LeftJoystick.y, 0, InputHandler.LeftJoystick.x);
             transform.rotation = Quaternion.LookRotation(-facingDir);
         }
 
-        // Things that needs to be alwais on false so they can be changed to true if needed.
+        // Things that needs to be always on false so they can be changed to true if needed.
         weapon.model.GetComponent<BoxCollider>().enabled = false;
 
         StateMachine();
 
         weaponUseDelay += Time.deltaTime;
-        Debug.Log(weapon.model.GetComponent<BoxCollider>().enabled);
     }
 
     public void StateMachine() {
@@ -85,7 +81,7 @@ public class Player : Entity{
                     weaponUseDelay = 0;
                 }
 
-                if (InputHandler.ButtonY()) {
+                if (InputHandler.ButtonRT()) {
                     animator.SetBool("THROW", true);
                 }
 

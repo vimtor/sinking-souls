@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : Entity{
+public class Enemy : Entity {
 
     public enum EnemyType { };
     private EnemyType type;
 
-    // State machine.
+    private void Start() {
+        OnStart();
+    }
 }

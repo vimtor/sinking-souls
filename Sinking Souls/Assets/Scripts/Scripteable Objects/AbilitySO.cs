@@ -7,11 +7,7 @@ public class AbilitySO : ScriptableObject {
 
     public int cooldown;
     public float damage;
-    private ModifierSO _modifier;
-    public ModifierSO Modifier {
-        get { return _modifier; }
-        set { _modifier = value; }
-    }
+    public ModifierSO modifier;
 
     public virtual void Use(GameObject player) {
 

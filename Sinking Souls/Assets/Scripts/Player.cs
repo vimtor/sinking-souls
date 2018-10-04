@@ -81,6 +81,8 @@ public class Player : Entity{
 
             case State.ATTACK_1:
                 weapon.Attack();
+                if (animator.GetAnimatorTransitionInfo(0).IsUserName("IDLE-RUN")) // Check if i'm transitioning to walk
+                    rb.MovePosition(transform.position + (transform.forward * walkSpeed * Time.deltaTime));
 
                 if (InputHandler.Button == InputHandler.ButtonType.BUTTON_X && weaponUseDelay > weapon.useDelay) {
                     animator.SetBool("ATTACK_2", true);
@@ -118,7 +120,10 @@ public class Player : Entity{
                 if (InputHandler.Button == InputHandler.ButtonType.BUTTON_Y) {
                     animator.SetBool("THROW", true);
                 }
-                break;
+                if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
+                    animator.SetBool("RUN", true);
+                }
+            break;
 
             case State.MOVEMENT:
 

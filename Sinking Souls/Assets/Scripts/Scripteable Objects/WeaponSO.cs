@@ -9,6 +9,7 @@ public class WeaponSO : ScriptableObject {
 
     public float baseDamage;
     public float criticDamage;
+    public bool hitting;
     private float _damage;
     public float Damage {
         set { throw new System.Exception("You cannot set the damage of a weapon."); }
@@ -27,15 +28,17 @@ public class WeaponSO : ScriptableObject {
     public void Instantiate(GameObject parent) {
         GameObject weapon = Instantiate(model, parent.transform);
         weapon.transform.parent = parent.transform;
+        model.AddComponent<WeaponHolder>().holder = this;
     }
 
     public void Attack() {
         _damage = baseDamage;
-        collider.enabled = true;
+        hitting = true;
     }
 
     public void CriticAttack() {
         _damage = criticDamage;
-        collider.enabled = true;
+        hitting = true;
     }
+
 }

@@ -60,7 +60,7 @@ public class Player : Entity{
         }
 
         // Things that needs to be always on false so they can be changed to true if needed.
-        weapon.model.GetComponent<BoxCollider>().enabled = false;
+        weapon.hitting = false;
 
         StateMachine();
 

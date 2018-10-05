@@ -37,18 +37,17 @@ public class Entity : MonoBehaviour {
         health -= damage;
     }
 
-    protected void OnCollisionEnter(Collision collision) {
-        Debug.Log(collision.collider.name);
+    private void OnTriggerEnter(Collider other) {
 
-
-        if (collision.collider.tag == "Weapon") {
-            Apply(collision.collider.gameObject.GetComponent<WeaponSO>().modifier);
-            TakeDamage(collision.collider.gameObject.GetComponent<WeaponSO>().Damage);
-
+        if (other.tag == "Weapon") {
+            if (other.GetComponent<WeaponHolder>().holder.hitting) { 
+                Debug.Log("Sword hitted me");
+                Apply(other.GetComponent<WeaponHolder>().holder.modifier);
+                TakeDamage(other.GetComponent<WeaponHolder>().holder.Damage);
+            }
         }
-        else if (collision.collider.tag == "Ability") {
-            Apply(collision.collider.gameObject.GetComponent<AbilitySO>().modifier);
+        else if (other.tag == "Ability") {
+            Apply(other.gameObject.GetComponent<AbilitySO>().modifier);
         }
     }
-
 }

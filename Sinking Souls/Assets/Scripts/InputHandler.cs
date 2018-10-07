@@ -13,31 +13,31 @@ public class InputHandler : MonoBehaviour {
     #region --- BUTTON FUNCTIONS ---
     private static bool buttonX;
     public static bool ButtonX() {
-        return ButtonSwitch(buttonX);
+        return ButtonSwitch(ref buttonX);
     }
 
     private static bool buttonA;
     public static bool ButtonA() {
-        return ButtonSwitch(buttonA);
+        return ButtonSwitch(ref buttonA);
     }
 
     private static bool buttonB;
     public static bool ButtonB() {
-        return ButtonSwitch(buttonB);
+        return ButtonSwitch(ref buttonB);
     }
 
     private static bool buttonY;
     public static bool ButtonY() {
-        return ButtonSwitch(buttonY);
+        return ButtonSwitch(ref buttonY);
     }
 
     private static bool buttonRT;
     public static bool ButtonRT() {
-        return ButtonSwitch(buttonY);
+        return ButtonSwitch(ref buttonY);
     }
     #endregion
 
-    public static bool ButtonSwitch(bool button) {
+    public static bool ButtonSwitch(ref bool button) {
         if (button) {
             button = false;
             return true;
@@ -48,11 +48,11 @@ public class InputHandler : MonoBehaviour {
 
     void Update() {
 
-        buttonA = Input.GetButtonDown("BUTTON_A");
-        buttonB = Input.GetButtonDown("BUTTON_B");
-        buttonX = Input.GetButtonDown("BUTTON_X");
-        buttonY = Input.GetButtonDown("BUTTON_Y");
-        buttonRT = Input.GetAxis("BUTTON_RT") >= 0.5;
+        if (!buttonA) buttonA = Input.GetButtonDown("BUTTON_A");
+        if (!buttonB) buttonB = Input.GetButtonDown("BUTTON_B");
+        if (!buttonX) buttonX = Input.GetButtonDown("BUTTON_X");
+        if (!buttonY) buttonY = Input.GetButtonDown("BUTTON_Y");
+        if (!buttonRT) buttonRT = Input.GetAxis("BUTTON_RT") >= 0.5;
 
         LeftJoystick = new Vector2(Input.GetAxis("JOYSTICK_LH"), Input.GetAxis("JOYSTICK_LV"));
         RightJoystick = new Vector2(Input.GetAxis("JOYSTICK_RH"), Input.GetAxis("JOYSTICK_RV"));

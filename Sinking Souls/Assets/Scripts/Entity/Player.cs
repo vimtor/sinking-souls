@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : Entity{
 
-    enum State {
+    public enum State {
         IDLE,
         ATTACK_1,
         ATTACK_2,
@@ -15,7 +15,12 @@ public class Player : Entity{
     };
 
     private State state;
-    private float weaponUseDelay;
+    private State lastState;
+    private float time;
+
+    public float attackOffset;
+
+    Dictionary<string, float> clipLength = new Dictionary<string, float>();
 
     private Dictionary<Enemy.EnemyType, int> inventory;
     public AbilitySO dash;
@@ -24,24 +29,21 @@ public class Player : Entity{
     private void Start() {
         OnStart();
         state = State.IDLE;
-        
+
+        for(int i = 0; i < animator.runtimeAnimatorController.animationClips.Length; i++) {
+            var animationClip = animator.runtimeAnimatorController.animationClips[i];
+            clipLength.Add(animationClip.name, animationClip.length);
+        }
+        clipLength["Attack1Anim"] = clipLength["Attack1Anim"] / 2;
+        clipLength["Attack2Anim"] = clipLength["Attack2Anim"] / 2;
+        clipLength["Attack3Anim"] = clipLength["Attack3Anim"] / 2;
+
         EquipWeapon();
     }
 
     private void FixedUpdate() {
-        UpdateState();
-        HandleInput();
-    }
 
-    private void UpdateState() {
-        // Set the state depending on the animation state we are in.
-        if (CurrentState("IDLE"))     state = State.IDLE;
-        if (CurrentState("ATTACK_1")) state = State.ATTACK_1;
-        if (CurrentState("ATTACK_2")) state = State.ATTACK_2;
-        if (CurrentState("ATTACK_3")) state = State.ATTACK_3;
-        if (CurrentState("RUN"))      state = State.MOVEMENT;
-        if (CurrentState("THROW"))    state = State.ABILITY;
-        if (CurrentState("DASH"))     state = State.DASH;
+        HandleInput();
     }
 
     private bool CurrentState(string stateName) {
@@ -64,105 +66,134 @@ public class Player : Entity{
 
         StateMachine();
 
-        weaponUseDelay += Time.deltaTime;
+        time += Time.deltaTime;
     }
 
     public void StateMachine() {
         switch (state) {
             #region STATE_IDLE
             case State.IDLE:
-                
-                if (CurrentTransition("IDLE-RUN")) // Check if i'm transitioning to walk
-                    rb.MovePosition(transform.position + (transform.forward * walkSpeed * Time.deltaTime));
+                SetAnimBool("IDLE");
 
-                animator.SetBool("STOP_RUN", false);
                 if (InputHandler.ButtonX()) {
-                    animator.SetBool("ATTACK_1", true);
-                    weaponUseDelay = 0;
-                }
-
-                if (InputHandler.ButtonRT()) {
-                    animator.SetBool("THROW", true);
-                }
-
-                if (InputHandler.ButtonB()) {
-                    animator.SetBool("DASH", true);
-                }
+                    lastState = State.IDLE;
+                    state = State.ATTACK_1;
+                    time = 0;
+                }   
 
                 if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
-                    animator.SetBool("RUN", true);
+                    state = State.MOVEMENT;
+                    lastState = State.IDLE;
                 }
-                break;
+            break;
             #endregion
 
             #region STATE_ATTACK_1
             case State.ATTACK_1:
+
+                SetAnimBool("ATTACK_1");
                 weapon.Attack();
+                                                                            // you can substraca little offset to makit more fluid
+                if (InputHandler.ButtonX() && time > clipLength["Attack1Anim"] - 0.2 && time < clipLength["Attack1Anim"] + attackOffset) {
+                    lastState = State.ATTACK_1;
+                    state = State.ATTACK_2;
+                    time = 0;
+                }
+                else if(time > clipLength["Attack1Anim"]) {//change frome attack1time to exact length of the animation
+                    lastState = State.ATTACK_1;
+                    state = State.IDLE;
+                }
+                if(InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
+                    if(time > clipLength["Attack1Anim"]) { 
+                        lastState = State.ATTACK_1;
+                        state = State.MOVEMENT;
+                    }
+                }
 
-                // Check if i'm transitioning to walk
-                if (CurrentTransition("IDLE-RUN")) rb.MovePosition(transform.position + (transform.forward * walkSpeed * Time.deltaTime));
-
-                animator.SetBool("IDLE", true);
-                if (InputHandler.ButtonX() && weaponUseDelay > weapon.useDelay) {
-                    animator.SetBool("ATTACK_2", true);
-                    weaponUseDelay = 0;
-                }
-                if (InputHandler.ButtonY()) {
-                    animator.SetBool("THROW", true);
-                }
-                if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
-                    animator.SetBool("RUN", true);
-                }
                 break;
             #endregion
 
             #region STATE_ATTACK_2
             case State.ATTACK_2:
+                SetAnimBool("ATTACK_2");
                 weapon.Attack();
 
-                if (InputHandler.ButtonX() && weaponUseDelay > weapon.useDelay) {
-                    animator.SetBool("ATTACK_3", true);
-                    weaponUseDelay = 0;
+                if (InputHandler.ButtonX() && time > clipLength["Attack2Anim"] - 0.2 && time < clipLength["Attack2Anim"] + attackOffset) {
+                    lastState = State.ATTACK_2;
+                    state = State.ATTACK_3;
+                    time = 0;
                 }
-                if (InputHandler.ButtonY()) {
-                    animator.SetBool("THROW", true);
+                else if (time > clipLength["Attack2Anim"]) {
+                    lastState = State.ATTACK_2;
+                    state = State.IDLE;
                 }
                 if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
-                    animator.SetBool("RUN", true);
+                    if (time > clipLength["Attack2Anim"]) {
+                        lastState = State.ATTACK_2;
+                        state = State.MOVEMENT;
+                    }
                 }
-                break;
+            break;
             #endregion
 
             #region STATE_ATTACK_3
             case State.ATTACK_3:
+                SetAnimBool("ATTACK_3");
                 weapon.CriticAttack();
 
-                if (InputHandler.ButtonY()) {
-                    animator.SetBool("THROW", true);
+                if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
+                    if(time > clipLength["Attack3Anim"]) { 
+                        lastState = State.ATTACK_3;
+                        state = State.MOVEMENT;
+                    }
+                }
+
+                if (InputHandler.ButtonX() && time > clipLength["Attack3Anim"] - 0.2 && time < clipLength["Attack3Anim"] + attackOffset) {
+                    lastState = State.ATTACK_3;
+                    state = State.ATTACK_1;
+                    time = 0;
+                }
+                else if (time > clipLength["Attack3Anim"]) {
+                    lastState = State.ATTACK_3;
+                    state = State.IDLE;
                 }
                 if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
-                    animator.SetBool("RUN", true);
+                    if (time > clipLength["Attack3Anim"]) {
+                        lastState = State.ATTACK_3;
+                        state = State.MOVEMENT;
+                    }
                 }
-                break;
+            break;
             #endregion
 
             #region STATE_MOVEMENT
             case State.MOVEMENT:
-                // Check if i'm transitioning from one animation to the other.
-                if (!CurrentTransition("RUN-IDLE") && !CurrentTransition("RUN-THROW")) 
-                    rb.MovePosition(transform.position + (transform.forward * walkSpeed * Time.deltaTime));
+                SetAnimBool("RUN");
 
-                if (InputHandler.ButtonB()) {
-                    animator.SetBool("DASH", true);
-                }
+                rb.MovePosition(transform.position + (transform.forward * walkSpeed * Time.deltaTime));
+                Debug.Log("running");
+
                 if (InputHandler.LeftJoystick.x == 0 && InputHandler.LeftJoystick.y == 0) {
-                    animator.SetBool("STOP_RUN", true);
+                    state = State.IDLE;
+                    lastState = State.MOVEMENT;
                 }
-                if (InputHandler.ButtonY()) {
-                    animator.SetBool("THROW", true);
-                }
+
                 if (InputHandler.ButtonX()) {
-                    animator.SetBool("ATTACK_1", true);
+                    if (lastState == State.ATTACK_1 && time < clipLength["Attack1Anim"] + attackOffset) {
+                            lastState = State.MOVEMENT;
+                            state = State.ATTACK_2;
+                            time = 0;
+                    }
+                    else if (lastState == State.ATTACK_2 && time < clipLength["Attack2Anim"] + attackOffset) {
+                            lastState = State.MOVEMENT;
+                            state = State.ATTACK_3;
+                            time = 0;
+                    }
+                    else {
+                        state = State.ATTACK_1;
+                        lastState = State.MOVEMENT;
+                        time = 0;
+                    }
                 }
                 break;
             #endregion
@@ -190,6 +221,20 @@ public class Player : Entity{
         dash.Use(gameObject);
     }
 
-    public void Attack() { }
+    public void SetAnimBool(string str) {
+        animator.SetBool("ATTACK_1", false);
+        animator.SetBool("ATTACK_2", false);
+        animator.SetBool("ATTACK_3", false);
+        animator.SetBool("RUN", false);
+        animator.SetBool("IDLE", false);
+        animator.SetBool("THROW", false);
+        animator.SetBool("DASH", false);
+        animator.SetBool("DASHED", false);
+
+        animator.SetBool(str, true);
+    }
+
+    public void Attack() {
+    }
 
 }

@@ -35,6 +35,7 @@ public class Entity : MonoBehaviour {
 
     protected void TakeDamage(float damage) {
         health -= damage;
+        Debug.Log(health);
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -42,8 +43,8 @@ public class Entity : MonoBehaviour {
         if (other.tag == "Weapon") {
             if (other.GetComponent<WeaponHolder>().holder.hitting) { 
                 Debug.Log("Sword hitted me");
-                Apply(other.GetComponent<WeaponHolder>().holder.modifier);
                 TakeDamage(other.GetComponent<WeaponHolder>().holder.Damage);
+                Apply(other.GetComponent<WeaponHolder>().holder.modifier);
             }
         }
         else if (other.tag == "Ability") {

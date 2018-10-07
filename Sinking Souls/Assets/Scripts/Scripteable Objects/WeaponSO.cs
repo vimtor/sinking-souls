@@ -28,7 +28,7 @@ public class WeaponSO : ScriptableObject {
     public void Instantiate(GameObject parent) {
         GameObject weapon = Instantiate(model, parent.transform);
         weapon.transform.parent = parent.transform;
-        model.AddComponent<WeaponHolder>().holder = this;
+        weapon.AddComponent<WeaponHolder>().holder = this;
     }
 
     public void Attack() {

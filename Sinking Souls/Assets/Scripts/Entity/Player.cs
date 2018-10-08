@@ -37,6 +37,7 @@ public class Player : Entity{
         clipLength["Attack1Anim"] = clipLength["Attack1Anim"] / 2;
         clipLength["Attack2Anim"] = clipLength["Attack2Anim"] / 2;
         clipLength["Attack3Anim"] = clipLength["Attack3Anim"] / 2;
+        clipLength["DashAnim"] = clipLength["DashAnim"] / 2;
 
         EquipWeapon();
     }
@@ -55,16 +56,12 @@ public class Player : Entity{
 
     public void HandleInput() {
 
-        // Set rotation of the player to the one on the left joystick.
-        if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
-            facingDir = new Vector3(InputHandler.LeftJoystick.y, 0, InputHandler.LeftJoystick.x);
-            transform.rotation = Quaternion.LookRotation(-facingDir);
-        }
-
         // Things that needs to be always on false so they can be changed to true if needed.
         weapon.hitting = false;
+        gameObject.layer = LayerMask.NameToLayer("Player");
 
         StateMachine();
+
 
         time += Time.deltaTime;
     }
@@ -85,6 +82,12 @@ public class Player : Entity{
                     state = State.MOVEMENT;
                     lastState = State.IDLE;
                 }
+
+                if (InputHandler.ButtonB()) {
+                    state = State.DASH;
+                    lastState = State.IDLE;
+                    time = 0;
+                } 
             break;
             #endregion
 
@@ -99,6 +102,15 @@ public class Player : Entity{
                     state = State.ATTACK_2;
                     time = 0;
                 }
+
+                if (InputHandler.ButtonB()) {
+                    if (time > clipLength["Attack1Anim"]/2) { //if this seems like a good idea turn rotation on after 2/3 of the attack
+                        state = State.DASH;
+                        lastState = State.IDLE;
+                        time = 0;
+                    }
+                } 
+
                 else if(time > clipLength["Attack1Anim"]) {//change frome attack1time to exact length of the animation
                     lastState = State.ATTACK_1;
                     state = State.IDLE;
@@ -169,7 +181,10 @@ public class Player : Entity{
             #region STATE_MOVEMENT
             case State.MOVEMENT:
                 SetAnimBool("RUN");
-
+                if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
+                    facingDir = new Vector3(InputHandler.LeftJoystick.y, 0, InputHandler.LeftJoystick.x);
+                    transform.rotation = Quaternion.LookRotation(-facingDir);
+                }
                 rb.MovePosition(transform.position + (transform.forward * walkSpeed * Time.deltaTime));
                 Debug.Log("running");
 
@@ -195,6 +210,11 @@ public class Player : Entity{
                         time = 0;
                     }
                 }
+                if (InputHandler.ButtonB()) {
+                    state = State.DASH;
+                    lastState = State.IDLE;
+                    time = 0;
+                } 
                 break;
             #endregion
 
@@ -203,7 +223,26 @@ public class Player : Entity{
                 break;
 
             case State.DASH:
+                SetAnimBool("DASH");
+                gameObject.layer = LayerMask.NameToLayer("PlayerDash");
+
                 Dash();
+                if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
+                    if (time > clipLength["DashAnim"]) {
+                        rb.velocity = GetComponent<Transform>().forward * 0;
+                        lastState = State.DASH;
+                        state = State.MOVEMENT;
+                        time = 0;
+                    }
+                }
+                else {
+                    if (time > clipLength["DashAnim"]) {
+                        rb.velocity = GetComponent<Transform>().forward * 0;
+                        lastState = State.DASH;
+                        state = State.IDLE;
+                        time = 0;
+                    }
+                }
                 break;
 
             default:
@@ -229,7 +268,6 @@ public class Player : Entity{
         animator.SetBool("IDLE", false);
         animator.SetBool("THROW", false);
         animator.SetBool("DASH", false);
-        animator.SetBool("DASHED", false);
 
         animator.SetBool(str, true);
     }

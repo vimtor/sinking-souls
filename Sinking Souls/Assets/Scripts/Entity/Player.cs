@@ -17,6 +17,8 @@ public class Player : Entity{
     private State state;
     private State lastState;
     private float time;
+    private float dashCooldown;
+    private float abilityCooldown;
 
     public float attackOffset;
 
@@ -29,6 +31,7 @@ public class Player : Entity{
     private void Start() {
         OnStart();
         state = State.IDLE;
+        dashCooldown = abilityCooldown = 0;
 
         for(int i = 0; i < animator.runtimeAnimatorController.animationClips.Length; i++) {
             var animationClip = animator.runtimeAnimatorController.animationClips[i];
@@ -54,6 +57,13 @@ public class Player : Entity{
         return animator.GetAnimatorTransitionInfo(0).IsUserName(stateName);
     }
 
+    private void SetRotation() {
+        if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
+            facingDir = new Vector3(InputHandler.LeftJoystick.y, 0, InputHandler.LeftJoystick.x);
+            transform.rotation = Quaternion.LookRotation(-facingDir);
+        }
+    }
+
     public void HandleInput() {
 
         // Things that needs to be always on false so they can be changed to true if needed.
@@ -64,6 +74,8 @@ public class Player : Entity{
 
 
         time += Time.deltaTime;
+        if(dashCooldown > 0) dashCooldown -= Time.deltaTime;
+        Debug.Log("cooldown" + dashCooldown + ", from:" + dash.cooldown);
     }
 
     public void StateMachine() {
@@ -84,9 +96,21 @@ public class Player : Entity{
                 }
 
                 if (InputHandler.ButtonB()) {
-                    state = State.DASH;
-                    lastState = State.IDLE;
-                    time = 0;
+                    if(dashCooldown <= 0) { 
+                        state = State.DASH;
+                        lastState = State.IDLE;
+                        dashCooldown = dash.cooldown;
+                        time = 0;
+                    }
+                } 
+
+                if (InputHandler.ButtonY()) {
+                    if (abilityCooldown <= 0) {
+                        state = State.ABILITY;
+                        lastState = State.IDLE;
+                        abilityCooldown = ability.cooldown;
+                        time = 0;
+                    }
                 } 
             break;
             #endregion
@@ -105,15 +129,30 @@ public class Player : Entity{
 
                 if (InputHandler.ButtonB()) {
                     if (time > clipLength["Attack1Anim"]/2) { //if this seems like a good idea turn rotation on after 2/3 of the attack
-                        state = State.DASH;
-                        lastState = State.IDLE;
-                        time = 0;
+                        SetRotation();
+                        if (dashCooldown <= 0) {
+                            state = State.DASH;
+                            lastState = State.ATTACK_1;
+                            dashCooldown = dash.cooldown;
+                            time = 0;
+                        }
                     }
-                } 
+                }
+
+                if (InputHandler.ButtonY()) {
+                    if (time > clipLength["Attack1Anim"] / 2) { //if this seems like a good idea turn rotation on after 2/3 of the attack
+                        if (abilityCooldown <= 0) {
+                            state = State.ABILITY;
+                            lastState = State.ATTACK_1;
+                            abilityCooldown = ability.cooldown;
+                            time = 0;
+                        }
+                    }
+                }
 
                 else if(time > clipLength["Attack1Anim"]) {//change frome attack1time to exact length of the animation
-                    lastState = State.ATTACK_1;
-                    state = State.IDLE;
+                        lastState = State.ATTACK_1;
+                        state = State.IDLE;
                 }
                 if(InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
                     if(time > clipLength["Attack1Anim"]) { 
@@ -143,6 +182,27 @@ public class Player : Entity{
                     if (time > clipLength["Attack2Anim"]) {
                         lastState = State.ATTACK_2;
                         state = State.MOVEMENT;
+                    }
+                }
+                if (InputHandler.ButtonB()) {
+                    if (time > clipLength["Attack2Anim"]/2) { //if this seems like a good idea turn rotation on after 2/3 of the attack
+                        SetRotation();
+                        if (dashCooldown <= 0) {
+                            state = State.DASH;
+                            lastState = State.ATTACK_2;
+                            dashCooldown = dash.cooldown;
+                            time = 0;
+                        }
+                    }
+                }
+                if (InputHandler.ButtonY()) {
+                    if (time > clipLength["Attack2Anim"] / 2) { //if this seems like a good idea turn rotation on after 2/3 of the attack
+                        if (abilityCooldown <= 0) {
+                            state = State.ABILITY;
+                            lastState = State.ATTACK_2;
+                            abilityCooldown = ability.cooldown;
+                            time = 0;
+                        }
                     }
                 }
             break;
@@ -175,16 +235,25 @@ public class Player : Entity{
                         state = State.MOVEMENT;
                     }
                 }
+                if (InputHandler.ButtonB()) {
+                    if (time > clipLength["Attack3Anim"]/2) { //if this seems like a good idea turn rotation on after 2/3 of the attack
+                        SetRotation();
+                        if (dashCooldown <= 0) {
+                            state = State.DASH;
+                            lastState = State.ATTACK_3;
+                            dashCooldown = dash.cooldown;
+                            time = 0;
+                        }
+                    }
+                }
             break;
             #endregion
 
             #region STATE_MOVEMENT
             case State.MOVEMENT:
                 SetAnimBool("RUN");
-                if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
-                    facingDir = new Vector3(InputHandler.LeftJoystick.y, 0, InputHandler.LeftJoystick.x);
-                    transform.rotation = Quaternion.LookRotation(-facingDir);
-                }
+                SetRotation();
+
                 rb.MovePosition(transform.position + (transform.forward * walkSpeed * Time.deltaTime));
                 Debug.Log("running");
 
@@ -211,16 +280,50 @@ public class Player : Entity{
                     }
                 }
                 if (InputHandler.ButtonB()) {
-                    state = State.DASH;
-                    lastState = State.IDLE;
-                    time = 0;
+                    if (dashCooldown <= 0) {
+                        state = State.DASH;
+                        lastState = State.IDLE;
+                        dashCooldown = dash.cooldown;
+                        time = 0;
+                    }
                 } 
+                if (InputHandler.ButtonY()) {
+                    if (abilityCooldown <= 0) {
+                        state = State.ABILITY;
+                        lastState = State.IDLE;
+                        abilityCooldown = ability.cooldown;
+                        time = 0;
+                    }
+                }
                 break;
             #endregion
 
             case State.ABILITY:
+                SetAnimBool("THROW");
                 Ability();
-                break;
+
+                if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
+                    if (time > clipLength["ThrowAnim"]) {
+                        lastState = State.ABILITY;
+                        state = State.MOVEMENT;
+                        time = 0;
+                    }
+                }
+                else {
+                    if (time > clipLength["ThrowAnim"]) {
+                        lastState = State.ABILITY;
+                        state = State.IDLE;
+                        time = 0;
+                    }
+                }
+                if (InputHandler.ButtonX()) { 
+                    if (time > (clipLength["ThrowAnim"] / 3) * 2) { //if 2/3 of the animation has passed
+                        lastState = State.ABILITY;
+                        state = State.ATTACK_1;
+                        time = 0;
+                    }
+                }   
+            break;
 
             case State.DASH:
                 SetAnimBool("DASH");

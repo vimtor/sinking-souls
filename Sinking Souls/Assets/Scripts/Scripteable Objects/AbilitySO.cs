@@ -8,6 +8,7 @@ public class AbilitySO : ScriptableObject {
     public int cooldown;
     public float damage;
     public ModifierSO modifier;
+    public GameObject prefab;
 
     public virtual void Use(GameObject player) {
 

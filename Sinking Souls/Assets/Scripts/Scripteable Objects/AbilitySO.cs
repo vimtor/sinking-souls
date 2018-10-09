@@ -9,7 +9,7 @@ public class AbilitySO : ScriptableObject {
     public float Damage;
     public ModifierSO modifier;
     public GameObject prefab;
-    public string targget;
+    public string target;
 
     public virtual void Use(GameObject player) {
 

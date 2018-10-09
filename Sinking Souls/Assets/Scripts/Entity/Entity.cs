@@ -48,7 +48,7 @@ public class Entity : MonoBehaviour {
             }
         }
         else if (other.tag == "Ability") {
-            if(gameObject.tag == other.GetComponent<AbilityHolder>().holder.targget) { 
+            if(gameObject.tag == other.GetComponent<AbilityHolder>().holder.target) { 
                 TakeDamage(other.GetComponent<AbilityHolder>().holder.Damage);
                 Apply(other.gameObject.GetComponent<AbilitySO>().modifier);
             }

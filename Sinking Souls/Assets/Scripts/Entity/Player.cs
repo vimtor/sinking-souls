@@ -21,6 +21,7 @@ public class Player : Entity{
     private float abilityCooldown;
 
     public float attackOffset;
+    public bool thrown;
 
     Dictionary<string, float> clipLength = new Dictionary<string, float>();
 
@@ -75,7 +76,6 @@ public class Player : Entity{
 
         time += Time.deltaTime;
         if(dashCooldown > 0) dashCooldown -= Time.deltaTime;
-        Debug.Log("cooldown" + dashCooldown + ", from:" + dash.cooldown);
     }
 
     public void StateMachine() {
@@ -255,7 +255,6 @@ public class Player : Entity{
                 SetRotation();
 
                 rb.MovePosition(transform.position + (transform.forward * walkSpeed * Time.deltaTime));
-                Debug.Log("running");
 
                 if (InputHandler.LeftJoystick.x == 0 && InputHandler.LeftJoystick.y == 0) {
                     state = State.IDLE;
@@ -300,13 +299,16 @@ public class Player : Entity{
 
             case State.ABILITY:
                 SetAnimBool("THROW");
-                Ability();
+                if (time > clipLength["ThrowAnim"]/2) {
+                    Ability();
+                }   
 
                 if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
                     if (time > clipLength["ThrowAnim"]) {
                         lastState = State.ABILITY;
                         state = State.MOVEMENT;
                         time = 0;
+                        thrown = false;
                     }
                 }
                 else {
@@ -314,6 +316,7 @@ public class Player : Entity{
                         lastState = State.ABILITY;
                         state = State.IDLE;
                         time = 0;
+                        thrown = false;
                     }
                 }
                 if (InputHandler.ButtonX()) { 
@@ -321,6 +324,7 @@ public class Player : Entity{
                         lastState = State.ABILITY;
                         state = State.ATTACK_1;
                         time = 0;
+                        thrown = false;
                     }
                 }   
             break;
@@ -355,8 +359,7 @@ public class Player : Entity{
 
 
     public void Ability() {
-        if (CurrentTransition("THROW-RUN")) // Check if i'm transitioning to walk
-            rb.MovePosition(transform.position + (transform.forward * walkSpeed * Time.deltaTime));
+        ability.Use(gameObject);
     }
 
     public void Dash() {

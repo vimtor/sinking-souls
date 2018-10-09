@@ -12,7 +12,7 @@ public class Entity : MonoBehaviour {
 
     protected Rigidbody rb;
     protected Animator animator;
-    protected Vector3 facingDir;
+    public Vector3 facingDir;
     new protected CapsuleCollider collider;
 
     protected void OnStart() {
@@ -48,7 +48,10 @@ public class Entity : MonoBehaviour {
             }
         }
         else if (other.tag == "Ability") {
-            Apply(other.gameObject.GetComponent<AbilitySO>().modifier);
+            if(gameObject.tag == other.GetComponent<AbilityHolder>().holder.targget) { 
+                TakeDamage(other.GetComponent<AbilityHolder>().holder.Damage);
+                Apply(other.gameObject.GetComponent<AbilitySO>().modifier);
+            }
         }
     }
 }

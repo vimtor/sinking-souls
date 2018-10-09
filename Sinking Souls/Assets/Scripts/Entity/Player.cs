@@ -335,7 +335,7 @@ public class Player : Entity{
 
                 Dash();
                 if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
-                    if (time > clipLength["DashAnim"]) {
+                    if (time > clipLength["DashAnim"]/2) {
                         rb.velocity = GetComponent<Transform>().forward * 0;
                         lastState = State.DASH;
                         state = State.MOVEMENT;
@@ -343,7 +343,7 @@ public class Player : Entity{
                     }
                 }
                 else {
-                    if (time > clipLength["DashAnim"]) {
+                    if (time > clipLength["DashAnim"] / 2) {
                         rb.velocity = GetComponent<Transform>().forward * 0;
                         lastState = State.DASH;
                         state = State.IDLE;

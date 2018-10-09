@@ -5,6 +5,8 @@ using UnityEngine;
 public class CameraBehaviour : MonoBehaviour {
 
     public Transform player;
+    public LayerMask mask;
+    public int zoom;
     Vector3 center, offset;
     
 	void Start () {
@@ -12,6 +14,7 @@ public class CameraBehaviour : MonoBehaviour {
         // based on how the camera is initially positioned.
         center = new Vector3(0, 0, 0);
         offset = transform.position - center;
+        //transform.localPosition.x += zoom;
 
         SetupCenter(center);
         transform.LookAt(center);
@@ -37,5 +40,17 @@ public class CameraBehaviour : MonoBehaviour {
         offset = Quaternion.Euler(angles) * offset;
         transform.position = center + offset;
         transform.LookAt(center);
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if(other.tag == "Wall") {
+            other.GetComponent<MeshRenderer>().enabled = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if (other.tag == "Wall") {
+            other.GetComponent<MeshRenderer>().enabled = true;
+        }
     }
 }

@@ -186,7 +186,6 @@ public class Player : Entity{
                     transform.rotation = Quaternion.LookRotation(-facingDir);
                 }
                 rb.MovePosition(transform.position + (transform.forward * walkSpeed * Time.deltaTime));
-                Debug.Log("running");
 
                 if (InputHandler.LeftJoystick.x == 0 && InputHandler.LeftJoystick.y == 0) {
                     state = State.IDLE;

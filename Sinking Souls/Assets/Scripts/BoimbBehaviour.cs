@@ -28,6 +28,7 @@ public class BoimbBehaviour : MonoBehaviour {
             if(other.gameObject.tag == "Enemy") { 
                 otherPos = other.GetComponent<Transform>().position;
                 forceDir = new Vector3(otherPos.x - position.x, otherPos.y - position.y, otherPos.z - position.z);
+                forceDir = forceDir + new Vector3(0,0.5f,0);
                 other.GetComponent<Rigidbody>().AddForce(forceDir.normalized * explotionForce);
             }
         }

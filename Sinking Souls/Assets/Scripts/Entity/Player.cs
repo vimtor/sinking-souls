@@ -25,6 +25,8 @@ public class Player : Entity{
     public float attackOffset;
     public bool thrown;
     public Camera mainCamera;
+    public float rotationSpeed;
+    public float actionRotationSpeed;
 
     Dictionary<string, float> clipLength = new Dictionary<string, float>();
 
@@ -58,13 +60,16 @@ public class Player : Entity{
     }
 
 
-    private void SetRotation() {
+    private void SetRotation(float _speed) {
         if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
             Vector3 horizontal = right * InputHandler.LeftJoystick.x;
             Vector3 vertical = forward * InputHandler.LeftJoystick.y;
             facingDir = horizontal - vertical;
 
-            transform.rotation = Quaternion.LookRotation(facingDir);
+            Vector3 newDir = Vector3.RotateTowards(transform.forward, facingDir, _speed * Time.deltaTime, 0);
+
+            transform.rotation = Quaternion.LookRotation(newDir);
+            
         }
     }
 
@@ -123,17 +128,16 @@ public class Player : Entity{
 
                 SetAnimBool("ATTACK_1");
                 weapon.Attack();
+                SetRotation(actionRotationSpeed);
                                                                             // you can substraca little offset to makit more fluid
                 if (InputHandler.ButtonX() && time > clipLength["Attack1Anim"] - 0.2 && time < clipLength["Attack1Anim"] + attackOffset) {
                     lastState = State.ATTACK_1;
                     state = State.ATTACK_2;
                     time = 0;
-                    SetRotation();
                 }
 
                 if (InputHandler.ButtonB()) {
                     if (time > clipLength["Attack1Anim"]/2) { //if this seems like a good idea turn rotation on after 2/3 of the attack
-                        SetRotation();
                         if (dashCooldown <= 0) {
                             state = State.DASH;
                             lastState = State.ATTACK_1;
@@ -172,12 +176,12 @@ public class Player : Entity{
             case State.ATTACK_2:
                 SetAnimBool("ATTACK_2");
                 weapon.Attack();
+                SetRotation(actionRotationSpeed);
 
                 if (InputHandler.ButtonX() && time > clipLength["Attack2Anim"] - 0.2 && time < clipLength["Attack2Anim"] + attackOffset) {
                     lastState = State.ATTACK_2;
                     state = State.ATTACK_3;
                     time = 0;
-                    SetRotation();
                 }
                 else if (time > clipLength["Attack2Anim"]) {
                     lastState = State.ATTACK_2;
@@ -191,7 +195,6 @@ public class Player : Entity{
                 }
                 if (InputHandler.ButtonB()) {
                     if (time > clipLength["Attack2Anim"]/2) { //if this seems like a good idea turn rotation on after 2/3 of the attack
-                        SetRotation();
                         if (dashCooldown <= 0) {
                             state = State.DASH;
                             lastState = State.ATTACK_2;
@@ -217,6 +220,7 @@ public class Player : Entity{
             case State.ATTACK_3:
                 SetAnimBool("ATTACK_3");
                 weapon.CriticAttack();
+                SetRotation(actionRotationSpeed);
 
                 if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
                     if(time > clipLength["Attack3Anim"]) { 
@@ -242,7 +246,7 @@ public class Player : Entity{
                 }
                 if (InputHandler.ButtonB()) {
                     if (time > clipLength["Attack3Anim"]/2) { //if this seems like a good idea turn rotation on after 2/3 of the attack
-                        SetRotation();
+                        //SetRotation(30);
                         if (dashCooldown <= 0) {
                             state = State.DASH;
                             lastState = State.ATTACK_3;
@@ -257,7 +261,7 @@ public class Player : Entity{
             #region STATE_MOVEMENT
             case State.MOVEMENT:
                 SetAnimBool("RUN");
-                SetRotation();
+                SetRotation(rotationSpeed);
 
                 rb.MovePosition(transform.position + (transform.forward * walkSpeed * Time.deltaTime));
 

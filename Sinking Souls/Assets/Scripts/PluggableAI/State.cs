@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "PluggableAI/State")]
+[CreateAssetMenu(menuName = "PlugableAI/State")]
 public class State : ScriptableObject {
 
     public Action[] actions;

@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.AI;
 using UnityEngine;
 
 public class AIController : MonoBehaviour {
 
     public State currentState;
     public State remainState;
+    public GameObject player;
 
+    [HideInInspector] public NavMeshAgent navMeshAgent;
     [HideInInspector] public float stateTimeElapsed;
 
     private bool aiActive;
@@ -15,6 +18,8 @@ public class AIController : MonoBehaviour {
     public void SetupAI() {
         stateTimeElapsed = 0;
         aiActive = true;
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        if (aiActive) navMeshAgent.enabled = true;
     }
 
     void Update() {
@@ -28,6 +33,7 @@ public class AIController : MonoBehaviour {
             currentState = nextState;
             OnExitState();
         }
+        //set all animator bools a false
     }
 
     public bool CheckIfCountDownElapsed(float duration) {

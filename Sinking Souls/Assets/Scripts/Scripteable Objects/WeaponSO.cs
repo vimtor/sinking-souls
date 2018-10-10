@@ -17,7 +17,7 @@ public class WeaponSO : ScriptableObject {
     }
 
     public float useDelay;
-    public ModifierSO modifier;
+    public Modifier modifier;
     
     private BoxCollider collider;
 

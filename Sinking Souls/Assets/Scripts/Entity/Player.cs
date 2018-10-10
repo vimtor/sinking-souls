@@ -19,13 +19,15 @@ public class Player : Entity{
     private float time;
     private float dashCooldown;
     private float abilityCooldown;
+    private Dictionary<Enemy.EnemyType, int> inventory;
+    private Vector3 forward, right;
 
     public float attackOffset;
     public bool thrown;
+    public Camera mainCamera;
 
     Dictionary<string, float> clipLength = new Dictionary<string, float>();
 
-    private Dictionary<Enemy.EnemyType, int> inventory;
     public AbilitySO dash;
     public AbilitySO ability;
 
@@ -34,7 +36,10 @@ public class Player : Entity{
         state = State.IDLE;
         dashCooldown = abilityCooldown = 0;
 
-        for(int i = 0; i < animator.runtimeAnimatorController.animationClips.Length; i++) {
+        forward = new Vector3 (mainCamera.transform.forward.x, 0, mainCamera.transform.forward.z) ;
+        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+
+        for (int i = 0; i < animator.runtimeAnimatorController.animationClips.Length; i++) {
             var animationClip = animator.runtimeAnimatorController.animationClips[i];
             clipLength.Add(animationClip.name, animationClip.length);
         }
@@ -49,19 +54,17 @@ public class Player : Entity{
     private void FixedUpdate() {
 
         HandleInput();
+
     }
 
-    private bool CurrentState(string stateName) {
-        return animator.GetCurrentAnimatorStateInfo(0).IsName(stateName);
-    }
-    private bool CurrentTransition(string stateName) {
-        return animator.GetAnimatorTransitionInfo(0).IsUserName(stateName);
-    }
 
     private void SetRotation() {
         if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
-            facingDir = new Vector3(InputHandler.LeftJoystick.y, 0, InputHandler.LeftJoystick.x);
-            transform.rotation = Quaternion.LookRotation(-facingDir);
+            Vector3 horizontal = right * InputHandler.LeftJoystick.x;
+            Vector3 vertical = forward * InputHandler.LeftJoystick.y;
+            facingDir = horizontal - vertical;
+
+            transform.rotation = Quaternion.LookRotation(facingDir);
         }
     }
 
@@ -125,6 +128,7 @@ public class Player : Entity{
                     lastState = State.ATTACK_1;
                     state = State.ATTACK_2;
                     time = 0;
+                    SetRotation();
                 }
 
                 if (InputHandler.ButtonB()) {
@@ -173,6 +177,7 @@ public class Player : Entity{
                     lastState = State.ATTACK_2;
                     state = State.ATTACK_3;
                     time = 0;
+                    SetRotation();
                 }
                 else if (time > clipLength["Attack2Anim"]) {
                     lastState = State.ATTACK_2;

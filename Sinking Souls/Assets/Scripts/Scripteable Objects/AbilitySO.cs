@@ -7,7 +7,7 @@ public class AbilitySO : ScriptableObject {
 
     public int cooldown;
     public float Damage;
-    public ModifierSO modifier;
+    public Modifier modifier;
     public GameObject prefab;
     public string target;
 

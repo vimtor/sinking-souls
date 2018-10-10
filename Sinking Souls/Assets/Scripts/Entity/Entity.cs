@@ -8,7 +8,7 @@ public class Entity : MonoBehaviour {
     public float walkSpeed;
     public WeaponSO weapon;
     public GameObject hand;
-    public ModifierSO baseModifier;
+    public Modifier baseModifier;
 
     protected Rigidbody rb;
     protected Animator animator;
@@ -22,9 +22,9 @@ public class Entity : MonoBehaviour {
         collider = GetComponent<CapsuleCollider>();
     }
 
-    protected void Apply(ModifierSO modifier)  {
-        List<EffectSO> effects = modifier.effects;
-        foreach(EffectSO effect in effects) {
+    protected void Apply(Modifier modifier)  {
+        List<Effect> effects = modifier.effects;
+        foreach(Effect effect in effects) {
             effect.Apply(gameObject);
         }
     }

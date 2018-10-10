@@ -13,6 +13,7 @@ public class Enemy : Entity {
         OnStart();
         controller = GetComponent<AIController>();
         controller.SetupAI();
+        EquipWeapon();
     }
 
 

@@ -11,7 +11,7 @@ public class Entity : MonoBehaviour {
     public Modifier baseModifier;
 
     protected Rigidbody rb;
-    protected Animator animator;
+    public Animator animator;
     public Vector3 facingDir;
     new protected CapsuleCollider collider;
 

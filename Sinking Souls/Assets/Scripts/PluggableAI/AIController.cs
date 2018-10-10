@@ -13,7 +13,7 @@ public class AIController : MonoBehaviour {
     [HideInInspector] public float stateTimeElapsed;
 
     private bool aiActive;
-
+    private Animator playerAnimator;
 
     public void SetupAI() {
         stateTimeElapsed = 0;
@@ -43,6 +43,15 @@ public class AIController : MonoBehaviour {
 
     private void OnExitState() {
         stateTimeElapsed = 0;
+    }
+
+    public void SetAnimBool(string str) {
+        playerAnimator = player.GetComponent<Enemy>().animator;
+
+        playerAnimator.SetBool("RUN", false);
+        playerAnimator.SetBool("IDLE", false);
+
+        playerAnimator.SetBool(str, true);
     }
 
 }

@@ -6,7 +6,8 @@ public class Room {
 
     public enum RoomType {
         COMBAT,
-        BOSS
+        BOSS,
+        INITIAL
     }
 
     public Vector2 gridPos;

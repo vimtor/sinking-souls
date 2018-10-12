@@ -21,6 +21,7 @@ public class LevelGenerator : MonoBehaviour {
             CreateRooms();
             SetRoomDoors();
             CreateMap();
+            
         }
         else {
             Debug.LogError("Number of rooms specified don't fit into the grid.");
@@ -43,9 +44,12 @@ public class LevelGenerator : MonoBehaviour {
 
         Vector2 newPos = Vector2.zero;
         for (int i = 0; i < numberRooms - 1; i++) {
+
+            do {
+                // Get a new random position for a room.
+                newPos = NewPosition();
+            } while (NumberOfNeighbors(newPos) > 1 && Random.value < 0.8f);
             
-            // Get a new random position for a room.
-            newPos = NewPosition();
 
             // Add it to the grid and to the taken positions list.
             grid[(int) newPos.x, (int) newPos.y] = new Room(newPos, Room.RoomType.COMBAT);
@@ -137,14 +141,16 @@ public class LevelGenerator : MonoBehaviour {
             if (room == null) continue;
             GameObject currentRoom;
 
-            // all on true
+            #region ROOMS E
             if(room.doorTop == true && room.doorBot == true && room.doorLeft == true && room.doorRight == true) { 
                 room.prefab = RoomsE[Random.Range(0,RoomsE.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
                 currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             }
-            // 3 on true 1 on false
-            else if(room.doorTop == true && room.doorBot == true && room.doorLeft == true && room.doorRight == false) {
+            #endregion
+
+            #region ROOMS D
+            else if (room.doorTop == true && room.doorBot == true && room.doorLeft == true && room.doorRight == false) {
                 room.prefab = RoomsD[Random.Range(0, RoomsD.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
                 currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
@@ -164,9 +170,9 @@ public class LevelGenerator : MonoBehaviour {
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
                 currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 270, 0));
             }
+            #endregion
 
-            //2 on true 2 on false
-                // confronted
+            #region ROOMS C
             else if (room.doorTop == true && room.doorBot == true && room.doorLeft == false && room.doorRight == false) {
                 room.prefab = RoomsC[Random.Range(0, RoomsC.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
@@ -177,7 +183,9 @@ public class LevelGenerator : MonoBehaviour {
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
                 currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
             }
-                //corner
+            #endregion
+
+            #region ROOMS B
             else if (room.doorTop == true && room.doorBot == false && room.doorLeft == false && room.doorRight == true) {
                 room.prefab = RoomsB[Random.Range(0, RoomsB.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
@@ -198,34 +206,31 @@ public class LevelGenerator : MonoBehaviour {
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
                 currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             }
+            #endregion
 
-            //3 on false 1 true
+            #region ROOMS A
             else if (room.doorTop == false && room.doorBot == false && room.doorLeft == true && room.doorRight == false) {
                 room.prefab = RoomsA[Random.Range(0, RoomsA.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
                 currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
-                //room.prefab.transform.rotation = Quaternion.Euler(new Vector3(0,90,0));
             }
             else if (room.doorTop == true && room.doorBot == false && room.doorLeft == false && room.doorRight == false) {
                 room.prefab = RoomsA[Random.Range(0, RoomsA.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
                 currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
-                //room.prefab.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
             }
             else if (room.doorTop == false && room.doorBot == false && room.doorLeft == false && room.doorRight == true) {
                 room.prefab = RoomsA[Random.Range(0, RoomsA.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
                 currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 270, 0));
-                //room.prefab.transform.rotation = Quaternion.Euler(new Vector3(0, 270, 0));
             }
             else if (room.doorTop == false && room.doorBot == true && room.doorLeft == false && room.doorRight == false) {
                 room.prefab = RoomsA[Random.Range(0, RoomsA.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
                 currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
-                //room.prefab.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             }
+            #endregion
 
-            //SpawnRoom(room, roomSize, roomCount);
             roomCount++;
         }
     }
@@ -241,5 +246,16 @@ public class LevelGenerator : MonoBehaviour {
         Debug.Log(_room.name + " " + room.gridPos + " " + realPosition);
         return _room;
 
+    }
+
+    private int NumberOfNeighbors(Vector2 checkingPos) {
+        int neighbors = 0;
+
+        if (takenPos.Contains(checkingPos + Vector2.up)) neighbors++;
+        if (takenPos.Contains(checkingPos + Vector2.down)) neighbors++;
+        if (takenPos.Contains(checkingPos + Vector2.left)) neighbors++;
+        if (takenPos.Contains(checkingPos + Vector2.right)) neighbors++;
+
+        return neighbors;
     }
 }

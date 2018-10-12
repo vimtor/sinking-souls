@@ -5,39 +5,35 @@ using UnityEngine;
 public class CameraBehaviour : MonoBehaviour {
 
     public Transform player;
-    Vector3 center, offset;
-    
-    new private BoxCollider collider;
+
+    private Vector3 center, offset;
+    private BoxCollider boxCollider;
 
     void Start () {
         // Setup initial center and offset values,
         // based on how the camera is initially positioned.
         center = new Vector3(0, 0, 0);
         offset = transform.position - center;
-        collider =  GetComponent<BoxCollider>();
+        boxCollider =  GetComponent<BoxCollider>();
 
         SetupCenter(center);
         transform.LookAt(center);
     }
 	
 	void Update () {
-        // SetupCenter(player.position);
-        // RotateCamera();
         LookPlayer();
         MoveCollider();
-        
     }
 
     private void MoveCollider() {
-        Vector3 size = collider.size;
-        Vector3 center = collider.center;
+        Vector3 size = boxCollider.size;
+        Vector3 center = boxCollider.center;
 
         size.z = Vector3.Distance(transform.position, player.position);
         center = (transform.position + player.position) / 2;
         
-        collider.center = collider.transform.InverseTransformPoint(center);
-        collider.size = size;
-
+        boxCollider.center = boxCollider.transform.InverseTransformPoint(center);
+        boxCollider.size = size;
     }
 
     public void SetupCenter(Vector3 newCenter) {
@@ -61,8 +57,7 @@ public class CameraBehaviour : MonoBehaviour {
         switch (other.tag) {
             case "Obstacle":
             case "Wall":
-                StartCoroutine(FadeAlpha(other.gameObject, 0.35f));
-                    
+                StartCoroutine(FadeAlpha(other.gameObject, 0.20f));    
                 break;
 
             default:
@@ -104,10 +99,4 @@ public class CameraBehaviour : MonoBehaviour {
         material.color = newColor;
     }
 
-
-    private void OnDrawGizmos() {
-        Gizmos.color = new Color(1, 0, 0, 0.5f);
-        Gizmos.DrawCube((transform.localPosition + player.position) / 2, new Vector3(1, 1, 1));
-        Debug.Log((transform.localPosition + player.position) / 2);
-    }
 }

@@ -5,15 +5,16 @@ using UnityEngine;
 public class CameraBehaviour : MonoBehaviour {
 
     public Transform player;
-    public LayerMask mask;
-    public int zoom;
     Vector3 center, offset;
     
-	void Start () {
+    new private BoxCollider collider;
+
+    void Start () {
         // Setup initial center and offset values,
         // based on how the camera is initially positioned.
         center = new Vector3(0, 0, 0);
         offset = transform.position - center;
+        collider =  GetComponent<BoxCollider>();
 
         SetupCenter(center);
         transform.LookAt(center);
@@ -23,6 +24,20 @@ public class CameraBehaviour : MonoBehaviour {
         // SetupCenter(player.position);
         // RotateCamera();
         LookPlayer();
+        MoveCollider();
+        
+    }
+
+    private void MoveCollider() {
+        Vector3 size = collider.size;
+        Vector3 center = collider.center;
+
+        size.z = Vector3.Distance(transform.position, player.position);
+        center = (transform.position + player.position) / 2;
+        
+        collider.center = collider.transform.InverseTransformPoint(center);
+        collider.size = size;
+
     }
 
     public void SetupCenter(Vector3 newCenter) {
@@ -42,6 +57,7 @@ public class CameraBehaviour : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
+
         switch (other.tag) {
             case "Obstacle":
             case "Wall":
@@ -86,5 +102,12 @@ public class CameraBehaviour : MonoBehaviour {
         newColor.a = newAlpha;
 
         material.color = newColor;
+    }
+
+
+    private void OnDrawGizmos() {
+        Gizmos.color = new Color(1, 0, 0, 0.5f);
+        Gizmos.DrawCube((transform.localPosition + player.position) / 2, new Vector3(1, 1, 1));
+        Debug.Log((transform.localPosition + player.position) / 2);
     }
 }

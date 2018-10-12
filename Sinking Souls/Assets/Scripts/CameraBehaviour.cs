@@ -14,7 +14,6 @@ public class CameraBehaviour : MonoBehaviour {
         // based on how the camera is initially positioned.
         center = new Vector3(0, 0, 0);
         offset = transform.position - center;
-        //transform.localPosition.x += zoom;
 
         SetupCenter(center);
         transform.LookAt(center);
@@ -43,14 +42,34 @@ public class CameraBehaviour : MonoBehaviour {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if(other.tag == "Wall") {
-            other.GetComponent<MeshRenderer>().enabled = false;
+        switch (other.tag) {
+            case "Obstacle":
+            case "Wall":
+                SetAlpha(other.GetComponent<Renderer>().material, 0.35f);
+                break;
+
+            default:
+                break;
         }
     }
 
     private void OnTriggerExit(Collider other) {
-        if (other.tag == "Wall") {
-            other.GetComponent<MeshRenderer>().enabled = true;
+        switch (other.tag) {
+            case "Obstacle":
+            case "Wall":
+                SetAlpha(other.GetComponent<Renderer>().material, 1f);
+                break;
+
+            default:
+                break;
         }
+
+    }
+
+    private void SetAlpha(Material material, float newAlpha) {
+        Color newColor = material.color;
+        newColor.a = newAlpha;
+
+        material.color = newColor;
     }
 }

@@ -45,7 +45,8 @@ public class CameraBehaviour : MonoBehaviour {
         switch (other.tag) {
             case "Obstacle":
             case "Wall":
-                SetAlpha(other.GetComponent<Renderer>().material, 0.35f);
+                StartCoroutine(FadeAlpha(other.gameObject, 0.35f));
+                    
                 break;
 
             default:
@@ -57,13 +58,27 @@ public class CameraBehaviour : MonoBehaviour {
         switch (other.tag) {
             case "Obstacle":
             case "Wall":
-                SetAlpha(other.GetComponent<Renderer>().material, 1f);
+                StartCoroutine(FadeAlpha(other.gameObject, 1f));
                 break;
 
             default:
                 break;
         }
 
+    }
+
+    private IEnumerator FadeAlpha(GameObject other, float newAlpha, float delay = 1.0f) {
+
+        Material material = other.GetComponent<Renderer>().material;
+
+        Color newColor = material.color;
+        float alpha = newColor.a;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / delay) {
+            newColor.a = Mathf.Lerp(alpha, newAlpha, t);
+            material.color = newColor;
+            yield return null;
+        }
+        
     }
 
     private void SetAlpha(Material material, float newAlpha) {

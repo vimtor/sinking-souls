@@ -8,6 +8,6 @@ public class DashSO : AbilitySO {
     public float dashSpeed;
 
     public override void Use(GameObject player) {
-            player.GetComponent<Rigidbody>().velocity = player.GetComponent<Transform>().forward.normalized * dashSpeed;
+        player.GetComponent<Rigidbody>().velocity = player.GetComponent<Transform>().forward.normalized * dashSpeed;
     }
 }

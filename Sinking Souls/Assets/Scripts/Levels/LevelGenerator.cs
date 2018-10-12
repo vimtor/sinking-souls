@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour {
 
-    Room[,] grid;
-    List<Vector2> takenPos = new List<Vector2>();
-
     public int gridSizeX = 10, gridSizeY = 10;
     public int numberRooms = 5;
 
@@ -15,8 +12,11 @@ public class LevelGenerator : MonoBehaviour {
     public List<GameObject> RoomsC = new List<GameObject>();
     public List<GameObject> RoomsD = new List<GameObject>();
     public List<GameObject> RoomsE = new List<GameObject>();
-	
-	void Start () {
+
+    private Room[,] grid;
+    private List<Vector2> takenPos = new List<Vector2>();
+
+    void Start () {
         if (CheckRooms()) {
             CreateRooms();
             SetRoomDoors();
@@ -136,13 +136,14 @@ public class LevelGenerator : MonoBehaviour {
         foreach(Room room in grid) {
             if (room == null) continue;
             GameObject currentRoom;
-            //all on true
+
+            // all on true
             if(room.doorTop == true && room.doorBot == true && room.doorLeft == true && room.doorRight == true) { 
                 room.prefab = RoomsE[Random.Range(0,RoomsE.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
                 currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             }
-            //3 on true 1 on false
+            // 3 on true 1 on false
             else if(room.doorTop == true && room.doorBot == true && room.doorLeft == true && room.doorRight == false) {
                 room.prefab = RoomsD[Random.Range(0, RoomsD.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);

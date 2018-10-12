@@ -6,7 +6,7 @@ public class Entity : MonoBehaviour {
 
     public float health;
     public float walkSpeed;
-    public WeaponSO weapon;
+    public Weapon weapon;
     public GameObject hand;
     public Modifier baseModifier;
 
@@ -50,7 +50,7 @@ public class Entity : MonoBehaviour {
         else if (other.tag == "Ability") {
             if(gameObject.tag == other.GetComponent<AbilityHolder>().holder.target) { 
                 TakeDamage(other.GetComponent<AbilityHolder>().holder.Damage);
-                Apply(other.gameObject.GetComponent<AbilitySO>().modifier);
+                Apply(other.gameObject.GetComponent<Ability>().modifier);
             }
         }
     }

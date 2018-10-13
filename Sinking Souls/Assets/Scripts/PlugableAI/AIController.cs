@@ -8,11 +8,12 @@ public class AIController : MonoBehaviour {
     public State currentState;
     public State remainState;
     public GameObject player;
+    public Animator enemyAnimator;
 
     [HideInInspector] public NavMeshAgent navMeshAgent;
     [HideInInspector] public float stateTimeElapsed;
 
-    private Animator enemyAnimator;
+
     private bool aiActive;
 
     public void SetupAI() {
@@ -28,6 +29,7 @@ public class AIController : MonoBehaviour {
         if (!aiActive)
             return;
         currentState.UpdateState(this);
+        Debug.Log(currentState.name);
     }
 
     public void TransitionToState(State nextState) {

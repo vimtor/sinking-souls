@@ -30,8 +30,8 @@ public class Player : Entity{
 
     Dictionary<string, float> clipLength = new Dictionary<string, float>();
 
-    public AbilitySO dash;
-    public AbilitySO ability;
+    public Ability dash;
+    public Ability ability;
 
     private void Start() {
         OnStart();

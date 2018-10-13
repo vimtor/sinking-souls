@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponHolder : MonoBehaviour {
+public class AbilityHolder : MonoBehaviour {
 
-    public WeaponSO holder;
+    public Ability holder;
+
 }

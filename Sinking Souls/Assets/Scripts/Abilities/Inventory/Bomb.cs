@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BombSO", menuName = "BombAbility")]
-public class BombAbillitySO : AbilitySO {
+[CreateAssetMenu(menuName = "Abilities/Bomb")]
+public class Bomb : Ability {
 
     public override void Use(GameObject parent) {
         Player playerScript = parent.GetComponent<Player>();
@@ -19,4 +19,5 @@ public class BombAbillitySO : AbilitySO {
             playerScript.thrown = true;
         }
     }
+
 }

@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Ability")]
-public class AbilitySO : ScriptableObject {
+public abstract class Ability : ScriptableObject {
 
     public int cooldown;
     public float Damage;
@@ -11,7 +10,5 @@ public class AbilitySO : ScriptableObject {
     public GameObject prefab;
     public string target;
 
-    public virtual void Use(GameObject player) {
-
-    }
+    public abstract void Use(GameObject player);
 }

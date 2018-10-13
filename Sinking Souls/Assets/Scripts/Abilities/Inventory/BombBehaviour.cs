@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoimbBehaviour : MonoBehaviour {
+public class BombBehaviour : MonoBehaviour {
 
     private Rigidbody rb;
     private List<Collider> others = new List<Collider>();

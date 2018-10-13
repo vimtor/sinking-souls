@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Weapon", menuName = "Weapon")]
-public class WeaponSO : ScriptableObject {
+[CreateAssetMenu(menuName = "Weapon")]
+public class Weapon : ScriptableObject {
 
 	public GameObject model;
 
     public float baseDamage;
     public float criticDamage;
     public bool hitting;
+
     private float _damage;
     public float Damage {
         set { throw new System.Exception("You cannot set the damage of a weapon."); }
@@ -19,10 +20,10 @@ public class WeaponSO : ScriptableObject {
     public float useDelay;
     public Modifier modifier;
     
-    private BoxCollider collider;
+    private BoxCollider boxCollider;
 
-    private void Awake() {
-        collider = model.GetComponent<BoxCollider>();
+    private void Start() {
+        boxCollider = model.GetComponent<BoxCollider>();
     }
 
     public void Instantiate(GameObject parent) {

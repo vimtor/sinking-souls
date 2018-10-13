@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour {
 
-    public int gridSizeX = 10, gridSizeY = 10;
+    
     public int numberRooms = 5;
 
     public List<GameObject> RoomsA = new List<GameObject>();
@@ -15,21 +15,24 @@ public class LevelGenerator : MonoBehaviour {
 
     private Room[,] grid;
     private List<Vector2> takenPos = new List<Vector2>();
+    private int gridSizeX, gridSizeY;
 
     void Start () {
-        if (CheckRooms()) {
+
+        if(numberRooms <= 0) {
+            Debug.LogError("The number of rooms specified is not valid.");
+        }
+        else {
+            SetGridSize();
             CreateRooms();
             SetRoomDoors();
             CreateMap();
-            
         }
-        else {
-            Debug.LogError("Number of rooms specified don't fit into the grid.");
-        }
+
 	}
 
-    private bool CheckRooms() {
-        return (gridSizeX * gridSizeY) > numberRooms;
+    private void SetGridSize() {
+        gridSizeX = gridSizeY = numberRooms * 2 + 1;
     }
 
     private void CreateRooms() {
@@ -48,7 +51,7 @@ public class LevelGenerator : MonoBehaviour {
             do {
                 // Get a new random position for a room.
                 newPos = NewPosition();
-            } while (NumberOfNeighbors(newPos) > 1 && Random.value < 0.8f);
+            } while (NumberOfNeighbors(newPos) > 1);
             
 
             // Add it to the grid and to the taken positions list.
@@ -244,6 +247,7 @@ public class LevelGenerator : MonoBehaviour {
         _room.name = "Room_" + roomCount;
         _room.transform.parent = gameObject.transform;
         Debug.Log(_room.name + " " + room.gridPos + " " + realPosition);
+        Debug.Log(_room.name + " " + room.doorTop + " " + room.doorBot + " " + room.doorLeft + " " + room.doorRight);
         return _room;
 
     }

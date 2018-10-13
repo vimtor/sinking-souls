@@ -10,10 +10,10 @@ public class Entity : MonoBehaviour {
     public GameObject hand;
     public Modifier baseModifier;
 
-    protected Rigidbody rb;
-    public Animator animator;
-    public Vector3 facingDir;
-    new protected CapsuleCollider collider;
+    [HideInInspector] public Rigidbody rb;
+    [HideInInspector] public Animator animator;
+    [HideInInspector] public Vector3 facingDir;
+    [HideInInspector] new public CapsuleCollider collider;
 
     protected void OnStart() {
         rb = GetComponent<Rigidbody>();

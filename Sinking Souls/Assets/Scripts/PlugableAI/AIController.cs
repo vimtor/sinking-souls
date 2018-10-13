@@ -8,8 +8,8 @@ public class AIController : MonoBehaviour {
     public State currentState;
     public State remainState;
     public GameObject player;
-    public Animator enemyAnimator;
 
+    [HideInInspector] public Animator animator;
     [HideInInspector] public NavMeshAgent navMeshAgent;
     [HideInInspector] public float stateTimeElapsed;
 
@@ -20,7 +20,7 @@ public class AIController : MonoBehaviour {
         stateTimeElapsed = 0;
         aiActive = true;
         navMeshAgent = GetComponent<NavMeshAgent>();
-        enemyAnimator = GetComponent<Enemy>().animator;
+        animator = GetComponent<Enemy>().animator;
 
         if (aiActive) navMeshAgent.enabled = true;
     }
@@ -38,8 +38,9 @@ public class AIController : MonoBehaviour {
             OnExitState();
         }
 
-        enemyAnimator.SetBool("RUN", false);
-        enemyAnimator.SetBool("IDLE", false);
+        animator.SetBool("RUN", false);
+        animator.SetBool("IDLE", false);
+
     }
 
     public bool CheckIfCountDownElapsed(float duration) {
@@ -53,10 +54,11 @@ public class AIController : MonoBehaviour {
 
     public void SetAnimBool(string str) {
 
-        enemyAnimator.SetBool("RUN", false);
-        enemyAnimator.SetBool("IDLE", false);
+        animator.SetBool("RUN", false);
+        animator.SetBool("IDLE", false);
 
-        enemyAnimator.SetBool(str, true);
+        animator.SetBool(str, true);
+
     }
 
 }

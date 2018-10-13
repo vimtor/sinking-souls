@@ -11,6 +11,7 @@ public class Enemy : Entity {
 
     private void Start() {
         OnStart();
+
         controller = GetComponent<AIController>();
         controller.SetupAI();
         EquipWeapon();

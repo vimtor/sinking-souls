@@ -455,7 +455,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: dada9f4dc81f2c148ab9e52e3e87ea93, type: 2}
+  - {fileID: 2100000, guid: a81cf510d8eb7e74492bfccabe928b34, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1033,7 +1033,6 @@ GameObject:
   - component: {fileID: 492143093}
   - component: {fileID: 492143096}
   - component: {fileID: 492143095}
-  - component: {fileID: 492143094}
   - component: {fileID: 492143097}
   m_Layer: 0
   m_Name: Walls
@@ -1055,18 +1054,6 @@ Transform:
   m_Father: {fileID: 1048648182}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &492143094
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 492143092}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &492143095
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1652,7 +1639,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 669637880}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.33, y: 5.5, z: -2.99}
+  m_LocalPosition: {x: -4.33, y: 3.48, z: -2.99}
   m_LocalScale: {x: 3, y: 6.5982, z: 3}
   m_Children: []
   m_Father: {fileID: 1048648182}
@@ -1700,7 +1687,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: c301d833ffceb944892a7cc87e760024, type: 2}
+  - {fileID: 2100000, guid: 5c2eb6f927c0bb34487bc832d522bba1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2171,7 +2158,6 @@ GameObject:
   - component: {fileID: 958870533}
   - component: {fileID: 958870536}
   - component: {fileID: 958870535}
-  - component: {fileID: 958870534}
   - component: {fileID: 958870537}
   m_Layer: 0
   m_Name: Walls
@@ -2193,18 +2179,6 @@ Transform:
   m_Father: {fileID: 1048648182}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &958870534
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 958870532}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &958870535
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3533,7 +3507,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: dada9f4dc81f2c148ab9e52e3e87ea93, type: 2}
+  - {fileID: 2100000, guid: a81cf510d8eb7e74492bfccabe928b34, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

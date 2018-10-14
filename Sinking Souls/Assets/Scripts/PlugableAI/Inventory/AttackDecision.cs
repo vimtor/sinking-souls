@@ -9,8 +9,8 @@ public class AttackDecision : Decision {
     public override bool Decide(AIController controller) {
         float distance;
         distance = Vector3.Distance(controller.player.transform.position, controller.transform.position);
-        Debug.Log(distance);
-        return (distance < 2);
+        //Debug.Log(distance);
+        return (distance < 3);
 
     }
 }

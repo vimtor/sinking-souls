@@ -8,6 +8,7 @@ public class Enemy : Entity {
     private EnemyType type;
 
     private AIController controller;
+    public Dictionary<string, float> clipLength = new Dictionary<string, float>();
 
     private void Start() {
         OnStart();
@@ -15,7 +16,13 @@ public class Enemy : Entity {
         controller = GetComponent<AIController>();
         controller.SetupAI();
         EquipWeapon();
+
+        for (int i = 0; i < animator.runtimeAnimatorController.animationClips.Length; i++) {
+            var animationClip = animator.runtimeAnimatorController.animationClips[i];
+            clipLength.Add(animationClip.name, animationClip.length);
+        }
     }
+
 
 
 }

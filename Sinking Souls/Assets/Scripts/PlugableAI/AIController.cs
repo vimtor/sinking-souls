@@ -29,7 +29,7 @@ public class AIController : MonoBehaviour {
         if (!aiActive)
             return;
         currentState.UpdateState(this);
-        Debug.Log(currentState.name);
+        //Debug.Log(currentState.name);
     }
 
     public void TransitionToState(State nextState) {
@@ -38,8 +38,9 @@ public class AIController : MonoBehaviour {
             OnExitState();
         }
 
-        animator.SetBool("RUN", false);
-        animator.SetBool("IDLE", false);
+        //animator.SetBool("RUN", false);
+        //animator.SetBool("IDLE", false);
+        //animator.SetBool("ATTACK", false);
 
     }
 
@@ -50,12 +51,15 @@ public class AIController : MonoBehaviour {
 
     private void OnExitState() {
         stateTimeElapsed = 0;
+        GetComponent<Enemy>().weapon.hitting = false;
     }
 
     public void SetAnimBool(string str) {
 
         animator.SetBool("RUN", false);
         animator.SetBool("IDLE", false);
+        animator.SetBool("ATTACK", false);
+        animator.SetBool("REACT", false);
 
         animator.SetBool(str, true);
 

@@ -28,7 +28,7 @@ public class Player : Entity{
     public float rotationSpeed;
     public float actionRotationSpeed;
 
-    Dictionary<string, float> clipLength = new Dictionary<string, float>();
+    public Dictionary<string, float> clipLength = new Dictionary<string, float>();
 
     public Ability dash;
     public Ability ability;

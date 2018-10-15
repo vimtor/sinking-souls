@@ -26,7 +26,9 @@ public class LevelGenerator : MonoBehaviour {
             SetGridSize();
             CreateRooms();
             SetRoomDoors();
+            PlaceBossRoom();
             CreateMap();
+
         }
 
 	}
@@ -42,8 +44,8 @@ public class LevelGenerator : MonoBehaviour {
 
         // The center room is initialized to Vector2.zero because in the actual game, 
         // you want it to be centered in the coordinate system. 
-        grid[gridSizeX / 2, gridSizeY / 2] = new Room(Vector2.zero, Room.RoomType.COMBAT);
-        takenPos.Insert(0, Vector2.zero);
+        grid[gridSizeX / 2, gridSizeY / 2] = new Room(new Vector2(gridSizeX / 2, gridSizeY / 2), Room.RoomType.INITIAL);
+        takenPos.Insert(0, new Vector2 (gridSizeX / 2, gridSizeY / 2));
 
         Vector2 newPos = Vector2.zero;
         for (int i = 0; i < numberRooms - 1; i++) {
@@ -133,6 +135,27 @@ public class LevelGenerator : MonoBehaviour {
                 }
             }
         }
+    }
+
+    private void PlaceBossRoom() {
+        Vector2 bossRoomPosition = Vector2.zero;
+        Vector2 initialRoomPosition = new Vector2(gridSizeX / 2, gridSizeY / 2);
+        float maxDistance = 0;
+        for (int x = 0; x < gridSizeX; x++) {
+            for (int y = 0; y < gridSizeX; y++) {
+                if (grid[x, y] != null) { 
+                    Vector2 newPos = new Vector2(x, y);
+                    if (NumberOfNeighbors(newPos) == 1 && grid[(int)newPos.x, (int)newPos.y].type != Room.RoomType.INITIAL) {
+                        float distance = Vector2.Distance(newPos, initialRoomPosition);
+                        if (distance > maxDistance) {
+                            maxDistance = distance;
+                            bossRoomPosition = newPos;
+                        }
+                    }
+                }
+            }
+        }
+        grid[(int)bossRoomPosition.x, (int)bossRoomPosition.y].type = Room.RoomType.BOSS;
     }
 
     private void CreateMap() {
@@ -246,11 +269,12 @@ public class LevelGenerator : MonoBehaviour {
         GameObject _room = Instantiate(room.prefab, room.prefab.transform);
         _room.name = "Room_" + roomCount;
         _room.transform.parent = gameObject.transform;
-        Debug.Log(_room.name + " " + room.gridPos + " " + realPosition);
-        Debug.Log(_room.name + " " + room.doorTop + " " + room.doorBot + " " + room.doorLeft + " " + room.doorRight);
+        Debug.Log(_room.name + " " + room.gridPos + " " + realPosition + " " + room.type);
         return _room;
 
     }
+
+
 
     private int NumberOfNeighbors(Vector2 checkingPos) {
         int neighbors = 0;

@@ -45,9 +45,9 @@ public class Player : Entity{
             var animationClip = animator.runtimeAnimatorController.animationClips[i];
             clipLength.Add(animationClip.name, animationClip.length);
         }
-        clipLength["Attack1Anim"] = clipLength["Attack1Anim"] / 2;
-        clipLength["Attack2Anim"] = clipLength["Attack2Anim"] / 2;
-        clipLength["Attack3Anim"] = clipLength["Attack3Anim"] / 2;
+        clipLength["Attack1Anim"] = clipLength["Attack1Anim"] / 3;
+        clipLength["Attack2Anim"] = clipLength["Attack2Anim"] / 3;
+        clipLength["Attack3Anim"] = clipLength["Attack3Anim"] / 3;
         clipLength["DashAnim"] = clipLength["DashAnim"] / 2;
 
         EquipWeapon();
@@ -127,10 +127,10 @@ public class Player : Entity{
             case State.ATTACK_1:
 
                 SetAnimBool("ATTACK_1");
-                weapon.Attack();
+                if(time > (clipLength["Attack1Anim"] / 3)) weapon.Attack();
                 SetRotation(actionRotationSpeed);
                                                                             // you can substraca little offset to makit more fluid
-                if (InputHandler.ButtonX() && time > clipLength["Attack1Anim"] - 0.2 && time < clipLength["Attack1Anim"] + attackOffset) {
+                if (InputHandler.ButtonX() && time > (clipLength["Attack1Anim"]/3)*2 && time < clipLength["Attack1Anim"] + attackOffset) {
                     lastState = State.ATTACK_1;
                     state = State.ATTACK_2;
                     time = 0;
@@ -175,10 +175,10 @@ public class Player : Entity{
             #region STATE_ATTACK_2
             case State.ATTACK_2:
                 SetAnimBool("ATTACK_2");
-                weapon.Attack();
+                if(time > (clipLength["Attack2Anim"] / 3)) weapon.Attack();
                 SetRotation(actionRotationSpeed);
 
-                if (InputHandler.ButtonX() && time > clipLength["Attack2Anim"] - 0.2 && time < clipLength["Attack2Anim"] + attackOffset) {
+                if (InputHandler.ButtonX() && time > (clipLength["Attack2Anim"] / 3) * 2 && time < clipLength["Attack2Anim"] + attackOffset) {
                     lastState = State.ATTACK_2;
                     state = State.ATTACK_3;
                     time = 0;
@@ -219,7 +219,7 @@ public class Player : Entity{
             #region STATE_ATTACK_3
             case State.ATTACK_3:
                 SetAnimBool("ATTACK_3");
-                weapon.CriticAttack();
+                if(time > (clipLength["Attack3Anim"] / 3)) weapon.Attack();
                 SetRotation(actionRotationSpeed);
 
                 if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
@@ -229,7 +229,7 @@ public class Player : Entity{
                     }
                 }
 
-                if (InputHandler.ButtonX() && time > clipLength["Attack3Anim"] - 0.2 && time < clipLength["Attack3Anim"] + attackOffset) {
+                if (InputHandler.ButtonX() && time > (clipLength["Attack3Anim"] / 3) * 2 && time < clipLength["Attack3Anim"] + attackOffset) {
                     lastState = State.ATTACK_3;
                     state = State.ATTACK_1;
                     time = 0;

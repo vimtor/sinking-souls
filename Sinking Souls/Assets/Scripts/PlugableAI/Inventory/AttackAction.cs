@@ -7,7 +7,7 @@ public class AttackAction : Action {
 
     public override void Act(AIController controller) {
         controller.SetAnimBool("ATTACK");
-        controller.GetComponent<Enemy>().weapon.Attack();
+        /*if(controller.CheckIfCountDownElapsed((controller.GetComponent<Enemy>().clipLength["AttackAnim"]) / 3))*/ controller.GetComponent<Enemy>().weapon.Attack();
         Rotate(controller, 2);
     }
 

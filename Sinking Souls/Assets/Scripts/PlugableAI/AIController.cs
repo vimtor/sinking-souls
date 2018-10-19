@@ -21,6 +21,7 @@ public class AIController : MonoBehaviour {
         aiActive = true;
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Enemy>().animator;
+        player = GameObject.Find("Player");
 
         if (aiActive) navMeshAgent.enabled = true;
     }
@@ -52,6 +53,7 @@ public class AIController : MonoBehaviour {
     private void OnExitState() {
         stateTimeElapsed = 0;
         GetComponent<Enemy>().weapon.hitting = false;
+        navMeshAgent.enabled = false;
     }
 
     public void SetAnimBool(string str) {

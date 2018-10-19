@@ -43,16 +43,14 @@ public class Entity : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
 
         if (other.tag == "Weapon") {
-            if (other.GetComponent<WeaponHolder>().holder.hitting) {
+            if (other.GetComponent<WeaponHolder>().holder.hitting && !hit) {
                 hit = true;
-                Debug.Log("Sword hitted me");
                 TakeDamage(other.GetComponent<WeaponHolder>().holder.Damage);
                 Apply(other.GetComponent<WeaponHolder>().holder.modifier);
             }
         }
         else if (other.tag == "Ability") {
             if(gameObject.tag == other.GetComponent<AbilityHolder>().holder.target) {
-                hit = true;
                 TakeDamage(other.GetComponent<AbilityHolder>().holder.Damage);
                 Apply(other.gameObject.GetComponent<Ability>().modifier);
             }

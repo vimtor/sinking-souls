@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(menuName = "Modifier")]
 public class Modifier : ScriptableObject {
 
     public Sprite sprite;

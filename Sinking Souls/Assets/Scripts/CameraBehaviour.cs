@@ -18,6 +18,7 @@ public class CameraBehaviour : MonoBehaviour {
 
         SetupCenter(center);
         transform.LookAt(center);
+        Debug.Log(offset);
     }
 	
 	void Update () {

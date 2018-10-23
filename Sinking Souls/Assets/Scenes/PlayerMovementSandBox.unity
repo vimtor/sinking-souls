@@ -857,53 +857,6 @@ Prefab:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 534669904}
-    - target: {fileID: 114512982441035086, guid: 49e416f76c3ef9049a0ff61d55781277,
-        type: 2}
-      propertyPath: rotationSpeed
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 114512982441035086, guid: 49e416f76c3ef9049a0ff61d55781277,
-        type: 2}
-      propertyPath: actionRotationSpeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114512982441035086, guid: 49e416f76c3ef9049a0ff61d55781277,
-        type: 2}
-      propertyPath: ability
-      value: 
-      objectReference: {fileID: 11400000, guid: fddf5f21314ce444ea3a0fee462174df,
-        type: 2}
-    - target: {fileID: 114512982441035086, guid: 49e416f76c3ef9049a0ff61d55781277,
-        type: 2}
-      propertyPath: dash
-      value: 
-      objectReference: {fileID: 11400000, guid: ca3310341e172d841bf6c1b8a6e5d8f4,
-        type: 2}
-    - target: {fileID: 114512982441035086, guid: 49e416f76c3ef9049a0ff61d55781277,
-        type: 2}
-      propertyPath: health
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 114512982441035086, guid: 49e416f76c3ef9049a0ff61d55781277,
-        type: 2}
-      propertyPath: walkSpeed
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 136396008071599650, guid: 49e416f76c3ef9049a0ff61d55781277,
-        type: 2}
-      propertyPath: m_Radius
-      value: 0.41208863
-      objectReference: {fileID: 0}
-    - target: {fileID: 136396008071599650, guid: 49e416f76c3ef9049a0ff61d55781277,
-        type: 2}
-      propertyPath: m_Center.x
-      value: 0.004470229
-      objectReference: {fileID: 0}
-    - target: {fileID: 136396008071599650, guid: 49e416f76c3ef9049a0ff61d55781277,
-        type: 2}
-      propertyPath: m_Center.z
-      value: 0.054965258
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49e416f76c3ef9049a0ff61d55781277, type: 2}
   m_IsPrefabAsset: 0
@@ -1120,6 +1073,7 @@ MonoBehaviour:
   - {fileID: 780720893}
   possibleConfigurations:
   - {fileID: 11400000, guid: 01898108389a9f246b4803262e77605b, type: 2}
+  alreadySpawned: 0
 --- !u!4 &987740391
 Transform:
   m_ObjectHideFlags: 0

@@ -24,12 +24,12 @@ public class LevelGenerator : MonoBehaviour {
         }
 	}
 
-    public void Spawn() {
+    public GameObject Spawn() {
         SetGridSize();
         CreateRooms();
         SetRoomDoors();
         PlaceBossRoom();
-        CreateMap();
+        return CreateMap();
     }
 
     private void SetGridSize() {
@@ -157,14 +157,15 @@ public class LevelGenerator : MonoBehaviour {
         grid[(int)bossRoomPosition.x, (int)bossRoomPosition.y].type = Room.RoomType.BOSS;
     }
 
-    private void CreateMap() {
+    private GameObject CreateMap() {
         int roomSize = 10/2;
         int roomCount = 1;
+        GameObject initialRoom = null;
         Debug.Log("Map created successfully.");
 
         foreach(Room room in grid) {
             if (room == null) continue;
-            GameObject currentRoom;
+            GameObject currentRoom = null;
 
             #region ROOMS E
             if(room.doorTop == true && room.doorBot == true && room.doorLeft == true && room.doorRight == true) { 
@@ -254,10 +255,16 @@ public class LevelGenerator : MonoBehaviour {
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
                 currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             }
+
+            if (room.type == Room.RoomType.INITIAL) {
+                initialRoom = currentRoom;
+            }
             #endregion
 
             roomCount++;
+
         }
+        return initialRoom;
     }
 
     private GameObject SpawnRoom(Room room, int roomSize, int roomCount) {

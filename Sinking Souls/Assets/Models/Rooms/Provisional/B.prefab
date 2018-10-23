@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 114824065423244114}
   m_Layer: 0
   m_Name: B
-  m_TagString: Untagged
+  m_TagString: Room
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -524,7 +524,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1809149294137762}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 80, y: 0, z: 85}
+  m_LocalPosition: {x: 70, y: 0, z: 65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4453946197659960}
@@ -2400,6 +2400,7 @@ MonoBehaviour:
   - {fileID: 1041346609858422}
   possibleConfigurations:
   - {fileID: 11400000, guid: 01898108389a9f246b4803262e77605b, type: 2}
+  alreadySpawned: 0
 --- !u!114 &114888010127125840
 MonoBehaviour:
   m_ObjectHideFlags: 1

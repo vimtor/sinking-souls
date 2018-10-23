@@ -24,7 +24,6 @@ public class Player : Entity{
 
     public float attackOffset;
     public bool thrown;
-    public Camera mainCamera;
     public float rotationSpeed;
     public float actionRotationSpeed;
 
@@ -33,12 +32,11 @@ public class Player : Entity{
     public Ability dash;
     public Ability ability;
 
-    private void Start() {
+    public void SetupPlayer() {
         OnStart();
         state = State.IDLE;
         dashCooldown = abilityCooldown = 0;
-
-        forward = new Vector3 (mainCamera.transform.forward.x, 0, mainCamera.transform.forward.z) ;
+        forward = new Vector3 (Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z) ;
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
 
         for (int i = 0; i < animator.runtimeAnimatorController.animationClips.Length; i++) {

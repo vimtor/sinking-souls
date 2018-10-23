@@ -8,21 +8,26 @@ public class CameraBehaviour : MonoBehaviour {
 
     private Vector3 center, offset;
     private BoxCollider boxCollider;
+    private bool gameOn = false;
 
-    void Start () {
+    public void SetupCamera (Vector3 roomCenter) {
         // Setup initial center and offset values,
         // based on how the camera is initially positioned.
-        center = new Vector3(0, 0, 0);
-        offset = transform.position - center;
+        center = roomCenter;
+        offset = new Vector3(-21.0f, 17, -21);
+        Debug.Log(offset);
         boxCollider =  GetComponent<BoxCollider>();
 
         SetupCenter(center);
         transform.LookAt(center);
+        gameOn = true;
     }
 	
 	void Update () {
-        LookPlayer();
-        MoveCollider();
+        if (gameOn) {
+            LookPlayer();
+            MoveCollider();
+        }
     }
 
     private void MoveCollider() {

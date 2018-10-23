@@ -9,7 +9,6 @@ public class GameController : MonoBehaviour {
 
     private LevelGenerator levelGenerator;
     private GameObject currentRoom;
-    private Camera camera;
 
     private void Awake() {
         if (instance == null) {
@@ -23,16 +22,23 @@ public class GameController : MonoBehaviour {
 
     void Start () {
         levelGenerator = GetComponent<LevelGenerator>();
-        camera = Camera.main;
-        SpawnLevel();
+        currentRoom = SpawnLevel();
+        currentRoom.GetComponent<SpawnController>().alreadySpawned = true;
+        SpawnPlayer();
+
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().SetupPlayer();
+
+        Camera.main.GetComponent<CameraBehaviour>().player = GameObject.FindGameObjectWithTag("Player").transform;
+        Camera.main.GetComponent<CameraBehaviour>().SetupCamera(currentRoom.transform.position);
     }
 
-    private void SpawnLevel() {
-        levelGenerator.Spawn();
+    private GameObject SpawnLevel() {
+        return levelGenerator.Spawn();
     }
 
     private void SpawnPlayer() {
-
+        player = Instantiate(player);
+        player.transform.position = currentRoom.transform.position;
     }
 
     public void ChangeRoom(GameObject door) {

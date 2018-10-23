@@ -1201,7 +1201,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1589807051420334}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.06, z: -6.56}
+  m_LocalPosition: {x: 1.49, y: 0.48, z: -7.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4624603733246448}
@@ -2095,16 +2095,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa9f2276a7d4514f8fdd47474df24b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
-  walkSpeed: 5
+  health: 100
+  walkSpeed: 7
   weapon: {fileID: 11400000, guid: 770641d31570a724f8f8eeb86cdada2f, type: 2}
   hand: {fileID: 1522447524742674}
   baseModifier: {fileID: 0}
+  rb: {fileID: 0}
+  animator: {fileID: 0}
   facingDir: {x: 0, y: 0, z: 0}
+  hit: 0
+  collider: {fileID: 0}
   attackOffset: 0.7
   thrown: 0
+  mainCamera: {fileID: 0}
+  rotationSpeed: 15
+  actionRotationSpeed: 1
   dash: {fileID: 11400000, guid: ca3310341e172d841bf6c1b8a6e5d8f4, type: 2}
-  ability: {fileID: 11400000, guid: 0066b871928892a48a5ac1c34e25133f, type: 2}
+  ability: {fileID: 11400000, guid: fddf5f21314ce444ea3a0fee462174df, type: 2}
 --- !u!114 &114668370496422104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2125,10 +2132,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.36708227
+  m_Radius: 0.41208863
   m_Height: 1.7550755
   m_Direction: 1
-  m_Center: {x: 0, y: 0.8630841, z: 0}
+  m_Center: {x: 0.004470229, y: 0.8630841, z: 0.054965258}
 --- !u!137 &137063898577217368
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

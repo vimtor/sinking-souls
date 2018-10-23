@@ -14,7 +14,7 @@ public class Enemy : Entity {
         OnStart();
 
         controller = GetComponent<AIController>();
-        controller.SetupAI();
+        //controller.SetupAI();
         EquipWeapon();
 
         for (int i = 0; i < animator.runtimeAnimatorController.animationClips.Length; i++) {

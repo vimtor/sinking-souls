@@ -22,16 +22,15 @@ public class LevelGenerator : MonoBehaviour {
         if(numberRooms <= 0) {
             Debug.LogError("The number of rooms specified is not valid.");
         }
-        else {
-            SetGridSize();
-            CreateRooms();
-            SetRoomDoors();
-            PlaceBossRoom();
-            CreateMap();
-
-        }
-
 	}
+
+    public void Spawn() {
+        SetGridSize();
+        CreateRooms();
+        SetRoomDoors();
+        PlaceBossRoom();
+        CreateMap();
+    }
 
     private void SetGridSize() {
         gridSizeX = gridSizeY = numberRooms * 2 + 1;

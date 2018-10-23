@@ -14,7 +14,7 @@ public class AIController : MonoBehaviour {
     [HideInInspector] public float stateTimeElapsed;
 
 
-    private bool aiActive;
+    private bool aiActive = false;
 
     public void SetupAI() {
         stateTimeElapsed = 0;
@@ -24,6 +24,8 @@ public class AIController : MonoBehaviour {
         player = GameObject.Find("Player");
 
         if (aiActive) navMeshAgent.enabled = true;
+
+        Debug.Log("setupAI");
     }
 
     void Update() {

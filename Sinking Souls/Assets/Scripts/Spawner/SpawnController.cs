@@ -21,7 +21,7 @@ public class SpawnController : MonoBehaviour {
             Debug.Log(index);
             enemy.transform.position = spawnPoints[index].transform.position;
             spawnPoints.RemoveAt(index);
-            enemy.GetComponent<AIController>().SetupAI();
+            //enemy.GetComponent<AIController>().SetupAI();
         }
         spawnPoints.Clear();
     }

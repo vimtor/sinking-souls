@@ -18,7 +18,6 @@ public class LevelGenerator : MonoBehaviour {
     private int gridSizeX, gridSizeY;
 
     void Start () {
-
         if(numberRooms <= 0) {
             Debug.LogError("The number of rooms specified is not valid.");
         }
@@ -272,11 +271,10 @@ public class LevelGenerator : MonoBehaviour {
         realPosition *= roomSize;
         room.prefab.transform.position = transform.position + realPosition;
 
-        GameObject _room = Instantiate(room.prefab, room.prefab.transform);
-        _room.name = "Room_" + roomCount;
-        _room.transform.parent = gameObject.transform;
-        Debug.Log(_room.name + " " + room.gridPos + " " + realPosition + " " + room.type);
-        return _room;
+        GameObject instantiatedRoom = Instantiate(room.prefab, room.prefab.transform);
+        instantiatedRoom.name = "Room_" + roomCount;
+        instantiatedRoom.transform.parent = gameObject.transform;
+        return instantiatedRoom;
 
     }
 

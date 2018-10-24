@@ -14,14 +14,6 @@ public class Player : Entity{
         DASH
     };
 
-    private State state;
-    private State lastState;
-    private float time;
-    private float dashCooldown;
-    private float abilityCooldown;
-    private Dictionary<Enemy.EnemyType, int> inventory;
-    private Vector3 forward, right;
-
     public float attackOffset;
     public bool thrown;
     public float rotationSpeed;
@@ -32,6 +24,14 @@ public class Player : Entity{
     public Ability dash;
     public Ability ability;
 
+    private State state;
+    private State lastState;
+    private float time;
+    private float dashCooldown;
+    private float abilityCooldown;
+    private Dictionary<Enemy.EnemyType, int> inventory;
+    private Vector3 forward, right;
+
     public void SetupPlayer() {
         OnStart();
         state = State.IDLE;
@@ -39,22 +39,23 @@ public class Player : Entity{
         forward = new Vector3 (Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z) ;
         right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
 
+        #region Setup Animations
         for (int i = 0; i < animator.runtimeAnimatorController.animationClips.Length; i++) {
             var animationClip = animator.runtimeAnimatorController.animationClips[i];
             clipLength.Add(animationClip.name, animationClip.length);
         }
+
         clipLength["Attack1Anim"] = clipLength["Attack1Anim"] / 3;
         clipLength["Attack2Anim"] = clipLength["Attack2Anim"] / 3;
         clipLength["Attack3Anim"] = clipLength["Attack3Anim"] / 3;
         clipLength["DashAnim"] = clipLength["DashAnim"] / 2;
+        #endregion
 
         EquipWeapon();
     }
 
     private void FixedUpdate() {
-
         HandleInput();
-
     }
 
 
@@ -72,7 +73,6 @@ public class Player : Entity{
     }
 
     public void HandleInput() {
-
         // Things that needs to be always on false so they can be changed to true if needed.
         weapon.hitting = false;
         gameObject.layer = LayerMask.NameToLayer("Player");
@@ -86,6 +86,7 @@ public class Player : Entity{
 
     public void StateMachine() {
         switch (state) {
+
             #region STATE_IDLE
             case State.IDLE:
                 SetAnimBool("IDLE");
@@ -127,6 +128,8 @@ public class Player : Entity{
                 SetAnimBool("ATTACK_1");
                 if(time > (clipLength["Attack1Anim"] / 3)) weapon.Attack();
                 SetRotation(actionRotationSpeed);
+
+                AudioManager.instance.Play("Attack1");
                                                                             // you can substraca little offset to makit more fluid
                 if (InputHandler.ButtonX() && time > (clipLength["Attack1Anim"]/3)*2 && time < clipLength["Attack1Anim"] + attackOffset) {
                     lastState = State.ATTACK_1;
@@ -176,6 +179,8 @@ public class Player : Entity{
                 if(time > (clipLength["Attack2Anim"] / 3)) weapon.Attack();
                 SetRotation(actionRotationSpeed);
 
+                AudioManager.instance.Play("Attack2");
+
                 if (InputHandler.ButtonX() && time > (clipLength["Attack2Anim"] / 3) * 2 && time < clipLength["Attack2Anim"] + attackOffset) {
                     lastState = State.ATTACK_2;
                     state = State.ATTACK_3;
@@ -216,9 +221,12 @@ public class Player : Entity{
 
             #region STATE_ATTACK_3
             case State.ATTACK_3:
+
                 SetAnimBool("ATTACK_3");
                 if(time > (clipLength["Attack3Anim"] / 3)) weapon.Attack();
                 SetRotation(actionRotationSpeed);
+
+                AudioManager.instance.Play("Attack1");
 
                 if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
                     if(time > clipLength["Attack3Anim"]) { 
@@ -304,6 +312,7 @@ public class Player : Entity{
                 break;
             #endregion
 
+            #region STATE_ABILITY
             case State.ABILITY:
                 SetAnimBool("THROW");
                 if (time > clipLength["ThrowAnim"]/2) {
@@ -335,7 +344,9 @@ public class Player : Entity{
                     }
                 }   
             break;
+            #endregion
 
+            #region STATE_DASH
             case State.DASH:
                 SetAnimBool("DASH");
                 gameObject.layer = LayerMask.NameToLayer("PlayerDash");
@@ -358,6 +369,7 @@ public class Player : Entity{
                     }
                 }
                 break;
+            #endregion
 
             default:
                 break;

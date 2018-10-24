@@ -15,7 +15,6 @@ public class CameraBehaviour : MonoBehaviour {
         // based on how the camera is initially positioned.
         center = roomCenter;
         offset = new Vector3(-21.0f, 17, -21);
-        Debug.Log(offset);
         boxCollider =  GetComponent<BoxCollider>();
 
         SetupCenter(center);

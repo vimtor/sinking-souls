@@ -23,6 +23,12 @@ public class Enemy : Entity {
         }
     }
 
+    private void Update() {
+        if (health <= 0) Die();
+    }
 
+    private void Die() {
+        Destroy(gameObject);
+    }
 
 }

@@ -41,6 +41,9 @@ public class AudioManager : MonoBehaviour {
     }
 
     public void ChangeVolume(float volume, SoundType type) {
+        if(volume > 1 || volume < 0) {
+            Debug.LogError("Volume value is not valid.");
+        }
 
         switch (type) {
             case SoundType.EFFECT:

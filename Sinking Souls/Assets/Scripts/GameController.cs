@@ -22,7 +22,7 @@ public class GameController : MonoBehaviour {
 
     void Start () {
         levelGenerator = GetComponent<LevelGenerator>();
-        currentRoom = SpawnLevel();
+        currentRoom = SpawnLevel(); // SpawnLevel() returns the initial room.
         currentRoom.GetComponent<SpawnController>().alreadySpawned = true;
         SpawnPlayer();
 

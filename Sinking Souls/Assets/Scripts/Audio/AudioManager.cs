@@ -5,7 +5,12 @@ public class AudioManager : MonoBehaviour {
 
     public static AudioManager instance = null; // Singleton.
 
-    public Sound[] sounds;
+    public Sound[] effects;
+    public Sound[] music;
+
+    public enum SoundType {
+        EFFECT, MUSIC
+    };
 
     private void Awake() {
 
@@ -21,21 +26,42 @@ public class AudioManager : MonoBehaviour {
 
         DontDestroyOnLoad(gameObject);
 
-        foreach(Sound sound in sounds) {
-            sound.source = gameObject.AddComponent<AudioSource>();
+        Array.ForEach(effects, sound => SetupSound(sound));
+        Array.ForEach(music, sound => SetupSound(sound));
 
-            sound.source.clip = sound.clip;
-            sound.source.volume = sound.volume;
-            sound.source.pitch = sound.pitch;
-            sound.source.loop = sound.loop;
+    }
+
+    private void SetupSound(Sound sound) {
+        sound.source = gameObject.AddComponent<AudioSource>();
+
+        sound.source.clip = sound.clip;
+        sound.source.volume = sound.volume;
+        sound.source.pitch = sound.pitch;
+        sound.source.loop = sound.loop;
+    }
+
+    public void ChangeVolume(float volume, SoundType type) {
+        if(volume > 1 || volume < 0) {
+            Debug.LogError("Volume value is not valid.");
         }
+
+        switch (type) {
+            case SoundType.EFFECT:
+                Array.ForEach(effects, sound => sound.source.volume = volume);
+                break;
+
+            case SoundType.MUSIC:
+                Array.ForEach(music, sound => sound.source.volume = volume);
+                break;
+        }
+
     }
 
     public void Play(string name) {
-        Sound soundToPlay = Array.Find(sounds, sound => sound.name == name);
+        Sound soundToPlay = Array.Find(effects, sound => sound.name == name);
 
-        if(soundToPlay == null) {
-            Debug.LogWarning("Sound" + name + "not found");
+        if (soundToPlay == null) {
+            Debug.LogWarning("Sound" + name + " not found");
             return;
         }
 

@@ -4,21 +4,14 @@ using UnityEngine;
 
 public class DoorBehaviour : MonoBehaviour {
 
+    [HideInInspector]
+    public bool locked = false;
+
+    [HideInInspector]
     public GameObject nextDoor;
-    public bool locked = false;//change this by the gameController
 
-    private GameController GC;
-
-	void Start () {
+    void Start () {
         SetNext();
-
-        GameObject aux = gameObject;
-        while (aux.transform.parent != null) {
-            aux = aux.transform.parent.gameObject;
-            if (aux.tag == "GameController") break;
-        }
-        GC = aux.GetComponent<GameController>();
-
     }
 
     void SetNext() {
@@ -26,7 +19,7 @@ public class DoorBehaviour : MonoBehaviour {
         RaycastHit hit;
 
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask)) {
-            //Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
+            // Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
             nextDoor = hit.transform.gameObject;
         }
     }
@@ -35,7 +28,7 @@ public class DoorBehaviour : MonoBehaviour {
         if(other.tag == "Player" && !locked) {
             Debug.Log("TP");
             other.GetComponent<Transform>().position = nextDoor.transform.position - nextDoor.transform.forward;
-            GC.ChangeRoom(nextDoor);
+            GameController.instance.ChangeRoom(nextDoor);
         }
     }
 }

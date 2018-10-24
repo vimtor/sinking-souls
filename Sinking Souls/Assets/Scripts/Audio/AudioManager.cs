@@ -8,6 +8,10 @@ public class AudioManager : MonoBehaviour {
     public Sound[] effects;
     public Sound[] music;
 
+    public enum SoundType {
+        EFFECT, MUSIC
+    };
+
     private void Awake() {
 
         #region SINGLETON
@@ -36,11 +40,25 @@ public class AudioManager : MonoBehaviour {
         sound.source.loop = sound.loop;
     }
 
+    public void ChangeVolume(float volume, SoundType type) {
+
+        switch (type) {
+            case SoundType.EFFECT:
+                Array.ForEach(effects, sound => sound.source.volume = volume);
+                break;
+
+            case SoundType.MUSIC:
+                Array.ForEach(music, sound => sound.source.volume = volume);
+                break;
+        }
+
+    }
+
     public void Play(string name) {
         Sound soundToPlay = Array.Find(effects, sound => sound.name == name);
 
         if (soundToPlay == null) {
-            Debug.LogWarning("Sound" + name + "not found");
+            Debug.LogWarning("Sound" + name + " not found");
             return;
         }
 

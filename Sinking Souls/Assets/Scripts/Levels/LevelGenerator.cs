@@ -160,7 +160,6 @@ public class LevelGenerator : MonoBehaviour {
         int roomSize = 30/2;
         int roomCount = 1;
         GameObject initialRoom = null;
-        Debug.Log("Map created successfully.");
 
         foreach(Room room in grid) {
             if (room == null) continue;
@@ -263,6 +262,8 @@ public class LevelGenerator : MonoBehaviour {
             roomCount++;
 
         }
+
+        Debug.Log("Map created successfully.");
         return initialRoom;
     }
 

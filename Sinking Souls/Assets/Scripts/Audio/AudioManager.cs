@@ -5,7 +5,8 @@ public class AudioManager : MonoBehaviour {
 
     public static AudioManager instance = null; // Singleton.
 
-    public Sound[] sounds;
+    public Sound[] effects;
+    public Sound[] music;
 
     private void Awake() {
 
@@ -21,20 +22,24 @@ public class AudioManager : MonoBehaviour {
 
         DontDestroyOnLoad(gameObject);
 
-        foreach(Sound sound in sounds) {
-            sound.source = gameObject.AddComponent<AudioSource>();
+        Array.ForEach(effects, sound => SetupSound(sound));
+        Array.ForEach(music, sound => SetupSound(sound));
 
-            sound.source.clip = sound.clip;
-            sound.source.volume = sound.volume;
-            sound.source.pitch = sound.pitch;
-            sound.source.loop = sound.loop;
-        }
+    }
+
+    private void SetupSound(Sound sound) {
+        sound.source = gameObject.AddComponent<AudioSource>();
+
+        sound.source.clip = sound.clip;
+        sound.source.volume = sound.volume;
+        sound.source.pitch = sound.pitch;
+        sound.source.loop = sound.loop;
     }
 
     public void Play(string name) {
-        Sound soundToPlay = Array.Find(sounds, sound => sound.name == name);
+        Sound soundToPlay = Array.Find(effects, sound => sound.name == name);
 
-        if(soundToPlay == null) {
+        if (soundToPlay == null) {
             Debug.LogWarning("Sound" + name + "not found");
             return;
         }

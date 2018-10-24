@@ -158,7 +158,7 @@ public class LevelGenerator : MonoBehaviour {
     }
 
     private GameObject CreateMap() {
-        int roomSize = 10/2;
+        int roomSize = 30/2;
         int roomCount = 1;
         GameObject initialRoom = null;
         Debug.Log("Map created successfully.");

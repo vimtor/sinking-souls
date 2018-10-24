@@ -14,7 +14,7 @@ public class SpawnController : MonoBehaviour {
         configuration = possibleConfigurations[Random.Range(0, possibleConfigurations.Count - 1)];
     }
 
-    public void Spawn() {
+    public void Spawn(GameObject _player) {
         if (!alreadySpawned) {
             foreach (GameObject entity in configuration.entities) {
                 GameObject enemy = Instantiate(entity);
@@ -22,7 +22,7 @@ public class SpawnController : MonoBehaviour {
                 Debug.Log(index);
                 enemy.transform.position = spawnPoints[index].transform.position;
                 spawnPoints.RemoveAt(index);
-                //enemy.GetComponent<AIController>().SetupAI();
+                enemy.GetComponent<AIController>().SetupAI(_player);
             }
             spawnPoints.Clear();
             alreadySpawned = true;

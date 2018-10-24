@@ -16,12 +16,12 @@ public class AIController : MonoBehaviour {
 
     private bool aiActive = false;
 
-    public void SetupAI() {
+    public void SetupAI(GameObject _player) {
         stateTimeElapsed = 0;
         aiActive = true;
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Enemy>().animator;
-        player = GameObject.Find("Player");
+        player = _player;
 
         if (aiActive) navMeshAgent.enabled = true;
 

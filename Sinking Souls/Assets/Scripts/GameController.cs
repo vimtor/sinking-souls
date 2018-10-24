@@ -8,7 +8,7 @@ public class GameController : MonoBehaviour {
     public GameObject player;
 
     private LevelGenerator levelGenerator;
-    private GameObject currentRoom;
+    public GameObject currentRoom;
 
     private void Awake() {
         if (instance == null) {
@@ -46,8 +46,12 @@ public class GameController : MonoBehaviour {
         Transform room = door.transform;
         while (room.parent != null) {
             room = room.parent.transform;
-            if (room.parent.tag == "Room") break;
+            if (room.tag == "Room") break;
         }
+
+        currentRoom = room.gameObject;
+        Camera.main.GetComponent<CameraBehaviour>().SetupCenter(currentRoom.transform.position);
+        room.GetComponent<SpawnController>().Spawn(player);
 
     }
 

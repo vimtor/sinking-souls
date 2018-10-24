@@ -44,6 +44,7 @@ public class CameraBehaviour : MonoBehaviour {
     public void SetupCenter(Vector3 newCenter) {
         center = newCenter;
         transform.position = center + offset;
+        
     }
 
     private void LookPlayer() {

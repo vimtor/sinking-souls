@@ -24,8 +24,6 @@ public class AIController : MonoBehaviour {
         player = _player;
 
         if (aiActive) navMeshAgent.enabled = true;
-
-        Debug.Log("setupAI");
     }
 
     void Update() {

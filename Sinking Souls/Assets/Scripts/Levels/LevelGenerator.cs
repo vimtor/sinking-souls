@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour {
 
-    
     public int numberRooms = 5;
+
+    [Tooltip("By default the seed will generate randomly if not specified. " +
+             "The inputted seed can be any combination of numbers and character.")]
+    public string seed;
 
     public List<GameObject> RoomsA = new List<GameObject>();
     public List<GameObject> RoomsB = new List<GameObject>();
@@ -21,14 +24,21 @@ public class LevelGenerator : MonoBehaviour {
         if(numberRooms <= 0) {
             Debug.LogError("The number of rooms specified is not valid.");
         }
-	}
+    }
 
     public GameObject Spawn() {
+        SetSeed();
+
         SetGridSize();
         CreateRooms();
         SetRoomDoors();
         PlaceBossRoom();
         return CreateMap();
+    }
+
+    private void SetSeed() {
+        seed = seed.Replace(" ", "");
+        if (seed != null || seed == "") Random.InitState(seed.GetHashCode());
     }
 
     private void SetGridSize() {

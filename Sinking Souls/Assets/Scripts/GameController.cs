@@ -5,22 +5,32 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
     public static GameController instance;
+
+    public bool debugMode = false;
+    public bool godMode = false;
+
     public GameObject player;
 
     private LevelGenerator levelGenerator;
     public GameObject currentRoom;
 
     private void Awake() {
+
+        #region SINGLETON
         if (instance == null) {
             instance = this;
         }
         else if(instance != this) {
             Destroy(this);
+            return;
         }
+
         DontDestroyOnLoad(gameObject);
+        #endregion
+
     }
 
-    void Start () {
+    private void Start () {
         levelGenerator = GetComponent<LevelGenerator>();
         currentRoom = SpawnLevel(); // SpawnLevel() returns the initial room.
         currentRoom.GetComponent<SpawnController>().alreadySpawned = true;
@@ -30,6 +40,15 @@ public class GameController : MonoBehaviour {
 
         Camera.main.GetComponent<CameraBehaviour>().player = GameObject.FindGameObjectWithTag("Player").transform;
         Camera.main.GetComponent<CameraBehaviour>().SetupCamera(currentRoom.transform.position);
+    }
+
+    private void Update() {
+
+        if(Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.G)) {
+            Debug.Log("God Mode activated.");
+            godMode = !godMode;
+        }
+
     }
 
     private GameObject SpawnLevel() {

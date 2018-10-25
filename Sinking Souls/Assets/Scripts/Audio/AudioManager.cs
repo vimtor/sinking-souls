@@ -5,6 +5,7 @@ public class AudioManager : MonoBehaviour {
 
     public static AudioManager instance = null; // Singleton.
 
+    [Header("Sound Lists")]
     public Sound[] effects;
     public Sound[] music;
 
@@ -22,9 +23,9 @@ public class AudioManager : MonoBehaviour {
             Destroy(gameObject);
             return;
         }
-        #endregion
 
         DontDestroyOnLoad(gameObject);
+        #endregion
 
         Array.ForEach(effects, sound => SetupSound(sound));
         Array.ForEach(music, sound => SetupSound(sound));
@@ -32,18 +33,19 @@ public class AudioManager : MonoBehaviour {
     }
 
     private void SetupSound(Sound sound) {
+
         sound.source = gameObject.AddComponent<AudioSource>();
 
         sound.source.clip = sound.clip;
         sound.source.volume = sound.volume;
         sound.source.pitch = sound.pitch;
         sound.source.loop = sound.loop;
+
     }
 
     public void ChangeVolume(float volume, SoundType type) {
-        if(volume > 1 || volume < 0) {
-            Debug.LogError("Volume value is not valid.");
-        }
+
+        if(volume > 1 || volume < 0) Debug.LogError("Volume value is not valid.");
 
         switch (type) {
             case SoundType.EFFECT:
@@ -58,6 +60,7 @@ public class AudioManager : MonoBehaviour {
     }
 
     public void Play(string name) {
+
         Sound soundToPlay = Array.Find(effects, sound => sound.name == name);
 
         if (soundToPlay == null) {
@@ -66,6 +69,7 @@ public class AudioManager : MonoBehaviour {
         }
 
         soundToPlay.source.Play();
+
     }
 
 }

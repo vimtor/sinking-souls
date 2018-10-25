@@ -263,7 +263,7 @@ public class LevelGenerator : MonoBehaviour {
 
         }
 
-        Debug.Log("Map created successfully.");
+        if(GameController.instance.debugMode) Debug.Log("Map created successfully.");
         return initialRoom;
     }
 

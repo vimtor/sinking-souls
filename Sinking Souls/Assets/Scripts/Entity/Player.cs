@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : Entity{
+public class Player : Entity {
 
     public enum State {
         IDLE,
@@ -32,6 +32,10 @@ public class Player : Entity{
     private Dictionary<Enemy.EnemyType, int> inventory;
     private Vector3 forward, right;
 
+    private void Awake() {
+        
+    }
+
     public void SetupPlayer() {
         OnStart();
         state = State.IDLE;
@@ -57,7 +61,6 @@ public class Player : Entity{
     private void FixedUpdate() {
         HandleInput();
     }
-
 
     private void SetRotation(float _speed) {
         if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {

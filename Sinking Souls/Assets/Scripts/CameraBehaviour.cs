@@ -76,7 +76,7 @@ public class CameraBehaviour : MonoBehaviour {
         Vector3 startingPosition = transform.position;
 
         for (float t = 0.0f; t <= 1.0f; t += Time.deltaTime / delay) {
-            transform.position = Vector3.Lerp(startingPosition, targetPosition, t);
+            SetupCenter(Vector3.Lerp(startingPosition, targetPosition, t));
             yield return null;
         }
 

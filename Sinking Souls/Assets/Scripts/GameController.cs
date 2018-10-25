@@ -75,7 +75,7 @@ public class GameController : MonoBehaviour {
         }
 
         currentRoom = room.gameObject;
-        Camera.main.GetComponent<CameraBehaviour>().Transition(currentRoom.transform.position);
+        StartCoroutine(Camera.main.GetComponent<CameraBehaviour>().Transition(currentRoom.transform.position));
         room.GetComponent<SpawnController>().Spawn(player);
 
     }

@@ -32,9 +32,6 @@ public class Player : Entity {
     private Dictionary<Enemy.EnemyType, int> inventory;
     private Vector3 forward, right;
 
-    private void Awake() {
-        
-    }
 
     public void SetupPlayer() {
         OnStart();

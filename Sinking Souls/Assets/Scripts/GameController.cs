@@ -31,15 +31,21 @@ public class GameController : MonoBehaviour {
     }
 
     private void Start () {
+
+        #region Setup Initial Room
         levelGenerator = GetComponent<LevelGenerator>();
         currentRoom = SpawnLevel(); // SpawnLevel() returns the initial room.
         currentRoom.GetComponent<SpawnController>().alreadySpawned = true;
         SpawnPlayer();
 
-        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().SetupPlayer();
+        player.GetComponent<Player>().SetupPlayer();
+        #endregion
 
-        Camera.main.GetComponent<CameraBehaviour>().player = GameObject.FindGameObjectWithTag("Player").transform;
+        #region Setup Camera
+        Camera.main.GetComponent<CameraBehaviour>().player = player.transform;
         Camera.main.GetComponent<CameraBehaviour>().SetupCamera(currentRoom.transform.position);
+        #endregion
+
     }
 
     private void Update() {

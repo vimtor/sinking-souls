@@ -26,7 +26,6 @@ public class DoorBehaviour : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Player" && !locked) {
-            Debug.Log("TP");
             other.GetComponent<Transform>().position = nextDoor.transform.position - nextDoor.transform.forward;
             GameController.instance.ChangeRoom(nextDoor);
         }

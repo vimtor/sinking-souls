@@ -57,6 +57,38 @@ public class CameraBehaviour : MonoBehaviour {
         transform.LookAt(center);
     }
 
+    private IEnumerator FadeAlpha(GameObject other, float newAlpha, float delay = 1.0f) {
+
+        Material material = other.GetComponent<Renderer>().material;
+
+        Color newColor = material.color;
+        float alpha = newColor.a;
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / delay) {
+            newColor.a = Mathf.Lerp(alpha, newAlpha, t);
+            material.color = newColor;
+            yield return null;
+        }
+
+    }
+
+    public IEnumerator Transition(Vector3 targetPosition, float delay = 1.0f) {
+
+        Vector3 startingPosition = transform.position;
+
+        for (float t = 0.0f; t <= 1.0f; t += Time.deltaTime / delay) {
+            SetupCenter(Vector3.Lerp(startingPosition, targetPosition, t));
+            yield return null;
+        }
+
+    }
+
+    private void SetAlpha(Material material, float newAlpha) {
+        Color newColor = material.color;
+        newColor.a = newAlpha;
+
+        material.color = newColor;
+    }
+
     private void OnTriggerEnter(Collider other) {
 
         switch (other.tag) {
@@ -83,25 +115,5 @@ public class CameraBehaviour : MonoBehaviour {
 
     }
 
-    private IEnumerator FadeAlpha(GameObject other, float newAlpha, float delay = 1.0f) {
-
-        Material material = other.GetComponent<Renderer>().material;
-
-        Color newColor = material.color;
-        float alpha = newColor.a;
-        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / delay) {
-            newColor.a = Mathf.Lerp(alpha, newAlpha, t);
-            material.color = newColor;
-            yield return null;
-        }
-        
-    }
-
-    private void SetAlpha(Material material, float newAlpha) {
-        Color newColor = material.color;
-        newColor.a = newAlpha;
-
-        material.color = newColor;
-    }
 
 }

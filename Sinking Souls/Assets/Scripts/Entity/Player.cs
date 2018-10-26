@@ -95,6 +95,7 @@ public class Player : Entity {
                     lastState = State.IDLE;
                     state = State.ATTACK_1;
                     time = 0;
+                    AudioManager.instance.Play("Attack1");
                 }   
 
                 if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
@@ -129,12 +130,12 @@ public class Player : Entity {
                 if(time > (clipLength["Attack1Anim"] / 3)) weapon.Attack();
                 SetRotation(actionRotationSpeed);
 
-                AudioManager.instance.Play("Attack1");
                                                                             // you can substraca little offset to makit more fluid
                 if (InputHandler.ButtonX() && time > (clipLength["Attack1Anim"]/3)*2 && time < clipLength["Attack1Anim"] + attackOffset) {
                     lastState = State.ATTACK_1;
                     state = State.ATTACK_2;
                     time = 0;
+                    AudioManager.instance.Play("Attack2");
                 }
 
                 if (InputHandler.ButtonB()) {
@@ -179,12 +180,11 @@ public class Player : Entity {
                 if(time > (clipLength["Attack2Anim"] / 3)) weapon.Attack();
                 SetRotation(actionRotationSpeed);
 
-                AudioManager.instance.Play("Attack2");
-
                 if (InputHandler.ButtonX() && time > (clipLength["Attack2Anim"] / 3) * 2 && time < clipLength["Attack2Anim"] + attackOffset) {
                     lastState = State.ATTACK_2;
                     state = State.ATTACK_3;
                     time = 0;
+                    AudioManager.instance.Play("Attack1");
                 }
                 else if (time > clipLength["Attack2Anim"]) {
                     lastState = State.ATTACK_2;
@@ -225,8 +225,6 @@ public class Player : Entity {
                 SetAnimBool("ATTACK_3");
                 if(time > (clipLength["Attack3Anim"] / 3)) weapon.Attack();
                 SetRotation(actionRotationSpeed);
-
-                AudioManager.instance.Play("Attack1");
 
                 if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
                     if(time > clipLength["Attack3Anim"]) { 
@@ -281,16 +279,19 @@ public class Player : Entity {
                             lastState = State.MOVEMENT;
                             state = State.ATTACK_2;
                             time = 0;
+                            AudioManager.instance.Play("Attack2");
                     }
                     else if (lastState == State.ATTACK_2 && time < clipLength["Attack2Anim"] + attackOffset) {
                             lastState = State.MOVEMENT;
                             state = State.ATTACK_3;
                             time = 0;
+                            AudioManager.instance.Play("Attack1");
                     }
                     else {
                         state = State.ATTACK_1;
                         lastState = State.MOVEMENT;
                         time = 0;
+                        AudioManager.instance.Play("Attack1");
                     }
                 }
                 if (InputHandler.ButtonB()) {

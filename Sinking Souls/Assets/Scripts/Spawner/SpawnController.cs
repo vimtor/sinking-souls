@@ -14,6 +14,13 @@ public class SpawnController : MonoBehaviour {
         configuration = possibleConfigurations[Random.Range(0, possibleConfigurations.Count - 1)];
     }
 
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.green;
+        if (GameController.instance.debugMode)
+            foreach (GameObject spawnPoint in spawnPoints)
+                Gizmos.DrawCube(spawnPoint.transform.position, new Vector3(1,1,1));
+    }
+
     public void Spawn(GameObject _player) {
         if (!alreadySpawned) {
             foreach (GameObject entity in configuration.entities) {

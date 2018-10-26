@@ -19,6 +19,7 @@ public class LevelGenerator : MonoBehaviour {
     private Room[,] grid;
     private List<Vector2> takenPos = new List<Vector2>();
     private int gridSizeX, gridSizeY;
+    private GameObject levelWrapper;
 
     void Start () {
         if(numberRooms <= 0) {
@@ -28,6 +29,9 @@ public class LevelGenerator : MonoBehaviour {
 
     public GameObject Spawn() {
         SetSeed();
+
+        levelWrapper = Instantiate(new GameObject());
+        levelWrapper.name = "Level Wrapper";
 
         SetGridSize();
         CreateRooms();
@@ -284,7 +288,7 @@ public class LevelGenerator : MonoBehaviour {
 
         GameObject instantiatedRoom = Instantiate(room.prefab, room.prefab.transform);
         instantiatedRoom.name = "Room_" + roomCount;
-        instantiatedRoom.transform.parent = gameObject.transform;
+        instantiatedRoom.transform.parent = levelWrapper.transform;
         return instantiatedRoom;
 
     }

@@ -54,6 +54,10 @@ public class GameController : MonoBehaviour {
             Debug.Log("God Mode activated.");
             godMode = !godMode;
         }
+        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.D)) {
+            Debug.Log("Debug Mode activated.");
+            debugMode = !debugMode;
+        }
 
     }
 

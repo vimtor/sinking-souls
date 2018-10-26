@@ -10,16 +10,25 @@ public class DoorBehaviour : MonoBehaviour {
     [HideInInspector]
     public GameObject nextDoor;
 
+    private RaycastHit hit;
+
     void Start () {
         SetNext();
     }
 
+    private void OnDrawGizmos() {
+        if (GameController.instance.debugMode) {
+            Gizmos.color = Color.red;
+            Ray ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance);
+            Gizmos.DrawRay(ray);
+        }
+        
+    }
+
     void SetNext() {
         int layerMask = 1 << 13;
-        RaycastHit hit;
 
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask)) {
-            // Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
             nextDoor = hit.transform.gameObject;
         }
     }

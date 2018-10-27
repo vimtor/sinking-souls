@@ -9,6 +9,7 @@ public class Enemy : Entity {
 
     private AIController controller;
     public Dictionary<string, float> clipLength = new Dictionary<string, float>();
+    public Soul soul;
 
     private void Start() {
         OnStart();
@@ -28,6 +29,7 @@ public class Enemy : Entity {
     }
 
     private void Die() {
+        soul.Spawn(transform.position);
         Destroy(gameObject);
     }
 

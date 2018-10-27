@@ -1,18 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
+    public enum GameState { LOBBY, GAME };
+    public GameState scene = GameState.LOBBY;
     public static GameController instance;
-
     public bool debugMode = false;
     public bool godMode = false;
-
+    public GameObject currentRoom;
+    public GameObject playerGO;
+    [HideInInspector]
     public GameObject player;
 
+    public int blueSouls;
+    public int redSouls;
+    public int greenSouls;
+
     private LevelGenerator levelGenerator;
-    public GameObject currentRoom;
 
     private void Awake() {
 
@@ -30,22 +37,55 @@ public class GameController : MonoBehaviour {
 
     }
 
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        LoadScene();
+    }
+
+    void OnEnable() {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
     private void Start () {
+        //LoadScene();
+    }
 
-        #region Setup Initial Room
-        levelGenerator = GetComponent<LevelGenerator>();
-        currentRoom = SpawnLevel(); // SpawnLevel() returns the initial room.
-        currentRoom.GetComponent<SpawnController>().alreadySpawned = true;
-        SpawnPlayer();
+    public void LoadScene() {
+        switch (scene) {
+            case GameState.GAME:
+                #region Setup Initial Room
+                levelGenerator = GetComponent<LevelGenerator>();
+                currentRoom = SpawnLevel();
+                currentRoom.GetComponent<SpawnController>().alreadySpawned = true;
+                SpawnPlayer();
 
-        player.GetComponent<Player>().SetupPlayer();
-        #endregion
+                player.GetComponent<Player>().SetupPlayer();
+                #endregion
 
-        #region Setup Camera
-        Camera.main.GetComponent<CameraBehaviour>().player = player.transform;
-        Camera.main.GetComponent<CameraBehaviour>().SetupCamera(currentRoom.transform.position);
-        #endregion
+                #region Setup Camera
+                Camera.main.GetComponent<CameraBehaviour>().player = player.transform;
+                Camera.main.GetComponent<CameraBehaviour>().SetupCamera(currentRoom.transform.position);
+                #endregion
 
+                blueSouls = 0;
+                greenSouls = 0;
+                redSouls = 0;
+            break;
+
+            case GameState.LOBBY:
+                #region Setup Initial Room
+                currentRoom = GameObject.Find("Map");
+                SpawnPlayer();
+                #endregion
+
+                player.GetComponent<Player>().SetupPlayer();
+
+                #region Setup Camera
+                Camera.main.GetComponent<CameraBehaviour>().player = player.transform;
+                Camera.main.GetComponent<CameraBehaviour>().SetupCamera(currentRoom.transform.position);
+                #endregion
+
+            break;
+        }
     }
 
     private void Update() {
@@ -66,7 +106,7 @@ public class GameController : MonoBehaviour {
     }
 
     private void SpawnPlayer() {
-        player = Instantiate(player);
+        player = Instantiate(playerGO);
         player.transform.position = currentRoom.transform.position;
     }
 

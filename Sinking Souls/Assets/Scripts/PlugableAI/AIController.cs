@@ -30,7 +30,6 @@ public class AIController : MonoBehaviour {
         if (!aiActive)
             return;
         currentState.UpdateState(this);
-        //Debug.Log(currentState.name);
     }
 
     public void TransitionToState(State nextState) {
@@ -38,11 +37,6 @@ public class AIController : MonoBehaviour {
             currentState = nextState;
             OnExitState();
         }
-
-        //animator.SetBool("RUN", false);
-        //animator.SetBool("IDLE", false);
-        //animator.SetBool("ATTACK", false);
-
     }
 
     public bool CheckIfCountDownElapsed(float duration) {

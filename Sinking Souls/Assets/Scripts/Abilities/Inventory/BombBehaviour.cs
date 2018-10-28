@@ -6,39 +6,43 @@ public class BombBehaviour : MonoBehaviour {
 
     private Rigidbody rb;
     private List<Collider> others = new List<Collider>();
-    public float explotionForce;
 
-	void Start () {
-	}
-	
-	void Update () {
-		
-	}
+    [HideInInspector] public float explotionForce;
 
     private void OnCollisionEnter(Collision collision) {
-        Debug.Log(collision.gameObject.tag);
-        if(collision.gameObject.tag != "Player"){
+        if(GetComponent<AbilityHolder>().holder.target == "Enemy" && collision.gameObject.tag != "Player") {
+            Explode();
+        }
+        else if (GetComponent<AbilityHolder>().holder.target == "Player" && collision.gameObject.tag != "Enemy") {
             Explode();
         }
     }
 
     private void Explode() {
+        GetComponent<CapsuleCollider>().enabled = true;
+
         Vector3 otherPos, forceDir, position = gameObject.transform.position;
         foreach (Collider other in others) {
-            if(other.gameObject.tag == "Enemy") { 
+            if(other.gameObject.tag == GetComponent<AbilityHolder>().holder.target) { 
                 otherPos = other.GetComponent<Transform>().position;
-                forceDir = new Vector3(otherPos.x - position.x, otherPos.y - position.y, otherPos.z - position.z);
-                forceDir = forceDir + new Vector3(0,0.5f,0);
+                forceDir = otherPos - position;
+                forceDir = forceDir + new Vector3(0, 0.5f, 0);
                 other.GetComponent<Rigidbody>().AddForce(forceDir.normalized * explotionForce);
             }
         }
+
+        StartCoroutine(DestroyBomb());
+    }
+
+    private IEnumerator DestroyBomb() {
+        yield return new WaitForEndOfFrame();
         Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other) {
         if (!others.Contains(other)) others.Add(other);
-
     }
+
     private void OnTriggerExit(Collider other) {
         if (others.Contains(other)) others.Remove(other);
     }

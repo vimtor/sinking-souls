@@ -67,6 +67,7 @@
     <Compile Include="Assets\Addons\ProCore\ProBuilder\API Examples\Procedural Mesh\ExtrudeRandomEdges.cs" />
     <Compile Include="Assets\Addons\ProCore\ProBuilder\API Examples\Runtime Editing\RuntimeEdit.cs" />
     <Compile Include="Assets\Addons\ProCore\ProBuilder\API Examples\Vertex Colors\HighlightNearestFace.cs" />
+    <Compile Include="Assets\ArrowBehaviour.cs" />
     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Constant.cs" />
     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Enum.cs" />
     <Compile Include="Assets\ProCore\ProGrids\Classes\pg_IconUtility.cs" />
@@ -76,8 +77,9 @@
     <Compile Include="Assets\ProCore\ProGrids\MonoBehaviour\pg_IgnoreSnap.cs" />
     <Compile Include="Assets\Scripts\Abilities\Ability.cs" />
     <Compile Include="Assets\Scripts\Abilities\AbilityHolder.cs" />
+    <Compile Include="Assets\Scripts\Abilities\Inventory\ArrowAbility.cs" />
     <Compile Include="Assets\Scripts\Abilities\Inventory\BasicDash.cs" />
-    <Compile Include="Assets\Scripts\Abilities\Inventory\Bomb.cs" />
+    <Compile Include="Assets\Scripts\Abilities\Inventory\BombAbility.cs" />
     <Compile Include="Assets\Scripts\Abilities\Inventory\BombBehaviour.cs" />
     <Compile Include="Assets\Scripts\Audio\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Audio\Sound.cs" />
@@ -101,8 +103,10 @@
     <Compile Include="Assets\Scripts\PlugableAI\Inventory\AttackDecision.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Inventory\ChaseAction.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Inventory\ChaseDecision.cs" />
+    <Compile Include="Assets\Scripts\PlugableAI\Inventory\LookDecision.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Inventory\ReactAction.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Inventory\ReactDecision.cs" />
+    <Compile Include="Assets\Scripts\PlugableAI\Inventory\SpellAction.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\State.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Transition.cs" />
     <Compile Include="Assets\Scripts\Soul.cs" />
@@ -140,16 +144,16 @@
     <None Include="Assets\Addons\ProCore\ProBuilder\readme.txt" />
     <None Include="Assets\Addons\ProCore\ProBuilder\Shader\pb_SmoothingPreview.shader" />
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>D:/ENTI/2n/Project/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/vn4va/Documents/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/ENTI/2n/Project/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/vn4va/Documents/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>D:/ENTI/2n/Project/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/vn4va/Documents/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/ENTI/2n/Project/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/vn4va/Documents/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -350,25 +354,25 @@
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="ProBuilderCore-Unity5">
-      <HintPath>D:/ENTI/2n/Project/Sinking-Souls/Sinking Souls/Assets/Addons/ProCore/ProBuilder/Classes/ProBuilderCore-Unity5.dll</HintPath>
+      <HintPath>C:/Users/vn4va/Documents/Sinking-Souls/Sinking Souls/Assets/Addons/ProCore/ProBuilder/Classes/ProBuilderCore-Unity5.dll</HintPath>
     </Reference>
     <Reference Include="ProBuilderMeshOps-Unity5">
-      <HintPath>D:/ENTI/2n/Project/Sinking-Souls/Sinking Souls/Assets/Addons/ProCore/ProBuilder/Classes/ProBuilderMeshOps-Unity5.dll</HintPath>
+      <HintPath>C:/Users/vn4va/Documents/Sinking-Souls/Sinking Souls/Assets/Addons/ProCore/ProBuilder/Classes/ProBuilderMeshOps-Unity5.dll</HintPath>
     </Reference>
     <Reference Include="KdTreeLib">
-      <HintPath>D:/ENTI/2n/Project/Sinking-Souls/Sinking Souls/Assets/Addons/ProCore/ProBuilder/Classes/ClassesLib/KdTreeLib.dll</HintPath>
+      <HintPath>C:/Users/vn4va/Documents/Sinking-Souls/Sinking Souls/Assets/Addons/ProCore/ProBuilder/Classes/ClassesLib/KdTreeLib.dll</HintPath>
     </Reference>
     <Reference Include="pb_Stl">
-      <HintPath>D:/ENTI/2n/Project/Sinking-Souls/Sinking Souls/Assets/Addons/ProCore/ProBuilder/Classes/ClassesLib/pb_Stl.dll</HintPath>
+      <HintPath>C:/Users/vn4va/Documents/Sinking-Souls/Sinking Souls/Assets/Addons/ProCore/ProBuilder/Classes/ClassesLib/pb_Stl.dll</HintPath>
     </Reference>
     <Reference Include="Poly2Tri">
-      <HintPath>D:/ENTI/2n/Project/Sinking-Souls/Sinking Souls/Assets/Addons/ProCore/ProBuilder/Classes/ClassesLib/Poly2Tri.dll</HintPath>
+      <HintPath>C:/Users/vn4va/Documents/Sinking-Souls/Sinking Souls/Assets/Addons/ProCore/ProBuilder/Classes/ClassesLib/Poly2Tri.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
-      <HintPath>C:/Users/Arnauç/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
+      <HintPath>C:/Users/vn4va/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
-      <HintPath>C:/Users/Arnauç/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/vn4va/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>

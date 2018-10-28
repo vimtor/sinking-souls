@@ -11,11 +11,12 @@ public class Enemy : Entity {
     public Dictionary<string, float> clipLength = new Dictionary<string, float>();
     public Soul soul;
 
+    public Ability ability;
+
     private void Start() {
         OnStart();
 
         controller = GetComponent<AIController>();
-        //controller.SetupAI();
         EquipWeapon();
 
         for (int i = 0; i < animator.runtimeAnimatorController.animationClips.Length; i++) {

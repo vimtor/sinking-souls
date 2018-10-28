@@ -15,7 +15,6 @@ public class Player : Entity {
     };
 
     public float attackOffset;
-    public bool thrown;
     public float rotationSpeed;
     public float actionRotationSpeed;
 

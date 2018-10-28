@@ -10,6 +10,7 @@ public class Entity : MonoBehaviour {
     public GameObject hand;
     public Modifier baseModifier;
 
+    [HideInInspector] public bool thrown;
     [HideInInspector] public Rigidbody rb;
     [HideInInspector] public Animator animator;
     [HideInInspector] public Vector3 facingDir;
@@ -24,11 +25,13 @@ public class Entity : MonoBehaviour {
         hit = false;
     }
 
-    protected void Apply(Modifier modifier)  {
-        List<Effect> effects = modifier.effects;
-        foreach(Effect effect in effects) {
-            effect.Apply(gameObject);
+    protected void Apply(Modifier modifier) {
+        if(modifier != null) {
+            foreach (Effect effect in modifier.effects) {
+                effect.Apply(gameObject);
+            }
         }
+        
     }
 
     public void EquipWeapon() {
@@ -37,7 +40,6 @@ public class Entity : MonoBehaviour {
 
     protected void TakeDamage(float damage) {
         health -= damage;
-        //Debug.Log(health);
     }
 
     private void OnTriggerEnter(Collider other) {
@@ -51,8 +53,8 @@ public class Entity : MonoBehaviour {
         }
         else if (other.tag == "Ability") {
             if(gameObject.tag == other.GetComponent<AbilityHolder>().holder.target) {
-                TakeDamage(other.GetComponent<AbilityHolder>().holder.Damage);
-                Apply(other.gameObject.GetComponent<Ability>().modifier);
+                TakeDamage(other.GetComponent<AbilityHolder>().holder.damage);
+                Apply(other.gameObject.GetComponent<AbilityHolder>().holder.modifier);
             }
         }
     }
@@ -66,5 +68,6 @@ public class Entity : MonoBehaviour {
                 hit = false;
             }
         }
+
     }
 }

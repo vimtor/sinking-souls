@@ -45,6 +45,10 @@ public class GameController : MonoBehaviour {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+    void OnDisable() {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     private void Start () {
         //LoadScene();
     }

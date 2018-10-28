@@ -15,6 +15,7 @@ public class LevelGenerator : MonoBehaviour {
     public List<GameObject> RoomsC = new List<GameObject>();
     public List<GameObject> RoomsD = new List<GameObject>();
     public List<GameObject> RoomsE = new List<GameObject>();
+    public List<GameObject> RoomsBoss = new List<GameObject>();
 
     private Room[,] grid;
     private List<Vector2> takenPos = new List<Vector2>();
@@ -248,22 +249,26 @@ public class LevelGenerator : MonoBehaviour {
 
             #region ROOMS A
             else if (room.doorTop == false && room.doorBot == false && room.doorLeft == true && room.doorRight == false) {
-                room.prefab = RoomsA[Random.Range(0, RoomsA.Count - 1)];
+                if(room.type == Room.RoomType.BOSS) room.prefab = RoomsBoss[Random.Range(0, RoomsA.Count - 1)];
+                else room.prefab = RoomsA[Random.Range(0, RoomsA.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
                 currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
             }
             else if (room.doorTop == true && room.doorBot == false && room.doorLeft == false && room.doorRight == false) {
-                room.prefab = RoomsA[Random.Range(0, RoomsA.Count - 1)];
+                if (room.type == Room.RoomType.BOSS) room.prefab = RoomsBoss[Random.Range(0, RoomsA.Count - 1)];
+                else room.prefab = RoomsA[Random.Range(0, RoomsA.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
                 currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
             }
             else if (room.doorTop == false && room.doorBot == false && room.doorLeft == false && room.doorRight == true) {
-                room.prefab = RoomsA[Random.Range(0, RoomsA.Count - 1)];
+                if (room.type == Room.RoomType.BOSS) room.prefab = RoomsBoss[Random.Range(0, RoomsA.Count - 1)];
+                else room.prefab = RoomsA[Random.Range(0, RoomsA.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
                 currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 270, 0));
             }
             else if (room.doorTop == false && room.doorBot == true && room.doorLeft == false && room.doorRight == false) {
-                room.prefab = RoomsA[Random.Range(0, RoomsA.Count - 1)];
+                if (room.type == Room.RoomType.BOSS) room.prefab = RoomsBoss[Random.Range(0, RoomsA.Count - 1)];
+                else room.prefab = RoomsA[Random.Range(0, RoomsA.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
                 currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
             }
@@ -271,6 +276,7 @@ public class LevelGenerator : MonoBehaviour {
             if (room.type == Room.RoomType.INITIAL) {
                 initialRoom = currentRoom;
             }
+
             #endregion
 
             roomCount++;
@@ -289,6 +295,7 @@ public class LevelGenerator : MonoBehaviour {
         GameObject instantiatedRoom = Instantiate(room.prefab, room.prefab.transform);
         instantiatedRoom.name = "Room_" + roomCount;
         instantiatedRoom.transform.parent = levelWrapper.transform;
+        Debug.Log(instantiatedRoom.name + ": " + room.type);
         return instantiatedRoom;
 
     }

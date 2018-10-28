@@ -173,6 +173,8 @@ MonoBehaviour:
   - {fileID: 1675670277982616, guid: 5dff62a670b330f4e8766efabf7a7ba1, type: 2}
   RoomsE:
   - {fileID: 1651277523811930, guid: d3963bc163628c74ba64622c4377e183, type: 2}
+  RoomsBoss:
+  - {fileID: 1626702227945818, guid: 29701e25e7894c147be3cbc904b10d82, type: 2}
 --- !u!4 &52693159
 Transform:
   m_ObjectHideFlags: 0
@@ -922,6 +924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa5487d19b3b7f48ab3ec8ef22c6526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneToLoad: Game
 --- !u!65 &1794868271
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -6,7 +6,11 @@ using UnityEngine;
 public class ReactAction : Action {
 
     public override void Act(AIController controller) {
+
+        elapsed = controller.CheckIfCountDownElapsed(controller.GetComponent<Enemy>().clipLength["ReactAnim"]);
+
         controller.navMeshAgent.enabled = false;
         controller.SetAnimBool("REACT");
+
     }
 }

@@ -24,7 +24,7 @@ public class CameraBehaviour : MonoBehaviour {
 	
 	void Update () {
         if (gameOn) {
-            LookPlayer();
+            SetupCenter(player.transform.position);
             MoveCollider();
         }
     }

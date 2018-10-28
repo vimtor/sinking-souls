@@ -295,7 +295,6 @@ public class LevelGenerator : MonoBehaviour {
         GameObject instantiatedRoom = Instantiate(room.prefab, room.prefab.transform);
         instantiatedRoom.name = "Room_" + roomCount;
         instantiatedRoom.transform.parent = levelWrapper.transform;
-        Debug.Log(instantiatedRoom.name + ": " + room.type);
         return instantiatedRoom;
 
     }

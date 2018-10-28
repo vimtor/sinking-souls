@@ -5,6 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Abilities/Arrow")]
 public class ArrowAbility : Ability {
 
+    [Tooltip("Speed with which the arrow will travel through air.")]
+    public float arrowForce;
+
     public override void Use(GameObject parent) {
 
         entity = parent.GetComponent<Entity>();
@@ -12,9 +15,12 @@ public class ArrowAbility : Ability {
         if (!entity.thrown) {
 
             GameObject arrow = SetPrefab(parent);
-            arrow.GetComponent<Rigidbody>().AddForce(parent.transform.forward * 50);
+            arrow.transform.localRotation = parent.transform.localRotation;
+            arrow.GetComponent<ArrowBehaviour>().direction = parent.transform.forward;
+            arrow.GetComponent<ArrowBehaviour>().arrowForce = arrowForce;
 
             entity.thrown = true;
+
         }
 
     }

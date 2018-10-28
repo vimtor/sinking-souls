@@ -30,6 +30,7 @@ public class AIController : MonoBehaviour {
         if (!aiActive)
             return;
         currentState.UpdateState(this);
+        stateTimeElapsed += Time.deltaTime;
     }
 
     public void TransitionToState(State nextState) {
@@ -40,13 +41,13 @@ public class AIController : MonoBehaviour {
     }
 
     public bool CheckIfCountDownElapsed(float duration) {
-        stateTimeElapsed += Time.deltaTime;
         return (stateTimeElapsed >= duration);
     }
 
     private void OnExitState() {
         stateTimeElapsed = 0;
         GetComponent<Enemy>().weapon.hitting = false;
+        GetComponent<Enemy>().thrown = false;
         navMeshAgent.enabled = false;
     }
 
@@ -56,6 +57,7 @@ public class AIController : MonoBehaviour {
         animator.SetBool("IDLE", false);
         animator.SetBool("ATTACK", false);
         animator.SetBool("REACT", false);
+        animator.SetBool("SPELL", false);
 
         animator.SetBool(str, true);
 

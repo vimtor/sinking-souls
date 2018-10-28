@@ -12,27 +12,29 @@ public class LookDecision : Decision {
 
     private bool Look(AIController controller) {
         RaycastHit hit;
+        Vector3 targetDir = controller.player.transform.position - controller.transform.position;
+        LayerMask layerMask = 1 << 14;
 
-        Debug.DrawRay(controller.transform.position, controller.transform.forward, Color.green);
+        if (Physics.Raycast(controller.transform.position, targetDir, out hit, Mathf.Infinity, ~layerMask)) {
 
-        if (Physics.SphereCast(controller.transform.position, 2, controller.transform.forward, out hit)) {
-            if (hit.collider.CompareTag("Player")) {
+            if (GameController.instance.debugMode) {
+                Debug.DrawRay(controller.transform.position, targetDir.normalized * hit.distance, Color.green);
+            }
+
+            if (hit.collider.tag == "Player") {
 
                 #region Rotate torwards the target
-                Vector3 targetDir = controller.player.transform.position - controller.transform.position;
+                Vector3 rotateDir = new Vector3(controller.player.transform.position.x,
+                                                controller.transform.position.y,
+                                                controller.player.transform.position.z);
 
-                // The step size is equal to speed times frame time.
-                float step = 5.0f * Time.deltaTime;
-
-                // Move our position a step closer to the target.
-                Vector3 newDir = Vector3.RotateTowards(controller.transform.forward, targetDir, step, 0.0f);
-                controller.transform.rotation = Quaternion.LookRotation(newDir);
+                controller.transform.LookAt(rotateDir);
                 #endregion
 
                 return true;
             }
         }
-
+        
         return false;
     }
 

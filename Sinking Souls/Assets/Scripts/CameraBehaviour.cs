@@ -94,7 +94,6 @@ public class CameraBehaviour : MonoBehaviour {
         switch (other.tag) {
             case "Obstacle":
             case "Wall":
-                Debug.Log("Colided with wall");
                 StartCoroutine(FadeAlpha(other.gameObject, 0.20f));    
                 break;
 

@@ -9,8 +9,16 @@ public class LobyDoor : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
-            GameController.instance.scene = GameController.GameState.GAME;
-            SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
+            switch (sceneToLoad) {
+                case "Lobby":
+                    GameController.instance.scene = GameController.GameState.LOBBY;
+                    SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
+                    break;
+                case "Game":
+                    GameController.instance.scene = GameController.GameState.GAME;
+                    SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
+                    break;
+            }
         }
     }
 }

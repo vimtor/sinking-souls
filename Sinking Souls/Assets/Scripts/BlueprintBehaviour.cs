@@ -6,8 +6,8 @@ public class BlueprintBehaviour : MonoBehaviour {
 
     public Modifier modifier;
     public float floatOffset;
-    [Range(0.0f, 0.1f)]public float floatingSpeed;
-    [Range(0.0f, 0.1f)]public float rotationSpeed;
+    [Range(0.0f, 0.1f)] public float floatingSpeed;
+    [Range(0.0f, 0.1f)] public float rotationSpeed;
 
     private Vector3 originalPos;
     private int direction = 1;

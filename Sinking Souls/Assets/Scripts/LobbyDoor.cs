@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class LobyDoor : MonoBehaviour {
+public class LobbyDoor : MonoBehaviour {
 
     public string sceneToLoad;
 

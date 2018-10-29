@@ -63,6 +63,7 @@ public class GameController : MonoBehaviour {
         newBlueprint.transform.position = position + new Vector3(0, 1, 0);
         int index = Random.Range(0, modifiers.Count);
         newBlueprint.GetComponent<BlueprintBehaviour>().modifier = modifiers[index];
+        modifiers.RemoveAt(index);
     }
 
     public void LoadScene() {

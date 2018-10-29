@@ -10,8 +10,8 @@ public class Modifier : ScriptableObject {
     public string description;
     public List<Effect> effects;
 
-    [HideInInspector]public bool owned;
-    [HideInInspector]public bool unlocked;
+    [HideInInspector] public bool owned;
+    [HideInInspector] public bool unlocked;
 
     public Dictionary<Enemy.EnemyType, int> prices;
 

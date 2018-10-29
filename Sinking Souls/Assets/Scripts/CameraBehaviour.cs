@@ -24,7 +24,7 @@ public class CameraBehaviour : MonoBehaviour {
 	
 	void Update () {
         if (gameOn) {
-            LookPlayer();
+            SetupCenter(player.transform.position);
             MoveCollider();
         }
     }
@@ -94,7 +94,6 @@ public class CameraBehaviour : MonoBehaviour {
         switch (other.tag) {
             case "Obstacle":
             case "Wall":
-                Debug.Log("Colided with wall");
                 StartCoroutine(FadeAlpha(other.gameObject, 0.20f));    
                 break;
 

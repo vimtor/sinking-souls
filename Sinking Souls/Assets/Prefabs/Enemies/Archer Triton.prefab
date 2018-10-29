@@ -1069,26 +1069,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1958460713988620
-GameObject:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4602561831003424}
-  - component: {fileID: 33091781164286626}
-  - component: {fileID: 23647280541107798}
-  - component: {fileID: 111603651408428490}
-  - component: {fileID: 65076881401127314}
-  - component: {fileID: 114585014344068002}
-  m_Layer: 12
-  m_Name: EnemySwordPrefab(Clone)
-  m_TagString: Weapon
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &4009233839112156
 Transform:
   m_ObjectHideFlags: 1
@@ -1171,7 +1151,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4514418190429192}
-  - {fileID: 4602561831003424}
   m_Father: {fileID: 4640153655992676}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1784,19 +1763,6 @@ Transform:
   m_Father: {fileID: 4418667112231594}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4602561831003424
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1958460713988620}
-  m_LocalRotation: {x: -1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.44063893, y: 0.64550906, z: 0.6687104}
-  m_Children: []
-  m_Father: {fileID: 4049316471740276}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: -180, y: 0, z: 0}
 --- !u!4 &4637039863735150
 Transform:
   m_ObjectHideFlags: 1
@@ -2082,48 +2048,6 @@ Transform:
   m_Father: {fileID: 4914493675525652}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23647280541107798
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1958460713988620}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
-  m_Materials:
-  - {fileID: 2100000, guid: 4fb8ea9da059dc04cb8494617b53562b, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!33 &33091781164286626
-MeshFilter:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1958460713988620}
-  m_Mesh: {fileID: 4300000, guid: 90c25ff0db82bf64cbc6b8e405018824, type: 3}
 --- !u!54 &54127995589383576
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -2139,18 +2063,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!65 &65076881401127314
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1958460713988620}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.10784593, y: 0.2267024, z: 1.1275549}
-  m_Center: {x: 0.00025701048, y: 0.010046681, z: -0.6307889}
 --- !u!95 &95380807781379840
 Animator:
   serializedVersion: 3
@@ -2160,7 +2072,7 @@ Animator:
   m_GameObject: {fileID: 1284746805127638}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 23b639a8ac5e3644396ab817adbea32f, type: 3}
-  m_Controller: {fileID: 9100000, guid: 19c2b4f0ce14539489dc759362bea587, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7645d9f873fa7524bb7fb4c50aa769af, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2169,20 +2081,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!111 &111603651408428490
-Animation:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1958460713988620}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &114339124912945932
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2200,18 +2098,6 @@ MonoBehaviour:
   animator: {fileID: 95380807781379840}
   navMeshAgent: {fileID: 195863538292751940}
   stateTimeElapsed: 0
---- !u!114 &114585014344068002
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1958460713988620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd1505d57a3c28e469433571e2b81b14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  holder: {fileID: 11400000, guid: 1ba0f7287288e644cab90827dfad6f5b, type: 2}
 --- !u!114 &114594749418575514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2226,7 +2112,7 @@ MonoBehaviour:
   health: 100
   walkSpeed: 0
   weapon: {fileID: 11400000, guid: c958c4727a0750a4a988ffdbd5dc3e10, type: 2}
-  hand: {fileID: 1067275684119256}
+  hand: {fileID: 1903170545890858}
   baseModifier: {fileID: 0}
   thrown: 0
   rb: {fileID: 54127995589383576}
@@ -2234,6 +2120,7 @@ MonoBehaviour:
   facingDir: {x: 0, y: 0, z: 0}
   hit: 0
   collider: {fileID: 136219435029149894}
+  soul: {fileID: 11400000, guid: 9de7b889854178f41a43ca7ed3a6e990, type: 2}
   ability: {fileID: 11400000, guid: 1c65a31ad04070446b36237c4329c509, type: 2}
 --- !u!136 &136219435029149894
 CapsuleCollider:
@@ -2263,7 +2150,7 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 76d31abd546f63d45ad42877d27aa27e, type: 2}
+  - {fileID: 2100000, guid: 7a3a05a542a4b6045b5d9d36b12c8a0b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2459,7 +2346,7 @@ NavMeshAgent:
   m_Acceleration: 1000
   avoidancePriority: 50
   m_AngularSpeed: 360
-  m_StoppingDistance: 5
+  m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

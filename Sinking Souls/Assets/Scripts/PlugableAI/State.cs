@@ -8,14 +8,18 @@ public class State : ScriptableObject {
     public Action[] actions;
     public Transition[] transitions;
 
+    [HideInInspector] public bool elapsedActions = true;
+
     public void UpdateState(AIController controller) {
+        elapsedActions = true;
         DoActions(controller);
-        CheckTransitions(controller);
+        if(elapsedActions) CheckTransitions(controller);
     }
 
     private void DoActions(AIController controller) {
         foreach (Action action in actions) {
             action.Act(controller);
+            elapsedActions = elapsedActions && action.elapsed;
         }
     }
 

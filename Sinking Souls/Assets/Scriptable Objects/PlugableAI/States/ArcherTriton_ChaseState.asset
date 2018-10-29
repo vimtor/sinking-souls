@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Name: ArcherTriton_ChaseState
   m_EditorClassIdentifier: 
   actions:
-  - {fileID: 11400000, guid: 8bfd10541ffda5446a761faa6011b517, type: 2}
+  - {fileID: 11400000, guid: 2785607619f69a84e8280e2f696811ee, type: 2}
   transitions:
   - decision: {fileID: 11400000, guid: df45dd528942b5247be9f8fbe1d56b63, type: 2}
     trueState: {fileID: 11400000, guid: fa0dc24d9cdc8644f8aa6aae5312b837, type: 2}
     falseState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
+  elapsedActions: 1

@@ -12,6 +12,10 @@ public class LobyDoor : MonoBehaviour {
             switch (sceneToLoad) {
                 case "Lobby":
                     GameController.instance.scene = GameController.GameState.LOBBY;
+                    foreach(Modifier modifier in GameController.instance.pickedModifiers) {
+                        modifier.unlocked = true;
+                    }
+
                     SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
                     break;
                 case "Game":

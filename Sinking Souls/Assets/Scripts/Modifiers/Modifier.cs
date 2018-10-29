@@ -10,15 +10,14 @@ public class Modifier : ScriptableObject {
     public string description;
     public List<Effect> effects;
 
-    private bool owned;
+    [HideInInspector]public bool owned;
+    [HideInInspector]public bool unlocked;
+
     public Dictionary<Enemy.EnemyType, int> prices;
 
     void Buy() {
 
     }
 
-    void CanBuy() {
-
-    }
 
 }

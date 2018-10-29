@@ -6,15 +6,17 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
     public enum GameState { LOBBY, GAME };
-    public GameState scene = GameState.LOBBY;
-    public static GameController instance;
-    public bool debugMode = false;
-    public bool godMode = false;
-    public GameObject currentRoom;
-    public GameObject playerGO;
-    [HideInInspector]
-    public GameObject player;
-
+    [HideInInspector] public GameState scene = GameState.LOBBY;
+    [HideInInspector] public static GameController instance;
+    [HideInInspector] public bool debugMode = false;
+    [HideInInspector] public bool godMode = false;
+    [HideInInspector] public GameObject currentRoom;
+    [HideInInspector] public GameObject playerGO;
+    [HideInInspector] public GameObject player;
+    public bool blacksmith = false; /// Consider making this a array that holds the unlocked/locked state of each friend
+    public GameObject blueprint;
+    public List<Modifier> modifiers;
+    public List<Modifier> pickedModifiers;
     public int blueSouls;
     public int redSouls;
     public int greenSouls;
@@ -39,6 +41,9 @@ public class GameController : MonoBehaviour {
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         LoadScene();
+        foreach (Modifier modifier in modifiers) {
+            Debug.Log(modifier.name + " " + modifier.unlocked);
+        }
     }
 
     void OnEnable() {
@@ -50,7 +55,14 @@ public class GameController : MonoBehaviour {
     }
 
     private void Start () {
-        //LoadScene();
+        
+    }
+
+    public void SpawnBlueprint(Vector3 position) {
+        GameObject newBlueprint = Instantiate(blueprint);
+        newBlueprint.transform.position = position + new Vector3(0, 1, 0);
+        int index = Random.Range(0, modifiers.Count);
+        newBlueprint.GetComponent<BlueprintBehaviour>().modifier = modifiers[index];
     }
 
     public void LoadScene() {

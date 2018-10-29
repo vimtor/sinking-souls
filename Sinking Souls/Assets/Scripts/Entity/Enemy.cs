@@ -31,6 +31,7 @@ public class Enemy : Entity {
 
     private void Die() {
         soul.Spawn(transform.position);
+        if (GameController.instance.godMode) GameController.instance.SpawnBlueprint(transform.position);
         Destroy(gameObject);
     }
 

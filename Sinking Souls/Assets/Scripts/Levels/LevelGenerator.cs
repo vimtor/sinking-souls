@@ -43,7 +43,9 @@ public class LevelGenerator : MonoBehaviour {
 
     private void SetSeed() {
         seed = seed.Replace(" ", "");
-        if (seed != null || seed == "") Random.InitState(seed.GetHashCode());
+        if (seed == null || seed != "") {
+            Random.InitState(seed.GetHashCode());
+        }
     }
 
     private void SetGridSize() {

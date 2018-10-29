@@ -388,6 +388,7 @@ GameObject:
   - component: {fileID: 988936078}
   - component: {fileID: 988936077}
   - component: {fileID: 988936076}
+  - component: {fileID: 988936079}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -462,6 +463,24 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 988936074}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!95 &988936079
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 988936074}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 07c0d332d9cf05d45b9d5f5499a5f1e1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &996843691
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,6 +806,11 @@ Prefab:
     - target: {fileID: 4168852699848214, guid: 258b637205f84f34c91c424fca3067e4, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114203087284619322, guid: 258b637205f84f34c91c424fca3067e4,
+        type: 2}
+      propertyPath: scene
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 258b637205f84f34c91c424fca3067e4, type: 2}

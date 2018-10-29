@@ -31,7 +31,6 @@ public class AIController : MonoBehaviour {
             return;
         currentState.UpdateState(this);
         stateTimeElapsed += Time.deltaTime;
-        Debug.Log(currentState.name);
     }
 
     public void TransitionToState(State nextState) {

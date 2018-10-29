@@ -16,7 +16,6 @@ public class SoulBehaviour : MonoBehaviour {
     private void Start () {
         player = GameController.instance.player;
         soulColor = GetComponent<Renderer>().material.name;
-        Debug.Log(soulColor);
 	}
 	
 	private void Update () {

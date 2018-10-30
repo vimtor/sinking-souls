@@ -12,9 +12,19 @@ public abstract class Ability : ScriptableObject {
     [HideInInspector] public string target;
     [HideInInspector] public Entity entity;
 
-    public abstract void Use(GameObject parent);
+    protected GameObject parent;
 
-    public GameObject SetPrefab(GameObject parent) {
+    public void Use(GameObject newParent) {
+        SetParent(newParent);
+        SetEntity();
+        if(CheckThrown()) {
+            Configure(SetPrefab());
+        }
+    }
+
+    protected abstract void Configure(GameObject prefab);
+
+    protected GameObject SetPrefab() {
         GameObject instantiated = Instantiate(prefab);
         instantiated.transform.position = entity.hand.transform.position;
 
@@ -23,5 +33,23 @@ public abstract class Ability : ScriptableObject {
 
         return instantiated;
     }
+
+    protected bool CheckThrown() {
+        if (!entity.thrown) {
+            entity.thrown = true;
+            return true;
+        }
+
+        return false;
+    }
+
+    protected void SetParent(GameObject newParent) {
+        if (parent == null) parent = newParent;
+    }
+
+    protected void SetEntity() {
+        if (entity == null) entity = parent.GetComponent<Entity>();
+    }
+
 
 }

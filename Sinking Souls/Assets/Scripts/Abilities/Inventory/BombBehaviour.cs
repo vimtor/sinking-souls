@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class BombBehaviour : MonoBehaviour {
+
+    [HideInInspector] public float explotionForce;
 
     private Rigidbody rb;
     private List<Collider> others = new List<Collider>();
-
-    [HideInInspector] public float explotionForce;
+    
 
     private void OnCollisionEnter(Collision collision) {
         if(GetComponent<AbilityHolder>().holder.target == "Enemy" && collision.gameObject.tag != "Player") {

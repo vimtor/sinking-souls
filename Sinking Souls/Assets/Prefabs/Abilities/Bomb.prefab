@@ -25,7 +25,6 @@ GameObject:
   - component: {fileID: 136839451477040266}
   - component: {fileID: 54781459683749214}
   - component: {fileID: 114216228353965886}
-  - component: {fileID: 114413359614075196}
   m_Layer: 0
   m_Name: Bomb
   m_TagString: Ability
@@ -115,18 +114,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explotionForce: 500
---- !u!114 &114413359614075196
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1472989274308880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f7e4a5d3a0551c4fa4bde821969daba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  holder: {fileID: 11400000, guid: fddf5f21314ce444ea3a0fee462174df, type: 2}
 --- !u!135 &135216639673669004
 SphereCollider:
   m_ObjectHideFlags: 1

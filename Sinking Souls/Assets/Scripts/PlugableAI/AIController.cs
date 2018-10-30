@@ -9,7 +9,7 @@ public class AIController : MonoBehaviour {
     public State remainState;
     public GameObject player;
 
-    [HideInInspector] public Animator animator;
+    /*[HideInInspector]*/ public Animator animator;
     [HideInInspector] public NavMeshAgent navMeshAgent;
     [HideInInspector] public float stateTimeElapsed;
 
@@ -20,7 +20,7 @@ public class AIController : MonoBehaviour {
         stateTimeElapsed = 0;
         aiActive = true;
         navMeshAgent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Enemy>().animator;
+        animator = GetComponent<Entity>().animator;
         player = _player;
 
         if (aiActive) navMeshAgent.enabled = true;

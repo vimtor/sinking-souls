@@ -12,7 +12,7 @@ public class Entity : MonoBehaviour {
 
     [HideInInspector] public bool thrown;
     [HideInInspector] public Rigidbody rb;
-    [HideInInspector] public Animator animator;
+    /*[HideInInspector]*/ public Animator animator;
     [HideInInspector] public Vector3 facingDir;
     /*[HideInInspector]*/ public bool hit;
     [HideInInspector] new public CapsuleCollider collider;

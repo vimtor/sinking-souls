@@ -16,6 +16,7 @@ public class LevelGenerator : MonoBehaviour {
     public List<GameObject> RoomsD = new List<GameObject>();
     public List<GameObject> RoomsE = new List<GameObject>();
     public List<GameObject> RoomsBoss = new List<GameObject>();
+    public List<SpawnerConfiguration> Crew = new List<SpawnerConfiguration>();
 
     private Room[,] grid;
     private List<Vector2> takenPos = new List<Vector2>();
@@ -297,6 +298,10 @@ public class LevelGenerator : MonoBehaviour {
         GameObject instantiatedRoom = Instantiate(room.prefab, room.prefab.transform);
         instantiatedRoom.name = "Room_" + roomCount;
         instantiatedRoom.transform.parent = levelWrapper.transform;
+        if (room.type == Room.RoomType.BOSS) {
+            instantiatedRoom.GetComponent<SpawnController>().possibleConfigurations.Clear();
+            instantiatedRoom.GetComponent<SpawnController>().possibleConfigurations.Add(Crew[0]);//index depending on wich level you are
+        }
         return instantiatedRoom;
 
     }

@@ -41,9 +41,6 @@ public class GameController : MonoBehaviour {
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         LoadScene();
-        foreach (Modifier modifier in modifiers) {
-
-        }
     }
 
     void OnEnable() {
@@ -71,6 +68,7 @@ public class GameController : MonoBehaviour {
             case GameState.GAME:
                 #region Setup Initial Room
                 levelGenerator = GetComponent<LevelGenerator>();
+                levelGenerator.takenPos = new List<Vector2>();
                 currentRoom = SpawnLevel();
                 currentRoom.GetComponent<SpawnController>().alreadySpawned = true;
                 SpawnPlayer();
@@ -127,6 +125,7 @@ public class GameController : MonoBehaviour {
     }
 
     private GameObject SpawnLevel() {
+        Debug.Log("1- SpawnLevel");
         return levelGenerator.Spawn();
     }
 

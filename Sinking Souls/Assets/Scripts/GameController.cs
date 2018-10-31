@@ -144,7 +144,7 @@ public class GameController : MonoBehaviour {
         }
 
         currentRoom = room.gameObject;
-        //StartCoroutine(Camera.main.GetComponent<CameraBehaviour>().Transition(currentRoom.transform.position));
+        room.transform.Find("NavMesh").gameObject.SetActive(true);
         room.GetComponent<SpawnController>().Spawn(player);
 
     }

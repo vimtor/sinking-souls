@@ -300,7 +300,7 @@ public class LevelGenerator : MonoBehaviour {
         instantiatedRoom.transform.parent = levelWrapper.transform;
         if (room.type == Room.RoomType.BOSS) {
             instantiatedRoom.GetComponent<SpawnController>().possibleConfigurations.Clear();
-            instantiatedRoom.GetComponent<SpawnController>().possibleConfigurations.Add(Crew[0]);//index depending on wich level you are
+            instantiatedRoom.GetComponent<SpawnController>().possibleConfigurations.Add(Crew[0]); //index depending on wich level you are
         }
         return instantiatedRoom;
 

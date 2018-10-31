@@ -27,6 +27,7 @@ public class AIController : MonoBehaviour {
     }
 
     void Update() {
+        Debug.Log(currentState.name);
         if (!aiActive)
             return;
         currentState.UpdateState(this);
@@ -58,6 +59,7 @@ public class AIController : MonoBehaviour {
         animator.SetBool("ATTACK", false);
         animator.SetBool("REACT", false);
         animator.SetBool("SPELL", false);
+        animator.SetBool("TELEPORT", false);
 
         animator.SetBool(str, true);
 

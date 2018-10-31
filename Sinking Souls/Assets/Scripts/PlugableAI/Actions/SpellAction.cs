@@ -7,7 +7,7 @@ public class SpellAction : Action {
 
     [Range(0.0f, 1.0f)] public float actionFrame;
 
-    float clipLength;
+    private float clipLength;
 
     public override void Act(AIController controller) {
 

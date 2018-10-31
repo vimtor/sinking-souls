@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour {
     void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
         LoadScene();
         foreach (Modifier modifier in modifiers) {
-            Debug.Log(modifier.name + " " + modifier.unlocked);
+
         }
     }
 

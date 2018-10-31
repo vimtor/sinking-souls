@@ -93,7 +93,15 @@ public class GameController : MonoBehaviour {
                 currentRoom = GameObject.Find("Map");
                 SpawnPlayer();
                 #endregion
-
+                foreach(GameObject crewMember in GameObject.FindGameObjectsWithTag("CrewMember")) {
+                    if (blacksmith){
+                        crewMember.SetActive(true);//if we have a list and not just a bool for each change this
+                        crewMember.GetComponent<Animator>().SetBool("IDLE", true);
+                    }
+                    else {
+                        crewMember.SetActive(false);//if we have a list and not just a bool for each change this
+                    }
+                }   
                 player.GetComponent<Player>().SetupPlayer();
 
                 #region Setup Camera

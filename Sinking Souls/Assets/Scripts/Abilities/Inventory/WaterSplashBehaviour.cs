@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class WaterSplashBehaviour : MonoBehaviour {
 
-    [HideInInspector] public float delay = 0.0f;
+    [HideInInspector] public float delay;
 
     private ParticleSystem particles;
+    private Vector3 playerPosition;
 
     private void Awake() {
         particles = GetComponent<ParticleSystem>();
+        playerPosition = GameController.instance.player.transform.position;
         particles.Stop();
         StartCoroutine(Splash());
     }
 
     private IEnumerator Splash() {
-        yield return new WaitForSeconds(delay);
-        GameObject player = GameController.instance.player;
-        transform.position = player.transform.position;
+        yield return new WaitForSecondsRealtime(delay);
+        transform.position = playerPosition;
         particles.Play();
     }
 

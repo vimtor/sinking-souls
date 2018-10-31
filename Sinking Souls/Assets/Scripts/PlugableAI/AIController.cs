@@ -27,7 +27,6 @@ public class AIController : MonoBehaviour {
     }
 
     void Update() {
-        Debug.Log(currentState.name);
         if (!aiActive)
             return;
         currentState.UpdateState(this);

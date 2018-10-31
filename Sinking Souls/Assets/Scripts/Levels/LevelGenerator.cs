@@ -17,9 +17,9 @@ public class LevelGenerator : MonoBehaviour {
     public List<GameObject> RoomsE = new List<GameObject>();
     public List<GameObject> RoomsBoss = new List<GameObject>();
     public List<SpawnerConfiguration> Crew = new List<SpawnerConfiguration>();
+    public List<Vector2> takenPos = new List<Vector2>();
 
     private Room[,] grid;
-    private List<Vector2> takenPos = new List<Vector2>();
     private int gridSizeX, gridSizeY;
     private GameObject levelWrapper;
 
@@ -30,6 +30,7 @@ public class LevelGenerator : MonoBehaviour {
     }
 
     public GameObject Spawn() {
+        Debug.Log("2- Spawn");
         SetSeed();
 
         levelWrapper = Instantiate(new GameObject());
@@ -43,6 +44,7 @@ public class LevelGenerator : MonoBehaviour {
     }
 
     private void SetSeed() {
+        Debug.Log("3- SetSeed");
         seed = seed.Replace(" ", "");
         if (seed == null || seed != "") {
             Random.InitState(seed.GetHashCode());
@@ -51,9 +53,11 @@ public class LevelGenerator : MonoBehaviour {
 
     private void SetGridSize() {
         gridSizeX = gridSizeY = numberRooms * 2 + 1;
+        Debug.Log("4- SetGridSize");
     }
 
     private void CreateRooms() {
+        Debug.Log("5- CreateRooms");
 
         // Create an empty array of rooms.
         grid = new Room[gridSizeX, gridSizeY];
@@ -65,8 +69,11 @@ public class LevelGenerator : MonoBehaviour {
 
         Vector2 newPos = Vector2.zero;
         for (int i = 0; i < numberRooms - 1; i++) {
-
+            Debug.Log("     room " + i);
+            int countsOfDowhile = 0;
             do {
+                Debug.Log("     times " + countsOfDowhile);
+                countsOfDowhile++;
                 // Get a new random position for a room.
                 newPos = NewPosition();
             } while (NumberOfNeighbors(newPos) > 1);
@@ -74,6 +81,7 @@ public class LevelGenerator : MonoBehaviour {
 
             // Add it to the grid and to the taken positions list.
             grid[(int) newPos.x, (int) newPos.y] = new Room(newPos, Room.RoomType.COMBAT);
+            Debug.Log("             room pos: " + (int)newPos.x + ", " + (int)newPos.y);
             takenPos.Insert(0, newPos);
 
         }
@@ -111,7 +119,7 @@ public class LevelGenerator : MonoBehaviour {
     }
 
     private void SetRoomDoors() {
-
+        Debug.Log("6- SetRoomDoors");
         // Iterate over the whole grid to set the doors.
         for (int x = 0; x < gridSizeX; x++) {
             for (int y = 0; y < gridSizeX; y++) {
@@ -154,6 +162,8 @@ public class LevelGenerator : MonoBehaviour {
     }
 
     private void PlaceBossRoom() {
+        Debug.Log("7- PlaceBoosRoom");
+
         Vector2 bossRoomPosition = Vector2.zero;
         Vector2 initialRoomPosition = new Vector2(gridSizeX / 2, gridSizeY / 2);
         float maxDistance = 0;
@@ -175,6 +185,8 @@ public class LevelGenerator : MonoBehaviour {
     }
 
     private GameObject CreateMap() {
+        Debug.Log("8- CreateMap");
+
         int roomSize = 30/2;
         int roomCount = 1;
         GameObject initialRoom = null;

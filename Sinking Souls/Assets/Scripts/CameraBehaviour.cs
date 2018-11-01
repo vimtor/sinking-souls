@@ -27,6 +27,8 @@ public class CameraBehaviour : MonoBehaviour {
             SetupCenter(player.transform.position);
             MoveCollider();
         }
+
+        if (Input.GetKeyDown(KeyCode.Space)) StartCoroutine(Hit(0.1f, 3.0f));
     }
 
     private void MoveCollider() {
@@ -46,6 +48,41 @@ public class CameraBehaviour : MonoBehaviour {
         
     }
 
+    public IEnumerator Shake(float duration, float magnitude) {
+
+        Vector3 orignalPosition = transform.position;
+        float elapsed = 0.0f;
+
+        while (elapsed < duration) {
+            float x = transform.position.x + Random.Range(-1f, 1f) * magnitude;
+            float y = transform.position.y + Random.Range(-1f, 1f) * magnitude;
+
+            transform.position = new Vector3(x, y, orignalPosition.z);
+
+            elapsed += Time.deltaTime;
+            yield return 0;
+        }
+
+        transform.position = orignalPosition;
+    }
+
+    public IEnumerator Hit(float duration, float magnitude) {
+
+        float originalSize = GetComponent<Camera>().orthographicSize;
+
+        for(float t = 0.0f; t <= duration; t += Time.deltaTime) {
+            float newSize = Mathf.Lerp(originalSize, originalSize + magnitude, Mathf.PingPong(t, duration / 2));
+            GetComponent<Camera>().orthographicSize = newSize;
+
+            yield return null;
+        }
+
+        GetComponent<Camera>().orthographicSize = originalSize;
+
+    }
+
+    #region ROTATION
+
     private void LookPlayer() {
         transform.LookAt(player.position);
     }
@@ -57,6 +94,9 @@ public class CameraBehaviour : MonoBehaviour {
         transform.LookAt(center);
     }
 
+    #endregion
+
+    #region ALPHA
     private IEnumerator FadeAlpha(GameObject other, float newAlpha, float delay = 1.0f) {
 
         Material material = other.GetComponent<Renderer>().material;
@@ -71,6 +111,13 @@ public class CameraBehaviour : MonoBehaviour {
 
     }
 
+    private void SetAlpha(Material material, float newAlpha) {
+        Color newColor = material.color;
+        newColor.a = newAlpha;
+
+        material.color = newColor;
+    }
+
     public IEnumerator Transition(Vector3 targetPosition, float delay = 1.0f) {
 
         Vector3 startingPosition = transform.position;
@@ -82,12 +129,9 @@ public class CameraBehaviour : MonoBehaviour {
 
     }
 
-    private void SetAlpha(Material material, float newAlpha) {
-        Color newColor = material.color;
-        newColor.a = newAlpha;
+    #endregion
 
-        material.color = newColor;
-    }
+    #region COLLISION
 
     private void OnTriggerEnter(Collider other) {
 
@@ -114,6 +158,8 @@ public class CameraBehaviour : MonoBehaviour {
         }
 
     }
+
+    #endregion
 
 
 }

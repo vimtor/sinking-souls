@@ -6,10 +6,11 @@ using UnityEngine;
 public class BombBehaviour : MonoBehaviour {
 
     [HideInInspector] public float explotionForce;
+    [HideInInspector] public GameObject effect;
 
     private Rigidbody rb;
     private List<Collider> others = new List<Collider>();
-    
+
 
     private void OnCollisionEnter(Collision collision) {
         if(GetComponent<AbilityHolder>().holder.target == "Enemy" && collision.gameObject.tag != "Player") {
@@ -33,6 +34,7 @@ public class BombBehaviour : MonoBehaviour {
             }
         }
 
+        Instantiate(effect, transform.position, Quaternion.identity).transform.localEulerAngles += new Vector3(90, 0, 0);
         StartCoroutine(DestroyBomb());
     }
 

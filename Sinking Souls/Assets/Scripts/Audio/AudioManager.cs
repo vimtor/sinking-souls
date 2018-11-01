@@ -32,6 +32,10 @@ public class AudioManager : MonoBehaviour {
 
     }
 
+    private void Start() {
+        music[0].source.Play();
+    }
+
     private void SetupSound(Sound sound) {
 
         sound.source = gameObject.AddComponent<AudioSource>();
@@ -72,4 +76,17 @@ public class AudioManager : MonoBehaviour {
 
     }
 
+
+    public void Pause(string name) {
+
+        Sound soundToPlay = Array.Find(effects, sound => sound.name == name);
+
+        if (soundToPlay == null) {
+            Debug.LogWarning("Sound" + name + " not found");
+            return;
+        }
+
+        soundToPlay.source.Pause();
+
+    }
 }

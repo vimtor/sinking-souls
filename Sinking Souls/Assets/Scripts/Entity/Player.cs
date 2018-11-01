@@ -100,6 +100,7 @@ public class Player : Entity {
                 if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
                     state = State.MOVEMENT;
                     lastState = State.IDLE;
+                    AudioManager.instance.Play("Walk");
                 }
 
                 if (InputHandler.ButtonB()) {
@@ -108,6 +109,8 @@ public class Player : Entity {
                         lastState = State.IDLE;
                         dashCooldown = dash.cooldown;
                         time = 0;
+
+                        AudioManager.instance.Play("Dash");
                     }
                 } 
 
@@ -144,6 +147,7 @@ public class Player : Entity {
                             lastState = State.ATTACK_1;
                             dashCooldown = dash.cooldown;
                             time = 0;
+                            AudioManager.instance.Play("Dash");
                         }
                     }
                 }
@@ -203,6 +207,8 @@ public class Player : Entity {
                             lastState = State.ATTACK_2;
                             dashCooldown = dash.cooldown;
                             time = 0;
+
+                            AudioManager.instance.Play("Dash");
                         }
                     }
                 }
@@ -256,6 +262,8 @@ public class Player : Entity {
                             lastState = State.ATTACK_3;
                             dashCooldown = dash.cooldown;
                             time = 0;
+
+                            AudioManager.instance.Play("Dash");
                         }
                     }
                 }
@@ -272,6 +280,7 @@ public class Player : Entity {
                 if (InputHandler.LeftJoystick.x == 0 && InputHandler.LeftJoystick.y == 0) {
                     state = State.IDLE;
                     lastState = State.MOVEMENT;
+                    AudioManager.instance.Pause("Walk");
                 }
 
                 if (InputHandler.ButtonX()) {
@@ -300,6 +309,9 @@ public class Player : Entity {
                         lastState = State.IDLE;
                         dashCooldown = dash.cooldown;
                         time = 0;
+
+                        AudioManager.instance.Pause("Walk");
+                        AudioManager.instance.Play("Dash");
                     }
                 } 
                 if (InputHandler.ButtonY()) {
@@ -308,6 +320,7 @@ public class Player : Entity {
                         lastState = State.IDLE;
                         abilityCooldown = ability.cooldown;
                         time = 0;
+                        AudioManager.instance.Pause("Walk");
                     }
                 }
                 break;
@@ -326,6 +339,7 @@ public class Player : Entity {
                         state = State.MOVEMENT;
                         time = 0;
                         thrown = false;
+                        AudioManager.instance.Play("Walk");
                     }
                 }
                 else {
@@ -359,6 +373,7 @@ public class Player : Entity {
                         lastState = State.DASH;
                         state = State.MOVEMENT;
                         time = 0;
+                        AudioManager.instance.Play("Walk");
                     }
                 }
                 else {

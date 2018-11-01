@@ -383,7 +383,7 @@ public class Player : Entity {
 
     public void Dash() {
         // Dash C# should be implemented in the future when the dash possible behaviours are defined. 
-        rb.velocity = transform.forward.normalized * 20;
+        dash.Use(gameObject);
     }
 
     public void SetAnimBool(string str) {

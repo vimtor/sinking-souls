@@ -49,6 +49,8 @@ public class Entity : MonoBehaviour {
                 hit = true;
                 TakeDamage(other.GetComponent<WeaponHolder>().holder.Damage);
                 Apply(other.GetComponent<WeaponHolder>().holder.modifier);
+                
+                if(tag == "Enemy") CameraManager.instance.Hit(0.05f, 2.5f);
             }
         }
         else if (other.tag == "Ability") {

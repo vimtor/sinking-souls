@@ -77,8 +77,8 @@ public class GameController : MonoBehaviour {
                 #endregion
 
                 #region Setup Camera
-                Camera.main.GetComponent<CameraBehaviour>().player = player.transform;
-                Camera.main.GetComponent<CameraBehaviour>().SetupCamera(currentRoom.transform.position);
+                CameraManager.instance.player = player.transform;
+                CameraManager.instance.SetupCamera(currentRoom.transform.position);
                 #endregion
 
                 blueSouls = 0;
@@ -103,8 +103,8 @@ public class GameController : MonoBehaviour {
                 player.GetComponent<Player>().SetupPlayer();
 
                 #region Setup Camera
-                Camera.main.GetComponent<CameraBehaviour>().player = player.transform;
-                Camera.main.GetComponent<CameraBehaviour>().SetupCamera(currentRoom.transform.position);
+                CameraManager.instance.player = player.transform;
+                CameraManager.instance.SetupCamera(currentRoom.transform.position);
                 #endregion
 
             break;

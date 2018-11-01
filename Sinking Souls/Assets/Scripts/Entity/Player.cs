@@ -183,6 +183,7 @@ public class Player : Entity {
                     lastState = State.ATTACK_2;
                     state = State.ATTACK_3;
                     time = 0;
+
                     AudioManager.instance.Play("Attack1");
                 }
                 else if (time > clipLength["Attack2Anim"]) {

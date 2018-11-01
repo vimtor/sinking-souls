@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraBehaviour : MonoBehaviour {
+public class CameraManager : MonoBehaviour {
+
+    public static CameraManager instance = null; // Singleton.
 
     public Transform player;
 
@@ -10,12 +12,27 @@ public class CameraBehaviour : MonoBehaviour {
     private BoxCollider boxCollider;
     private bool gameOn = false;
 
+    private void Awake() {
+
+        #region SINGLETON
+        if (instance == null) {
+            instance = this;
+        }
+        else {
+            Destroy(gameObject);
+            return;
+        }
+        #endregion
+
+    }
+
     public void SetupCamera (Vector3 roomCenter) {
+
         // Setup initial center and offset values,
         // based on how the camera is initially positioned.
         center = roomCenter;
-        offset = new Vector3(-21.0f, 17, -21);
-        boxCollider =  GetComponent<BoxCollider>();
+        offset = new Vector3(-21, 17, -21);
+        boxCollider = GetComponent<BoxCollider>();
 
         SetupCenter(center);
         transform.LookAt(center);
@@ -28,7 +45,7 @@ public class CameraBehaviour : MonoBehaviour {
             MoveCollider();
         }
 
-        if (Input.GetKeyDown(KeyCode.Space)) StartCoroutine(Hit(0.1f, 3.0f));
+        // if (Input.GetKeyDown(KeyCode.Space)) StartCoroutine(Shake(1.0f, 3.0f));
     }
 
     private void MoveCollider() {
@@ -48,7 +65,11 @@ public class CameraBehaviour : MonoBehaviour {
         
     }
 
-    public IEnumerator Shake(float duration, float magnitude) {
+    public void Shake(float duration, float magnitude) {
+        StartCoroutine(ShakeCoroutine(duration, magnitude));
+    }
+
+    public IEnumerator ShakeCoroutine(float duration, float magnitude) {
 
         Vector3 orignalPosition = transform.position;
         float elapsed = 0.0f;
@@ -60,18 +81,22 @@ public class CameraBehaviour : MonoBehaviour {
             transform.position = new Vector3(x, y, orignalPosition.z);
 
             elapsed += Time.deltaTime;
-            yield return 0;
+            yield return null;
         }
 
         transform.position = orignalPosition;
     }
 
-    public IEnumerator Hit(float duration, float magnitude) {
+    public void Hit(float duration, float magnitude) {
+        StartCoroutine(HitCoroutine(duration, magnitude));
+    }
+
+    public IEnumerator HitCoroutine(float duration, float magnitude) {
 
         float originalSize = GetComponent<Camera>().orthographicSize;
 
         for(float t = 0.0f; t <= duration; t += Time.deltaTime) {
-            float newSize = Mathf.Lerp(originalSize, originalSize + magnitude, Mathf.PingPong(t, duration / 2));
+            float newSize = Mathf.Lerp(originalSize, originalSize - magnitude, Mathf.PingPong(t, duration / 2));
             GetComponent<Camera>().orthographicSize = newSize;
 
             yield return null;

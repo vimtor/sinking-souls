@@ -9,11 +9,10 @@ public class Modifier : ScriptableObject {
     new public string name;
     public string description;
     public List<Effect> effects;
+    public int price;
+    public bool owned;
+    public bool unlocked;
 
-    [HideInInspector] public bool owned;
-    [HideInInspector] public bool unlocked;
-
-    public Dictionary<Enemy.EnemyType, int> prices;
 
     void Buy() {
 

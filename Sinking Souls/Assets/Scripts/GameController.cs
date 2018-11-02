@@ -13,15 +13,17 @@ public class GameController : MonoBehaviour {
     [HideInInspector] public GameObject currentRoom;
     [HideInInspector] public GameObject playerGO;
     [HideInInspector] public GameObject player;
+    [HideInInspector] public List<Modifier> runModifiers;
+    [HideInInspector] public List<Modifier> pickedModifiers;
     public bool blacksmith = false; /// Consider making this a array that holds the unlocked/locked state of each friend
     public GameObject blueprint;
     public List<Modifier> modifiers;
-    public List<Modifier> pickedModifiers;
     public int blueSouls;
     public int redSouls;
     public int greenSouls;
 
     private LevelGenerator levelGenerator;
+    private GameObject shop;
 
     private void Awake() {
 
@@ -56,11 +58,14 @@ public class GameController : MonoBehaviour {
     }
 
     public void SpawnBlueprint(Vector3 position) {
-        GameObject newBlueprint = Instantiate(blueprint);
-        newBlueprint.transform.position = position + new Vector3(0, 1, 0);
-        int index = Random.Range(0, modifiers.Count);
-        newBlueprint.GetComponent<BlueprintBehaviour>().modifier = modifiers[index];
-        modifiers.RemoveAt(index);
+        if (runModifiers.Count != 0) {
+            GameObject newBlueprint = Instantiate(blueprint);
+            newBlueprint.transform.position = position + new Vector3(0, 1, 0);
+            int index = Random.Range(0, runModifiers.Count);
+            newBlueprint.GetComponent<BlueprintBehaviour>().modifier = runModifiers[index];
+            runModifiers.RemoveAt(index);
+        }
+        else Debug.Log("No more blueprints to spawn");
     }
 
     public void LoadScene() {
@@ -79,8 +84,14 @@ public class GameController : MonoBehaviour {
                 #region Setup Camera
                 CameraManager.instance.player = player.transform;
                 CameraManager.instance.SetupCamera(currentRoom.transform.position);
-                #endregion
+            #endregion
 
+                for (int i = 0; i < 2; i++) {//change this depending on how meny blueprints we want to spawn on a game
+                    do {
+                        int index = Random.Range(0, modifiers.Count);
+                    } while (runModifiers.Contains(modifiers[i]));
+                    runModifiers.Add(modifiers[i]);
+                }   
                 blueSouls = 0;
                 greenSouls = 0;
                 redSouls = 0;
@@ -91,6 +102,7 @@ public class GameController : MonoBehaviour {
                 currentRoom = GameObject.Find("Map");
                 SpawnPlayer();
                 #endregion
+
                 foreach(GameObject crewMember in GameObject.FindGameObjectsWithTag("CrewMember")) {
                     if (blacksmith){
                         crewMember.SetActive(true);//if we have a list and not just a bool for each change this
@@ -102,6 +114,8 @@ public class GameController : MonoBehaviour {
                 }   
                 player.GetComponent<Player>().SetupPlayer();
 
+                GameObject.FindGameObjectWithTag("Shop").GetComponent<Shop>().FillShop();
+                
                 #region Setup Camera
                 CameraManager.instance.player = player.transform;
                 CameraManager.instance.SetupCamera(currentRoom.transform.position);

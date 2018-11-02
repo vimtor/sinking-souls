@@ -17,13 +17,15 @@ public class Player : Entity {
     public float attackOffset;
     public float rotationSpeed;
     public float actionRotationSpeed;
+    [HideInInspector] public bool move;
+    [HideInInspector] public State state;
+
 
     public Dictionary<string, float> clipLength = new Dictionary<string, float>();
 
     public Ability dash;
     public Ability ability;
 
-    private State state;
     private State lastState;
     private float time;
     private float dashCooldown;
@@ -34,6 +36,7 @@ public class Player : Entity {
 
     public void SetupPlayer() {
         OnStart();
+        move = true;
         state = State.IDLE;
         dashCooldown = abilityCooldown = 0;
         forward = new Vector3 (Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z) ;
@@ -55,7 +58,7 @@ public class Player : Entity {
     }
 
     private void FixedUpdate() {
-        HandleInput();
+        if(move) HandleInput();
     }
 
     private void SetRotation(float _speed) {

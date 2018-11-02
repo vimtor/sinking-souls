@@ -103,7 +103,9 @@ public class GameController : MonoBehaviour {
                 currentRoom = GameObject.Find("Map");
                 SpawnPlayer();
             #endregion
-                
+                runModifiers = new List<Modifier>();
+                pickedModifiers = new List<Modifier>();
+
                 fullSouls = blueSouls < greenSouls ? blueSouls : greenSouls;
                 fullSouls = fullSouls < redSouls ? fullSouls : redSouls;
 

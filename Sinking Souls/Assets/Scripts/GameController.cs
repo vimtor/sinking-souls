@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour {
     public int blueSouls;
     public int redSouls;
     public int greenSouls;
+    public int fullSouls;
 
     private LevelGenerator levelGenerator;
     private GameObject shop;
@@ -101,7 +102,10 @@ public class GameController : MonoBehaviour {
                 #region Setup Initial Room
                 currentRoom = GameObject.Find("Map");
                 SpawnPlayer();
-                #endregion
+            #endregion
+                
+                fullSouls = blueSouls < greenSouls ? blueSouls : greenSouls;
+                fullSouls = fullSouls < redSouls ? fullSouls : redSouls;
 
                 foreach(GameObject crewMember in GameObject.FindGameObjectsWithTag("CrewMember")) {
                     if (blacksmith){

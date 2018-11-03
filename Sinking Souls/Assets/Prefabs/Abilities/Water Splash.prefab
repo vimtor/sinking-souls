@@ -55,7 +55,6 @@ GameObject:
   - component: {fileID: 4091487358853850}
   - component: {fileID: 198620127684165812}
   - component: {fileID: 199668958842006222}
-  - component: {fileID: 65904968935997020}
   - component: {fileID: 114850507991846492}
   m_Layer: 0
   m_Name: Water Splash
@@ -136,18 +135,6 @@ Transform:
   m_Father: {fileID: 4091487358853850}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65904968935997020
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1347735892137928}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114850507991846492
 MonoBehaviour:
   m_ObjectHideFlags: 1

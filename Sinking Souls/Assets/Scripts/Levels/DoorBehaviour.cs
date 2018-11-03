@@ -35,7 +35,7 @@ public class DoorBehaviour : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Player" && !locked) {
-            other.GetComponent<Transform>().position = nextDoor.transform.position - nextDoor.transform.forward;
+            other.GetComponent<Transform>().position = nextDoor.transform.position - nextDoor.transform.forward - new Vector3(0, 2.5f, 0);
             GameController.instance.ChangeRoom(nextDoor);
         }
     }

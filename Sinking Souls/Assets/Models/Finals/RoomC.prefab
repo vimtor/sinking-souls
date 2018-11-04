@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 4474761584573802}
   - component: {fileID: 33994147888492062}
   - component: {fileID: 23837217115283294}
+  - component: {fileID: 114481999701935734}
   m_Layer: 0
   m_Name: Wall_door_vertex003
   m_TagString: Untagged
@@ -131,6 +132,7 @@ GameObject:
   - component: {fileID: 23888050609842152}
   - component: {fileID: 64253553892536550}
   - component: {fileID: 54720114693172954}
+  - component: {fileID: 114763987669941724}
   m_Layer: 0
   m_Name: Wall_door_final002
   m_TagString: Untagged
@@ -183,6 +185,7 @@ GameObject:
   - component: {fileID: 23373555442048234}
   - component: {fileID: 54151000570033674}
   - component: {fileID: 64125452520299252}
+  - component: {fileID: 114544668512190854}
   m_Layer: 0
   m_Name: Box001
   m_TagString: Untagged
@@ -287,6 +290,7 @@ GameObject:
   - component: {fileID: 4019589632865934}
   - component: {fileID: 33349180060748916}
   - component: {fileID: 23752999039482608}
+  - component: {fileID: 114669790271289392}
   m_Layer: 0
   m_Name: Wall_door_vertex004
   m_TagString: Untagged
@@ -366,6 +370,7 @@ GameObject:
   - component: {fileID: 4391267073961532}
   - component: {fileID: 33911591567314048}
   - component: {fileID: 23719561009324238}
+  - component: {fileID: 114034309808908912}
   m_Layer: 0
   m_Name: Wall_door_vertex002
   m_TagString: Untagged
@@ -582,7 +587,6 @@ GameObject:
   - component: {fileID: 33905206599740262}
   - component: {fileID: 23282810345613834}
   - component: {fileID: 65775242037149572}
-  - component: {fileID: 114383616940433666}
   m_Layer: 0
   m_Name: Ground001
   m_TagString: Untagged
@@ -617,6 +621,7 @@ GameObject:
   - component: {fileID: 23646576513186674}
   - component: {fileID: 64843214138239972}
   - component: {fileID: 54042834335464820}
+  - component: {fileID: 114492050822164110}
   m_Layer: 0
   m_Name: Wall_door_final001
   m_TagString: Untagged
@@ -651,6 +656,7 @@ GameObject:
   - component: {fileID: 4861836153190290}
   - component: {fileID: 33048707519491014}
   - component: {fileID: 23898638734673720}
+  - component: {fileID: 114294435515722992}
   m_Layer: 0
   m_Name: Wall_normal_final001
   m_TagString: Untagged
@@ -811,6 +817,7 @@ GameObject:
   - component: {fileID: 4422124667197092}
   - component: {fileID: 33288246150581528}
   - component: {fileID: 23564822881752056}
+  - component: {fileID: 114987194627917316}
   m_Layer: 0
   m_Name: Wall_normal_final002
   m_TagString: Untagged
@@ -864,6 +871,7 @@ GameObject:
   - component: {fileID: 4622538315061176}
   - component: {fileID: 33702881400359678}
   - component: {fileID: 23458618415836876}
+  - component: {fileID: 114689685608909594}
   m_Layer: 0
   m_Name: Wall_door_vertex005
   m_TagString: Untagged
@@ -1069,7 +1077,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1087139973820096}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 420, y: 0, z: 480}
+  m_LocalPosition: {x: 510, y: 0, z: 450}
   m_LocalScale: {x: 0.024, y: 0.024, z: 0.024}
   m_Children:
   - {fileID: 4912034068595930}
@@ -3498,6 +3506,21 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114034309808908912
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1273877495516142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!114 &114132218048970366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3524,6 +3547,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 0
   nextDoor: {fileID: 0}
+--- !u!114 &114294435515722992
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1628657501416910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!114 &114295074171200068
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3551,34 +3589,51 @@ MonoBehaviour:
   possibleConfigurations:
   - {fileID: 11400000, guid: 01898108389a9f246b4803262e77605b, type: 2}
   alreadySpawned: 0
---- !u!114 &114383616940433666
+--- !u!114 &114481999701935734
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1595333405281086}
+  m_GameObject: {fileID: 1044314071568642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 32563
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 8a85446e926a02343bda975e15dab2d0, type: 2}
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!114 &114492050822164110
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1609871100965392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!114 &114544668512190854
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1089793083978658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!114 &114587076026093856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3606,4 +3661,64 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 48f8c524560d8b842ae9dad6ac4b821b, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: e5ba53f9fef120f459197b640538de51, type: 2}
+--- !u!114 &114669790271289392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1182194224422400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!114 &114689685608909594
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1951945938981488}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!114 &114763987669941724
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1068879991796318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!114 &114987194627917316
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1881827201995368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

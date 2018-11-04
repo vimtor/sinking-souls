@@ -123,6 +123,7 @@ GameObject:
   - component: {fileID: 4507611296728538}
   - component: {fileID: 33585074338096950}
   - component: {fileID: 23293620259323268}
+  - component: {fileID: 114413083827568788}
   m_Layer: 0
   m_Name: Wall_door_vertex
   m_TagString: Untagged
@@ -141,6 +142,7 @@ GameObject:
   - component: {fileID: 33978803300230790}
   - component: {fileID: 23507449553609816}
   - component: {fileID: 64351168526325538}
+  - component: {fileID: 114574498814415544}
   m_Layer: 0
   m_Name: Rock_Lateral
   m_TagString: Untagged
@@ -160,6 +162,7 @@ GameObject:
   - component: {fileID: 23080238375548786}
   - component: {fileID: 54908271875775230}
   - component: {fileID: 64298399497397084}
+  - component: {fileID: 114316970041276470}
   m_Layer: 0
   m_Name: Wall_door_final
   m_TagString: Untagged
@@ -874,7 +877,6 @@ GameObject:
   - component: {fileID: 33262094524063458}
   - component: {fileID: 23380726103361760}
   - component: {fileID: 65996500862441978}
-  - component: {fileID: 114294718655392678}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -1494,7 +1496,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1712059607537146}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 48.85081, y: 71.801, z: 56.708294}
+  m_LocalPosition: {x: 422.85837, y: 132.71982, z: 479.5461}
   m_LocalScale: {x: 0.024, y: 0.024, z: 0.024}
   m_Children:
   - {fileID: 4112721738920086}
@@ -4167,34 +4169,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 0
   nextDoor: {fileID: 0}
---- !u!114 &114294718655392678
+--- !u!114 &114316970041276470
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1754785486741786}
+  m_GameObject: {fileID: 1179434683437458}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 32563
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: e28d407c5a9788641ab21c72441e8091, type: 2}
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!114 &114317298603933050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4208,6 +4197,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 0
   nextDoor: {fileID: 0}
+--- !u!114 &114413083827568788
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1151596874164768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
+--- !u!114 &114574498814415544
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1165292068737732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!114 &114816623086774554
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4261,4 +4280,4 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 48f8c524560d8b842ae9dad6ac4b821b, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 903c90d9c24714c43ae75934f027becf, type: 2}

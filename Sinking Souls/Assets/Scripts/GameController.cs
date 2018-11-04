@@ -23,6 +23,7 @@ public class GameController : MonoBehaviour {
     public int greenSouls;
     public int fullSouls;
     public List<SoulsUI> soulsUI;
+    public bool died;
 
     private LevelGenerator levelGenerator;
     private GameObject shop;
@@ -76,6 +77,7 @@ public class GameController : MonoBehaviour {
     public void LoadScene() {
         switch (scene) {
             case GameState.GAME:
+                died = false;
                 #region Setup Initial Room
                 levelGenerator = GetComponent<LevelGenerator>();
                 levelGenerator.takenPos = new List<Vector2>();
@@ -91,10 +93,12 @@ public class GameController : MonoBehaviour {
                 CameraManager.instance.SetupCamera(currentRoom.transform.position);
             #endregion
 
+                soulsUI = new List<SoulsUI>();
+
                 for (int i = 0; i < 2; i++) {//change this depending on how meny blueprints we want to spawn on a game
                     do {
                         int index = Random.Range(0, modifiers.Count);
-                    } while (runModifiers.Contains(modifiers[i]));
+                    } while (runModifiers.Contains(modifiers[i]));///|| modifiers[i].unlocked));
                     runModifiers.Add(modifiers[i]);
                 }   
                 blueSouls = 0;
@@ -108,13 +112,21 @@ public class GameController : MonoBehaviour {
                 currentRoom = GameObject.Find("Map");
                 SpawnPlayer();
             #endregion
+
+                if (!died) {
+                    fullSouls = blueSouls < greenSouls ? blueSouls : greenSouls;
+                    fullSouls = fullSouls < redSouls ? fullSouls : redSouls;
+                }
+                else {
+                    blueSouls = 0;
+                    greenSouls = 0;
+                    redSouls = 0;
+                    foreach (Modifier mod in pickedModifiers) mod.unlocked = false;
+                }
                 runModifiers = new List<Modifier>();
                 pickedModifiers = new List<Modifier>();
 
-                fullSouls = blueSouls < greenSouls ? blueSouls : greenSouls;
-                fullSouls = fullSouls < redSouls ? fullSouls : redSouls;
-
-                foreach(GameObject crewMember in GameObject.FindGameObjectsWithTag("CrewMember")) {
+                foreach (GameObject crewMember in GameObject.FindGameObjectsWithTag("CrewMember")) {
                     if (blacksmith){
                         crewMember.SetActive(true);//if we have a list and not just a bool for each change this
                         crewMember.GetComponent<Animator>().SetBool("IDLE", true);

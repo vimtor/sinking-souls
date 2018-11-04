@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class Player : Entity {
@@ -55,6 +56,10 @@ public class Player : Entity {
         #endregion
 
         EquipWeapon();
+    }
+
+    private void Update() {
+        CheckDead();
     }
 
     private void FixedUpdate() {
@@ -417,7 +422,12 @@ public class Player : Entity {
         animator.SetBool(str, true);
     }
 
-    public void Attack() {
+    public void CheckDead() {
+        if (health <= 0) {
+            GameController.instance.died = true;
+            GameController.instance.scene = GameController.GameState.LOBBY;
+            SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+        }
     }
 
 }

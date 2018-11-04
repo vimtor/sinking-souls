@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 198620127684165812}
   - component: {fileID: 199668958842006222}
   - component: {fileID: 114850507991846492}
+  - component: {fileID: 65304313654516424}
   m_Layer: 0
   m_Name: Water Splash
   m_TagString: Ability
@@ -87,7 +88,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1347735892137928}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.4495783, y: -0.736635, z: -5.560006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4929831129446546}
@@ -135,6 +136,18 @@ Transform:
   m_Father: {fileID: 4091487358853850}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &65304313654516424
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1347735892137928}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114850507991846492
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -8982,7 +8995,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.6431373, g: 0.8818662, b: 1, a: 0.7058824}
+      maxColor: {r: 0.59126914, g: 0.93956995, b: 0.9716981, a: 0.7058824}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}

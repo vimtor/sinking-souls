@@ -14,6 +14,7 @@ public class WaterSplashBehaviour : MonoBehaviour {
         playerPosition = GameController.instance.player.transform.position;
         particles.Stop();
         StartCoroutine(Splash());
+        Destroy(gameObject, 0.3f);
     }
 
     private IEnumerator Splash() {

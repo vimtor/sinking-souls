@@ -423,7 +423,7 @@ public class Player : Entity {
     }
 
     public void CheckDead() {
-        if (health <= 0) {
+        if (health <= 0 && !GameController.instance.godMode) {
             GameController.instance.died = true;
             GameController.instance.scene = GameController.GameState.LOBBY;
             SceneManager.LoadScene("Lobby", LoadSceneMode.Single);

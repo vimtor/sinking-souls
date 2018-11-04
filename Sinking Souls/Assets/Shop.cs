@@ -11,13 +11,20 @@ public class Shop : MonoBehaviour {
 
 
     public void FillShop() {
-        foreach( Modifier modifier in GameController.instance.modifiers) {
+        bool firstSelected = false;
+        foreach (Modifier modifier in GameController.instance.modifiers) {
             if (modifier.unlocked) {
                 GameObject item = Instantiate(UIItem);
                 item.transform.Find("Icon").GetComponent<Image>().sprite = modifier.sprite;
                 item.transform.Find("Price").GetComponent<Text>().text = modifier.price.ToString();
                 item.transform.Find("Name").GetComponent<Text>().text = modifier.name;
                 item.gameObject.transform.SetParent(content.transform, false);
+
+                if (!firstSelected) {
+                    GameObject.Find("EventSystem").GetComponent<UnityEngine.EventSystems.EventSystem>().firstSelectedGameObject = item;
+                    firstSelected = true;
+                }
+                    
             }
         }
 

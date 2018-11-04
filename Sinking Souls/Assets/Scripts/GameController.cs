@@ -6,6 +6,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
     public enum GameState { LOBBY, GAME };
+
     [HideInInspector] public GameState scene = GameState.LOBBY;
     [HideInInspector] public static GameController instance;
     [HideInInspector] public bool debugMode = false;
@@ -15,7 +16,8 @@ public class GameController : MonoBehaviour {
     [HideInInspector] public GameObject player;
     [HideInInspector] public List<Modifier> runModifiers;
     [HideInInspector] public List<Modifier> pickedModifiers;
-    public bool blacksmith = false; /// Consider making this a array that holds the unlocked/locked state of each friend
+
+    public bool blacksmith = false; // Consider making this a array that holds the unlocked/locked state of each friend.
     public GameObject blueprint;
     public List<Modifier> modifiers;
     public int blueSouls;
@@ -162,7 +164,6 @@ public class GameController : MonoBehaviour {
     }
 
     private GameObject SpawnLevel() {
-        Debug.Log("1- SpawnLevel");
         return levelGenerator.Spawn();
     }
 

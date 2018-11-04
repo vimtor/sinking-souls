@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour {
     public int redSouls;
     public int greenSouls;
     public int fullSouls;
+    public List<SoulsUI> soulsUI;
 
     private LevelGenerator levelGenerator;
     private GameObject shop;
@@ -54,9 +55,6 @@ public class GameController : MonoBehaviour {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    private void Start () {
-        
-    }
 
     public void SpawnBlueprint(Vector3 position) {
         if (runModifiers.Count != 0) {
@@ -67,6 +65,12 @@ public class GameController : MonoBehaviour {
             runModifiers.RemoveAt(index);
         }
         else Debug.Log("No more blueprints to spawn");
+    }
+
+    public void UpdateUI() {
+        foreach(SoulsUI UI in soulsUI) {
+            UI.UpdateText();
+        }
     }
 
     public void LoadScene() {
@@ -96,6 +100,7 @@ public class GameController : MonoBehaviour {
                 blueSouls = 0;
                 greenSouls = 0;
                 redSouls = 0;
+                foreach(GameObject Go in GameObject.FindGameObjectsWithTag("SoulUI")) soulsUI.Add(Go.GetComponent<SoulsUI>());
             break;
 
             case GameState.LOBBY:

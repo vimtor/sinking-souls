@@ -5,20 +5,14 @@ using UnityEngine;
 
 public class UIShowLife : MonoBehaviour {
 
-    public GameObject enemy;
-    public GameObject player;
-    public Text playerLife;
-    public Text enemyLife;
+    // Update is called once per frame
+    private Text text;
 
-	// Use this for initialization
-	void Start () {
-        playerLife.text = "Player: " + player.GetComponent<Player>().health;
-        enemyLife.text = "Enemy: " + enemy.GetComponent<Enemy>().health;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        playerLife.text = "Player: " + player.GetComponent<Player>().health;
-        enemyLife.text = "Enemy: " + enemy.GetComponent<Enemy>().health;
+    private void Start() {
+        text = GetComponent<Text>();
+    }
+
+    void Update () {
+        text.text = GameController.instance.player.GetComponent<Player>().health.ToString();
     }
 }

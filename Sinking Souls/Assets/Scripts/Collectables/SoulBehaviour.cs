@@ -47,6 +47,7 @@ public class SoulBehaviour : MonoBehaviour {
                     break;
 
             }
+            GameController.instance.UpdateUI();
         }
     }
 }

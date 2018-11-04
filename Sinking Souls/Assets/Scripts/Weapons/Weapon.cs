@@ -26,10 +26,11 @@ public class Weapon : ScriptableObject {
         boxCollider = model.GetComponent<BoxCollider>();
     }
 
-    public void Instantiate(GameObject parent) {
+    public void Instantiate(GameObject parent, GameObject owner) {
         GameObject weapon = Instantiate(model, parent.transform);
         weapon.transform.parent = parent.transform;
         weapon.AddComponent<WeaponHolder>().holder = this;
+        weapon.GetComponent<WeaponHolder>().owner = owner;
     }
 
     public void Attack() {

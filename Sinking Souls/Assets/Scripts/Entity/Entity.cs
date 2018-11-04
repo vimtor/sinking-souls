@@ -35,7 +35,7 @@ public class Entity : MonoBehaviour {
     }
 
     public void EquipWeapon() {
-        weapon.Instantiate(hand);
+        weapon.Instantiate(hand, this.gameObject);
     }
 
     protected void TakeDamage(float damage) {
@@ -44,7 +44,7 @@ public class Entity : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
 
-        if (other.tag == "Weapon") {
+        if (other.tag == "Weapon" && other.GetComponent<WeaponHolder>().owner.tag != tag) {
             if (other.GetComponent<WeaponHolder>().holder.hitting && !hit) {
                 hit = true;
                 TakeDamage(other.GetComponent<WeaponHolder>().holder.Damage);

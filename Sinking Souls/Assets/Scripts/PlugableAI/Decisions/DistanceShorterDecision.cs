@@ -10,7 +10,7 @@ public class DistanceShorterDecision : Decision {
 
 
     public override bool Decide(AIController controller) {
-        return (Vector3.Distance(controller.player.transform.position, controller.transform.position) < distance);
+        return (Vector3.Distance(controller.player.transform.position, controller.transform.position) <= distance);
     }
 
 }

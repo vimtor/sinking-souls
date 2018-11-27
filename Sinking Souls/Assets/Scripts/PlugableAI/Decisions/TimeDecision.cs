@@ -6,7 +6,7 @@ using UnityEngine;
 public class TimeDecision : Decision {
 
     [Tooltip("If this time has elapsed, it will return true.")]
-    private float minimunTime;
+    public float minimunTime;
 
     public override bool Decide(AIController controller) {
 

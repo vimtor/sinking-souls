@@ -220,10 +220,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoints:
   - {fileID: 209175363}
-  - {fileID: 612689651}
-  - {fileID: 385800929}
-  - {fileID: 1505957839}
-  - {fileID: 1636383306}
   possibleConfigurations:
   - {fileID: 11400000, guid: 2844287bea1939d45915bf8c27d44ec0, type: 2}
   alreadySpawned: 0
@@ -351,7 +347,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 30, y: 45, z: 0}
 --- !u!1 &94768795
 GameObject:
@@ -605,7 +601,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 209175363}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.65, y: 1, z: 8.2}
+  m_LocalPosition: {x: -1.05, y: 1, z: -1.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1997853030}
@@ -778,7 +774,7 @@ RectTransform:
   - {fileID: 1078152523}
   - {fileID: 1503634735}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2151,48 +2147,6 @@ MonoBehaviour:
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: 6bc2e973620c06846b9b4acd2c50b5da, type: 2}
---- !u!1001 &1423999009
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4523659223669586, guid: 0fd9ca4a846aff64aaf62bc13a121152, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 89.36388
-      objectReference: {fileID: 0}
-    - target: {fileID: 4523659223669586, guid: 0fd9ca4a846aff64aaf62bc13a121152, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: -298.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4523659223669586, guid: 0fd9ca4a846aff64aaf62bc13a121152, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 511.06213
-      objectReference: {fileID: 0}
-    - target: {fileID: 4523659223669586, guid: 0fd9ca4a846aff64aaf62bc13a121152, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4523659223669586, guid: 0fd9ca4a846aff64aaf62bc13a121152, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4523659223669586, guid: 0fd9ca4a846aff64aaf62bc13a121152, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4523659223669586, guid: 0fd9ca4a846aff64aaf62bc13a121152, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4523659223669586, guid: 0fd9ca4a846aff64aaf62bc13a121152, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 0fd9ca4a846aff64aaf62bc13a121152, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1 &1479141786
 GameObject:
   m_ObjectHideFlags: 0
@@ -2541,7 +2495,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4167673279544142, guid: 7c28def7a29c4684b8c6fa6e3eaa25d5, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c28def7a29c4684b8c6fa6e3eaa25d5, type: 2}
@@ -2610,7 +2564,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &1636383306
 GameObject:
@@ -2709,7 +2663,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4049728750304462, guid: 258b637205f84f34c91c424fca3067e4, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114337623052856484, guid: 258b637205f84f34c91c424fca3067e4,
         type: 2}

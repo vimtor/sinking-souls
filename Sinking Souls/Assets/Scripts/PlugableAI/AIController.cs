@@ -30,6 +30,7 @@ public class AIController : MonoBehaviour {
         if (!aiActive)
             return;
         currentState.UpdateState(this);
+        Debug.Log(currentState.name);
         stateTimeElapsed += Time.deltaTime;
     }
 
@@ -60,6 +61,9 @@ public class AIController : MonoBehaviour {
         animator.SetBool("SPELL", false);
         animator.SetBool("TELEPORT", false);
         animator.SetBool("TURN", false);
+        animator.SetBool("CHARGESTAB", false);
+        animator.SetBool("STAB", false);
+        animator.SetBool("ENDSTAB", false);
 
         animator.SetBool(str, true);
 

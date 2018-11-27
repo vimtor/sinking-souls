@@ -8,7 +8,7 @@ public class SpawnController : MonoBehaviour {
     public List<SpawnerConfiguration> possibleConfigurations;
     public bool alreadySpawned = false;
 
-    private SpawnerConfiguration configuration;
+    public SpawnerConfiguration configuration;
 
     private void Start() {
         configuration = possibleConfigurations[Random.Range(0, possibleConfigurations.Count - 1)];
@@ -23,9 +23,10 @@ public class SpawnController : MonoBehaviour {
 
     public void Spawn(GameObject _player) {
         if (!alreadySpawned) {
+            Debug.Log(configuration);
             foreach (GameObject entity in configuration.entities) {
                 GameObject enemy = Instantiate(entity);
-                int index = Random.Range(0, spawnPoints.Count - 1);
+                int index = Random.Range(0, spawnPoints.Count - 1); Debug.Log("4");
                 enemy.transform.position = spawnPoints[index].transform.position;
                 spawnPoints.RemoveAt(index);
                 enemy.GetComponent<AIController>().SetupAI(_player);

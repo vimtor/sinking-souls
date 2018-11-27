@@ -14,7 +14,7 @@ public class AIController : MonoBehaviour {
     [HideInInspector] public float stateTimeElapsed;
 
 
-    private bool aiActive = false;
+    public bool aiActive = false;
 
     public void SetupAI(GameObject _player) {
         stateTimeElapsed = 0;
@@ -59,6 +59,7 @@ public class AIController : MonoBehaviour {
         animator.SetBool("REACT", false);
         animator.SetBool("SPELL", false);
         animator.SetBool("TELEPORT", false);
+        animator.SetBool("TURN", false);
 
         animator.SetBool(str, true);
 

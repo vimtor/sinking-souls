@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
-    public enum GameState { LOBBY, GAME };
+    public enum GameState { LOBBY, GAME, ARENA };
 
-    [HideInInspector] public GameState scene = GameState.LOBBY;
+    public GameState scene = GameState.LOBBY;
     [HideInInspector] public static GameController instance;
     [HideInInspector] public bool debugMode = false;
     [HideInInspector] public bool godMode = false;
     [HideInInspector] public GameObject currentRoom;
     [HideInInspector] public GameObject playerGO;
-    [HideInInspector] public GameObject player;
+     public GameObject player;
     [HideInInspector] public List<Modifier> runModifiers;
     [HideInInspector] public List<Modifier> pickedModifiers;
 
@@ -146,6 +146,15 @@ public class GameController : MonoBehaviour {
                 CameraManager.instance.SetupCamera(currentRoom.transform.position);
                 #endregion
 
+            break;
+            case GameState.ARENA:
+            currentRoom = GameObject.Find("Arena");
+            SpawnPlayer();
+            player.GetComponent<Player>().SetupPlayer();
+            currentRoom.GetComponent<SpawnController>().Spawn(player);
+            godMode = true;
+            CameraManager.instance.player = player.transform;
+            CameraManager.instance.SetupCamera(currentRoom.transform.position);
             break;
         }
     }

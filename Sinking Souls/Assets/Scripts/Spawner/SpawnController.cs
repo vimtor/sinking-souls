@@ -26,7 +26,7 @@ public class SpawnController : MonoBehaviour {
             Debug.Log(configuration);
             foreach (GameObject entity in configuration.entities) {
                 GameObject enemy = Instantiate(entity);
-                int index = Random.Range(0, spawnPoints.Count - 1); Debug.Log("4");
+                int index = Random.Range(0, spawnPoints.Count - 1);
                 enemy.transform.position = spawnPoints[index].transform.position;
                 spawnPoints.RemoveAt(index);
                 enemy.GetComponent<AIController>().SetupAI(_player);

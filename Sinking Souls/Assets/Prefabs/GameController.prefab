@@ -60,7 +60,7 @@ MonoBehaviour:
   player: {fileID: 1589807051420334, guid: 49e416f76c3ef9049a0ff61d55781277, type: 2}
   runModifiers: []
   pickedModifiers: []
-  blacksmith: 1
+  blacksmith: 0
   blueprint: {fileID: 1656587315307008, guid: 1a7131efd18afaf4cb4d1edaea296ef7, type: 2}
   modifiers:
   - {fileID: 11400000, guid: ecdcc0d9a08592340b04b77a980b7bf4, type: 2}
@@ -68,7 +68,9 @@ MonoBehaviour:
   blueSouls: 0
   redSouls: 0
   greenSouls: 0
-  fullSouls: 0
+  fullSouls: 10
+  soulsUI: []
+  died: 0
 --- !u!114 &114646670468762960
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -93,9 +95,21 @@ MonoBehaviour:
   RoomsE:
   - {fileID: 1475618307286918, guid: 993fe73d51eaad54c904a02ac271d275, type: 2}
   - {fileID: 1712059607537146, guid: 23d5e675231c76c4ab39958a76507e01, type: 2}
+  RoomsEliteE:
+  - {fileID: 1475618307286918, guid: 141893266aa0c694387bbe4cd1bc1402, type: 2}
+  - {fileID: 1712059607537146, guid: 12ee95fb5f7dfca44a1b4e44aab6e7ca, type: 2}
+  RoomsEliteD:
+  - {fileID: 1891851351360820, guid: 9c5c83d854dcf4f4cb30360b8f6b9093, type: 2}
+  RoomsEliteC:
+  - {fileID: 1087139973820096, guid: 9b791f3b4674b974b911a4c8acc3ca4f, type: 2}
+  RoomsEliteB:
+  - {fileID: 1807310307562632, guid: ee71b51057a5df94d9c910b0b542ca0c, type: 2}
+  RoomsEliteA:
+  - {fileID: 1079177880312500, guid: 8943eabd15df7c646a5536b26f3d04bf, type: 2}
   RoomsBoss:
   - {fileID: 1626702227945818, guid: 29701e25e7894c147be3cbc904b10d82, type: 2}
   Crew:
   - {fileID: 11400000, guid: cde3f7b73c6469c469d60b004c21d57f, type: 2}
   takenPos: []
   roomSize: 30
+  eliteRate: 1

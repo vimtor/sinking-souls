@@ -47,10 +47,7 @@ public class Weapon : ScriptableObject {
     }
 
     public void GrowCollision(int mult) {
-        Debug.Log(weapon.GetComponent<BoxCollider>().size);
         weapon.GetComponent<BoxCollider>().size = originalSize * mult;
-        Debug.Log(weapon.GetComponent<BoxCollider>().size);
-
     }
 
     public void ShrinkCollision() {

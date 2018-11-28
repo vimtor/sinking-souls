@@ -6,6 +6,8 @@ using UnityEngine;
 public class Weapon : ScriptableObject {
 
 	public GameObject model;
+    public GameObject weapon;
+    private Vector3 originalSize;
 
     public float baseDamage;
     public float criticDamage;
@@ -27,10 +29,11 @@ public class Weapon : ScriptableObject {
     }
 
     public void Instantiate(GameObject parent, GameObject owner) {
-        GameObject weapon = Instantiate(model, parent.transform);
+        weapon = Instantiate(model, parent.transform);
         weapon.transform.parent = parent.transform;
         weapon.AddComponent<WeaponHolder>().holder = this;
         weapon.GetComponent<WeaponHolder>().owner = owner;
+        originalSize = weapon.GetComponent<BoxCollider>().size;
     }
 
     public void Attack() {
@@ -41,6 +44,17 @@ public class Weapon : ScriptableObject {
     public void CriticAttack() {
         _damage = criticDamage;
         hitting = true;
+    }
+
+    public void GrowCollision(int mult) {
+        Debug.Log(weapon.GetComponent<BoxCollider>().size);
+        weapon.GetComponent<BoxCollider>().size = originalSize * mult;
+        Debug.Log(weapon.GetComponent<BoxCollider>().size);
+
+    }
+
+    public void ShrinkCollision() {
+        weapon.GetComponent<BoxCollider>().size = originalSize;
     }
 
 }

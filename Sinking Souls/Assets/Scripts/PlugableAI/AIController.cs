@@ -15,6 +15,7 @@ public class AIController : MonoBehaviour {
 
 
     public bool aiActive = false;
+    public bool stop = false;
 
     public void SetupAI(GameObject _player) {
         stateTimeElapsed = 0;
@@ -50,6 +51,12 @@ public class AIController : MonoBehaviour {
         GetComponent<Enemy>().weapon.hitting = false;
         GetComponent<Enemy>().thrown = false;
         navMeshAgent.enabled = false;
+        if (gameObject.GetComponent<ParticleSystem>()) gameObject.GetComponent<ParticleSystem>().Stop();
+        if (stop) {
+            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            stop = false;
+        }
+        gameObject.GetComponent<Enemy>().weapon.ShrinkCollision();
     }
 
     public void SetAnimBool(string str) {

@@ -60,6 +60,8 @@ public class Entity : MonoBehaviour {
             }
         }
     }
+
+
     private void OnTriggerExit(Collider other) {
 
         if (other.tag == "Weapon") {

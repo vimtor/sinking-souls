@@ -7,11 +7,14 @@ public class InSightDecission : Decision {
 
     public float maxAngle;
     public float sightDist;
+    public float probavility = 1;
 
     public override bool Decide(AIController controller) {
+        //if (Random.value <= probavility) return false;
         Vector3 targetDir = controller.player.transform.position - controller.gameObject.transform.position;
         float angle = Vector3.Angle(targetDir, controller.gameObject.transform.forward);
-        return ((angle < maxAngle/2) && targetDir.magnitude <= sightDist);
+        if ((angle < maxAngle / 2) && targetDir.magnitude <= sightDist) return (Random.value <= probavility);
+        return false;
 
     }
 }

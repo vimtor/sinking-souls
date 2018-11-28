@@ -9,12 +9,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd67c1b2fd6121b458816ae83710b563, type: 3}
-  m_Name: AugmentedMeleTriton_EndStabState
+  m_Name: AugmentedMeleTriton_StabStartState
   m_EditorClassIdentifier: 
   actions:
-  - {fileID: 11400000, guid: aa5a6bdfa0cf368449573b7600a1da56, type: 2}
+  - {fileID: 11400000, guid: 7ac878ce6e48d5c47bdea04d0e4e200c, type: 2}
   transitions:
-  - decision: {fileID: 11400000, guid: 52c02802d06779c42bce1b634744a790, type: 2}
-    trueState: {fileID: 11400000, guid: 013e0fb1d4f736748bc870da39178c0e, type: 2}
+  - decision: {fileID: 11400000, guid: 44ee86ae001e795499a03bc44e2453f0, type: 2}
+    trueState: {fileID: 11400000, guid: 6fe02671511003345837718d70eee3d2, type: 2}
     falseState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
   elapsedActions: 1

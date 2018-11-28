@@ -33,7 +33,7 @@ public class Weapon : ScriptableObject {
         weapon.transform.parent = parent.transform;
         weapon.AddComponent<WeaponHolder>().holder = this;
         weapon.GetComponent<WeaponHolder>().owner = owner;
-        originalSize = weapon.GetComponent<BoxCollider>().size;
+        if(weapon.GetComponent<BoxCollider>()) originalSize = weapon.GetComponent<BoxCollider>().size;
     }
 
     public void Attack() {
@@ -47,11 +47,11 @@ public class Weapon : ScriptableObject {
     }
 
     public void GrowCollision(int mult) {
-        weapon.GetComponent<BoxCollider>().size = originalSize * mult;
+        if (weapon.GetComponent<BoxCollider>()) weapon.GetComponent<BoxCollider>().size = originalSize * mult;
     }
 
     public void ShrinkCollision() {
-        weapon.GetComponent<BoxCollider>().size = originalSize;
+        if (weapon.GetComponent<BoxCollider>()) weapon.GetComponent<BoxCollider>().size = originalSize;
     }
 
 }

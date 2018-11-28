@@ -12,12 +12,15 @@ MonoBehaviour:
   m_Name: AugmentedArcherTriton_SpecialSpellState
   m_EditorClassIdentifier: 
   actions:
-  - {fileID: 11400000, guid: 59dafe494c032dc4186c0489a7e02720, type: 2}
+  - {fileID: 11400000, guid: b50c5ee7a9794fb4695d8c77272d3c7f, type: 2}
   transitions:
   - decision: {fileID: 11400000, guid: df45dd528942b5247be9f8fbe1d56b63, type: 2}
     trueState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
     falseState: {fileID: 11400000, guid: 15de6fa818e2fae47b0020e37e503dec, type: 2}
   - decision: {fileID: 11400000, guid: f63f8eb48e819db4ba59f21255a695ab, type: 2}
     trueState: {fileID: 11400000, guid: 26523bf43d687e949ac342660c0038f7, type: 2}
+    falseState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
+  - decision: {fileID: 11400000, guid: f63f8eb48e819db4ba59f21255a695ab, type: 2}
+    trueState: {fileID: 11400000, guid: a6660950e5de0d647837c9af1d1e1e86, type: 2}
     falseState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
   elapsedActions: 1

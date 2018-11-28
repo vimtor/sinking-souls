@@ -6,7 +6,7 @@ using UnityEngine;
 public class ArrowBehaviour : MonoBehaviour {
 
     [HideInInspector] public Vector3 direction;
-     public float arrowForce;
+    [HideInInspector] public float arrowForce;
 
     private void Start() {
 

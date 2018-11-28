@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd67c1b2fd6121b458816ae83710b563, type: 3}
+  m_Name: AugmentedArcherTriton_AtackState
+  m_EditorClassIdentifier: 
+  actions: []
+  transitions:
+  - decision: {fileID: 11400000, guid: 0605bd1940538854884a7dbd08a2d748, type: 2}
+    trueState: {fileID: 11400000, guid: c54894b1ad50c7d46b612992b7575c78, type: 2}
+    falseState: {fileID: 11400000, guid: af48388ce58acba47a0fcace58fea76e, type: 2}
+  - decision: {fileID: 11400000, guid: f63f8eb48e819db4ba59f21255a695ab, type: 2}
+    trueState: {fileID: 11400000, guid: 85b01cdc0c051a14db5368e106212897, type: 2}
+    falseState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
+  elapsedActions: 1

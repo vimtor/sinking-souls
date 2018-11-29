@@ -10,6 +10,7 @@ public class ArenaTool : EditorWindow {
     public GameObject enemy;
     public SpawnerConfiguration configuration;
     public GameObject spawnHolder;
+    public GameObject room;
 
     private int selected;
     private string[] options = new string[] { "Configuration", "Enemies" };
@@ -17,11 +18,14 @@ public class ArenaTool : EditorWindow {
 
     [MenuItem("Window/Arena Controller")]
     public static void ShowWindow() {
-        GetWindow<ArenaTool>("Arena");
+        var window = GetWindow<ArenaTool>("Arena");
+        window.minSize = new Vector2(420, 370);
+        window.maxSize = new Vector2(420, 370);
     }
 
     private void OnEnable() {
         skin = Resources.Load<GUISkin>("GUIStylesheet");
+        spawnPoints = new List<GameObject>();
     }
 
     private void OnGUI() {
@@ -34,7 +38,15 @@ public class ArenaTool : EditorWindow {
 
         GUILayout.BeginHorizontal();
         GUILayout.Label("Spawn Points");
+        EditorGUI.BeginChangeCheck();
         spawnHolder = (GameObject)EditorGUILayout.ObjectField(spawnHolder, typeof(GameObject), true);
+        if (EditorGUI.EndChangeCheck()) {
+            spawnPoints.Clear();
+
+            for (int i = 0; i < spawnHolder.transform.childCount; i++) {
+                spawnPoints.Add(spawnHolder.transform.GetChild(i).gameObject);
+            }
+        }
         GUILayout.EndHorizontal();
 
         GUILayout.BeginHorizontal();
@@ -55,18 +67,7 @@ public class ArenaTool : EditorWindow {
                     EditorGUILayout.HelpBox("Configuration cannot be null.", MessageType.Error);
                 }
                 else {
-                    if (GUILayout.Button("Spawn")) {
-                        for (int i = 0; i < spawnHolder.transform.childCount; i++) {
-                            spawnPoints.Add(spawnHolder.transform.GetChild(i).gameObject);
-                        }
-
-                        foreach (GameObject entity in configuration.entities) {
-                            GameObject enemy = Instantiate(entity);
-                            int index = Random.Range(0, spawnPoints.Count - 1);
-                            enemy.transform.position = spawnPoints[index].transform.position;
-                            enemy.GetComponent<AIController>().SetupAI();
-                        }
-                    }
+                    if (GUILayout.Button("Spawn")) SpawnConfiguration();
                 }
 
                 break;
@@ -88,21 +89,64 @@ public class ArenaTool : EditorWindow {
                         GUILayout.Space(10.0f);
                     }
 
-                    if (GUILayout.Button("Spawn")) {
-                        GameObject instantiated = Instantiate(enemy);
-                        instantiated.transform.position = spawnHolder.transform.GetChild(0).position;
-                        instantiated.GetComponent<AIController>().SetupAI();
-                    }
+                    if (GUILayout.Button("Spawn")) SpawnEnemy();
                 }
 
                 break;
         }
 
-        if (GUILayout.Button("Clean Arena")) {
-            var spawnedEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-            foreach(GameObject spawnedEnemy in spawnedEnemies) {
-                DestroyImmediate(spawnedEnemy);
+        if (GUILayout.Button("Clean Arena")) CleanArena();
+
+        
+        GUILayout.Label("Select Room", skin.GetStyle("SubHeader"));
+        
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Room Prefab");
+        room = (GameObject)EditorGUILayout.ObjectField(room, typeof(GameObject), false);
+        GUILayout.EndHorizontal();
+
+        GUILayout.Space(10.0f);
+
+        if (room == null) {
+            EditorGUILayout.HelpBox("Room prefab cannot be null.", MessageType.Error);
+        }
+        else {
+            if (!room.CompareTag("Room")) {
+                EditorGUILayout.HelpBox(room.name + " doesn't seems to be a room. Check the tag to make sure.", MessageType.Error);
             }
+            else {
+                if (GUILayout.Button("Change Room")) {
+                    GameObject currentRoom = GameObject.Find("Arena").transform.GetChild(0).gameObject;
+                    GameObject newRoom = Instantiate(room);
+                    newRoom.transform.position = currentRoom.transform.position;
+                    newRoom.transform.SetParent(GameObject.Find("Arena").transform);
+                    newRoom.transform.Find("NavMesh").gameObject.SetActive(true);
+                    DestroyImmediate(currentRoom);
+                }
+            }
+        }
+    }
+
+
+    private void SpawnEnemy() {
+        GameObject instantiated = Instantiate(enemy);
+        instantiated.transform.position = spawnHolder.transform.GetChild(0).position;
+        instantiated.GetComponent<AIController>().SetupAI();
+    }
+
+    private void SpawnConfiguration() {
+        foreach (GameObject entity in configuration.entities) {
+            GameObject enemy = Instantiate(entity);
+            int index = Random.Range(0, spawnPoints.Count - 1);
+            enemy.transform.position = spawnPoints[index].transform.position;
+            enemy.GetComponent<AIController>().SetupAI();
+        }
+    }
+
+    private void CleanArena() {
+        var spawnedEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject spawnedEnemy in spawnedEnemies) {
+            DestroyImmediate(spawnedEnemy);
         }
     }
 

@@ -78,7 +78,6 @@ public class LevelGenerator : MonoBehaviour {
         int x;
         x = Random.Range(0, takenPos.Count);
         Vector2 aux = takenPos[x];
-        Debug.Log(grid[(int)aux.x, (int)aux.y].gridPos);
         grid[(int)aux.x, (int)aux.y].type = Room.RoomType.ELITE;
     }
 

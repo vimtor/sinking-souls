@@ -4,14 +4,25 @@ using UnityEngine;
 
 public class SpawnController : MonoBehaviour {
 
-    public List<GameObject> spawnPoints;
+    [Tooltip("Object that should contain all the possible spawnpoints.")]
+    public GameObject spawnHolder;
+
+    [Tooltip("List of all the possible room configurations.")]
     public List<SpawnerConfiguration> possibleConfigurations;
+
+    [HideInInspector]
     public bool alreadySpawned = false;
 
-    public SpawnerConfiguration configuration;
+    private SpawnerConfiguration configuration;
+    private List<GameObject> spawnPoints;
 
     private void Start() {
+        spawnPoints = new List<GameObject>();
         configuration = possibleConfigurations[Random.Range(0, possibleConfigurations.Count - 1)];
+
+        for(int i = 0; i < spawnHolder.transform.childCount; i++) {
+            spawnPoints.Add(spawnHolder.transform.GetChild(i).gameObject);
+        }
     }
 
     private void OnDrawGizmos() {
@@ -23,7 +34,6 @@ public class SpawnController : MonoBehaviour {
 
     public void Spawn(GameObject _player) {
         if (!alreadySpawned) {
-            Debug.Log(configuration);
             foreach (GameObject entity in configuration.entities) {
                 GameObject enemy = Instantiate(entity);
                 int index = Random.Range(0, spawnPoints.Count - 1);
@@ -31,6 +41,7 @@ public class SpawnController : MonoBehaviour {
                 spawnPoints.RemoveAt(index);
                 enemy.GetComponent<AIController>().SetupAI(_player);
             }
+
             spawnPoints.Clear();
             alreadySpawned = true;
         }

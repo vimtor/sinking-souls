@@ -32,7 +32,6 @@ public class AIController : MonoBehaviour {
     void Update() {
         if (!aiActive)
             return;
-        Debug.Log(currentState);
         currentState.UpdateState(this);
         stateTimeElapsed += Time.deltaTime;
     }

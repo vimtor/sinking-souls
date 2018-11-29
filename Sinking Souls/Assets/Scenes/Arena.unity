@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -218,16 +218,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74f4465c0eed4c44392bec3e16f7ccc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoints:
-  - {fileID: 209175363}
-  - {fileID: 612689651}
-  - {fileID: 385800929}
-  - {fileID: 1505957839}
-  - {fileID: 1636383306}
+  spawnHolder: {fileID: 1997853029}
   possibleConfigurations:
   - {fileID: 11400000, guid: 4dba23e60f1ab2f4cb4d13ae64dca9d5, type: 2}
   alreadySpawned: 0
-  configuration: {fileID: 11400000, guid: 1ef4fca898cff684eb4f1424f82a3f5e, type: 2}
 --- !u!4 &77638159
 Transform:
   m_ObjectHideFlags: 0
@@ -1209,7 +1203,7 @@ GameObject:
   - component: {fileID: 763503354}
   - component: {fileID: 763503353}
   m_Layer: 13
-  m_Name: Door (1)
+  m_Name: Door
   m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

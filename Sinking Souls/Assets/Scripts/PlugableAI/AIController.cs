@@ -19,12 +19,13 @@ public class AIController : MonoBehaviour {
     public bool aiActive = false;
     public bool stop = false;
 
-    public void SetupAI(GameObject _player) {
+    public void SetupAI() {
         stateTimeElapsed = 0;
         aiActive = true;
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Entity>().animator;
-        player = _player;
+        player = GameController.instance.player;
+
         defaultAbility = gameObject.GetComponent<Enemy>().ability;
         if (aiActive) navMeshAgent.enabled = true;
     }
@@ -32,6 +33,9 @@ public class AIController : MonoBehaviour {
     void Update() {
         if (!aiActive)
             return;
+        if(!player)
+            player = GameController.instance.player;
+
         currentState.UpdateState(this);
         stateTimeElapsed += Time.deltaTime;
     }

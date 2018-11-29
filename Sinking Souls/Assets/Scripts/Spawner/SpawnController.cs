@@ -39,7 +39,7 @@ public class SpawnController : MonoBehaviour {
                 int index = Random.Range(0, spawnPoints.Count - 1);
                 enemy.transform.position = spawnPoints[index].transform.position;
                 spawnPoints.RemoveAt(index);
-                enemy.GetComponent<AIController>().SetupAI(_player);
+                enemy.GetComponent<AIController>().SetupAI();
             }
 
             spawnPoints.Clear();

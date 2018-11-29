@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd67c1b2fd6121b458816ae83710b563, type: 3}
+  m_Name: AugmentedMeleeTriton_ChaseState
+  m_EditorClassIdentifier: 
+  actions:
+  - {fileID: 11400000, guid: b36bfda32b2b6ee4e83037bc320ae81a, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: 199300806f434cc40a4e47747ad640dd, type: 2}
+    trueState: {fileID: 11400000, guid: 404c7fcad153f184698cc64e5a935825, type: 2}
+    falseState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
+  - decision: {fileID: 11400000, guid: 03905d5cccaa384448a636db84d80813, type: 2}
+    trueState: {fileID: 11400000, guid: 56415e59418fe214aab2b9491e815e11, type: 2}
+    falseState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
+  elapsedActions: 1

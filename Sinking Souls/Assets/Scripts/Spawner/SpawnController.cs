@@ -27,9 +27,12 @@ public class SpawnController : MonoBehaviour {
 
     private void OnDrawGizmos() {
         Gizmos.color = Color.green;
-        if (GameController.instance.debugMode)
-            foreach (GameObject spawnPoint in spawnPoints)
-                Gizmos.DrawCube(spawnPoint.transform.position, new Vector3(1,1,1));
+        if (!Application.isEditor) {
+            if (GameController.instance.debugMode) {
+                foreach (GameObject spawnPoint in spawnPoints)
+                    Gizmos.DrawCube(spawnPoint.transform.position, new Vector3(1, 1, 1));
+            }  
+        }
     }
 
     public void Spawn(GameObject _player) {

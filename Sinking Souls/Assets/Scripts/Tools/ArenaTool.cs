@@ -7,13 +7,14 @@ public class ArenaTool : EditorWindow {
 
     public GameObject enemy;
     public SpawnerConfiguration configuration;
-    public GameObject spawnHolder;
+    
     public GameObject room;
 
     private int selected;
     private string[] options = new string[] { "Configuration", "Enemies" };
     private List<GameObject> spawnPoints;
     private GUISkin skin;
+    private GameObject spawnHolder;
 
     [MenuItem("Window/Arena Controller")]
     public static void ShowWindow() {
@@ -36,19 +37,6 @@ public class ArenaTool : EditorWindow {
         GUILayout.Label("Configure", skin.GetStyle("SubHeader"));
 
         GUILayout.BeginHorizontal();
-        GUILayout.Label("Spawn Points");
-        EditorGUI.BeginChangeCheck();
-        spawnHolder = (GameObject)EditorGUILayout.ObjectField(spawnHolder, typeof(GameObject), true);
-        if (EditorGUI.EndChangeCheck()) {
-            spawnPoints.Clear();
-
-            for (int i = 0; i < spawnHolder.transform.childCount; i++) {
-                spawnPoints.Add(spawnHolder.transform.GetChild(i).gameObject);
-            }
-        }
-        GUILayout.EndHorizontal();
-
-        GUILayout.BeginHorizontal();
         GUILayout.Label("Spawn Mode");
         selected = EditorGUILayout.Popup(selected, options);
         GUILayout.EndHorizontal();
@@ -66,7 +54,14 @@ public class ArenaTool : EditorWindow {
                     EditorGUILayout.HelpBox("Configuration cannot be null.", MessageType.Error);
                 }
                 else {
-                    if (GUILayout.Button("Spawn")) SpawnConfiguration();
+                    if (SetSpawnPoints()) {
+                        if (GUILayout.Button("Spawn")) {
+                            SpawnConfiguration();
+                        }
+                    }
+                    else {
+                        EditorGUILayout.HelpBox("No game object with the name 'SpawnPoints' was found.", MessageType.Error);
+                    }
                 }
 
                 break;
@@ -88,7 +83,14 @@ public class ArenaTool : EditorWindow {
                         GUILayout.Space(10.0f);
                     }
 
-                    if (GUILayout.Button("Spawn")) SpawnEnemy();
+                    if (SetSpawnPoints()) {
+                        if (GUILayout.Button("Spawn")) {
+                            SpawnEnemy();
+                        }
+                    }
+                    else {
+                        EditorGUILayout.HelpBox("No game object with the name 'SpawnPoints' was found.", MessageType.Error);
+                    }
                 }
 
                 break;
@@ -120,10 +122,24 @@ public class ArenaTool : EditorWindow {
                     newRoom.transform.position = currentRoom.transform.position;
                     newRoom.transform.SetParent(GameObject.Find("Arena").transform);
                     newRoom.transform.Find("NavMesh").gameObject.SetActive(true);
+                    DestroyImmediate(newRoom.GetComponent<SpawnController>());
                     DestroyImmediate(currentRoom);
                 }
             }
         }
+    }
+
+    private bool SetSpawnPoints() {
+        spawnHolder = GameObject.Find("SpawnPoints");
+        if (spawnHolder == null) return false;
+
+        spawnPoints.Clear();
+
+        for (int i = 0; i < spawnHolder.transform.childCount; i++) {
+            spawnPoints.Add(spawnHolder.transform.GetChild(i).gameObject);
+        }
+
+        return true;
     }
 
     private void SpawnEnemy() {

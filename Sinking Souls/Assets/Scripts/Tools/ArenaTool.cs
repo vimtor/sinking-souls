@@ -5,8 +5,6 @@ using UnityEditor;
 
 public class ArenaTool : EditorWindow {
 
-    GUISkin skin;
-
     public GameObject enemy;
     public SpawnerConfiguration configuration;
     public GameObject spawnHolder;
@@ -15,6 +13,7 @@ public class ArenaTool : EditorWindow {
     private int selected;
     private string[] options = new string[] { "Configuration", "Enemies" };
     private List<GameObject> spawnPoints;
+    private GUISkin skin;
 
     [MenuItem("Window/Arena Controller")]
     public static void ShowWindow() {
@@ -126,7 +125,6 @@ public class ArenaTool : EditorWindow {
             }
         }
     }
-
 
     private void SpawnEnemy() {
         GameObject instantiated = Instantiate(enemy);

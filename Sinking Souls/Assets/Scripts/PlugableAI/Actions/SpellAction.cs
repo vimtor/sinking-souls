@@ -21,7 +21,6 @@ public class SpellAction : Action {
         if (controller.CheckIfCountDownElapsed(controller.GetComponent<Enemy>().clipLength["SpellAnim"])) {
             controller.stateTimeElapsed = 0;
             controller.GetComponent<Enemy>().thrown = false;
-            
         }
 
     }

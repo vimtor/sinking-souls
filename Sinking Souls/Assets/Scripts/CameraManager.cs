@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class CameraManager : MonoBehaviour {
 
     public static CameraManager instance = null; // Singleton.
 
-    public Transform player;
+    [HideInInspector] public Transform player;
+
+    private CinemachineVirtualCamera virtualCamera;
 
     private Vector3 center, offset;
     private BoxCollider boxCollider;
@@ -24,12 +27,15 @@ public class CameraManager : MonoBehaviour {
         }
         #endregion
 
+        virtualCamera = transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
     }
 
-    public void SetupCamera (Vector3 roomCenter) {
 
-        // Setup initial center and offset values,
-        // based on how the camera is initially positioned.
+    /// <summary>
+    /// Setup initial center and offset values, based on how the camera is initially positioned.
+    /// </summary>
+    /// <param name="roomCenter"></param>
+    public void SetupCamera (Vector3 roomCenter) {
         center = roomCenter;
         offset = new Vector3(-21, 17, -21);
         boxCollider = GetComponent<BoxCollider>();
@@ -37,15 +43,16 @@ public class CameraManager : MonoBehaviour {
         SetupCenter(center);
         transform.LookAt(center);
         gameOn = true;
+
+        //virtualCamera.LookAt = player;
+        virtualCamera.Follow = player.transform.Find("CameraFollow");
     }
 	
 	void Update () {
-        if (gameOn) {
-            SetupCenter(player.transform.position);
-            MoveCollider();
-        }
-
-        // if (Input.GetKeyDown(KeyCode.Space)) StartCoroutine(Shake(1.0f, 3.0f));
+        //if (gameOn) {
+        //    SetupCenter(player.transform.position);
+        //    MoveCollider();
+        //}
     }
 
     private void MoveCollider() {
@@ -62,15 +69,15 @@ public class CameraManager : MonoBehaviour {
     public void SetupCenter(Vector3 newCenter) {
         center = newCenter;
         transform.position = center + offset;
-        
     }
+
+    #region SHAKE
 
     public void Shake(float duration, float magnitude) {
         StartCoroutine(ShakeCoroutine(duration, magnitude));
     }
 
     public IEnumerator ShakeCoroutine(float duration, float magnitude) {
-
         Vector3 orignalPosition = transform.position;
         float elapsed = 0.0f;
 
@@ -86,6 +93,10 @@ public class CameraManager : MonoBehaviour {
 
         transform.position = orignalPosition;
     }
+
+    #endregion
+
+    #region HIT
 
     public void Hit(float duration, float magnitude) {
         StartCoroutine(HitCoroutine(duration, magnitude));
@@ -105,6 +116,8 @@ public class CameraManager : MonoBehaviour {
         GetComponent<Camera>().orthographicSize = originalSize;
 
     }
+
+    #endregion
 
     #region ROTATION
 

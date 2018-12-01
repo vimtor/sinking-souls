@@ -131,6 +131,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1123690920991446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4514147834230412}
+  m_Layer: 9
+  m_Name: CameraFollow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1124581924984680
 GameObject:
   m_ObjectHideFlags: 1
@@ -1201,12 +1216,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1589807051420334}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.49, y: 0.48, z: -7.14}
+  m_LocalPosition: {x: 20.392979, y: 21.386322, z: 28.119503}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4624603733246448}
   - {fileID: 4121352017925000}
   - {fileID: 4286829260817944}
+  - {fileID: 4514147834230412}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1633,6 +1649,19 @@ Transform:
   - {fileID: 4232499771811614}
   m_Father: {fileID: 4660782063907384}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4514147834230412
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1123690920991446}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4069940382197522}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4515637364642814
 Transform:
@@ -2109,6 +2138,8 @@ MonoBehaviour:
   attackOffset: 0.7
   rotationSpeed: 15
   actionRotationSpeed: 1
+  move: 0
+  state: 0
   dash: {fileID: 11400000, guid: bc3c58e0e26ffb94a84f21d256c3e27f, type: 2}
   ability: {fileID: 11400000, guid: fddf5f21314ce444ea3a0fee462174df, type: 2}
 --- !u!114 &114668370496422104

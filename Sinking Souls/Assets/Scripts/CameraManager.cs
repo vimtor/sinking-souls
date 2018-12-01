@@ -49,10 +49,7 @@ public class CameraManager : MonoBehaviour {
     }
 	
 	void Update () {
-        //if (gameOn) {
-        //    SetupCenter(player.transform.position);
-        //    MoveCollider();
-        //}
+        MoveCollider();
     }
 
     private void MoveCollider() {

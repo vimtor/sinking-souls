@@ -99,7 +99,7 @@ public class GameController : MonoBehaviour {
 
                 soulsUI = new List<SoulsUI>();
                 Debug.Log("4");
-                for (int i = 0; i < 2; i++) {//change this depending on how meny blueprints we want to spawn on a game
+                for (int i = 0; i < 0; i++) {//change this depending on how meny blueprints we want to spawn on a game
                     do {
                         int index = Random.Range(0, modifiers.Count);
                     } while (runModifiers.Contains(modifiers[i]));///|| modifiers[i].unlocked));

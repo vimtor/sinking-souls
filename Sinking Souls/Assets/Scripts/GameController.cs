@@ -148,14 +148,14 @@ public class GameController : MonoBehaviour {
 
             break;
             case GameState.ARENA:
-            currentRoom = GameObject.Find("Arena");
-            SpawnPlayer();
-            player.GetComponent<Player>().SetupPlayer();
-            currentRoom.GetComponent<SpawnController>().Spawn(player);
-            godMode = true;
-            CameraManager.instance.player = player.transform;
-            CameraManager.instance.SetupCamera(currentRoom.transform.position);
-            break;
+                currentRoom = GameObject.Find("Arena");
+                SpawnPlayer();
+                player.GetComponent<Player>().SetupPlayer();
+                //currentRoom.GetComponent<SpawnController>().Spawn(player);
+                godMode = true;
+                CameraManager.instance.player = player.transform;
+                CameraManager.instance.SetupCamera(currentRoom.transform.position);
+                break;
         }
     }
 

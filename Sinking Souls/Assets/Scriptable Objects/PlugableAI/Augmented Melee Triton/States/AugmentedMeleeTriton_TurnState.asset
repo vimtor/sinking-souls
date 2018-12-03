@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd67c1b2fd6121b458816ae83710b563, type: 3}
+  m_Name: AugmentedMeleeTriton_TurnState
+  m_EditorClassIdentifier: 
+  actions:
+  - {fileID: 11400000, guid: d5f1b36ed92195e41a0c27fb46ae0ff2, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: 199300806f434cc40a4e47747ad640dd, type: 2}
+    trueState: {fileID: 11400000, guid: 404c7fcad153f184698cc64e5a935825, type: 2}
+    falseState: {fileID: 11400000, guid: c3047c72ca6a885458d58f7656443805, type: 2}
+  elapsedActions: 1

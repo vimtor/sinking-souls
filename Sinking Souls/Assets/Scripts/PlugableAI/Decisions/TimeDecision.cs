@@ -9,9 +9,7 @@ public class TimeDecision : Decision {
     public float minimunTime;
 
     public override bool Decide(AIController controller) {
-
-        return (controller.CheckIfCountDownElapsed(minimunTime));
-
+        return (controller.CheckIfTimeElapsed(minimunTime));
     }
 
 }

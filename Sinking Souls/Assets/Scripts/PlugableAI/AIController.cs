@@ -7,24 +7,25 @@ public class AIController : MonoBehaviour {
 
     public State currentState;
     public State remainState;
-    public GameObject player;
+
+    [HideInInspector] public GameObject player;
+    [HideInInspector] public Animator animator;
+    [HideInInspector] public NavMeshAgent navMeshAgent;
+    [HideInInspector] public float stateTimeElapsed;
+    [HideInInspector] public float timeElapsed;
+    [HideInInspector] public bool aiActive = false;
+    [HideInInspector] public bool stop = false;
 
     private Ability defaultAbility;
 
-    /*[HideInInspector]*/ public Animator animator;
-    [HideInInspector] public NavMeshAgent navMeshAgent;
-    [HideInInspector] public float stateTimeElapsed;
-
-
-    public bool aiActive = false;
-    public bool stop = false;
-
-    public void SetupAI(GameObject _player) {
+    public void SetupAI() {
         stateTimeElapsed = 0;
+        timeElapsed = 0;
         aiActive = true;
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Entity>().animator;
-        player = _player;
+        // player = GameController.instance.player;
+
         defaultAbility = gameObject.GetComponent<Enemy>().ability;
         if (aiActive) navMeshAgent.enabled = true;
     }
@@ -32,9 +33,12 @@ public class AIController : MonoBehaviour {
     void Update() {
         if (!aiActive)
             return;
-        Debug.Log(currentState);
+        if(!player)
+            player = GameController.instance.player;
+
         currentState.UpdateState(this);
         stateTimeElapsed += Time.deltaTime;
+        timeElapsed += Time.deltaTime;
     }
 
     public void TransitionToState(State nextState) {
@@ -48,8 +52,13 @@ public class AIController : MonoBehaviour {
         return (stateTimeElapsed >= duration);
     }
 
+    public bool CheckIfTimeElapsed(float duration) {
+        return (timeElapsed >= duration);
+    }
+
     private void OnExitState() {
         stateTimeElapsed = 0;
+        timeElapsed = 0;
         GetComponent<Enemy>().weapon.hitting = false;
         GetComponent<Enemy>().thrown = false;
         navMeshAgent.enabled = false;
@@ -59,7 +68,7 @@ public class AIController : MonoBehaviour {
             stop = false;
         }
         gameObject.GetComponent<Enemy>().weapon.ShrinkCollision();
-        gameObject.GetComponent<Enemy>().ability = defaultAbility;
+        // gameObject.GetComponent<Enemy>().ability = defaultAbility;
     }
 
     public void SetAnimBool(string str) {

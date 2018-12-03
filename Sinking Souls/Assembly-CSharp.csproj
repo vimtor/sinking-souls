@@ -61,6 +61,59 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Behaviours\CinemachineBlendListCamera.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Behaviours\CinemachineBrain.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Behaviours\CinemachineClearShot.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Behaviours\CinemachineCollider.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Behaviours\CinemachineConfiner.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Behaviours\CinemachineDollyCart.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Behaviours\CinemachineExternalCamera.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Behaviours\CinemachineFollowZoom.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Behaviours\CinemachineFreeLook.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Behaviours\CinemachineMixingCamera.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Behaviours\CinemachinePath.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Behaviours\CinemachinePipeline.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Behaviours\CinemachineSmoother.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Behaviours\CinemachineSmoothPath.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Behaviours\CinemachineStateDrivenCamera.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Behaviours\CinemachineTargetGroup.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Behaviours\CinemachineVirtualCamera.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Components\CinemachineBasicMultiChannelPerlin.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Components\CinemachineComposer.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Components\CinemachineFramingTransposer.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Components\CinemachineGroupComposer.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Components\CinemachineHardLockToTarget.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Components\CinemachineHardLookAt.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Components\CinemachineOrbitalTransposer.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Components\CinemachinePOV.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Components\CinemachineSameAsFollowObject.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Components\CinemachineTrackedDolly.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Components\CinemachineTransposer.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Core\AxisState.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Core\CameraState.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Core\CinemachineBlend.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Core\CinemachineBlenderSettings.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Core\CinemachineComponentBase.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Core\CinemachineCore.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Core\CinemachineDebugLogger.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Core\CinemachineExtension.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Core\CinemachinePathBase.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Core\CinemachinePropertyAttribute.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Core\CinemachineVirtualCameraBase.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Core\GaussianFilter.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Core\ICinemachineCamera.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Core\ICinemachineComponent.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Core\LensSettings.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Core\NoiseSettings.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Core\Predictor.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Core\ReflectionHelpers.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Core\SplineHelpers.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Core\UnityVectorExtensions.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\PostFX\CinemachinePostFX.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\PostFX\CinemachinePostProcessing.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Timeline\CinemachineMixer.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Timeline\CinemachineShot.cs" />
+    <Compile Include="Assets\Addons\Cinemachine\Timeline\CinemachineTrack.cs" />
     <Compile Include="Assets\Addons\JMO Assets\Cartoon FX\Demo\Assets\CFX_AutoStopLoopedEffect.cs" />
     <Compile Include="Assets\Addons\JMO Assets\Cartoon FX\Demo\Assets\CFX_Demo_New.cs" />
     <Compile Include="Assets\Addons\JMO Assets\Cartoon FX\Demo\Assets\CFX_Demo_RandomDir.cs" />
@@ -71,19 +124,6 @@
     <Compile Include="Assets\Addons\JMO Assets\Cartoon FX\Scripts\CFX_AutoRotate.cs" />
     <Compile Include="Assets\Addons\JMO Assets\Cartoon FX\Scripts\CFX_LightFlicker.cs" />
     <Compile Include="Assets\Addons\JMO Assets\Cartoon FX\Scripts\CFX_LightIntensityFade.cs" />
-    <Compile Include="Assets\Addons\ProCore\ProBuilder\API Examples\Icosphere FFT\Scripts\CameraControls.cs" />
-    <Compile Include="Assets\Addons\ProCore\ProBuilder\API Examples\Icosphere FFT\Scripts\IcoBumpin.cs" />
-    <Compile Include="Assets\Addons\ProCore\ProBuilder\API Examples\Misc\HueCube.cs" />
-    <Compile Include="Assets\Addons\ProCore\ProBuilder\API Examples\Procedural Mesh\ExtrudeRandomEdges.cs" />
-    <Compile Include="Assets\Addons\ProCore\ProBuilder\API Examples\Runtime Editing\RuntimeEdit.cs" />
-    <Compile Include="Assets\Addons\ProCore\ProBuilder\API Examples\Vertex Colors\HighlightNearestFace.cs" />
-    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Constant.cs" />
-    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Enum.cs" />
-    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_IconUtility.cs" />
-    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_IgnoreSnapAttribute.cs" />
-    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_SceneMeshRender.cs" />
-    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Util.cs" />
-    <Compile Include="Assets\ProCore\ProGrids\MonoBehaviour\pg_IgnoreSnap.cs" />
     <Compile Include="Assets\Scripts\Abilities\Ability.cs" />
     <Compile Include="Assets\Scripts\Abilities\AbilityHolder.cs" />
     <Compile Include="Assets\Scripts\Abilities\Inventory\ArrowAbility.cs" />
@@ -120,6 +160,7 @@
     <Compile Include="Assets\Scripts\PlugableAI\Actions\AttackAction.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Actions\ChargeStabAction.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Actions\ChaseAction.cs" />
+    <Compile Include="Assets\Scripts\PlugableAI\Actions\EnchantAction.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Actions\HitAction.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Actions\IdleAction.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Actions\LookAction.cs" />
@@ -135,8 +176,9 @@
     <Compile Include="Assets\Scripts\PlugableAI\Decisions\AnimationDecision.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Decisions\DistanceLongerDecision.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Decisions\DistanceShorterDecision.cs" />
+    <Compile Include="Assets\Scripts\PlugableAI\Decisions\EmptyDecision.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Decisions\HitDecision.cs" />
-    <Compile Include="Assets\Scripts\PlugableAI\Decisions\InSightDecission.cs" />
+    <Compile Include="Assets\Scripts\PlugableAI\Decisions\InSightDecision.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Decisions\LookDecision.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Decisions\TimeDecision.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\State.cs" />
@@ -145,53 +187,30 @@
     <Compile Include="Assets\Scripts\Spawner\SpawnerConfiguration.cs" />
     <Compile Include="Assets\Scripts\State Machine Behaviours\AnimatorResetBoolAtEnd.cs" />
     <Compile Include="Assets\Scripts\State Machine Behaviours\Dash.cs" />
+    <Compile Include="Assets\Scripts\Tools\AICreatorTool.cs" />
+    <Compile Include="Assets\Scripts\Tools\ArenaTool.cs" />
     <Compile Include="Assets\Scripts\UI\ScrollbarBehaviour.cs" />
     <Compile Include="Assets\Scripts\UI\Shop.cs" />
     <Compile Include="Assets\Scripts\UI\SoulsUI.cs" />
     <Compile Include="Assets\Scripts\UI\UIShowLife.cs" />
     <Compile Include="Assets\Scripts\Weapons\Weapon.cs" />
     <Compile Include="Assets\Scripts\Weapons\WeaponHolder.cs" />
-    <None Include="Assets\ProCore\ProGrids\Shader\pg_GridShader.shader" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\Shader\pb_TransparentOverlay.shader" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\API Examples\Icosphere FFT\README.txt" />
     <None Include="Assets\Addons\JMO Assets\Cartoon FX\Shaders\CFX3 Multiply Color.shader" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\Shader\pb_SelectionPicker.shader" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\About\changelog.txt" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\Shader\DiffuseVertexColor.shader" />
     <None Include="Assets\Addons\JMO Assets\Cartoon FX\Shaders\CFXM_MobileParticleAdd_Alpha8.shader" />
     <None Include="Assets\Addons\JMO Assets\Cartoon FX\CartoonFX Free.txt" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\Shader\pb_FaceHighlight.shader" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\Shader\pb_UnlitSolidColor.shader" />
-    <None Include="Assets\ProCore\ProGrids\About\pc_AboutEntry_ProGrids.txt" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\Shader\pb_ReferenceUnlit.shader" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\Shader\DiffuseTextureBlend.shader" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\Shader\pb_StandardVertexColor.shader" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\Shader\pb_VertexPicker.shader" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\Shader\pb_HideVertices.shader" />
+    <None Include="Assets\Addons\Cinemachine\ReleaseNotes.txt" />
     <None Include="Assets\Addons\JMO Assets\Cartoon FX Easy Editor\CartoonFX Easy Editor Readme.txt" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\About\ThirdPartyLicenses.txt" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\Shader\pb_UnlitVertexColor.shader" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\Shader\pb_FacePicker.shader" />
-    <None Include="Assets\Addons\JMO Assets\!JMO Assets Readme.txt" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\About\Font\SIL Open Font License.txt" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\About\pc_AboutEntry_ProBuilder.txt" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\Shader\pb_VertexShader.shader" />
-    <None Include="Assets\ProCore\ProGrids\About\changelog.txt" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\Shader\pb_NormalPreview.shader" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\Shader\pb_ScrollHighlight.shader" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\readme.txt" />
-    <None Include="Assets\Addons\ProCore\ProBuilder\Shader\pb_SmoothingPreview.shader" />
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>D:/Documentos/Git Repos/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/vn4va/Documents/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/Documentos/Git Repos/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/vn4va/Documents/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>D:/Documentos/Git Repos/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/vn4va/Documents/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Documentos/Git Repos/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/vn4va/Documents/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -391,26 +410,11 @@
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
-    <Reference Include="ProBuilderCore-Unity5">
-      <HintPath>D:/Documentos/Git Repos/Sinking-Souls/Sinking Souls/Assets/Addons/ProCore/ProBuilder/Classes/ProBuilderCore-Unity5.dll</HintPath>
-    </Reference>
-    <Reference Include="ProBuilderMeshOps-Unity5">
-      <HintPath>D:/Documentos/Git Repos/Sinking-Souls/Sinking Souls/Assets/Addons/ProCore/ProBuilder/Classes/ProBuilderMeshOps-Unity5.dll</HintPath>
-    </Reference>
-    <Reference Include="KdTreeLib">
-      <HintPath>D:/Documentos/Git Repos/Sinking-Souls/Sinking Souls/Assets/Addons/ProCore/ProBuilder/Classes/ClassesLib/KdTreeLib.dll</HintPath>
-    </Reference>
-    <Reference Include="pb_Stl">
-      <HintPath>D:/Documentos/Git Repos/Sinking-Souls/Sinking Souls/Assets/Addons/ProCore/ProBuilder/Classes/ClassesLib/pb_Stl.dll</HintPath>
-    </Reference>
-    <Reference Include="Poly2Tri">
-      <HintPath>D:/Documentos/Git Repos/Sinking-Souls/Sinking Souls/Assets/Addons/ProCore/ProBuilder/Classes/ClassesLib/Poly2Tri.dll</HintPath>
-    </Reference>
     <Reference Include="UnityEngine.Analytics">
-      <HintPath>C:/Users/marcs/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
+      <HintPath>C:/Users/vn4va/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
-      <HintPath>C:/Users/marcs/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/vn4va/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>

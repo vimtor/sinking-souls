@@ -20,7 +20,6 @@ public class LookDecision : Decision {
             if (GameController.instance.debugMode) {
                 Debug.DrawRay(controller.transform.position, targetDir.normalized * hit.distance, Color.green);
             }
-            Debug.Log(hit.collider.tag);
             if (hit.collider.tag == "Player") {
 
                 #region Rotate torwards the target

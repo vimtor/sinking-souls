@@ -16,15 +16,6 @@ public class DoorBehaviour : MonoBehaviour {
         SetNext();
     }
 
-    private void OnDrawGizmos() {
-        if (GameController.instance.debugMode) {
-            Gizmos.color = Color.red;
-            Ray ray = new Ray(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance);
-            Gizmos.DrawRay(ray);
-        }
-        
-    }
-
     void SetNext() {
         int layerMask = 1 << 13;
 

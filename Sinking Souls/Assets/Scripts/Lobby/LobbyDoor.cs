@@ -20,6 +20,12 @@ public class LobbyDoor : MonoBehaviour {
                     break;
                 case "Game":
                     GameController.instance.scene = GameController.GameState.GAME;
+                    GameController.instance.gameObject.GetComponent<LevelGenerator>().currentLevel++;
+                    Debug.Log(GameController.instance.gameObject.GetComponent<LevelGenerator>().currentLevel);
+                    SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
+                    break;
+                case "LoadScene":
+                    GameController.instance.scene = GameController.GameState.LOADSCENE;
                     SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
                     break;
             }

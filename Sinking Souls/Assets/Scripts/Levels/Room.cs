@@ -8,7 +8,8 @@ public class Room {
         COMBAT,
         BOSS,
         INITIAL,
-        ELITE
+        ELITE,
+        NEXT_FLOOR
     }
 
     public Vector2 gridPos;

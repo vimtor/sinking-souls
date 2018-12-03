@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
-    public enum GameState { LOBBY, GAME, ARENA };
+    public enum GameState { LOBBY, GAME, ARENA, LOADSCENE };
 
     public GameState scene = GameState.LOBBY;
     [HideInInspector] public static GameController instance;
@@ -79,6 +79,7 @@ public class GameController : MonoBehaviour {
     public void LoadScene() {
         switch (scene) {
             case GameState.GAME:
+                Debug.Log("1");
                 died = false;
                 #region Setup Initial Room
                 levelGenerator = GetComponent<LevelGenerator>();
@@ -89,27 +90,33 @@ public class GameController : MonoBehaviour {
 
                 player.GetComponent<Player>().SetupPlayer();
                 #endregion
-
+                Debug.Log("2");
                 #region Setup Camera
                 CameraManager.instance.player = player.transform;
                 CameraManager.instance.SetupCamera(currentRoom.transform.position);
-            #endregion
+                #endregion
+                Debug.Log("3");
 
                 soulsUI = new List<SoulsUI>();
-
+                Debug.Log("4");
                 for (int i = 0; i < 2; i++) {//change this depending on how meny blueprints we want to spawn on a game
                     do {
                         int index = Random.Range(0, modifiers.Count);
                     } while (runModifiers.Contains(modifiers[i]));///|| modifiers[i].unlocked));
                     runModifiers.Add(modifiers[i]);
-                }   
+                }
+                Debug.Log("5");
                 blueSouls = 0;
                 greenSouls = 0;
                 redSouls = 0;
-                foreach(GameObject Go in GameObject.FindGameObjectsWithTag("SoulUI")) soulsUI.Add(Go.GetComponent<SoulsUI>());
-            break;
+                soulsUI = new List<SoulsUI>();
+                Debug.Log("6");
+                foreach (GameObject Go in GameObject.FindGameObjectsWithTag("SoulUI")) soulsUI.Add(Go.GetComponent<SoulsUI>());
+                Debug.Log("7");
+                break;
 
             case GameState.LOBBY:
+                gameObject.GetComponent<LevelGenerator>().currentLevel = -1;
                 #region Setup Initial Room
                 currentRoom = GameObject.Find("Map");
                 SpawnPlayer();
@@ -155,6 +162,8 @@ public class GameController : MonoBehaviour {
                 godMode = true;
                 CameraManager.instance.player = player.transform;
                 CameraManager.instance.SetupCamera(currentRoom.transform.position);
+                break;
+            default:
                 break;
         }
     }

@@ -28,6 +28,7 @@ public class Enemy : Entity {
 
     private void Update() {
         if (health <= 0) Die();
+        Debug.Log(GetComponent<AIController>().navMeshAgent.speed);
     }
 
     private void Die() {

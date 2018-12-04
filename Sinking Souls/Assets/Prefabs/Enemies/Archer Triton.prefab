@@ -2098,6 +2098,7 @@ MonoBehaviour:
   animator: {fileID: 95380807781379840}
   navMeshAgent: {fileID: 195863538292751940}
   stateTimeElapsed: 0
+  timeElapsed: 0
   aiActive: 0
   stop: 0
 --- !u!114 &114594749418575514
@@ -2111,7 +2112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eecd7ff4b5aca041b30e1fe1e2bcf66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 70
+  health: 700000
   walkSpeed: 0
   weapon: {fileID: 11400000, guid: c958c4727a0750a4a988ffdbd5dc3e10, type: 2}
   hand: {fileID: 1903170545890858}
@@ -2122,6 +2123,7 @@ MonoBehaviour:
   facingDir: {x: 0, y: 0, z: 0}
   hit: 0
   collider: {fileID: 136219435029149894}
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
   soul: {fileID: 11400000, guid: 9de7b889854178f41a43ca7ed3a6e990, type: 2}
   ability: {fileID: 11400000, guid: 1c65a31ad04070446b36237c4329c509, type: 2}
 --- !u!136 &136219435029149894

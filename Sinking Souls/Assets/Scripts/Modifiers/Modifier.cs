@@ -2,21 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Modifier")]
-public class Modifier : ScriptableObject {
+public abstract class Modifier : ScriptableObject {
 
     public Sprite sprite;
     new public string name;
     public string description;
-    public List<Effect> effects;
     public int price;
     public bool owned;
     public bool unlocked;
 
+    public int damage;
+    public float hitTime;
+    public float duration;
 
-    void Buy() {
 
-    }
+    void Buy() {}
+    public abstract void Apply(GameObject go);
 
 
 }

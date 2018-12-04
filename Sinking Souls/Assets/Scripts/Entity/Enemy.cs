@@ -13,6 +13,7 @@ public class Enemy : Entity {
 
     public Ability ability;
 
+
     private void Start() {
         OnStart();
 

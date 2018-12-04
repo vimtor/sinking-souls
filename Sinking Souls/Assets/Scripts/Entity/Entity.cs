@@ -16,8 +16,17 @@ public class Entity : MonoBehaviour {
     [HideInInspector] public Vector3 facingDir;
     [HideInInspector] public bool hit;
     [HideInInspector] new public CapsuleCollider collider;
+    [HideInInspector] public enum ModifierState {FIRE, TOXIC, ELECTRIC, ICE};
+    [HideInInspector] public Dictionary<ModifierState, int> currentModifierState = new Dictionary<ModifierState, int>();
+    [HideInInspector] public Color originalColor;
 
     protected void OnStart() {
+        originalColor = transform.GetChild(1).GetComponent<Renderer>().material.color;
+
+        for (int i = 0; i < 4; i++) {
+            currentModifierState[(ModifierState)i] = 0;
+        }
+        
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         facingDir = Vector3.zero;
@@ -27,9 +36,7 @@ public class Entity : MonoBehaviour {
 
     protected void Apply(Modifier modifier) {
         if(modifier != null) {
-            foreach (Effect effect in modifier.effects) {
-                effect.Apply(gameObject);
-            }
+            modifier.Apply(this.gameObject);
         }
     }
 
@@ -37,9 +44,18 @@ public class Entity : MonoBehaviour {
         weapon.Instantiate(hand, this.gameObject);
     }
 
-    protected void TakeDamage(float damage) {
+    public void TakeDamage(float damage) {
         health -= damage;
+        transform.GetChild(1).GetComponent<Renderer>().material.color = Color.red;
+        GameController.instance.StartCoroutine(ResetColor(0.05f));
     }
+
+
+    IEnumerator ResetColor(float time) {
+        yield return new WaitForSeconds(time);
+        transform.GetChild(1).GetComponent<Renderer>().material.color = originalColor;
+    }
+
 
     private void OnTriggerEnter(Collider other) {
 

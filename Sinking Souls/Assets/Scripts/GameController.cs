@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class GameController : MonoBehaviour {
+public class GameController : MonoBehaviour
+{
 
     public enum GameState { LOBBY, GAME, ARENA, LOADSCENE };
 
@@ -13,13 +14,17 @@ public class GameController : MonoBehaviour {
     [HideInInspector] public bool godMode = false;
     [HideInInspector] public GameObject currentRoom;
     [HideInInspector] public GameObject playerGO;
-     public GameObject player;
+    public GameObject player;
     [HideInInspector] public List<Modifier> runModifiers;
     [HideInInspector] public List<Modifier> pickedModifiers;
+    [HideInInspector] public List<Ability> runAbilities;
+    [HideInInspector] public List<Modifier> pickedAbilities;
 
     public bool blacksmith = false; // Consider making this a array that holds the unlocked/locked state of each friend.
+    public bool alchemist = false;
     public GameObject blueprint;
     public List<Modifier> modifiers;
+    public List<Ability> abilities;
     public int blueSouls;
     public int redSouls;
     public int greenSouls;
@@ -30,37 +35,44 @@ public class GameController : MonoBehaviour {
     private LevelGenerator levelGenerator;
     private GameObject shop;
 
-    private void Awake() {
+    private void Awake()
+    {
 
         #region SINGLETON
-        if (instance == null) {
+        if (instance == null)
+        {
             instance = this;
         }
-        else if(instance != this) {
+        else if (instance != this)
+        {
             Destroy(this);
             return;
         }
 
         DontDestroyOnLoad(gameObject);
         #endregion
-
     }
 
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
         LoadScene();
     }
 
-    void OnEnable() {
+    void OnEnable()
+    {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    void OnDisable() {
+    void OnDisable()
+    {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
 
-    public void SpawnBlueprint(Vector3 position) {
-        if (runModifiers.Count != 0) {
+    public void SpawnBlueprint(Vector3 position)
+    {
+        if (runModifiers.Count != 0)
+        {
             GameObject newBlueprint = Instantiate(blueprint);
             newBlueprint.transform.position = position + new Vector3(0, 1, 0);
             int index = Random.Range(0, runModifiers.Count);
@@ -70,14 +82,18 @@ public class GameController : MonoBehaviour {
         else Debug.Log("No more blueprints to spawn");
     }
 
-    public void UpdateUI() {
-        foreach(SoulsUI UI in soulsUI) {
+    public void UpdateUI()
+    {
+        foreach (SoulsUI UI in soulsUI)
+        {
             UI.UpdateText();
         }
     }
 
-    public void LoadScene() {
-        switch (scene) {
+    public void LoadScene()
+    {
+        switch (scene)
+        {
             case GameState.GAME:
                 Debug.Log("1");
                 died = false;
@@ -99,8 +115,10 @@ public class GameController : MonoBehaviour {
 
                 soulsUI = new List<SoulsUI>();
                 Debug.Log("4");
-                for (int i = 0; i < 0; i++) {//change this depending on how meny blueprints we want to spawn on a game
-                    do {
+                for (int i = 0; i < 0; i++)
+                {//change this depending on how meny blueprints we want to spawn on a game
+                    do
+                    {
                         int index = Random.Range(0, modifiers.Count);
                     } while (runModifiers.Contains(modifiers[i]));///|| modifiers[i].unlocked));
                     runModifiers.Add(modifiers[i]);
@@ -120,13 +138,15 @@ public class GameController : MonoBehaviour {
                 #region Setup Initial Room
                 currentRoom = GameObject.Find("Map");
                 SpawnPlayer();
-            #endregion
+                #endregion
 
-                if (!died) {
+                if (!died)
+                {
                     fullSouls = blueSouls < greenSouls ? blueSouls : greenSouls;
                     fullSouls = fullSouls < redSouls ? fullSouls : redSouls;
                 }
-                else {
+                else
+                {
                     blueSouls = 0;
                     greenSouls = 0;
                     redSouls = 0;
@@ -135,25 +155,33 @@ public class GameController : MonoBehaviour {
                 runModifiers = new List<Modifier>();
                 pickedModifiers = new List<Modifier>();
 
-                foreach (GameObject crewMember in GameObject.FindGameObjectsWithTag("CrewMember")) {
-                    if (blacksmith){
+                foreach (GameObject crewMember in GameObject.FindGameObjectsWithTag("CrewMember"))
+                {
+                    if (blacksmith)
+                    {
                         crewMember.SetActive(true);//if we have a list and not just a bool for each change this
                         crewMember.GetComponent<Animator>().SetBool("IDLE", true);
                     }
-                    else {
+                    else if (alchemist)
+                    {
+                        crewMember.SetActive(true);//if we have a list and not just a bool for each change this
+                        crewMember.GetComponent<Animator>().SetBool("IDLE", true);
+                    }
+                    else
+                    {
                         crewMember.SetActive(false);//if we have a list and not just a bool for each change this
                     }
-                }   
+                }
                 player.GetComponent<Player>().SetupPlayer();
-
+                GameObject.Find("Alchemist").GetComponent<AlchemistBehaviour>().FillShop();
                 GameObject.FindGameObjectWithTag("Shop").GetComponent<Shop>().FillShop();
-                
+
                 #region Setup Camera
                 CameraManager.instance.player = player.transform;
                 CameraManager.instance.SetupCamera(currentRoom.transform.position);
                 #endregion
 
-            break;
+                break;
             case GameState.ARENA:
                 currentRoom = GameObject.Find("Arena");
                 SpawnPlayer();
@@ -168,32 +196,39 @@ public class GameController : MonoBehaviour {
         }
     }
 
-    private void Update() {
+    private void Update()
+    {
 
-        if(Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.G)) {
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.G))
+        {
             Debug.Log("God Mode activated.");
             godMode = !godMode;
         }
-        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.D)) {
+        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.D))
+        {
             Debug.Log("Debug Mode activated.");
             debugMode = !debugMode;
         }
 
     }
 
-    private GameObject SpawnLevel() {
+    private GameObject SpawnLevel()
+    {
         return levelGenerator.Spawn();
     }
 
-    private void SpawnPlayer() {
+    private void SpawnPlayer()
+    {
         player = Instantiate(playerGO);
         player.transform.position = currentRoom.transform.position;
     }
 
-    public void ChangeRoom(GameObject door) {
+    public void ChangeRoom(GameObject door)
+    {
 
         Transform room = door.transform;
-        while (room.parent != null) {
+        while (room.parent != null)
+        {
             room = room.parent.transform;
             if (room.tag == "Room") break;
         }

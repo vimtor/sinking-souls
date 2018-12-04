@@ -2,29 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Ability : ScriptableObject {
+public abstract class Ability : ScriptableObject
+{
 
     public int cooldown;
     public float damage;
     public Modifier modifier;
     public GameObject prefab;
+    public Sprite sprite;
+    new public string name;
+    public string description;
+    public int price;
 
     [HideInInspector] public string target;
     [HideInInspector] public Entity entity;
 
     protected GameObject parent;
 
-    public void Use(GameObject newParent) {
+    public void Use(GameObject newParent)
+    {
         SetParent(newParent);
         SetEntity();
-        if(CheckThrown()) {
+        if (CheckThrown())
+        {
             Configure(SetPrefab());
         }
     }
 
     protected abstract void Configure(GameObject prefab);
 
-    protected GameObject SetPrefab() {
+    protected GameObject SetPrefab()
+    {
         GameObject instantiated = Instantiate(prefab);
         instantiated.transform.position = entity.hand.transform.position;
 
@@ -34,8 +42,10 @@ public abstract class Ability : ScriptableObject {
         return instantiated;
     }
 
-    protected bool CheckThrown() {
-        if (!entity.thrown) {
+    protected bool CheckThrown()
+    {
+        if (!entity.thrown)
+        {
             entity.thrown = true;
             return true;
         }
@@ -43,13 +53,13 @@ public abstract class Ability : ScriptableObject {
         return false;
     }
 
-    protected void SetParent(GameObject newParent) {
+    protected void SetParent(GameObject newParent)
+    {
         if (parent == null) parent = newParent;
     }
 
-    protected void SetEntity() {
+    protected void SetEntity()
+    {
         if (entity == null) entity = parent.GetComponent<Entity>();
     }
-
-
 }

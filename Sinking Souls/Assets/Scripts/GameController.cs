@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class GameController : MonoBehaviour
     [HideInInspector] public List<Modifier> pickedModifiers;
     [HideInInspector] public List<Ability> runAbilities;
     [HideInInspector] public List<Modifier> pickedAbilities;
+    [HideInInspector] public Text lobbySoulsHUD;
 
     public bool blacksmith = false; // Consider making this a array that holds the unlocked/locked state of each friend.
     public bool alchemist = false;
@@ -154,6 +156,8 @@ public class GameController : MonoBehaviour
                 }
                 runModifiers = new List<Modifier>();
                 pickedModifiers = new List<Modifier>();
+                lobbySoulsHUD = GameObject.Find("SoulsNumber").GetComponent<Text>();
+                lobbySoulsHUD.text = fullSouls.ToString();
 
                 foreach (GameObject crewMember in GameObject.FindGameObjectsWithTag("CrewMember"))
                 {

@@ -60,11 +60,19 @@ MonoBehaviour:
   player: {fileID: 1589807051420334, guid: 49e416f76c3ef9049a0ff61d55781277, type: 2}
   runModifiers: []
   pickedModifiers: []
-  blacksmith: 0
+  runAbilities: []
+  pickedAbilities: []
+  lobbySoulsHUD: {fileID: 0}
+  blacksmith: 1
+  alchemist: 1
   blueprint: {fileID: 1656587315307008, guid: 1a7131efd18afaf4cb4d1edaea296ef7, type: 2}
   modifiers:
   - {fileID: 11400000, guid: ecdcc0d9a08592340b04b77a980b7bf4, type: 2}
   - {fileID: 11400000, guid: 023d74ea25be4ba4d8562fcf154bf7b3, type: 2}
+  abilities:
+  - {fileID: 11400000, guid: fddf5f21314ce444ea3a0fee462174df, type: 2}
+  - {fileID: 11400000, guid: 1c65a31ad04070446b36237c4329c509, type: 2}
+  - {fileID: 11400000, guid: 1ec961ec8962cbb4482e7dff7290c7fa, type: 2}
   blueSouls: 0
   redSouls: 0
   greenSouls: 0
@@ -114,7 +122,7 @@ MonoBehaviour:
     - {fileID: 1087139973820096, guid: 71cd95c420f5bcb469c53a41821e5fd7, type: 2}
   RoomsD:
   - List:
-    - {fileID: 1475618307286918, guid: 993fe73d51eaad54c904a02ac271d275, type: 2}
+    - {fileID: 1891851351360820, guid: 9ea5a7f219151514e8179311f6b6ca7f, type: 2}
   - List:
     - {fileID: 1891851351360820, guid: 9ea5a7f219151514e8179311f6b6ca7f, type: 2}
   - List:
@@ -159,7 +167,8 @@ MonoBehaviour:
     - {fileID: 1087139973820096, guid: 9b791f3b4674b974b911a4c8acc3ca4f, type: 2}
   - List:
     - {fileID: 1087139973820096, guid: 9b791f3b4674b974b911a4c8acc3ca4f, type: 2}
-  - List: []
+  - List:
+    - {fileID: 1087139973820096, guid: 9b791f3b4674b974b911a4c8acc3ca4f, type: 2}
   RoomsEliteD:
   - List:
     - {fileID: 1891851351360820, guid: 9c5c83d854dcf4f4cb30360b8f6b9093, type: 2}

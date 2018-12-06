@@ -2093,7 +2093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27115a1663b5ebc4a9dbbeb6a6e5abcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: {fileID: 11400000, guid: 3f16c22c1d312994a95401f4a18394b5, type: 2}
+  currentState: {fileID: 0}
   remainState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
   player: {fileID: 0}
   animator: {fileID: 0}
@@ -2135,9 +2135,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3ea0ae0ce998444af0441e2707ddb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopPanel: {fileID: 0}
+  shopPanel: {fileID: 1297394885501062, guid: 725c22e187acbaa449fa5bf0291db5c9, type: 2}
   UIItem: {fileID: 1297394885501062, guid: 5963bce74ac1cc84f8ccee63a23466d9, type: 2}
   range: 5
+  remainingSouls: 0
 --- !u!136 &136783293008452602
 CapsuleCollider:
   m_ObjectHideFlags: 1

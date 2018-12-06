@@ -9,6 +9,7 @@ public class Entity : MonoBehaviour {
     public Weapon weapon;
     public GameObject hand;
     public Modifier baseModifier;
+    public GameObject hitParticle;
 
     [HideInInspector] public bool thrown;
     [HideInInspector] public Rigidbody rb;
@@ -19,6 +20,8 @@ public class Entity : MonoBehaviour {
     [HideInInspector] public enum ModifierState {FIRE, TOXIC, ELECTRIC, ICE};
     [HideInInspector] public Dictionary<ModifierState, int> currentModifierState = new Dictionary<ModifierState, int>();
     [HideInInspector] public Color originalColor;
+    [HideInInspector] public bool gettingDamage = false;
+
 
     protected void OnStart() {
         originalColor = transform.GetChild(1).GetComponent<Renderer>().material.color;
@@ -47,12 +50,14 @@ public class Entity : MonoBehaviour {
     public void TakeDamage(float damage) {
         health -= damage;
         transform.GetChild(1).GetComponent<Renderer>().material.color = Color.red;
-        GameController.instance.StartCoroutine(ResetColor(0.05f));
+        gettingDamage = true;
+        GameController.instance.StartCoroutine(ResetColor(0.1f));
     }
 
 
     IEnumerator ResetColor(float time) {
         yield return new WaitForSeconds(time);
+        gettingDamage = false;
         transform.GetChild(1).GetComponent<Renderer>().material.color = originalColor;
     }
 
@@ -66,6 +71,9 @@ public class Entity : MonoBehaviour {
                 Apply(other.GetComponent<WeaponHolder>().holder.modifier);
                 
                 if(tag == "Enemy") CameraManager.instance.Hit(0.05f, 2.5f);
+                GameObject hitO = Instantiate(hitParticle);
+                hitO.transform.position = other.transform.position;
+                Destroy(hitO, 1);
             }
         }
         else if (other.tag == "Ability") {

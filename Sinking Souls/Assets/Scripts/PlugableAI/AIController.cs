@@ -13,8 +13,11 @@ public class AIController : MonoBehaviour {
     [HideInInspector] public NavMeshAgent navMeshAgent;
     [HideInInspector] public float stateTimeElapsed;
     [HideInInspector] public float timeElapsed;
+    [HideInInspector] public float externalTime;
     [HideInInspector] public bool aiActive = false;
     [HideInInspector] public bool stop = false;
+    [HideInInspector] public bool forceState = false;
+    [HideInInspector] public State last;
 
     private Ability defaultAbility;
 

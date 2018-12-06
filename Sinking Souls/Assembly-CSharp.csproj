@@ -154,8 +154,10 @@
     <Compile Include="Assets\Scripts\Lobby\BlacksmithBehaviour.cs" />
     <Compile Include="Assets\Scripts\Lobby\CrewMember.cs" />
     <Compile Include="Assets\Scripts\Lobby\LobbyDoor.cs" />
+    <Compile Include="Assets\Scripts\Modifiers\Inventory\Electric Modifier.cs" />
     <Compile Include="Assets\Scripts\Modifiers\Inventory\FireModifier.cs" />
     <Compile Include="Assets\Scripts\Modifiers\Inventory\IceModifier.cs" />
+    <Compile Include="Assets\Scripts\Modifiers\Inventory\ToxicModifier.cs" />
     <Compile Include="Assets\Scripts\Modifiers\Modifier.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Action.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Actions\AttackAction.cs" />
@@ -169,6 +171,7 @@
     <Compile Include="Assets\Scripts\PlugableAI\Actions\SpellAction.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Actions\StabAction.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Actions\StabChargeAction.cs" />
+    <Compile Include="Assets\Scripts\PlugableAI\Actions\SunAction.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Actions\TeleportAction.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Actions\TurnAction.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Actions\WanderAction.cs" />
@@ -178,6 +181,8 @@
     <Compile Include="Assets\Scripts\PlugableAI\Decisions\DistanceLongerDecision.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Decisions\DistanceShorterDecision.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Decisions\EmptyDecision.cs" />
+    <Compile Include="Assets\Scripts\PlugableAI\Decisions\ExternalTimeDecision.cs" />
+    <Compile Include="Assets\Scripts\PlugableAI\Decisions\ForceStateDecision.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Decisions\HitDecision.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Decisions\InSightDecision.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Decisions\LookDecision.cs" />

@@ -30,9 +30,10 @@ public class Player : Entity {
     private State lastState;
     private float time;
     private float dashCooldown;
-    private float abilityCooldown;
+    public float abilityCooldown;
     private Dictionary<Enemy.EnemyType, int> inventory;
     private Vector3 forward, right;
+
 
 
     public void SetupPlayer() {
@@ -60,6 +61,9 @@ public class Player : Entity {
 
     private void Update() {
         CheckDead();
+        if (ability.passive) {
+            ability.Passive(gameObject);
+        }
     }
 
     private void FixedUpdate() {
@@ -89,6 +93,7 @@ public class Player : Entity {
 
         time += Time.deltaTime;
         if(dashCooldown > 0) dashCooldown -= Time.deltaTime;
+        if(abilityCooldown > 0) abilityCooldown -= Time.deltaTime;
     }
 
     public void StateMachine() {
@@ -329,7 +334,9 @@ public class Player : Entity {
                         abilityCooldown = ability.cooldown;
                         time = 0;
                         AudioManager.instance.Pause("Walk");
-                    }
+                }else{
+                    Debug.Log("wait for cooldown");
+                }
                 }
                 break;
             #endregion
@@ -402,7 +409,9 @@ public class Player : Entity {
 
 
     public void Ability() {
-        ability.Use(gameObject);
+        if (ability.passive) {
+            ability.Activate();
+        }else ability.Use(gameObject);
     }
 
     public void Dash() {

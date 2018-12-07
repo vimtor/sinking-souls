@@ -7,6 +7,15 @@ public class LobbyDoor : MonoBehaviour {
 
     public string sceneToLoad;
 
+    private void Update() {
+        if(Input.GetKeyDown(KeyCode.Space)) {
+            GameController.instance.scene = GameController.GameState.GAME;
+            GameController.instance.gameObject.GetComponent<LevelGenerator>().currentLevel++;
+            Debug.Log(GameController.instance.gameObject.GetComponent<LevelGenerator>().currentLevel);
+            SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
+        }
+    }
+
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
             switch (sceneToLoad) {

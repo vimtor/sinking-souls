@@ -42,7 +42,6 @@ public class InGameUI : MonoBehaviour {
 
     private void UpdateAbility() {
         int cooldown = (int)playerRef.abilityCooldown;
-        Debug.Log(cooldown);
 
         if (cooldown > 0) {
             abilityOverlay.enabled = true;
@@ -59,6 +58,9 @@ public class InGameUI : MonoBehaviour {
         Vector3 newPos = GameController.instance.currentRoom.transform.position;
         newPos.y = minimapHeight;
         minimapCamera.transform.position = newPos;
+
+        GameObject roomIcon = GameController.instance.currentRoom.transform.Find("RoomIcon").gameObject;
+        roomIcon.SetActive(true);
     }
 
 }

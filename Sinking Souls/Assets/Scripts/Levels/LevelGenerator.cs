@@ -8,6 +8,12 @@ public class LevelGenerator : MonoBehaviour {
     [Header("Minimap Configuration")]
     public GameObject roomIconPrefab;
     public float roomIconHeight;
+
+    public Material combatRoomIcon;
+    public Material bossRoomIcon;
+    public Material eliteRoomIcon;
+    public Material initialRoomIcon;
+    public Material nextFloorRoomIcon;
     #endregion
 
     #region Level Generator Configuration
@@ -396,17 +402,38 @@ public class LevelGenerator : MonoBehaviour {
         Vector3 newPos = roomIcon.transform.position;
         newPos.y += roomIconHeight;
         roomIcon.transform.position = newPos;
+        roomIcon.SetActive(false);
         #endregion
 
         switch (room.type){
+            case Room.RoomType.COMBAT:
+                roomIcon.GetComponent<MeshRenderer>().material = combatRoomIcon;
+                break;
+
             case Room.RoomType.BOSS:
+                roomIcon.GetComponent<MeshRenderer>().material = bossRoomIcon;
+
                 instantiatedRoom.GetComponent<SpawnController>().possibleConfigurations.Clear();
                 instantiatedRoom.GetComponent<SpawnController>().possibleConfigurations.Add(Crew[0]); //index depending on wich level you are
+                break;
+
+            case Room.RoomType.ELITE:
+                roomIcon.GetComponent<MeshRenderer>().material = eliteRoomIcon;
+                break;
+
+            case Room.RoomType.INITIAL:
+                roomIcon.GetComponent<MeshRenderer>().material = initialRoomIcon;
+                break;
+
+            case Room.RoomType.NEXT_FLOOR:
+                roomIcon.GetComponent<MeshRenderer>().material = nextFloorRoomIcon;
                 break;
 
             default:
                 break;
         }
+
+
 
         return instantiatedRoom;
     }

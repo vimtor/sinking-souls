@@ -18,20 +18,18 @@ public class Player : Entity {
     public float attackOffset;
     public float rotationSpeed;
     public float actionRotationSpeed;
-    [HideInInspector] public bool move;
-    [HideInInspector] public State state;
-
-
-    public Dictionary<string, float> clipLength = new Dictionary<string, float>();
 
     public Ability dash;
     public Ability ability;
 
+    [HideInInspector] public bool move;
+    [HideInInspector] public State state;
+    [HideInInspector] public float dashCooldown;
+    [HideInInspector] public float abilityCooldown;
+    [HideInInspector] public Dictionary<string, float> clipLength = new Dictionary<string, float>();
+
     private State lastState;
     private float time;
-    private float dashCooldown;
-    private float abilityCooldown;
-    private Dictionary<Enemy.EnemyType, int> inventory;
     private Vector3 forward, right;
 
 
@@ -75,7 +73,6 @@ public class Player : Entity {
             Vector3 newDir = Vector3.RotateTowards(transform.forward, facingDir, _speed * Time.deltaTime, 0);
 
             transform.rotation = Quaternion.LookRotation(newDir);
-            
         }
     }
 
@@ -88,7 +85,8 @@ public class Player : Entity {
 
 
         time += Time.deltaTime;
-        if(dashCooldown > 0) dashCooldown -= Time.deltaTime;
+        if (dashCooldown > 0) dashCooldown -= Time.deltaTime;
+        if (abilityCooldown > 0) abilityCooldown -= Time.deltaTime;
     }
 
     public void StateMachine() {

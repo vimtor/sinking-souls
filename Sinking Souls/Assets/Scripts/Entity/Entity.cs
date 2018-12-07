@@ -5,6 +5,7 @@ using UnityEngine;
 public class Entity : MonoBehaviour {
 
     public float health;
+    public float maxHealth;
     public float walkSpeed;
     public Weapon weapon;
     public GameObject hand;

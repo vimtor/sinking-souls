@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class Enemy : Entity {
 
-    public enum EnemyType { };
-    private EnemyType type;
-
     private AIController controller;
     public Dictionary<string, float> clipLength = new Dictionary<string, float>();
-    public Soul soul;
+    public int souls;
 
     public Ability ability;
 
@@ -30,7 +27,6 @@ public class Enemy : Entity {
     }
 
     private void Die() {
-        soul.Spawn(transform.position);
         if (GameController.instance.godMode) GameController.instance.SpawnBlueprint(transform.position);
         Destroy(gameObject);
     }

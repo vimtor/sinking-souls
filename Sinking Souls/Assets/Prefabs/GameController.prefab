@@ -73,11 +73,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fddf5f21314ce444ea3a0fee462174df, type: 2}
   - {fileID: 11400000, guid: 1c65a31ad04070446b36237c4329c509, type: 2}
   - {fileID: 11400000, guid: 1ec961ec8962cbb4482e7dff7290c7fa, type: 2}
-  blueSouls: 0
-  redSouls: 0
-  greenSouls: 0
-  fullSouls: 10
-  soulsUI: []
+  souls: 0
   died: 0
 --- !u!114 &114646670468762960
 MonoBehaviour:
@@ -90,9 +86,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21b636fba30b848449a06a22c0db38a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberRooms: 15
-  seed: 
+  roomIconPrefab: {fileID: 1490998008912594, guid: 9feb4036d3a84e04f97a168bb3fa6f28,
+    type: 2}
+  roomIconHeight: 20
   tabernaSpawned: 0
+  currentLevel: -1
+  numberRooms: 15
+  eliteRate: 1
+  roomSize: 30
+  seed: 
   RoomsA:
   - List:
     - {fileID: 1079177880312500, guid: 39b899be5bd3b3446b5c0ebfc0cd8e2c, type: 2}
@@ -198,6 +200,3 @@ MonoBehaviour:
   Crew:
   - {fileID: 11400000, guid: cde3f7b73c6469c469d60b004c21d57f, type: 2}
   takenPos: []
-  roomSize: 30
-  eliteRate: 1
-  currentLevel: -1

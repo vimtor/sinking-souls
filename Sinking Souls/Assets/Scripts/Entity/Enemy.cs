@@ -13,6 +13,7 @@ public class Enemy : Entity {
 
     public Ability ability;
 
+
     private void Start() {
         OnStart();
 
@@ -27,6 +28,7 @@ public class Enemy : Entity {
 
     private void Update() {
         if (health <= 0) Die();
+
     }
 
     private void Die() {

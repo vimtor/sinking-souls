@@ -9,6 +9,7 @@ public class Entity : MonoBehaviour {
     public Weapon weapon;
     public GameObject hand;
     public Modifier baseModifier;
+    public GameObject hitParticle;
 
     [HideInInspector] public bool thrown;
     [HideInInspector] public Rigidbody rb;
@@ -16,8 +17,19 @@ public class Entity : MonoBehaviour {
     [HideInInspector] public Vector3 facingDir;
     [HideInInspector] public bool hit;
     [HideInInspector] new public CapsuleCollider collider;
+    [HideInInspector] public enum ModifierState {FIRE, TOXIC, ELECTRIC, ICE};
+    [HideInInspector] public Dictionary<ModifierState, int> currentModifierState = new Dictionary<ModifierState, int>();
+    [HideInInspector] public Color originalColor;
+    [HideInInspector] public bool gettingDamage = false;
+
 
     protected void OnStart() {
+        originalColor = transform.GetChild(1).GetComponent<Renderer>().material.color;
+
+        for (int i = 0; i < 4; i++) {
+            currentModifierState[(ModifierState)i] = 0;
+        }
+        
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         facingDir = Vector3.zero;
@@ -27,9 +39,7 @@ public class Entity : MonoBehaviour {
 
     protected void Apply(Modifier modifier) {
         if(modifier != null) {
-            foreach (Effect effect in modifier.effects) {
-                effect.Apply(gameObject);
-            }
+            modifier.Apply(this.gameObject);
         }
     }
 
@@ -37,9 +47,20 @@ public class Entity : MonoBehaviour {
         weapon.Instantiate(hand, this.gameObject);
     }
 
-    protected void TakeDamage(float damage) {
+    public void TakeDamage(float damage) {
         health -= damage;
+        transform.GetChild(1).GetComponent<Renderer>().material.color = Color.red;
+        gettingDamage = true;
+        GameController.instance.StartCoroutine(ResetColor(0.1f));
     }
+
+
+    IEnumerator ResetColor(float time) {
+        yield return new WaitForSeconds(time);
+        gettingDamage = false;
+        transform.GetChild(1).GetComponent<Renderer>().material.color = originalColor;
+    }
+
 
     private void OnTriggerEnter(Collider other) {
 
@@ -50,6 +71,9 @@ public class Entity : MonoBehaviour {
                 Apply(other.GetComponent<WeaponHolder>().holder.modifier);
                 
                 if(tag == "Enemy") CameraManager.instance.Hit(0.05f, 2.5f);
+                GameObject hitO = Instantiate(hitParticle);
+                hitO.transform.position = other.transform.position;
+                Destroy(hitO, 1);
             }
         }
         else if (other.tag == "Ability") {

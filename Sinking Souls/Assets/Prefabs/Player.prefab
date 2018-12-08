@@ -2129,19 +2129,24 @@ MonoBehaviour:
   weapon: {fileID: 11400000, guid: 770641d31570a724f8f8eeb86cdada2f, type: 2}
   hand: {fileID: 1522447524742674}
   baseModifier: {fileID: 0}
+  hitParticle: {fileID: 1130428619529126, guid: 70040a7882551274a858724f9a3539ad,
+    type: 2}
   thrown: 0
   rb: {fileID: 0}
   animator: {fileID: 0}
   facingDir: {x: 0, y: 0, z: 0}
   hit: 0
   collider: {fileID: 0}
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
+  gettingDamage: 0
   attackOffset: 0.7
   rotationSpeed: 15
   actionRotationSpeed: 1
   move: 0
   state: 0
   dash: {fileID: 11400000, guid: bc3c58e0e26ffb94a84f21d256c3e27f, type: 2}
-  ability: {fileID: 11400000, guid: fddf5f21314ce444ea3a0fee462174df, type: 2}
+  ability: {fileID: 11400000, guid: 3d03fb47585dcec4f9ce4ba7d292e134, type: 2}
+  abilityCooldown: 0
 --- !u!114 &114668370496422104
 MonoBehaviour:
   m_ObjectHideFlags: 1

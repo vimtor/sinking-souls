@@ -27,6 +27,7 @@ public class LevelGenerator : MonoBehaviour {
 
     public List<GameObject> RoomsBoss = new List<GameObject>();
     public List<GameObject> NextLevelRoom = new List<GameObject>();
+    public List<GameObject> Taberns = new List<GameObject>();
 
     public List<SpawnerConfiguration> Crew = new List<SpawnerConfiguration>();
     public List<Vector2> takenPos = new List<Vector2>();
@@ -49,26 +50,32 @@ public class LevelGenerator : MonoBehaviour {
     }
 
     public GameObject Spawn() {
-
+        levelWrapper = Instantiate(new GameObject());
+        levelWrapper.name = "Level Wrapper";
         if (currentLevel == 2 && !tabernaSpawned)
         {
             Debug.Log("Should have spawned a taberna");
+            Room room = new Room( new Vector2(0,0), Room.RoomType.INITIAL);
+            room.prefab = Taberns[0];
             tabernaSpawned = true;
-        }//else{
+            return SpawnRoom(room, roomSize, -1);
 
-        SetSeed();
+        }
+        else { 
 
-        levelWrapper = Instantiate(new GameObject());
-        levelWrapper.name = "Level Wrapper";
-        SetGridSize();
-        CreateRooms();
-        if (Random.value < eliteRate) SetEliteRoom();
-        SetRoomDoors();
-        if (currentLevel == 3) PlaceBossRoom();
-        else PlaceNextLevelRoom();
-    //}
-        return CreateMap();
+            SetSeed();
+
+
+            SetGridSize();
+            CreateRooms();
+            if (Random.value < eliteRate) SetEliteRoom();
+            SetRoomDoors();
+            if (currentLevel == 3) PlaceBossRoom();
+            else PlaceNextLevelRoom();
+            return CreateMap();
+        }
     }
+
 
     private void PlaceNextLevelRoom()
     {

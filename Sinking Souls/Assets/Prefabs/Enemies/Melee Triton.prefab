@@ -2098,6 +2098,12 @@ MonoBehaviour:
   animator: {fileID: 95245457837962514}
   navMeshAgent: {fileID: 195074939404832690}
   stateTimeElapsed: 0
+  timeElapsed: 0
+  externalTime: 0
+  aiActive: 0
+  stop: 0
+  forceState: 0
+  last: {fileID: 0}
 --- !u!114 &114391764216755740
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2109,17 +2115,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eecd7ff4b5aca041b30e1fe1e2bcf66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 100000
   walkSpeed: 0
   weapon: {fileID: 11400000, guid: 1ba0f7287288e644cab90827dfad6f5b, type: 2}
   hand: {fileID: 1872723886815680}
   baseModifier: {fileID: 0}
+  hitParticle: {fileID: 1130428619529126, guid: 70040a7882551274a858724f9a3539ad,
+    type: 2}
   thrown: 0
   rb: {fileID: 54356768254446344}
   animator: {fileID: 95245457837962514}
   facingDir: {x: 0, y: 0, z: 0}
   hit: 0
   collider: {fileID: 136408814012046772}
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
+  gettingDamage: 0
   soul: {fileID: 11400000, guid: 9169ff36e06e2b74f8e0c5bed2839f61, type: 2}
   ability: {fileID: 0}
 --- !u!136 &136408814012046772

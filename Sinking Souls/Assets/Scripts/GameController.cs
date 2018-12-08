@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
 
-    public enum GameState { LOBBY, GAME, ARENA, LOADSCENE };
+    public enum GameState { LOBBY, GAME, ARENA, LOADSCENE, TABERN };
 
     public GameState scene = GameState.LOBBY;
     [HideInInspector] public static GameController instance;
@@ -92,10 +92,32 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void LoadScene()
-    {
-        switch (scene)
-        {
+    public void LoadScene() {
+        switch (scene) {
+            case GameState.TABERN:
+                levelGenerator = GetComponent<LevelGenerator>();
+                levelGenerator.takenPos = new List<Vector2>();
+                currentRoom = SpawnLevel();
+                SpawnPlayer();
+                #region Setup Camera
+                CameraManager.instance.player = player.transform;
+                CameraManager.instance.SetupCamera(currentRoom.transform.position);
+            #endregion
+                soulsUI = new List<SoulsUI>();
+                player.GetComponent<Player>().SetupPlayer();
+                player.GetComponent<Player>().health = 100;// the player heals every time he enters the tabern
+                for (int i = 0; i < 0; i++) {//change this depending on how meny blueprints we want to spawn on a game
+                    do {
+                        int index = Random.Range(0, modifiers.Count);
+                    } while (runModifiers.Contains(modifiers[i]));///|| modifiers[i].unlocked));
+                    runModifiers.Add(modifiers[i]);
+                }
+                blueSouls = 0;
+                greenSouls = 0;
+                redSouls = 0;
+                soulsUI = new List<SoulsUI>();
+                foreach (GameObject Go in GameObject.FindGameObjectsWithTag("SoulUI")) soulsUI.Add(Go.GetComponent<SoulsUI>());
+            break;
             case GameState.GAME:
                 Debug.Log("1");
                 died = false;
@@ -107,6 +129,7 @@ public class GameController : MonoBehaviour
                 SpawnPlayer();
 
                 player.GetComponent<Player>().SetupPlayer();
+
                 #endregion
                 Debug.Log("2");
                 #region Setup Camera

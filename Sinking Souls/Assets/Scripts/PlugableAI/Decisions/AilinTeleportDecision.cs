@@ -9,13 +9,10 @@ public class AilinTeleportDecision : Decision {
     public float minDistance;
     public float reactionTime;
 
-    void update(AIController controller)
-    {
-        if (!(Vector3.Distance(controller.player.transform.position, controller.transform.position) < minDistance)) controller.inRangeTime = 0;
-    }
 
-    public override bool Decide(AIController controller)
+    public override bool Decide(AilinBoss controller)
     {
+        if (!(Vector3.Distance(controller.player.transform.position, controller.transform.position) < minDistance)) controller.timeInRange = 0;
         return (controller.CheckIfTimeTranscurred(reactionTime));
     }
 }

@@ -13,16 +13,17 @@ public class AIController : MonoBehaviour {
     [HideInInspector] public NavMeshAgent navMeshAgent;
     [HideInInspector] public float stateTimeElapsed;
     [HideInInspector] public float timeElapsed;
-    [HideInInspector] public float inRangeTime;
     [HideInInspector] public bool aiActive = false;
     [HideInInspector] public bool stop = false;
 
+    [HideInInspector] public AilinBoss Ailin;
+
     private Ability defaultAbility;
 
-    public void SetupAI() {
+    public virtual void SetupAI() {
         stateTimeElapsed = 0;
         timeElapsed = 0;
-        inRangeTime = 0;
+        //inRangeTime = 0;
         aiActive = true;
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Entity>().animator;
@@ -32,7 +33,7 @@ public class AIController : MonoBehaviour {
         if (aiActive) navMeshAgent.enabled = true;
     }
 
-    void Update() {
+    protected virtual void Update() {
         if (!aiActive)
             return;
         if(!player)
@@ -41,7 +42,7 @@ public class AIController : MonoBehaviour {
         currentState.UpdateState(this);
         stateTimeElapsed += Time.deltaTime;
         timeElapsed += Time.deltaTime;
-        inRangeTime += Time.deltaTime;
+       // inRangeTime += Time.deltaTime;
     }
 
     public void TransitionToState(State nextState) {
@@ -59,10 +60,10 @@ public class AIController : MonoBehaviour {
         return (timeElapsed >= duration);
     }
 
-    public bool CheckIfTimeTranscurred(float duration)
-    {
-        return (inRangeTime >= duration);
-    }
+    //public bool CheckIfTimeTranscurred(float duration)
+    //{
+    //    return (inRangeTime >= duration);
+    //}
 
     private void OnExitState() {
         stateTimeElapsed = 0;

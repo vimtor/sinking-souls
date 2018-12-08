@@ -6,6 +6,7 @@ public abstract class Action : ScriptableObject {
 
     [HideInInspector] public bool elapsed = true;
 
-	public abstract void Act(AIController controller);
+    public virtual void Act(AIController controller) { }
+    public virtual void Act(AilinBoss controller) { }
 
 }

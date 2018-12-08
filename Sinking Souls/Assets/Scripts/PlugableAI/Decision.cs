@@ -5,6 +5,7 @@ using UnityEngine;
 
 public abstract class Decision : ScriptableObject {
 
-    public abstract bool Decide(AIController controller);
+    public virtual bool Decide(AIController controller) { return false; }
+    public virtual bool Decide(AilinBoss controller) { return false; }
 
 }

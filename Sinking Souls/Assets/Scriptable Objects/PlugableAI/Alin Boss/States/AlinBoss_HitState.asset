@@ -9,15 +9,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd67c1b2fd6121b458816ae83710b563, type: 3}
-  m_Name: AlinBoss_IdleState
+  m_Name: AlinBoss_HitState
   m_EditorClassIdentifier: 
   actions:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: be2022bd1e4382446a7de2f3c42cd665, type: 2}
   transitions:
   - decision: {fileID: 11400000, guid: 1cfa7000a07244a4d85b039799396f2b, type: 2}
     trueState: {fileID: 11400000, guid: 0c87a69fc875a66408f6b9c4e5b66842, type: 2}
-    falseState: {fileID: 11400000, guid: 4403c6e03ded3364e999ecb30afb1de6, type: 2}
-  - decision: {fileID: 11400000, guid: 948d2352621e9fb4dae498afee0f6e98, type: 2}
-    trueState: {fileID: 11400000, guid: 551ae850ec23a2e47b75e6647ee75c22, type: 2}
-    falseState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
+    falseState: {fileID: 11400000, guid: 425d0d4c32e51f74489ec117115b5140, type: 2}
   elapsedActions: 1

@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour {
 
+    #region Minimap Configuration
+    [Header("Minimap Configuration")]
+    public GameObject roomIconPrefab;
+    public float roomIconHeight;
+
+    public Material combatRoomIcon;
+    public Material bossRoomIcon;
+    public Material eliteRoomIcon;
+    public Material initialRoomIcon;
+    public Material nextFloorRoomIcon;
+    #endregion
+
+    #region Level Generator Configuration
+    [Header("Level Generator Configuration")]
+    public bool tabernaSpawned = false;
+    public int currentLevel = -1;
     public int numberRooms = 5;
 
+    [Tooltip("Rate at which elites spawn.")]
+    public float eliteRate;
+    public int roomSize;
 
     [Tooltip("By default the seed will generate randomly if not specified. " +
              "The inputted seed can be any combination of numbers and character.")]
     public string seed;
+    #endregion
 
-    public bool tabernaSpawned = false;
-
+    #region Rooms Setup
+    [Header("Rooms Setup")]
     public List<ListWrapper> RoomsA = new List<ListWrapper>();
     public List<ListWrapper> RoomsB = new List<ListWrapper>();
     public List<ListWrapper> RoomsC = new List<ListWrapper>();
@@ -30,17 +50,14 @@ public class LevelGenerator : MonoBehaviour {
     public List<GameObject> Taberns = new List<GameObject>();
 
     public List<SpawnerConfiguration> Crew = new List<SpawnerConfiguration>();
-    public List<Vector2> takenPos = new List<Vector2>();
-    public int roomSize;
 
-    [Tooltip(".rate at which elites spawN")]
-    public float eliteRate;
+    #endregion
 
+    [HideInInspector] public List<Vector2> takenPos = new List<Vector2>();
 
     private Room[,] grid;
     private int gridSizeX, gridSizeY;
     private GameObject levelWrapper;
-    public int currentLevel = -1;
     private bool elitePlaced = false;
 
     void Start () {
@@ -386,12 +403,47 @@ public class LevelGenerator : MonoBehaviour {
         GameObject instantiatedRoom = Instantiate(room.prefab, room.prefab.transform, true);
         instantiatedRoom.name = "Room_" + roomCount;
         instantiatedRoom.transform.parent = levelWrapper.transform;
-        if (room.type == Room.RoomType.BOSS) {
-            instantiatedRoom.GetComponent<SpawnController>().possibleConfigurations.Clear();
-            instantiatedRoom.GetComponent<SpawnController>().possibleConfigurations.Add(Crew[0]); //index depending on wich level you are
-        }
-        return instantiatedRoom;
 
+        #region Room Minimap
+        GameObject roomIcon = Instantiate(roomIconPrefab, instantiatedRoom.transform);
+        roomIcon.name = "RoomIcon";
+        Vector3 newPos = roomIcon.transform.position;
+        newPos.y += roomIconHeight;
+        roomIcon.transform.position = newPos;
+        roomIcon.SetActive(false);
+        #endregion
+
+        switch (room.type){
+            case Room.RoomType.COMBAT:
+                roomIcon.GetComponent<MeshRenderer>().material = combatRoomIcon;
+                break;
+
+            case Room.RoomType.BOSS:
+                roomIcon.GetComponent<MeshRenderer>().material = bossRoomIcon;
+
+                instantiatedRoom.GetComponent<SpawnController>().possibleConfigurations.Clear();
+                instantiatedRoom.GetComponent<SpawnController>().possibleConfigurations.Add(Crew[0]); //index depending on wich level you are
+                break;
+
+            case Room.RoomType.ELITE:
+                roomIcon.GetComponent<MeshRenderer>().material = eliteRoomIcon;
+                break;
+
+            case Room.RoomType.INITIAL:
+                roomIcon.GetComponent<MeshRenderer>().material = initialRoomIcon;
+                break;
+
+            case Room.RoomType.NEXT_FLOOR:
+                roomIcon.GetComponent<MeshRenderer>().material = nextFloorRoomIcon;
+                break;
+
+            default:
+                break;
+        }
+
+
+
+        return instantiatedRoom;
     }
 
 

@@ -43,7 +43,7 @@ public class AlchemistBehaviour : MonoBehaviour
     public void FillShop()
     {
         bool firstSelected = false;
-        totalSouls = GameController.instance.fullSouls;
+        totalSouls = GameController.instance.souls;
         foreach (Ability ab in GameController.instance.abilities)
         {           
             GameObject item = Instantiate(UIItem);

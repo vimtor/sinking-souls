@@ -6,8 +6,7 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-
-    public enum GameState { LOBBY, GAME, ARENA, LOADSCENE, TABERN };
+    public enum GameState { LOBBY, GAME, ARENA, LOADSCENE };
 
     public GameState scene = GameState.LOBBY;
     [HideInInspector] public static GameController instance;
@@ -27,11 +26,7 @@ public class GameController : MonoBehaviour
     public GameObject blueprint;
     public List<Modifier> modifiers;
     public List<Ability> abilities;
-    public int blueSouls;
-    public int redSouls;
-    public int greenSouls;
-    public int fullSouls;
-    public List<SoulsUI> soulsUI;
+    public int souls;
     public bool died;
 
     private LevelGenerator levelGenerator;
@@ -119,8 +114,8 @@ public class GameController : MonoBehaviour
                 foreach (GameObject Go in GameObject.FindGameObjectsWithTag("SoulUI")) soulsUI.Add(Go.GetComponent<SoulsUI>());
             break;
             case GameState.GAME:
-                Debug.Log("1");
                 died = false;
+
                 #region Setup Initial Room
                 levelGenerator = GetComponent<LevelGenerator>();
                 levelGenerator.takenPos = new List<Vector2>();
@@ -131,15 +126,12 @@ public class GameController : MonoBehaviour
                 player.GetComponent<Player>().SetupPlayer();
 
                 #endregion
-                Debug.Log("2");
+
                 #region Setup Camera
                 CameraManager.instance.player = player.transform;
                 CameraManager.instance.SetupCamera(currentRoom.transform.position);
                 #endregion
-                Debug.Log("3");
 
-                soulsUI = new List<SoulsUI>();
-                Debug.Log("4");
                 for (int i = 0; i < 0; i++)
                 {//change this depending on how meny blueprints we want to spawn on a game
                     do
@@ -148,14 +140,7 @@ public class GameController : MonoBehaviour
                     } while (runModifiers.Contains(modifiers[i]));///|| modifiers[i].unlocked));
                     runModifiers.Add(modifiers[i]);
                 }
-                Debug.Log("5");
-                blueSouls = 0;
-                greenSouls = 0;
-                redSouls = 0;
-                soulsUI = new List<SoulsUI>();
-                Debug.Log("6");
-                foreach (GameObject Go in GameObject.FindGameObjectsWithTag("SoulUI")) soulsUI.Add(Go.GetComponent<SoulsUI>());
-                Debug.Log("7");
+
                 break;
 
             case GameState.LOBBY:
@@ -167,20 +152,16 @@ public class GameController : MonoBehaviour
 
                 if (!died)
                 {
-                    fullSouls = blueSouls < greenSouls ? blueSouls : greenSouls;
-                    fullSouls = fullSouls < redSouls ? fullSouls : redSouls;
+
                 }
                 else
                 {
-                    blueSouls = 0;
-                    greenSouls = 0;
-                    redSouls = 0;
                     foreach (Modifier mod in pickedModifiers) mod.unlocked = false;
                 }
                 runModifiers = new List<Modifier>();
                 pickedModifiers = new List<Modifier>();
                 lobbySoulsHUD = GameObject.Find("SoulsNumber").GetComponent<Text>();
-                lobbySoulsHUD.text = fullSouls.ToString();
+                lobbySoulsHUD.text = souls.ToString();
 
                 foreach (GameObject crewMember in GameObject.FindGameObjectsWithTag("CrewMember"))
                 {

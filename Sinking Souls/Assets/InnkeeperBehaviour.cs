@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AlchemistBehaviour : MonoBehaviour
+public class InnkeeperBehaviour : MonoBehaviour
 {
 
     //Shop interface
     [Header("ShopInterface")]
     public GameObject shopPanel;
     public GameObject UIItem;
-    
+
     //Selected item
     private GameObject holder;
     private int currentItem = 0;
     private int maxItems;
 
-    //Range of the crewmate
+    //Range of the innkeeper
     public int range = 5;
     private Vector3 distPlayer;
 
@@ -25,17 +25,15 @@ public class AlchemistBehaviour : MonoBehaviour
     private int totalSouls;
     [HideInInspector] public int remainingSouls;
     private Text remaining;
-    private Text lobbySoulsHUD;
+    private Text SoulsHUD;
     private Color defaultColor;
- 
+
     private bool updating = false;
 
     private void Start()
     {
-        GameController.instance.alchemist = true;
-        
-        //lobbySoulsHUD = GameObject.Find("SoulsNumber").GetComponent<Text>();
-        //defaultColor = lobbySoulsHUD.color;
+        GameController.instance.inkeeper = true;
+        FillShop();
     }
 
     /// <summary>
@@ -46,20 +44,20 @@ public class AlchemistBehaviour : MonoBehaviour
         bool firstSelected = false;
         totalSouls = GameController.instance.souls;
         foreach (Ability ab in GameController.instance.abilities)
-        {           
+        {
             GameObject item = Instantiate(UIItem);
             item.transform.Find("Icon").GetComponent<Image>().sprite = ab.sprite;
             item.GetComponent<ShopItem>().price = ab.price;
             item.transform.Find("Price").GetComponent<Text>().text = ab.price.ToString();
             item.transform.Find("Name").GetComponent<Text>().text = ab.name;
-            item.gameObject.transform.SetParent(shopPanel.transform.GetChild(0), false);          
-            
+            item.gameObject.transform.SetParent(shopPanel.transform.GetChild(0), false);
+
             if (!firstSelected)
             {
                 GameObject.Find("EventSystem").GetComponent<UnityEngine.EventSystems.EventSystem>().firstSelectedGameObject = item;
-                holder = item;     
+                holder = item;
                 firstSelected = true;
-                
+
             }
         }
         maxItems = GameController.instance.abilities.Count;
@@ -69,22 +67,22 @@ public class AlchemistBehaviour : MonoBehaviour
     {
         shopPanel.transform.GetChild(0).GetChild(currentItem).GetComponentInChildren<Button>().Select();
         holder = shopPanel.transform.GetChild(0).GetChild(currentItem).gameObject;
-        remainingSouls = totalSouls-holder.GetComponent<ShopItem>().price;
+        remainingSouls = totalSouls - holder.GetComponent<ShopItem>().price;
         price.text = holder.transform.Find("Price").GetComponent<Text>().text;
         remaining.text = remainingSouls.ToString();
     }
 
     private void Update()
-    {            
+    {
         distPlayer = GameController.instance.player.GetComponent<Player>().transform.position - this.transform.position;
-  
+
         if (GameController.instance.alchemist)
         {
             if (!shopPanel.activeSelf)
             {
                 //Open the store
                 if (InputHandler.ButtonA() && (distPlayer.magnitude < range))
-                {                   
+                {
                     shopPanel.SetActive(true);
                     price = GameObject.Find("SoulsPrice").GetComponent<Text>();
                     remaining = GameObject.Find("SoulsRemaining").GetComponent<Text>();
@@ -93,8 +91,8 @@ public class AlchemistBehaviour : MonoBehaviour
                     GameController.instance.player.GetComponent<Player>().state = Player.State.IDLE;
                     GameController.instance.player.GetComponent<Player>().HandleInput();
                     GameController.instance.player.GetComponent<Player>().move = false;
-                    
-                }             
+
+                }
             }
             else
             {
@@ -102,7 +100,7 @@ public class AlchemistBehaviour : MonoBehaviour
                 if (InputHandler.LeftJoystick.y == 1 && !updating)
                 {
                     updating = true;
-                    currentItem = (currentItem + 1) % maxItems;              
+                    currentItem = (currentItem + 1) % maxItems;
                     StartCoroutine(waitTime(0.3f));
                 }
                 else if (InputHandler.LeftJoystick.y == -1 && !updating)
@@ -124,8 +122,8 @@ public class AlchemistBehaviour : MonoBehaviour
 
     IEnumerator waitTime(float time)
     {
-        UpdateShop();       
-        yield return new WaitForSeconds(time);     
+        UpdateShop();
+        yield return new WaitForSeconds(time);
         updating = false;
     }
 

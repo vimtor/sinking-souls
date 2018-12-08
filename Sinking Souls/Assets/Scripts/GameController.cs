@@ -23,9 +23,11 @@ public class GameController : MonoBehaviour
 
     public bool blacksmith = false; // Consider making this a array that holds the unlocked/locked state of each friend.
     public bool alchemist = false;
+    public bool inkeeper = false;
     public GameObject blueprint;
     public List<Modifier> modifiers;
     public List<Ability> abilities;
+    //public List<Enhancer> enhancers;
     public int souls;
     public bool died;
 

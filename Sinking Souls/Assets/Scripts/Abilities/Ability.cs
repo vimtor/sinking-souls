@@ -5,15 +5,20 @@ using UnityEngine;
 public abstract class Ability : ScriptableObject
 {
 
-    public int cooldown;
-    public float damage;
-    public Modifier modifier;
-    public GameObject prefab;
-    public bool passive = false;
-    public Sprite sprite;
+    [Header("Ability Information")]
     new public string name;
     public string description;
     public int price;
+    public Sprite sprite;
+
+    [Header("General Properties")]
+    public int cooldown;
+    public float damage;
+    public bool passive = false;
+    public Modifier modifier;
+    public GameObject prefab;
+
+    [Header("Specific Properties")]
 
     [HideInInspector] public string target;
     [HideInInspector] public Entity entity;

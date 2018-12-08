@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Abilities/Ghost Sprint")]
-public class Chostsprint : Ability {
+public class GhostSprint : Ability {
 
+    [Header("Specific Properties")]
     public float newSpeed;
     public float orignalSpeed;
     public float godModeLasting = 2;
     public bool active = false;
     private bool thrown = false;
 
-    public override void Passive(GameObject go) {//Constantly changes speed
+    public override void Passive(GameObject go) {
         go.GetComponent<Entity>().walkSpeed = newSpeed;
         if (active && go.GetComponent<Entity>().weapon.hitting == true) {
             GameController.instance.godMode = false;
@@ -30,11 +31,11 @@ public class Chostsprint : Ability {
             orignalSpeed = newSpeed;
             newSpeed = newSpeed * 2;
             GameController.instance.player.transform.GetChild(1).GetComponent<Renderer>().material.color = Color.white;
-            GameController.instance.StartCoroutine(returnToNormal());
+            GameController.instance.StartCoroutine(ReturnToNormal());
         }
     }
 
-    IEnumerator returnToNormal() {
+    IEnumerator ReturnToNormal() {
         yield return new WaitForSeconds(godModeLasting);
         newSpeed = orignalSpeed;
         GameController.instance.godMode = false;

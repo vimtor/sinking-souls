@@ -9,8 +9,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd67c1b2fd6121b458816ae83710b563, type: 3}
-  m_Name: AlinBoss_MagicCanon
+  m_Name: AlinBoss_WaterPilarsState
   m_EditorClassIdentifier: 
-  actions: []
-  transitions: []
+  actions:
+  - {fileID: 0}
+  transitions:
+  - decision: {fileID: 11400000, guid: 948d2352621e9fb4dae498afee0f6e98, type: 2}
+    trueState: {fileID: 11400000, guid: 551ae850ec23a2e47b75e6647ee75c22, type: 2}
+    falseState: {fileID: 11400000, guid: 4403c6e03ded3364e999ecb30afb1de6, type: 2}
   elapsedActions: 1

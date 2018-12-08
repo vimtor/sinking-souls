@@ -25,12 +25,14 @@ public abstract class Ability : ScriptableObject
 
     protected GameObject parent;
 
-    public void Use(GameObject newParent) {
+    public void Use(GameObject newParent, Transform position = null) {
         if (!passive) {
             SetParent(newParent);
             SetEntity();
             if (CheckThrown()) {
-                Configure(SetPrefab());
+                if (position == null) Configure(SetPrefab(entity.hand.transform));
+                else Configure(SetPrefab(position));
+               
             }
         }else {
             Activate();
@@ -43,10 +45,10 @@ public abstract class Ability : ScriptableObject
 
     protected abstract void Configure(GameObject prefab);
 
-    protected GameObject SetPrefab()
+    protected GameObject SetPrefab(Transform position)
     {
         GameObject instantiated = Instantiate(prefab);
-        instantiated.transform.position = entity.hand.transform.position;
+        instantiated.transform.position = position.position;
 
         target = parent.gameObject.tag == "Player" ? "Enemy" : "Player";
         instantiated.AddComponent<AbilityHolder>().holder = this;
@@ -56,6 +58,7 @@ public abstract class Ability : ScriptableObject
 
     protected bool CheckThrown()
     {
+        if (entity == null) return true;
         if (!entity.thrown)
         {
             entity.thrown = true;
@@ -72,6 +75,6 @@ public abstract class Ability : ScriptableObject
 
     protected void SetEntity()
     {
-        if (entity == null) entity = parent.GetComponent<Entity>();
+        if (entity == null && parent.GetComponent<Entity>()) entity = parent.GetComponent<Entity>();
     }
 }

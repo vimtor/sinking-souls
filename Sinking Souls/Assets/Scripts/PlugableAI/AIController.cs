@@ -26,11 +26,9 @@ public class AIController : MonoBehaviour {
     public virtual void SetupAI() {
         stateTimeElapsed = 0;
         timeElapsed = 0;
-        //inRangeTime = 0;
         aiActive = true;
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Entity>().animator;
-        // player = GameController.instance.player;
 
         defaultAbility = gameObject.GetComponent<Enemy>().ability;
         if (aiActive) navMeshAgent.enabled = true;
@@ -45,7 +43,6 @@ public class AIController : MonoBehaviour {
         currentState.UpdateState(this);
         stateTimeElapsed += Time.deltaTime;
         timeElapsed += Time.deltaTime;
-       // inRangeTime += Time.deltaTime;
     }
 
     public void TransitionToState(State nextState) {
@@ -62,11 +59,6 @@ public class AIController : MonoBehaviour {
     public bool CheckIfTimeElapsed(float duration) {
         return (timeElapsed >= duration);
     }
-
-    //public bool CheckIfTimeTranscurred(float duration)
-    //{
-    //    return (inRangeTime >= duration);
-    //}
 
     private void OnExitState() {
         stateTimeElapsed = 0;

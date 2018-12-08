@@ -8,6 +8,9 @@ public class AilinBoss : AIController {
     [HideInInspector] public float timeInRange;
     [HideInInspector] public float rageTime;
     [HideInInspector] public bool rageMode;
+    [HideInInspector] public bool firstAttack;
+    [HideInInspector] public bool stateFinished;
+
     public float TimeToRage;
 
 
@@ -17,6 +20,8 @@ public class AilinBoss : AIController {
         timeInRange = 0;
         rageTime = 0;
         rageMode = false;
+        firstAttack = false;
+        stateFinished = true;
     }
 
 	

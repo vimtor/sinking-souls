@@ -175,8 +175,8 @@ public class GameController : MonoBehaviour
                 #region Setup Camera
                 CameraManager.instance.player = player.transform;
                 CameraManager.instance.SetupCamera(currentRoom.transform.position);
-                #endregion
-
+            #endregion
+            GetComponent<LevelGenerator>().tabernaSpawned = false;
                 break;
             case GameState.ARENA:
                 currentRoom = GameObject.Find("Arena");

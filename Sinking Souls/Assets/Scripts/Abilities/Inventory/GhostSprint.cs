@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Abilities/Ghost Sprint")]
-public class GhostSprint : Ability {
+public class Chostsprint : Ability {
 
     public float newSpeed;
     public float orignalSpeed;

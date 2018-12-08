@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    public enum GameState { LOBBY, GAME, ARENA, LOADSCENE };
+    public enum GameState { LOBBY, GAME, ARENA, LOADSCENE, TABERN };
 
     public GameState scene = GameState.LOBBY;
     [HideInInspector] public static GameController instance;
@@ -79,14 +79,6 @@ public class GameController : MonoBehaviour
         else Debug.Log("No more blueprints to spawn");
     }
 
-    public void UpdateUI()
-    {
-        foreach (SoulsUI UI in soulsUI)
-        {
-            UI.UpdateText();
-        }
-    }
-
     public void LoadScene() {
         switch (scene) {
             case GameState.TABERN:
@@ -98,7 +90,7 @@ public class GameController : MonoBehaviour
                 CameraManager.instance.player = player.transform;
                 CameraManager.instance.SetupCamera(currentRoom.transform.position);
             #endregion
-                soulsUI = new List<SoulsUI>();
+
                 player.GetComponent<Player>().SetupPlayer();
                 player.GetComponent<Player>().health = 100;// the player heals every time he enters the tabern
                 for (int i = 0; i < 0; i++) {//change this depending on how meny blueprints we want to spawn on a game
@@ -107,11 +99,7 @@ public class GameController : MonoBehaviour
                     } while (runModifiers.Contains(modifiers[i]));///|| modifiers[i].unlocked));
                     runModifiers.Add(modifiers[i]);
                 }
-                blueSouls = 0;
-                greenSouls = 0;
-                redSouls = 0;
-                soulsUI = new List<SoulsUI>();
-                foreach (GameObject Go in GameObject.FindGameObjectsWithTag("SoulUI")) soulsUI.Add(Go.GetComponent<SoulsUI>());
+
             break;
             case GameState.GAME:
                 died = false;

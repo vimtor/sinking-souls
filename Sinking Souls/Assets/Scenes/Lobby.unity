@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -593,12 +593,15 @@ MonoBehaviour:
   weapon: {fileID: 0}
   hand: {fileID: 0}
   baseModifier: {fileID: 0}
+  hitParticle: {fileID: 0}
   thrown: 0
   rb: {fileID: 0}
   animator: {fileID: 0}
   facingDir: {x: 0, y: 0, z: 0}
   hit: 0
   collider: {fileID: 0}
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
+  gettingDamage: 0
 --- !u!114 &257849904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -618,8 +621,12 @@ MonoBehaviour:
   navMeshAgent: {fileID: 257849905}
   stateTimeElapsed: 0
   timeElapsed: 0
+  externalTime: 0
   aiActive: 0
   stop: 0
+  forceState: 0
+  last: {fileID: 0}
+  Ailin: {fileID: 0}
 --- !u!195 &257849905
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1353,11 +1360,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114646670468762960, guid: 258b637205f84f34c91c424fca3067e4,
-        type: 2}
-      propertyPath: Taberns.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4049728750304462, guid: 258b637205f84f34c91c424fca3067e4, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1390,12 +1392,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114646670468762960, guid: 258b637205f84f34c91c424fca3067e4,
-        type: 2}
-      propertyPath: Taberns.Array.data[0]
-      value: 
-      objectReference: {fileID: 1673747976588362, guid: 1bf5de12292b3d548a190236454cbf6f,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 258b637205f84f34c91c424fca3067e4, type: 2}
   m_IsPrefabAsset: 0
@@ -5284,17 +5280,17 @@ Prefab:
     - target: {fileID: 20764667997126220, guid: ddad4ba9c482e0544b5e1312cafa7b9b,
         type: 2}
       propertyPath: far clip plane
-      value: 5000
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 20764667997126220, guid: ddad4ba9c482e0544b5e1312cafa7b9b,
         type: 2}
       propertyPath: field of view
-      value: 40
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 20764667997126220, guid: ddad4ba9c482e0544b5e1312cafa7b9b,
         type: 2}
       propertyPath: orthographic size
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddad4ba9c482e0544b5e1312cafa7b9b, type: 2}

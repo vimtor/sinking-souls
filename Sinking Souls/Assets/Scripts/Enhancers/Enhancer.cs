@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enhancer : ScriptableObject
-{
 
+[CreateAssetMenu(menuName = "Enhancer/newEnhancer")]
+public class Enhancer : ScriptableObject
+{
     [Header("Enhancer Information")]
     new public string name;
     public string description;

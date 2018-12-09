@@ -8,13 +8,15 @@ public class InnkeeperBehaviour : MonoBehaviour
 
     //Shop interface
     [Header("ShopInterface")]
+    [HideInInspector] public GameObject canvas;
     public GameObject shopPanel;
+    public GameObject inGameShopPanel;
     public GameObject UIItem;
 
     //Selected item
-    private GameObject holder;
-    private int currentItem = 0;
-    private int maxItems;
+    public GameObject holder;
+    public int currentItem = 0;
+    public int maxItems;
 
     //Range of the innkeeper
     public int range = 5;
@@ -35,8 +37,10 @@ public class InnkeeperBehaviour : MonoBehaviour
     private void Start()
     {
         GameController.instance.innkeeper = true;
-        shopPanel = GameObject.Find("InnkeeperShop");
-        Debug.Log(shopPanel);
+        canvas = GameObject.Find("Canvas");
+        inGameShopPanel = Instantiate(shopPanel, canvas.transform, false);
+        inGameShopPanel.transform.parent = canvas.transform;
+        //inGameShopPanel.GetComponent<RectTransform>().position = new Vector2(-6.103516e-05f, 305.78f);
         FillShop();
     }
 
@@ -49,18 +53,17 @@ public class InnkeeperBehaviour : MonoBehaviour
         totalSouls = GameController.instance.souls;
         foreach (Enhancer en in GameController.instance.enhancers)
         {
-            GameObject item = Instantiate(UIItem);
+            GameObject item = Instantiate(UIItem, inGameShopPanel.transform.GetChild(0), false);
             item.transform.Find("Icon").GetComponent<Image>().sprite = en.sprite;
             item.GetComponent<ShopItem>().price = en.basePrice;
             item.GetComponent<ShopItem>().priceMultiplier = en.priceMultiplier;
-            item.transform.Find("Price").GetComponent<Text>().text = en.basePrice.ToString();
+            item.transform.Find("Price").GetComponent<Text>().text = en.basePrice.ToString();    
+            item.transform.Find("Name").GetComponent<Text>().text = en.name;
             item.transform.Find("Description").GetComponent<Text>().text = en.description;
             item.GetComponent<ShopItem>().baseEnhancer = en.baseEnhancer;
             item.GetComponent<ShopItem>().enhancerMultiplier = en.enhancerMultiplier;
-            item.transform.Find("Name").GetComponent<Text>().text = en.name;
             item.GetComponent<ShopItem>().life = en.life;
             item.GetComponent<ShopItem>().damage = en.damage;
-            item.gameObject.transform.SetParent(shopPanel.transform.GetChild(0), false);
 
             if (!firstSelected)
             {
@@ -70,25 +73,25 @@ public class InnkeeperBehaviour : MonoBehaviour
 
             }
         }
-        maxItems = GameController.instance.abilities.Count;
+        maxItems = GameController.instance.enhancers.Count;
     }
 
     public void UpdateShop()
     {
-        shopPanel.transform.GetChild(0).GetChild(currentItem).GetComponentInChildren<Button>().Select();
-        holder = shopPanel.transform.GetChild(0).GetChild(currentItem).gameObject;
+        inGameShopPanel.transform.GetChild(0).GetChild(currentItem).GetComponentInChildren<Button>().Select();
+        holder = inGameShopPanel.transform.GetChild(0).GetChild(currentItem).gameObject;
         remainingSouls = totalSouls - holder.GetComponent<ShopItem>().price;
         price.text = holder.transform.Find("Price").GetComponent<Text>().text;
         remaining.text = remainingSouls.ToString();
         if(holder.GetComponent<ShopItem>().life)
         {
             baseStat.text = "Life: " + GameController.instance.player.GetComponent<Player>().health.ToString();
-            upgradedStat.text = (GameController.instance.player.GetComponent<Player>().health * (holder.GetComponent<ShopItem>().enhancerMultiplier / 100)).ToString();
+            upgradedStat.text = (GameController.instance.player.GetComponent<Player>().health + GameController.instance.player.GetComponent<Player>().health * (holder.GetComponent<ShopItem>().baseEnhancer/100f)).ToString();
         }
         else if (holder.GetComponent<ShopItem>().damage)
         {
-            baseStat.text = "Damage: " + GameController.instance.player.GetComponent<Player>().weapon.Damage.ToString();
-            upgradedStat.text = (GameController.instance.player.GetComponent<Player>().weapon.Damage * (holder.GetComponent<ShopItem>().enhancerMultiplier / 100)).ToString();
+            baseStat.text = "Damage: " + GameController.instance.player.GetComponent<Player>().weapon.baseDamage.ToString();
+            upgradedStat.text = (GameController.instance.player.GetComponent<Player>().weapon.baseDamage + GameController.instance.player.GetComponent<Player>().weapon.baseDamage * (holder.GetComponent<ShopItem>().baseEnhancer / 100f)).ToString();
         }
     }
 
@@ -98,12 +101,12 @@ public class InnkeeperBehaviour : MonoBehaviour
 
         if (GameController.instance.innkeeper)
         {
-            if (!shopPanel.activeSelf)
+            if (!inGameShopPanel.activeSelf)
             {
                 //Open the store
                 if (InputHandler.ButtonA() && (distPlayer.magnitude < range))
                 {
-                    shopPanel.SetActive(true);
+                    inGameShopPanel.SetActive(true);
                     price = GameObject.Find("SoulsPrice").GetComponent<Text>();
                     remaining = GameObject.Find("SoulsRemaining").GetComponent<Text>();
                     baseStat = GameObject.Find("BaseStat").GetComponent<Text>();
@@ -134,7 +137,7 @@ public class InnkeeperBehaviour : MonoBehaviour
                 //Close the store
                 if (InputHandler.ButtonB())
                 {
-                    shopPanel.SetActive(false);
+                    inGameShopPanel.SetActive(false);
                     GameController.instance.player.GetComponent<Player>().move = true;
                     currentItem = 0;
                 }

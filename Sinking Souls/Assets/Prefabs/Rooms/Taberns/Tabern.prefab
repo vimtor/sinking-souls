@@ -1623,8 +1623,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4566756383081698}
   - {fileID: 4587116748423364}
+  - {fileID: 4566756383081698}
   - {fileID: 4079172903842790}
   - {fileID: 4932906700175482}
   - {fileID: 4082463618297844}
@@ -2410,7 +2410,7 @@ Transform:
   m_LocalScale: {x: 16.490883, y: 0.16673, z: 19.137133}
   m_Children: []
   m_Father: {fileID: 4006053327324614}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4567908216089756
 Transform:
@@ -2480,7 +2480,7 @@ Transform:
   - {fileID: 4448243516002252}
   - {fileID: 4215910567735782}
   m_Father: {fileID: 4006053327324614}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -181.25099, z: 0}
 --- !u!4 &4595436999930164
 Transform:
@@ -4448,8 +4448,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16cb9ef9a0ca9543a6ac5808b938067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopPanel: {fileID: 1297394885501062, guid: 2559d66f99fb00e4493fea1b821a8033, type: 2}
-  UIItem: {fileID: 1297394885501062, guid: 5963bce74ac1cc84f8ccee63a23466d9, type: 2}
+  canvas: {fileID: 0}
+  shopPanel: {fileID: 1783315880503980, guid: 39c87975063fd194483a38147f6b1293, type: 2}
+  inGameShopPanel: {fileID: 0}
+  UIItem: {fileID: 1297394885501062, guid: 2559d66f99fb00e4493fea1b821a8033, type: 2}
+  holder: {fileID: 0}
+  currentItem: 0
+  maxItems: 0
   range: 5
   remainingSouls: 0
 --- !u!114 &114222683629951260

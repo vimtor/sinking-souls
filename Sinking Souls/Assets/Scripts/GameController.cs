@@ -102,7 +102,7 @@ public class GameController : MonoBehaviour
             #endregion
 
                 player.GetComponent<Player>().SetupPlayer();
-                GameObject.Find("Innkeeper").GetComponent<InnkeeperBehaviour>().FillShop();
+                //GameObject.Find("Innkeeper").GetComponent<InnkeeperBehaviour>().FillShop();
                 player.GetComponent<Player>().health = 100;// the player heals every time he enters the tabern
                 for (int i = 0; i < 0; i++) {//change this depending on how meny blueprints we want to spawn on a game
                     do {

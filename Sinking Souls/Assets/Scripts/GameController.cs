@@ -23,11 +23,11 @@ public class GameController : MonoBehaviour
 
     public bool blacksmith = false; // Consider making this a array that holds the unlocked/locked state of each friend.
     public bool alchemist = false;
-    public bool inkeeper = false;
+    public bool innkeeper = false;
     public GameObject blueprint;
     public List<Modifier> modifiers;
     public List<Ability> abilities;
-    //public List<Enhancer> enhancers;
+    public List<Enhancer> enhancers;
     public int souls;
     public bool died;
 
@@ -87,6 +87,14 @@ public class GameController : MonoBehaviour
                 levelGenerator = GetComponent<LevelGenerator>();
                 levelGenerator.takenPos = new List<Vector2>();
                 currentRoom = SpawnLevel();
+                foreach (GameObject crewMember in GameObject.FindGameObjectsWithTag("CrewMember"))
+                {
+                    if (innkeeper)
+                    {
+                        crewMember.SetActive(true);//if we have a list and not just a bool for each change this
+                        crewMember.GetComponent<Animator>().SetBool("IDLE", true);
+                    }
+                }
                 SpawnPlayer();
                 #region Setup Camera
                 CameraManager.instance.player = player.transform;
@@ -94,6 +102,7 @@ public class GameController : MonoBehaviour
             #endregion
 
                 player.GetComponent<Player>().SetupPlayer();
+                GameObject.Find("Innkeeper").GetComponent<InnkeeperBehaviour>().FillShop();
                 player.GetComponent<Player>().health = 100;// the player heals every time he enters the tabern
                 for (int i = 0; i < 0; i++) {//change this depending on how meny blueprints we want to spawn on a game
                     do {

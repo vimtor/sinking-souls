@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 195854687014190930}
   - component: {fileID: 114353536826754124}
   - component: {fileID: 114517713994226608}
-  - component: {fileID: 114743119300070832}
+  - component: {fileID: 114508147743880602}
   m_Layer: 11
   m_Name: Innkeeper
   m_TagString: CrewMember
@@ -1842,8 +1842,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1149290083879978}
-  m_LocalRotation: {x: -0, y: -0.6911372, z: -0, w: 0.72272366}
-  m_LocalPosition: {x: 4.212, y: -0.736635, z: 6.718}
+  m_LocalRotation: {x: -0, y: -0.99994045, z: -0, w: -0.010913873}
+  m_LocalPosition: {x: 6.001066, y: -0.7417259, z: 8.21848}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4005699490602144}
@@ -1851,7 +1851,7 @@ Transform:
   - {fileID: 4254041715079404}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -87.44, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -181.25099, z: 0}
 --- !u!4 &4808429491091320
 Transform:
   m_ObjectHideFlags: 1
@@ -2106,6 +2106,21 @@ MonoBehaviour:
   forceState: 0
   last: {fileID: 0}
   Ailin: {fileID: 0}
+--- !u!114 &114508147743880602
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1149290083879978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b16cb9ef9a0ca9543a6ac5808b938067, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopPanel: {fileID: 1297394885501062, guid: 2559d66f99fb00e4493fea1b821a8033, type: 2}
+  UIItem: {fileID: 1297394885501062, guid: 2559d66f99fb00e4493fea1b821a8033, type: 2}
+  range: 5
+  remainingSouls: 0
 --- !u!114 &114517713994226608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2132,21 +2147,6 @@ MonoBehaviour:
   collider: {fileID: 0}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0
---- !u!114 &114743119300070832
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1149290083879978}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c3ea0ae0ce998444af0441e2707ddb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shopPanel: {fileID: 1297394885501062, guid: 725c22e187acbaa449fa5bf0291db5c9, type: 2}
-  UIItem: {fileID: 1297394885501062, guid: 5963bce74ac1cc84f8ccee63a23466d9, type: 2}
-  range: 5
-  remainingSouls: 0
 --- !u!136 &136783293008452602
 CapsuleCollider:
   m_ObjectHideFlags: 1

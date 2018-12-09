@@ -26,13 +26,17 @@ public class InnkeeperBehaviour : MonoBehaviour
     [HideInInspector] public int remainingSouls;
     private Text remaining;
     private Text SoulsHUD;
+    private Text baseStat;
+    private Text upgradedStat;
     private Color defaultColor;
 
     private bool updating = false;
 
     private void Start()
     {
-        GameController.instance.inkeeper = true;
+        GameController.instance.innkeeper = true;
+        shopPanel = GameObject.Find("InnkeeperShop");
+        Debug.Log(shopPanel);
         FillShop();
     }
 
@@ -43,13 +47,19 @@ public class InnkeeperBehaviour : MonoBehaviour
     {
         bool firstSelected = false;
         totalSouls = GameController.instance.souls;
-        foreach (Ability ab in GameController.instance.abilities)
+        foreach (Enhancer en in GameController.instance.enhancers)
         {
             GameObject item = Instantiate(UIItem);
-            item.transform.Find("Icon").GetComponent<Image>().sprite = ab.sprite;
-            item.GetComponent<ShopItem>().price = ab.price;
-            item.transform.Find("Price").GetComponent<Text>().text = ab.price.ToString();
-            item.transform.Find("Name").GetComponent<Text>().text = ab.name;
+            item.transform.Find("Icon").GetComponent<Image>().sprite = en.sprite;
+            item.GetComponent<ShopItem>().price = en.basePrice;
+            item.GetComponent<ShopItem>().priceMultiplier = en.priceMultiplier;
+            item.transform.Find("Price").GetComponent<Text>().text = en.basePrice.ToString();
+            item.transform.Find("Description").GetComponent<Text>().text = en.description;
+            item.GetComponent<ShopItem>().baseEnhancer = en.baseEnhancer;
+            item.GetComponent<ShopItem>().enhancerMultiplier = en.enhancerMultiplier;
+            item.transform.Find("Name").GetComponent<Text>().text = en.name;
+            item.GetComponent<ShopItem>().life = en.life;
+            item.GetComponent<ShopItem>().damage = en.damage;
             item.gameObject.transform.SetParent(shopPanel.transform.GetChild(0), false);
 
             if (!firstSelected)
@@ -70,13 +80,23 @@ public class InnkeeperBehaviour : MonoBehaviour
         remainingSouls = totalSouls - holder.GetComponent<ShopItem>().price;
         price.text = holder.transform.Find("Price").GetComponent<Text>().text;
         remaining.text = remainingSouls.ToString();
+        if(holder.GetComponent<ShopItem>().life)
+        {
+            baseStat.text = "Life: " + GameController.instance.player.GetComponent<Player>().health.ToString();
+            upgradedStat.text = (GameController.instance.player.GetComponent<Player>().health * (holder.GetComponent<ShopItem>().enhancerMultiplier / 100)).ToString();
+        }
+        else if (holder.GetComponent<ShopItem>().damage)
+        {
+            baseStat.text = "Damage: " + GameController.instance.player.GetComponent<Player>().weapon.Damage.ToString();
+            upgradedStat.text = (GameController.instance.player.GetComponent<Player>().weapon.Damage * (holder.GetComponent<ShopItem>().enhancerMultiplier / 100)).ToString();
+        }
     }
 
     private void Update()
     {
         distPlayer = GameController.instance.player.GetComponent<Player>().transform.position - this.transform.position;
 
-        if (GameController.instance.alchemist)
+        if (GameController.instance.innkeeper)
         {
             if (!shopPanel.activeSelf)
             {
@@ -86,6 +106,8 @@ public class InnkeeperBehaviour : MonoBehaviour
                     shopPanel.SetActive(true);
                     price = GameObject.Find("SoulsPrice").GetComponent<Text>();
                     remaining = GameObject.Find("SoulsRemaining").GetComponent<Text>();
+                    baseStat = GameObject.Find("BaseStat").GetComponent<Text>();
+                    upgradedStat = GameObject.Find("UpgradedStat").GetComponent<Text>();
                     UpdateShop();
                     //Stop the player
                     GameController.instance.player.GetComponent<Player>().state = Player.State.IDLE;

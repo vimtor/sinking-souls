@@ -9,16 +9,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd67c1b2fd6121b458816ae83710b563, type: 3}
-  m_Name: SorcererTriton_SpellState
+  m_Name: AugmentedSorcererTriton_SpellState
   m_EditorClassIdentifier: 
   actions:
-  - {fileID: 11400000, guid: 10ee187ee1c533b44946c35060111c26, type: 2}
-  - {fileID: 11400000, guid: da397f3e43ed2e643b141a17f16fffb3, type: 2}
+  - {fileID: 11400000, guid: b05386e093a04714980fc338f0cc6a8b, type: 2}
+  - {fileID: 11400000, guid: addb12f722f34b646ba1391031725c19, type: 2}
   transitions:
-  - decision: {fileID: 11400000, guid: dd25fefc0c0aa6e4f96e9a083222d714, type: 2}
-    trueState: {fileID: 11400000, guid: a8b0e9d7f624ba2408fb53192579aa2e, type: 2}
+  - decision: {fileID: 11400000, guid: b4d092dc94c389442bc9b8e2fed99f3c, type: 2}
+    trueState: {fileID: 11400000, guid: b29bc76d30271e0429a35ed12f5dce3c, type: 2}
     falseState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
-  - decision: {fileID: 11400000, guid: 6628383847fb41c489ea61c3c7bc1004, type: 2}
-    trueState: {fileID: 11400000, guid: e2f8d329c80f1234984368f30556cac0, type: 2}
+  - decision: {fileID: 11400000, guid: babbe3b758a106f4f9135c06c5d722b2, type: 2}
+    trueState: {fileID: 11400000, guid: 51de7840bf7db4948ba8f26890279ea1, type: 2}
     falseState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
   elapsedActions: 1

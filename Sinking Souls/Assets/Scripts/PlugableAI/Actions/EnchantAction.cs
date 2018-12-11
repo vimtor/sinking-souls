@@ -6,13 +6,16 @@ public class EnchantAction : Action {
 
     public override void Act(AIController controller) {
         Enemy[] enemies = FindObjectsOfType<Enemy>();
-        Enchant(Array.Find(enemies, enemy => enemy.GetComponent<AIController>().aiActive));
+        foreach(Enemy en in enemies) {
+            if (en.GetComponent<AIController>().aiActive && en.gameObject != controller.gameObject) Enchant(en);
+        }
         elapsed = true;
     }
 
     private void Enchant(Enemy enchantedEnemy) {
         if (enchantedEnemy != null) {
             enchantedEnemy.health *= 2.0f;
+            Debug.Log(enchantedEnemy.gameObject.name);
         }
     }
 }

@@ -14,6 +14,7 @@ public class AIController : MonoBehaviour {
     [HideInInspector] public float stateTimeElapsed;
     [HideInInspector] public float timeElapsed;
     [HideInInspector] public float externalTime;
+    [HideInInspector] public float count;
     [HideInInspector] public bool aiActive = false;
     [HideInInspector] public bool stop = false;
     [HideInInspector] public bool forceState = false;
@@ -25,7 +26,7 @@ public class AIController : MonoBehaviour {
 
     public virtual void SetupAI() {
         stateTimeElapsed = 0;
-        timeElapsed = 0;
+        timeElapsed = count = 0;
         //inRangeTime = 0;
         aiActive = true;
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -37,6 +38,7 @@ public class AIController : MonoBehaviour {
     }
 
     protected virtual void Update() {
+        Debug.Log(currentState.name);
         if (!aiActive)
             return;
         if(!player)
@@ -45,7 +47,7 @@ public class AIController : MonoBehaviour {
         currentState.UpdateState(this);
         stateTimeElapsed += Time.deltaTime;
         timeElapsed += Time.deltaTime;
-       // inRangeTime += Time.deltaTime;
+        count += Time.deltaTime;
     }
 
     public void TransitionToState(State nextState) {
@@ -61,6 +63,10 @@ public class AIController : MonoBehaviour {
 
     public bool CheckIfTimeElapsed(float duration) {
         return (timeElapsed >= duration);
+    }
+
+    public bool CountElapsed(float duration) {
+        return (count >= duration);
     }
 
     //public bool CheckIfTimeTranscurred(float duration)
@@ -80,6 +86,7 @@ public class AIController : MonoBehaviour {
             stop = false;
         }
         gameObject.GetComponent<Enemy>().weapon.ShrinkCollision();
+        Debug.Log("exit "+currentState.name);
         // gameObject.GetComponent<Enemy>().ability = defaultAbility;
     }
 

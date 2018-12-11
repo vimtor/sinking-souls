@@ -1373,8 +1373,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1788401568661334}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 3.41, y: 0, z: -1.79}
+  m_LocalScale: {x: 1.2424, y: 1.2424, z: 1.2424}
   m_Children:
   - {fileID: 4948267290314646}
   - {fileID: 4293088026223168}
@@ -2093,6 +2093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  maxHealth: 0
   walkSpeed: 0
   weapon: {fileID: 11400000, guid: f8967da6af7eecb46a701f24718c6b7c, type: 2}
   hand: {fileID: 1027497900457436}
@@ -2107,7 +2108,7 @@ MonoBehaviour:
   collider: {fileID: 136363941391339310}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0
-  soul: {fileID: 11400000, guid: e38a48cc94aafc4488aa3416165a3b73, type: 2}
+  souls: 0
   ability: {fileID: 11400000, guid: 9964b31df9da40a4390834b1e53e0e0a, type: 2}
 --- !u!114 &114323875210341410
 MonoBehaviour:
@@ -2132,6 +2133,7 @@ MonoBehaviour:
   stop: 0
   forceState: 0
   last: {fileID: 0}
+  Ailin: {fileID: 0}
 --- !u!136 &136363941391339310
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -2160,7 +2162,7 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 295647e6477fd1d418103afdc0e6e54d, type: 2}
+  - {fileID: 2100000, guid: e0a764014b28bfc409565c8c02c8f417, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2259,7 +2261,7 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 36fd075cffea7a24489f4d3174c9a46a, type: 2}
+  - {fileID: 2100000, guid: b2aa29fe528579143a1659ce5ed3a2c4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -11,6 +11,7 @@ public class Entity : MonoBehaviour {
     public GameObject hand;
     public Modifier baseModifier;
     public GameObject hitParticle;
+    public GameObject healParticles;
 
     [HideInInspector] public bool thrown;
     [HideInInspector] public Rigidbody rb;
@@ -55,6 +56,19 @@ public class Entity : MonoBehaviour {
         GameController.instance.StartCoroutine(ResetColor(0.1f));
     }
 
+    public void Heal(float heal) {
+        health += heal;
+        bool noHeal = true;
+        for(int i = 0; i< transform.childCount; i++) {
+            if (transform.GetChild(i).tag == "FxTemporaire") noHeal = false;
+        }
+        if (noHeal) {
+            GameObject healGo = Instantiate(healParticles);
+            healGo.transform.position = gameObject.transform.position;
+            healGo.transform.parent = gameObject.transform;
+
+        }
+    }
 
     IEnumerator ResetColor(float time) {
         yield return new WaitForSeconds(time);

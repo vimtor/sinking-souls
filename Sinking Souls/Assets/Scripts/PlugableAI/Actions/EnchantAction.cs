@@ -14,7 +14,7 @@ public class EnchantAction : Action {
 
     private void Enchant(Enemy enchantedEnemy) {
         if (enchantedEnemy != null) {
-            enchantedEnemy.health += healPerSecond* Time.deltaTime;
+            enchantedEnemy.Heal(healPerSecond* Time.deltaTime);
             Debug.Log(enchantedEnemy.gameObject.name);
         }
     }

@@ -13,7 +13,6 @@ public class TeleportAction : Action {
 
         controller.SetAnimBool("TELEPORT");
         float clipLenght = controller.GetComponent<Enemy>().clipLength["TeleportAnim"];
-
         elapsed = controller.CheckIfCountDownElapsed(clipLenght);
 
         if (controller.CheckIfCountDownElapsed(clipLenght * actionFrame)) {

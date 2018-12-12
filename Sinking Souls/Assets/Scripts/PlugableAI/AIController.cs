@@ -14,6 +14,7 @@ public class AIController : MonoBehaviour {
     [HideInInspector] public float stateTimeElapsed;
     [HideInInspector] public float timeElapsed;
     [HideInInspector] public float externalTime;
+    [HideInInspector] public float count;
     [HideInInspector] public bool aiActive = false;
     [HideInInspector] public bool stop = false;
     [HideInInspector] public bool forceState = false;
@@ -25,7 +26,8 @@ public class AIController : MonoBehaviour {
 
     public virtual void SetupAI() {
         stateTimeElapsed = 0;
-        timeElapsed = 0;
+        timeElapsed = count = 0;
+        //inRangeTime = 0;
         aiActive = true;
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Entity>().animator;
@@ -43,6 +45,7 @@ public class AIController : MonoBehaviour {
         currentState.UpdateState(this);
         stateTimeElapsed += Time.deltaTime;
         timeElapsed += Time.deltaTime;
+        count += Time.deltaTime;
     }
 
     public void TransitionToState(State nextState) {
@@ -59,6 +62,15 @@ public class AIController : MonoBehaviour {
     public bool CheckIfTimeElapsed(float duration) {
         return (timeElapsed >= duration);
     }
+
+    public bool CountElapsed(float duration) {
+        return (count >= duration);
+    }
+
+    //public bool CheckIfTimeTranscurred(float duration)
+    //{
+    //    return (inRangeTime >= duration);
+    //}
 
     private void OnExitState() {
         stateTimeElapsed = 0;

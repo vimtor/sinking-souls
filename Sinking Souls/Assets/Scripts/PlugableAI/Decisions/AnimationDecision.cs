@@ -6,7 +6,8 @@ using UnityEngine;
 public class AnimationDecision : Decision {
 
     public override bool Decide(AIController controller) {
-        return (controller.CheckIfCountDownElapsed(controller.GetComponent<Enemy>().clipLength["SpellAnim"]));
+        if (controller.CheckIfCountDownElapsed(controller.GetComponent<Enemy>().clipLength["SpellAnim"])) Debug.Log("true");
+        return (controller.CheckIfTimeElapsed(controller.GetComponent<Enemy>().clipLength["SpellAnim"] - 0.2f));
     }
 
 }

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd67c1b2fd6121b458816ae83710b563, type: 3}
+  m_Name: AugmentedSorcererTriton_IdleState
+  m_EditorClassIdentifier: 
+  actions:
+  - {fileID: 11400000, guid: a9ab6ffdef9e7b7479ae7bbe51a355f8, type: 2}
+  - {fileID: 11400000, guid: 4e2cf471d76976041ba8b42f9959bbc2, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: cd00ea5fb69cbde449028edcf3dfd614, type: 2}
+    trueState: {fileID: 11400000, guid: e1616a21e58ff8849be4ae9d0dc5668f, type: 2}
+    falseState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
+  - decision: {fileID: 11400000, guid: 2db885cfc5cacf84c84398c0ce60c9af, type: 2}
+    trueState: {fileID: 11400000, guid: d8425d2643adc55419584ba13b1a3834, type: 2}
+    falseState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
+  elapsedActions: 1

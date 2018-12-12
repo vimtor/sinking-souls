@@ -3,7 +3,7 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "PlugableAI/Actions/Enchant")]
 public class EnchantAction : Action {
-
+    public float healPerSecond = 10;
     public override void Act(AIController controller) {
         Enemy[] enemies = FindObjectsOfType<Enemy>();
         foreach(Enemy en in enemies) {
@@ -14,7 +14,7 @@ public class EnchantAction : Action {
 
     private void Enchant(Enemy enchantedEnemy) {
         if (enchantedEnemy != null) {
-            enchantedEnemy.health *= 2.0f;
+            enchantedEnemy.health += healPerSecond* Time.deltaTime;
             Debug.Log(enchantedEnemy.gameObject.name);
         }
     }

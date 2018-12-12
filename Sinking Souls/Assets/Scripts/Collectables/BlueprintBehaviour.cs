@@ -24,8 +24,7 @@ public class BlueprintBehaviour : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
-            if(!GameController.instance.pickedModifiers.Contains(modifier)) GameController.instance.pickedModifiers.Add(modifier);
-
+            modifier.picked = true;
             Destroy(gameObject);
         }
     }

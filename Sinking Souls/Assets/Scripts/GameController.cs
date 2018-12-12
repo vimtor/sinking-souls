@@ -9,23 +9,20 @@ public class GameController : MonoBehaviour
     public enum GameState { LOBBY, GAME, ARENA, LOADSCENE, TABERN };
 
     public GameState scene = GameState.LOBBY;
+    public GameObject playerPrefab;
+
     [HideInInspector] public static GameController instance;
     [HideInInspector] public bool debugMode = false;
     [HideInInspector] public bool godMode = false;
     [HideInInspector] public GameObject currentRoom;
-    [HideInInspector] public GameObject playerGO;
-    public GameObject player;
-    [HideInInspector] public List<Modifier> runModifiers;
-    [HideInInspector] public List<Modifier> pickedModifiers;
-    [HideInInspector] public List<Ability> runAbilities;
-    [HideInInspector] public List<Modifier> pickedAbilities;
+    [HideInInspector] public GameObject player;
     [HideInInspector] public Text lobbySoulsHUD;
 
     public bool blacksmith = false; // Consider making this a array that holds the unlocked/locked state of each friend.
     public bool alchemist = false;
     public bool innkeeper = false;
     public GameObject blueprint;
-    public List<Modifier> modifiers;
+    public List<Modifier> modifiers = new List<Modifier>();
     public List<Ability> abilities;
     public List<Enhancer> enhancers;
     public int souls;
@@ -36,7 +33,6 @@ public class GameController : MonoBehaviour
 
     private void Awake()
     {
-
         #region SINGLETON
         if (instance == null)
         {
@@ -70,15 +66,13 @@ public class GameController : MonoBehaviour
 
     public void SpawnBlueprint(Vector3 position)
     {
-        if (runModifiers.Count != 0)
-        {
-            GameObject newBlueprint = Instantiate(blueprint);
-            newBlueprint.transform.position = position + new Vector3(0, 1, 0);
-            int index = Random.Range(0, runModifiers.Count);
-            newBlueprint.GetComponent<BlueprintBehaviour>().modifier = runModifiers[index];
-            runModifiers.RemoveAt(index);
-        }
-        else Debug.Log("No more blueprints to spawn");
+        var possibleModifiers = modifiers.FindAll(modifer => !modifer.owned && !modifer.picked);
+        if (possibleModifiers == null) return;
+
+        var spawnedModifier = possibleModifiers[Random.Range(0, possibleModifiers.Count - 1)];
+        GameObject newBlueprint = Instantiate(blueprint);
+        newBlueprint.transform.position = position + new Vector3(0, 1, 0);
+        newBlueprint.GetComponent<BlueprintBehaviour>().modifier = spawnedModifier;
     }
 
     public void LoadScene() {
@@ -104,14 +98,9 @@ public class GameController : MonoBehaviour
                 player.GetComponent<Player>().SetupPlayer();
                 //GameObject.Find("Innkeeper").GetComponent<InnkeeperBehaviour>().FillShop();
                 player.GetComponent<Player>().health = 100;// the player heals every time he enters the tabern
-                for (int i = 0; i < 0; i++) {//change this depending on how meny blueprints we want to spawn on a game
-                    do {
-                        int index = Random.Range(0, modifiers.Count);
-                    } while (runModifiers.Contains(modifiers[i]));///|| modifiers[i].unlocked));
-                    runModifiers.Add(modifiers[i]);
-                }
 
-            break;
+                break;
+
             case GameState.GAME:
                 died = false;
 
@@ -131,15 +120,6 @@ public class GameController : MonoBehaviour
                 CameraManager.instance.SetupCamera(currentRoom.transform.position);
                 #endregion
 
-                for (int i = 0; i < 0; i++)
-                {//change this depending on how meny blueprints we want to spawn on a game
-                    do
-                    {
-                        int index = Random.Range(0, modifiers.Count);
-                    } while (runModifiers.Contains(modifiers[i]));///|| modifiers[i].unlocked));
-                    runModifiers.Add(modifiers[i]);
-                }
-
                 break;
 
             case GameState.LOBBY:
@@ -151,14 +131,11 @@ public class GameController : MonoBehaviour
 
                 if (!died)
                 {
+                    modifiers.FindAll(modifier => modifier.picked).ForEach(modifier => modifier.owned = true);
+                }
 
-                }
-                else
-                {
-                    foreach (Modifier mod in pickedModifiers) mod.unlocked = false;
-                }
-                runModifiers = new List<Modifier>();
-                pickedModifiers = new List<Modifier>();
+                modifiers.ForEach(modifier => modifier.picked = false);
+
                 lobbySoulsHUD = GameObject.Find("SoulsNumber").GetComponent<Text>();
                 lobbySoulsHUD.text = souls.ToString();
 
@@ -187,7 +164,8 @@ public class GameController : MonoBehaviour
                 CameraManager.instance.player = player.transform;
                 CameraManager.instance.SetupCamera(currentRoom.transform.position);
             #endregion
-            GetComponent<LevelGenerator>().tabernaSpawned = false;
+
+                GetComponent<LevelGenerator>().tabernaSpawned = false;
                 break;
             case GameState.ARENA:
                 currentRoom = GameObject.Find("Arena");
@@ -226,13 +204,12 @@ public class GameController : MonoBehaviour
 
     private void SpawnPlayer()
     {
-        player = Instantiate(playerGO);
+        player = Instantiate(playerPrefab);
         player.transform.position = currentRoom.transform.position;
     }
 
     public void ChangeRoom(GameObject door)
     {
-
         Transform room = door.transform;
         while (room.parent != null)
         {

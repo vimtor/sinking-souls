@@ -29,7 +29,9 @@ public class Enemy : Entity {
     }
 
     private void Die() {
-        if (GameController.instance.godMode) GameController.instance.SpawnBlueprint(transform.position);
+        if (GameController.instance.godMode) {
+            GameController.instance.SpawnBlueprint(transform.position);
+        }
         Destroy(gameObject);
     }
 

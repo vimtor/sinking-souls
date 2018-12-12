@@ -13,7 +13,7 @@ public class Shop : MonoBehaviour {
     public void FillShop() {
         bool firstSelected = false;
         foreach (Modifier modifier in GameController.instance.modifiers) {
-            if (modifier.unlocked) {
+            if (modifier.owned) {
                 GameObject item = Instantiate(UIItem);
                 item.transform.Find("Icon").GetComponent<Image>().sprite = modifier.sprite;
                 item.transform.Find("Price").GetComponent<Text>().text = modifier.price.ToString();

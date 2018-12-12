@@ -38,7 +38,6 @@ public class AIController : MonoBehaviour {
     }
 
     protected virtual void Update() {
-        Debug.Log(currentState.name);
         if (!aiActive)
             return;
         if(!player)
@@ -86,7 +85,6 @@ public class AIController : MonoBehaviour {
             stop = false;
         }
         gameObject.GetComponent<Enemy>().weapon.ShrinkCollision();
-        Debug.Log("exit "+currentState.name);
         // gameObject.GetComponent<Enemy>().ability = defaultAbility;
     }
 

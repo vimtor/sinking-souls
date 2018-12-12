@@ -564,6 +564,7 @@ GameObject:
   - component: {fileID: 54187437147227312}
   - component: {fileID: 136655065544577980}
   - component: {fileID: 114895126049269276}
+  - component: {fileID: 114446645543419556}
   m_Layer: 0
   m_Name: Jack
   m_TagString: Untagged
@@ -1275,8 +1276,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Constraints: 80
+  m_CollisionDetection: 1
 --- !u!95 &95444158685507266
 Animator:
   serializedVersion: 3
@@ -1295,6 +1296,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114446645543419556
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1822640109020134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d35c8842ae1561e49b199e1c23d296f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114895126049269276
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1306,11 +1318,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95322807ad3445947971ffc792430851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementDamping: 0.15
-  rotationDamping: 0.15
-  movementSpeed: 100
+  movementDamping: 0.2
+  rotationDamping: 6
+  movementSpeed: 4
   dashSpeed: 100
-  ability: {fileID: 0}
+  ability: {fileID: 11400000, guid: fddf5f21314ce444ea3a0fee462174df, type: 2}
   weapon: {fileID: 0}
 --- !u!136 &136655065544577980
 CapsuleCollider:

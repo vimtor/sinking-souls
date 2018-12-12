@@ -46,6 +46,10 @@ public class InputHandler : MonoBehaviour {
         return false;
     }
 
+    public static bool LeftJoystickZero() {
+        return LeftJoystick == Vector2.zero;
+    }
+
     void Update() {
 
         if (!buttonA) buttonA = Input.GetButtonDown("BUTTON_A");
@@ -58,5 +62,7 @@ public class InputHandler : MonoBehaviour {
         RightJoystick = new Vector2(Input.GetAxis("JOYSTICK_RH"), Input.GetAxis("JOYSTICK_RV"));
 
     }
+
+
 
 }

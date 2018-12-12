@@ -17,23 +17,41 @@ public class JackController : MonoBehaviour {
     private Animator animator;
     private Rigidbody rb;
 
-    private readonly int horizontalParam = Animator.StringToHash("Horizontal");
-    private readonly int verticalParam = Animator.StringToHash("Vertical");
+    private readonly int speedParam = Animator.StringToHash("Speed");
     private readonly int attackParam = Animator.StringToHash("Attack");
     private readonly int spellParam = Animator.StringToHash("Spell");
-
     private readonly int weaponTypeParam = Animator.StringToHash("WeaponType");
     private readonly int spellTypeParam = Animator.StringToHash("SpellType");
     private readonly int attackTypeParam = Animator.StringToHash("AttackType");
 
+    private Vector3 forward;
+    private Vector3 side;
+
     void Start () {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+
+        forward = Camera.main.transform.forward;
+        forward.y = 0;
+        forward = Vector3.Normalize(forward);
+        side = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
 	}
 
     private void FixedUpdate() {
-        Rotate();
-        Move();
+
+        Vector3 horizontalMovement = side * InputHandler.LeftJoystick.x;
+        Vector3 verticalMovement = forward * InputHandler.LeftJoystick.y;
+        Vector3 direction = horizontalMovement - verticalMovement;
+
+        float magnitude = Vector3.Magnitude(direction);
+        animator.SetFloat(speedParam, magnitude, movementDamping, Time.deltaTime);
+
+        if (!InputHandler.LeftJoystickZero()) {
+            Rotate();
+
+            rb.MovePosition(transform.position + transform.forward * movementSpeed * magnitude * Time.deltaTime);
+        }
+        
 
         if (InputHandler.ButtonX()) {
             Attack();
@@ -52,10 +70,12 @@ public class JackController : MonoBehaviour {
     /// Rotates the character to the desired position smoothly, using an specified rotation damping.
     /// </summary>
     private void Rotate() {
-        Vector3 desiredPosition = new Vector3(InputHandler.LeftJoystick.x, 0, InputHandler.LeftJoystick.y);
-        Vector3 direction = transform.position + desiredPosition;
+        Vector3 horizontalMovement = side * InputHandler.LeftJoystick.x;
+        Vector3 verticalMovement = forward * InputHandler.LeftJoystick.y;
+
+        Vector3 direction = horizontalMovement - verticalMovement;
         Quaternion rotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, rotationDamping * Time.deltaTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * rotationDamping);
     }
 
     /// <summary>
@@ -63,13 +83,8 @@ public class JackController : MonoBehaviour {
     /// also changes the basic locomotion parameters of the blend tree.
     /// </summary>
     private void Move() {
-        // Map character velocity respect forward instead of joystick.
-        animator.SetFloat(horizontalParam, InputHandler.LeftJoystick.x, movementDamping, Time.deltaTime);
-        animator.SetFloat(verticalParam, InputHandler.LeftJoystick.y, movementDamping, Time.deltaTime);
 
         
-        Vector3 direction = new Vector3(InputHandler.LeftJoystick.x, 0, InputHandler.LeftJoystick.y);
-        rb.MovePosition(transform.position + direction * movementSpeed * Time.deltaTime);
     }
 
     private void Attack() {

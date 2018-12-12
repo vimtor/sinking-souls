@@ -14,12 +14,12 @@ public class AugmentedSpellAction : Action {
 
         clipLength = controller.GetComponent<Enemy>().clipLength["SpellAnim"];
         controller.SetAnimBool("SPELL");
-        Debug.Log("hola?");
         if (!controller.GetComponent<Enemy>().thrown && (controller.CheckIfCountDownElapsed(clipLength * actionFrame))) {
             for (int i = 0; i < amount; i++) {
                 controller.GetComponent<Enemy>().ability.Use(controller.gameObject);
-                Debug.Log("spawn");
+                controller.GetComponent<Enemy>().thrown = false;
             }
+            controller.GetComponent<Enemy>().thrown = true;
         }
 
         if (controller.CheckIfCountDownElapsed(controller.GetComponent<Enemy>().clipLength["SpellAnim"])) {

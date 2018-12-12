@@ -14,7 +14,7 @@ public class WaterSplashBehaviour : MonoBehaviour {
     private void Awake() {
         particles = GetComponent<ParticleSystem>();
         if (!pickRandomPosition) playerPosition = GameController.instance.player.transform.position;
-        else RandomNavmeshLocation(GameController.instance.currentRoom.transform.position);
+        else playerPosition = RandomNavmeshLocation(GameController.instance.currentRoom.transform.position);
         particles.Stop();
         StartCoroutine(Splash());
         Destroy(gameObject, 0.3f);

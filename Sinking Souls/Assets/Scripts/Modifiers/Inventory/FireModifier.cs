@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Modifiers/Fire(I)")]
@@ -15,7 +16,6 @@ public class FireModifier : Modifier {
             go.GetComponent<Enemy>().currentModifierState[Entity.ModifierState.FIRE] += 1;
 
         }
-        Debug.Log(go.GetComponent<Enemy>().currentModifierState[Entity.ModifierState.FIRE]);
     }
 
     private void InstantiateParticles(GameObject go) {
@@ -28,15 +28,24 @@ public class FireModifier : Modifier {
 
 	IEnumerator ApplyFire(float time, GameObject go) {
         yield return new WaitForSeconds(hitTime);
-        go.GetComponent<Enemy>().TakeDamage(damage);
-        particlesObject.GetComponent<ParticleSystem>().Play();
 
-        if (time > 0) GameController.instance.StartCoroutine(ApplyFire(time - hitTime, go));
-        else {
-            if (go.GetComponent<Enemy>().currentModifierState[Entity.ModifierState.FIRE] == 1) {
-                GameObject.Destroy(particlesObject.gameObject);
+        try
+        {
+            go.GetComponent<Enemy>().TakeDamage(damage);
+            particlesObject.GetComponent<ParticleSystem>().Play();
+
+            if (time > 0) GameController.instance.StartCoroutine(ApplyFire(time - hitTime, go));
+            else {
+                if (go.GetComponent<Enemy>().currentModifierState[Entity.ModifierState.FIRE] == 1) {
+                    GameObject.Destroy(particlesObject.gameObject);
+                }
+                go.GetComponent<Enemy>().currentModifierState[Entity.ModifierState.FIRE] -= 1;
             }
-            go.GetComponent<Enemy>().currentModifierState[Entity.ModifierState.FIRE] -= 1;
         }
+        catch(Exception exception)
+        {
+            yield break;
+        }
+        
     }
 }

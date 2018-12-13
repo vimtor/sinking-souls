@@ -77,9 +77,8 @@ public class GameController : MonoBehaviour
                 GameObject.Find("Innkeeper").SetActive(true);
 
                 SpawnPlayer();
-                player.GetComponent<Player>().Heal();
-
                 SetupCamera();
+                player.GetComponent<Player>().Heal();
 
                 break;
 
@@ -100,6 +99,7 @@ public class GameController : MonoBehaviour
                 currentRoom = GameObject.Find("Map");
 
                 SpawnPlayer();
+                SetupCamera();
 
                 if (!died)
                 {
@@ -117,17 +117,17 @@ public class GameController : MonoBehaviour
                 GameObject.Find("Alchemist").GetComponent<AlchemistBehaviour>().FillShop();
                 GameObject.FindGameObjectWithTag("Shop").GetComponent<Shop>().FillShop();
 
-                SetupCamera();
 
                 levelGenerator.tabernaSpawned = false;
                 break;
 
             case GameState.ARENA:
                 currentRoom = GameObject.Find("Arena");
+
                 SpawnPlayer();
+                SetupCamera();
 
                 godMode = true;
-                SetupCamera();
                 break;
 
             default:
@@ -139,7 +139,6 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.LeftControl))
         {
-
             if (Input.GetKeyDown(KeyCode.F)) {
                 debugMode = !debugMode;
 
@@ -173,7 +172,7 @@ public class GameController : MonoBehaviour
     public void SpawnBlueprint(Vector3 position)
     {
         var possibleModifiers = modifiers.FindAll(modifer => !modifer.owned && !modifer.picked);
-        if (possibleModifiers == null) return;
+        if (possibleModifiers.Count == 0) return;
 
         var spawnedModifier = possibleModifiers[Random.Range(0, possibleModifiers.Count - 1)];
 
@@ -199,7 +198,6 @@ public class GameController : MonoBehaviour
         currentRoom = room.gameObject;
         room.transform.Find("NavMesh").gameObject.SetActive(true);
         room.GetComponent<SpawnController>().Spawn(player);
-
     }
 
 }

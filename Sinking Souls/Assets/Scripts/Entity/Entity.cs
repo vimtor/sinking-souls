@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class Entity : MonoBehaviour {
@@ -77,8 +78,17 @@ public class Entity : MonoBehaviour {
 
     IEnumerator ResetColor(float time) {
         yield return new WaitForSeconds(time);
-        gettingDamage = false;
-        transform.GetChild(1).GetComponent<Renderer>().material.color = originalColor;
+
+        try
+        {
+            gettingDamage = false;
+            transform.GetChild(1).GetComponent<Renderer>().material.color = originalColor;
+        }
+        catch(Exception exception)
+        {
+            yield break;
+        }
+        
     }
 
 
@@ -87,7 +97,7 @@ public class Entity : MonoBehaviour {
         if (other.tag == "Weapon" && other.GetComponent<WeaponHolder>().owner.tag != tag) {
             if (other.GetComponent<WeaponHolder>().holder.hitting && !hit) {
                 hit = true;
-                TakeDamage(other.GetComponent<WeaponHolder>().holder.Damage);
+                TakeDamage(other.GetComponent<WeaponHolder>().holder.damage);
                 Apply(other.GetComponent<WeaponHolder>().holder.modifier);
                 
                 if(tag == "Enemy") CameraManager.instance.Hit(0.05f, 2.5f);

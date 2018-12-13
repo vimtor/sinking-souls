@@ -19,12 +19,7 @@ public abstract class Modifier : ScriptableObject {
     public int damage;
     public float hitTime;
     public float duration;
-    
 
-    
-
-
-    void Buy() {}
     public abstract void Apply(GameObject go);
 
 

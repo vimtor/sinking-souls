@@ -6,22 +6,17 @@ using UnityEngine;
 public class Weapon : ScriptableObject {
 
 	public GameObject model;
-    public GameObject weapon;
-    private Vector3 originalSize;
-
+    
+    public float useDelay;
     public float baseDamage;
     public float criticDamage;
-    public bool hitting;
-
-    private float _damage;
-    public float Damage {
-        set { throw new System.Exception("You cannot set the damage of a weapon."); }
-        get { return _damage; }
-    }
-
-    public float useDelay;
     public Modifier modifier;
-    
+
+    [HideInInspector] public float damage;
+    [HideInInspector] public bool hitting;
+    [HideInInspector] public GameObject weapon;
+
+    private Vector3 originalSize;
     private BoxCollider boxCollider;
 
     private void Start() {
@@ -33,16 +28,16 @@ public class Weapon : ScriptableObject {
         weapon.transform.parent = parent.transform;
         weapon.AddComponent<WeaponHolder>().holder = this;
         weapon.GetComponent<WeaponHolder>().owner = owner;
-        if(weapon.GetComponent<BoxCollider>()) originalSize = weapon.GetComponent<BoxCollider>().size;
+        if (weapon.GetComponent<BoxCollider>()) originalSize = weapon.GetComponent<BoxCollider>().size;
     }
 
     public void Attack() {
-        _damage = baseDamage;
+        damage = baseDamage;
         hitting = true;
     }
 
     public void CriticAttack() {
-        _damage = criticDamage;
+        damage = criticDamage;
         hitting = true;
     }
 

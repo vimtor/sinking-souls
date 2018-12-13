@@ -31,11 +31,9 @@ public class LobbyDoor : MonoBehaviour {
                     GameController.instance.gameObject.GetComponent<LevelGenerator>().currentLevel++;
                     GameController.instance.scene = GameController.GameState.GAME;
 
-                if (GameController.instance.gameObject.GetComponent<LevelGenerator>().currentLevel == 2 && !GameController.instance.gameObject.GetComponent<LevelGenerator>().tabernaSpawned)
-                    GameController.instance.scene = GameController.GameState.TABERN;
+                    if (GameController.instance.gameObject.GetComponent<LevelGenerator>().currentLevel == 2 && !GameController.instance.gameObject.GetComponent<LevelGenerator>().tabernaSpawned)
+                        GameController.instance.scene = GameController.GameState.TABERN;
 
-
-                    Debug.Log(GameController.instance.gameObject.GetComponent<LevelGenerator>().currentLevel);
                     SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
                     break;
                 case "LoadScene":

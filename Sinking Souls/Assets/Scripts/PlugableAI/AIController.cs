@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine.AI;
 using UnityEngine;
 
@@ -42,10 +43,18 @@ public class AIController : MonoBehaviour {
         if(!player)
             player = GameController.instance.player;
 
-        currentState.UpdateState(this);
-        stateTimeElapsed += Time.deltaTime;
-        timeElapsed += Time.deltaTime;
-        count += Time.deltaTime;
+        try
+        {
+            currentState.UpdateState(this);
+
+            stateTimeElapsed += Time.deltaTime;
+            timeElapsed += Time.deltaTime;
+            count += Time.deltaTime;
+        }
+        catch(Exception exception)
+        {
+            
+        }
     }
 
     public void TransitionToState(State nextState) {

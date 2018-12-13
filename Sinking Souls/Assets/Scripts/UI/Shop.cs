@@ -34,7 +34,6 @@ public class Shop : MonoBehaviour {
         if (GameController.instance.blacksmith) {
             if (!shopUI.activeSelf) {
                 if (InputHandler.ButtonA()) {
-                    Debug.Log("activating");
                     shopUI.SetActive(true);
                     GameController.instance.player.GetComponent<Player>().state = Player.State.IDLE;
                     GameController.instance.player.GetComponent<Player>().HandleInput();
@@ -43,7 +42,6 @@ public class Shop : MonoBehaviour {
             }
             else {
                 if (InputHandler.ButtonB()) {
-                    Debug.Log("de-activating");
                     shopUI.SetActive(false);
                     GameController.instance.player.GetComponent<Player>().move = true;
                     if (InputHandler.ButtonA()) Debug.Log("A");

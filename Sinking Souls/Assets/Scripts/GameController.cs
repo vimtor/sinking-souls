@@ -195,6 +195,9 @@ public class GameController : MonoBehaviour
     private void Update()
     {
 
+        Debug.Log(GameController.instance.player.GetComponent<Rigidbody>().velocity);
+
+
         if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.G))
         {
             Debug.Log("God Mode activated.");

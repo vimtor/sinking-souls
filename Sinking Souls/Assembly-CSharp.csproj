@@ -61,6 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AbilityTester.cs" />
     <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Behaviours\CinemachineBlendListCamera.cs" />
     <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Behaviours\CinemachineBrain.cs" />
     <Compile Include="Assets\Addons\Cinemachine\Base\Runtime\Behaviours\CinemachineClearShot.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Assets\Addons\JMO Assets\Cartoon FX\Scripts\CFX_LightIntensityFade.cs" />
     <Compile Include="Assets\AilinBoss.cs" />
     <Compile Include="Assets\AlchemistBehaviour.cs" />
+    <Compile Include="Assets\InnkeeperBehaviour.cs" />
     <Compile Include="Assets\Loader.cs" />
     <Compile Include="Assets\Scripts\Abilities\Ability.cs" />
     <Compile Include="Assets\Scripts\Abilities\AbilityHolder.cs" />
@@ -136,7 +138,10 @@
     <Compile Include="Assets\Scripts\Abilities\Inventory\BasicDash.cs" />
     <Compile Include="Assets\Scripts\Abilities\Inventory\BombAbility.cs" />
     <Compile Include="Assets\Scripts\Abilities\Inventory\BombBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Abilities\Inventory\ExpansionWaveAbility.cs" />
+    <Compile Include="Assets\Scripts\Abilities\Inventory\ExpansiveWaveBehaviour.cs" />
     <Compile Include="Assets\Scripts\Abilities\Inventory\GhostSprint.cs" />
+    <Compile Include="Assets\Scripts\Abilities\Inventory\MagicCanonBehaviour.cs" />
     <Compile Include="Assets\Scripts\Abilities\Inventory\MultipleArrowAbility.cs" />
     <Compile Include="Assets\Scripts\Abilities\Inventory\SpawnPilar.cs" />
     <Compile Include="Assets\Scripts\Abilities\Inventory\WaterSplashAbility.cs" />
@@ -145,6 +150,7 @@
     <Compile Include="Assets\Scripts\Audio\Sound.cs" />
     <Compile Include="Assets\Scripts\CameraManager.cs" />
     <Compile Include="Assets\Scripts\Collectables\BlueprintBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Enhancers\Enhancer.cs" />
     <Compile Include="Assets\Scripts\Entity\Enemy.cs" />
     <Compile Include="Assets\Scripts\Entity\Entity.cs" />
     <Compile Include="Assets\Scripts\Entity\Player.cs" />
@@ -162,6 +168,7 @@
     <Compile Include="Assets\Scripts\Modifiers\Inventory\ToxicModifier.cs" />
     <Compile Include="Assets\Scripts\Modifiers\Modifier.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Action.cs" />
+    <Compile Include="Assets\Scripts\PlugableAI\Actions\AilinExpansionWaveAction.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Actions\AilinHitAction.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Actions\AilinMagicCanonAction.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Actions\AilinTeleportAction.cs" />
@@ -183,6 +190,7 @@
     <Compile Include="Assets\Scripts\PlugableAI\Actions\WanderAction.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\AIController.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Decision.cs" />
+    <Compile Include="Assets\Scripts\PlugableAI\Decisions\AilinAttackSelectorDecision.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Decisions\AilinTeleportDecision.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Decisions\AnimationDecision.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Decisions\DistanceLongerDecision.cs" />
@@ -211,22 +219,23 @@
     <Compile Include="Assets\Scripts\Weapons\WeaponHolder.cs" />
     <Compile Include="Assets\ShopItem.cs" />
     <Compile Include="Assets\tryChangeColor.cs" />
+    <Compile Include="Assets\waveTrigger.cs" />
     <None Include="Assets\Addons\JMO Assets\Cartoon FX\Shaders\CFX3 Multiply Color.shader" />
     <None Include="Assets\Addons\JMO Assets\Cartoon FX\Shaders\CFXM_MobileParticleAdd_Alpha8.shader" />
     <None Include="Assets\Addons\JMO Assets\Cartoon FX\CartoonFX Free.txt" />
     <None Include="Assets\Addons\Cinemachine\ReleaseNotes.txt" />
     <None Include="Assets\Addons\JMO Assets\Cartoon FX Easy Editor\CartoonFX Easy Editor Readme.txt" />
     <Reference Include="UnityEditor.StandardEvents">
-      <HintPath>D:/ENTI/2n/Project/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/vn4va/Documents/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/ENTI/2n/Project/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/vn4va/Documents/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>D:/ENTI/2n/Project/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/vn4va/Documents/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/ENTI/2n/Project/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/vn4va/Documents/Sinking-Souls/Sinking Souls/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -427,10 +436,10 @@
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Analytics">
-      <HintPath>C:/Users/Arnauç/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
+      <HintPath>C:/Users/vn4va/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.StandardEvents">
-      <HintPath>C:/Users/Arnauç/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/vn4va/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:/Program Files/Unity/Editor/Data/MonoBleedingEdge/lib/mono/unity/mscorlib.dll</HintPath>

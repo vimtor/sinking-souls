@@ -4,16 +4,24 @@ using UnityEngine;
 
 public abstract class Modifier : ScriptableObject {
 
-    public Sprite sprite;
+    [Header("Ability Information")]
     new public string name;
     public string description;
     public int price;
-    public bool owned;
-    public bool unlocked;
+    public Sprite sprite;
+    public int tier;
 
+    [Header("General Properties")]
+    public bool owned;
+    public bool picked;
+
+    [Space(10)]
     public int damage;
     public float hitTime;
     public float duration;
+    
+
+    
 
 
     void Buy() {}

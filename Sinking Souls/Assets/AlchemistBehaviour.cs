@@ -7,6 +7,7 @@ public class AlchemistBehaviour : MonoBehaviour
 {
 
     //Shop interface
+    [Header("ShopInterface")]
     public GameObject shopPanel;
     public GameObject UIItem;
     

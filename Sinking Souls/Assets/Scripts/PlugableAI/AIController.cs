@@ -31,7 +31,6 @@ public class AIController : MonoBehaviour {
         aiActive = true;
         navMeshAgent = GetComponent<NavMeshAgent>();
         animator = GetComponent<Entity>().animator;
-        // player = GameController.instance.player;
 
         defaultAbility = gameObject.GetComponent<Enemy>().ability;
         if (aiActive) navMeshAgent.enabled = true;

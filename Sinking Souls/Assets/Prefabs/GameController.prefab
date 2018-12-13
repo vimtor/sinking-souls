@@ -55,15 +55,10 @@ MonoBehaviour:
   scene: 0
   playerPrefab: {fileID: 1589807051420334, guid: 49e416f76c3ef9049a0ff61d55781277,
     type: 2}
-  debugMode: 0
-  godMode: 0
-  currentRoom: {fileID: 0}
-  player: {fileID: 1589807051420334, guid: 49e416f76c3ef9049a0ff61d55781277, type: 2}
-  lobbySoulsHUD: {fileID: 0}
+  blueprint: {fileID: 1656587315307008, guid: 1a7131efd18afaf4cb4d1edaea296ef7, type: 2}
   blacksmith: 1
   alchemist: 1
-  innkeeper: 0
-  blueprint: {fileID: 1656587315307008, guid: 1a7131efd18afaf4cb4d1edaea296ef7, type: 2}
+  souls: 0
   modifiers:
   - {fileID: 11400000, guid: 2b9b733efd55e0f40901ad0d69cc3b6d, type: 2}
   - {fileID: 11400000, guid: bf9941d22fbf0c7479a59603d39716c2, type: 2}
@@ -74,8 +69,12 @@ MonoBehaviour:
   enhancers:
   - {fileID: 11400000, guid: 7637169d67cb3b942acf653409b02d2e, type: 2}
   - {fileID: 11400000, guid: e414054fa6f953d4997f4f7609e212c0, type: 2}
-  souls: 0
   died: 0
+  debugMode: 0
+  godMode: 0
+  currentRoom: {fileID: 0}
+  player: {fileID: 1589807051420334, guid: 49e416f76c3ef9049a0ff61d55781277, type: 2}
+  lobbySoulsHUD: {fileID: 0}
 --- !u!114 &114646670468762960
 MonoBehaviour:
   m_ObjectHideFlags: 1

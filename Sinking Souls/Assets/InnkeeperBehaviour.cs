@@ -36,7 +36,6 @@ public class InnkeeperBehaviour : MonoBehaviour
 
     private void Start()
     {
-        GameController.instance.innkeeper = true;
         canvas = GameObject.Find("Canvas");
         inGameShopPanel = Instantiate(shopPanel, canvas.transform, false);
         inGameShopPanel.transform.parent = canvas.transform;
@@ -99,48 +98,45 @@ public class InnkeeperBehaviour : MonoBehaviour
     {
         distPlayer = GameController.instance.player.GetComponent<Player>().transform.position - this.transform.position;
 
-        if (GameController.instance.innkeeper)
+        if (!inGameShopPanel.activeSelf)
         {
-            if (!inGameShopPanel.activeSelf)
+            //Open the store
+            if (InputHandler.ButtonA() && (distPlayer.magnitude < range))
             {
-                //Open the store
-                if (InputHandler.ButtonA() && (distPlayer.magnitude < range))
-                {
-                    inGameShopPanel.SetActive(true);
-                    price = GameObject.Find("SoulsPrice").GetComponent<Text>();
-                    remaining = GameObject.Find("SoulsRemaining").GetComponent<Text>();
-                    baseStat = GameObject.Find("BaseStat").GetComponent<Text>();
-                    upgradedStat = GameObject.Find("UpgradedStat").GetComponent<Text>();
-                    UpdateShop();
-                    //Stop the player
-                    GameController.instance.player.GetComponent<Player>().state = Player.State.IDLE;
-                    GameController.instance.player.GetComponent<Player>().HandleInput();
-                    GameController.instance.player.GetComponent<Player>().move = false;
+                inGameShopPanel.SetActive(true);
+                price = GameObject.Find("SoulsPrice").GetComponent<Text>();
+                remaining = GameObject.Find("SoulsRemaining").GetComponent<Text>();
+                baseStat = GameObject.Find("BaseStat").GetComponent<Text>();
+                upgradedStat = GameObject.Find("UpgradedStat").GetComponent<Text>();
+                UpdateShop();
+                //Stop the player
+                GameController.instance.player.GetComponent<Player>().state = Player.State.IDLE;
+                GameController.instance.player.GetComponent<Player>().HandleInput();
+                GameController.instance.player.GetComponent<Player>().move = false;
 
-                }
             }
-            else
+        }
+        else
+        {
+            //Browse the store
+            if (InputHandler.LeftJoystick.y == 1 && !updating)
             {
-                //Browse the store
-                if (InputHandler.LeftJoystick.y == 1 && !updating)
-                {
-                    updating = true;
-                    currentItem = (currentItem + 1) % maxItems;
-                    StartCoroutine(waitTime(0.3f));
-                }
-                else if (InputHandler.LeftJoystick.y == -1 && !updating)
-                {
-                    updating = true;
-                    currentItem = mod(currentItem - 1, maxItems);
-                    StartCoroutine(waitTime(0.3f));
-                }
-                //Close the store
-                if (InputHandler.ButtonB())
-                {
-                    inGameShopPanel.SetActive(false);
-                    GameController.instance.player.GetComponent<Player>().move = true;
-                    currentItem = 0;
-                }
+                updating = true;
+                currentItem = (currentItem + 1) % maxItems;
+                StartCoroutine(waitTime(0.3f));
+            }
+            else if (InputHandler.LeftJoystick.y == -1 && !updating)
+            {
+                updating = true;
+                currentItem = mod(currentItem - 1, maxItems);
+                StartCoroutine(waitTime(0.3f));
+            }
+            //Close the store
+            if (InputHandler.ButtonB())
+            {
+                inGameShopPanel.SetActive(false);
+                GameController.instance.player.GetComponent<Player>().move = true;
+                currentItem = 0;
             }
         }
     }

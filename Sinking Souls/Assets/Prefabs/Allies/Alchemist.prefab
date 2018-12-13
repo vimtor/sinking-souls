@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 195854687014190930}
   - component: {fileID: 114353536826754124}
   - component: {fileID: 114517713994226608}
-  - component: {fileID: 114743119300070832}
+  - component: {fileID: 114047625415467802}
   m_Layer: 11
   m_Name: Alchemist
   m_TagString: CrewMember
@@ -1395,7 +1395,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1266240112821814}
-  m_LocalRotation: {x: -0.16593307, y: -0.044152346, z: -0.16824661, w: 0.97067493}
+  m_LocalRotation: {x: -0.16593309, y: -0.04415235, z: -0.16824663, w: 0.970675}
   m_LocalPosition: {x: 0.00000002360438, y: -0.08728669, z: 0.107105605}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1729,7 +1729,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1681412381559448}
-  m_LocalRotation: {x: -0.013632681, y: 0.2867624, z: -0.07186421, w: 0.9552052}
+  m_LocalRotation: {x: -0.013632682, y: 0.2867624, z: -0.07186422, w: 0.9552052}
   m_LocalPosition: {x: 0.2832884, y: -0.0000000015814171, z: 0.00000055816014}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1761,7 +1761,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1845040315956292}
-  m_LocalRotation: {x: -0.0000047837693, y: -0.00037892108, z: -0.2235037, w: 0.974703}
+  m_LocalRotation: {x: -0.00000478377, y: -0.00037892108, z: -0.22350371, w: 0.974703}
   m_LocalPosition: {x: 0.021142116, y: 0.00000015137925, z: 0.00000014793768}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1843,7 +1843,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1149290083879978}
   m_LocalRotation: {x: -0, y: -0.6911372, z: -0, w: 0.72272366}
-  m_LocalPosition: {x: 4.212, y: -0.736635, z: 6.718}
+  m_LocalPosition: {x: 4.20727, y: -0.736635, z: 6.6115875}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4005699490602144}
@@ -2073,7 +2073,7 @@ Animator:
   m_GameObject: {fileID: 1149290083879978}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 23b639a8ac5e3644396ab817adbea32f, type: 3}
-  m_Controller: {fileID: 9100000, guid: 19c2b4f0ce14539489dc759362bea587, type: 2}
+  m_Controller: {fileID: 9100000, guid: ccb3c5429db3787428c9fb75e1424e67, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2082,6 +2082,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114047625415467802
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1149290083879978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c3ea0ae0ce998444af0441e2707ddb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopPanel: {fileID: 0}
+  UIItem: {fileID: 1297394885501062, guid: 725c22e187acbaa449fa5bf0291db5c9, type: 2}
+  range: 5
+  remainingSouls: 0
 --- !u!114 &114353536826754124
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2100,8 +2115,13 @@ MonoBehaviour:
   navMeshAgent: {fileID: 195854687014190930}
   stateTimeElapsed: 0
   timeElapsed: 0
+  externalTime: 0
+  count: 0
   aiActive: 0
   stop: 0
+  forceState: 0
+  last: {fileID: 0}
+  Ailin: {fileID: 0}
 --- !u!114 &114517713994226608
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2114,31 +2134,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1000
+  maxHealth: 0
   walkSpeed: 10
   weapon: {fileID: 0}
   hand: {fileID: 0}
   baseModifier: {fileID: 0}
+  hitParticle: {fileID: 0}
+  healParticles: {fileID: 0}
   thrown: 0
   rb: {fileID: 0}
   animator: {fileID: 0}
   facingDir: {x: 0, y: 0, z: 0}
   hit: 0
   collider: {fileID: 0}
---- !u!114 &114743119300070832
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1149290083879978}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c3ea0ae0ce998444af0441e2707ddb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shopPanel: {fileID: 1297394885501062, guid: 725c22e187acbaa449fa5bf0291db5c9, type: 2}
-  UIItem: {fileID: 1297394885501062, guid: 5963bce74ac1cc84f8ccee63a23466d9, type: 2}
-  range: 5
-  remainingSouls: 0
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
+  gettingDamage: 0
 --- !u!136 &136783293008452602
 CapsuleCollider:
   m_ObjectHideFlags: 1

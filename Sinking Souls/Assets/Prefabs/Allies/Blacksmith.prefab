@@ -1133,7 +1133,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1834577337739012}
-  m_LocalRotation: {x: -0.0000047837693, y: -0.00037892108, z: -0.2235037, w: 0.974703}
+  m_LocalRotation: {x: -0.00000478377, y: -0.00037892108, z: -0.22350371, w: 0.974703}
   m_LocalPosition: {x: 0.021142116, y: 0.00000015137925, z: 0.00000014793768}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1842,7 +1842,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1088166167179462}
-  m_LocalRotation: {x: -0.16593307, y: -0.044152346, z: -0.16824661, w: 0.97067493}
+  m_LocalRotation: {x: -0.16593309, y: -0.04415235, z: -0.16824663, w: 0.970675}
   m_LocalPosition: {x: 0.00000002360438, y: -0.08728669, z: 0.107105605}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1967,7 +1967,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1363027928538476}
-  m_LocalRotation: {x: -0.013632681, y: 0.2867624, z: -0.07186421, w: 0.9552052}
+  m_LocalRotation: {x: -0.013632682, y: 0.2867624, z: -0.07186422, w: 0.9552052}
   m_LocalPosition: {x: 0.2832884, y: -0.0000000015814171, z: 0.00000055816014}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2073,7 +2073,7 @@ Animator:
   m_GameObject: {fileID: 1075961295255574}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 23b639a8ac5e3644396ab817adbea32f, type: 3}
-  m_Controller: {fileID: 9100000, guid: 19c2b4f0ce14539489dc759362bea587, type: 2}
+  m_Controller: {fileID: 9100000, guid: 36d1231379604bf4c9e554e3d7c9a0db, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2106,16 +2106,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 1000
+  maxHealth: 0
   walkSpeed: 10
   weapon: {fileID: 0}
   hand: {fileID: 0}
   baseModifier: {fileID: 0}
+  hitParticle: {fileID: 0}
+  healParticles: {fileID: 0}
   thrown: 0
   rb: {fileID: 0}
   animator: {fileID: 0}
   facingDir: {x: 0, y: 0, z: 0}
   hit: 0
   collider: {fileID: 0}
+  originalColor: {r: 0, g: 0, b: 0, a: 0}
+  gettingDamage: 0
 --- !u!114 &114893454237902454
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2133,6 +2138,14 @@ MonoBehaviour:
   animator: {fileID: 0}
   navMeshAgent: {fileID: 195055305661822116}
   stateTimeElapsed: 0
+  timeElapsed: 0
+  externalTime: 0
+  count: 0
+  aiActive: 0
+  stop: 0
+  forceState: 0
+  last: {fileID: 0}
+  Ailin: {fileID: 0}
 --- !u!136 &136173246116851340
 CapsuleCollider:
   m_ObjectHideFlags: 1

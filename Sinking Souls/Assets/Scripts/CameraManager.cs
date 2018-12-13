@@ -44,12 +44,11 @@ public class CameraManager : MonoBehaviour {
         transform.LookAt(center);
         gameOn = true;
 
-        //virtualCamera.LookAt = player;
         virtualCamera.Follow = player.transform.Find("CameraFollow");
     }
 	
 	void Update () {
-        MoveCollider();
+        // MoveCollider();
     }
 
     private void MoveCollider() {

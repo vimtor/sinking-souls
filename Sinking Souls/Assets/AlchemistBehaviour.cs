@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class AlchemistBehaviour : MonoBehaviour
 {
 
-    //Shop interface
+    // Shop interface
     [Header("ShopInterface")]
     public GameObject shopPanel;
     public GameObject UIItem;
     
-    //Selected item
+    // Selected item
     private GameObject holder;
     private int currentItem = 0;
     private int maxItems;
@@ -39,7 +39,7 @@ public class AlchemistBehaviour : MonoBehaviour
     }
 
     /// <summary>
-    /// Carga todas las abilidades disponibles en la tienda
+    /// Carga todas las abilidades disponibles en la tienda.
     /// </summary>
     public void FillShop()
     {

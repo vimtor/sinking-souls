@@ -57,17 +57,22 @@ public class Entity : MonoBehaviour {
     }
 
     public void Heal(float heal) {
-        health += heal;
+        health += health + heal > maxHealth ? maxHealth : heal;
+
         bool noHeal = true;
-        for(int i = 0; i< transform.childCount; i++) {
+        for(int i = 0; i < transform.childCount; i++) {
             if (transform.GetChild(i).tag == "FxTemporaire") noHeal = false;
         }
+
         if (noHeal) {
             GameObject healGo = Instantiate(healParticles);
             healGo.transform.position = gameObject.transform.position;
             healGo.transform.parent = gameObject.transform;
-
         }
+    }
+
+    public void Heal() {
+        Heal(maxHealth);
     }
 
     IEnumerator ResetColor(float time) {

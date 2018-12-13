@@ -7,10 +7,23 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     public enum GameState { LOBBY, GAME, ARENA, LOADSCENE, TABERN };
-
     public GameState scene = GameState.LOBBY;
-    public GameObject playerPrefab;
 
+    [Header("Prefabs")]
+    public GameObject playerPrefab;
+    public GameObject blueprint;
+
+    [Header("Crew Members")]
+    public bool blacksmith = false;
+    public bool alchemist = false;
+    
+    [Header("Items")]
+    public int souls;
+    public List<Modifier> modifiers;
+    public List<Ability> abilities;
+    public List<Enhancer> enhancers;
+    
+    [HideInInspector] public bool died;
     [HideInInspector] public static GameController instance;
     [HideInInspector] public bool debugMode = false;
     [HideInInspector] public bool godMode = false;
@@ -18,18 +31,7 @@ public class GameController : MonoBehaviour
     [HideInInspector] public GameObject player;
     [HideInInspector] public Text lobbySoulsHUD;
 
-    public bool blacksmith = false; // Consider making this a array that holds the unlocked/locked state of each friend.
-    public bool alchemist = false;
-    public bool innkeeper = false;
-    public GameObject blueprint;
-    public List<Modifier> modifiers = new List<Modifier>();
-    public List<Ability> abilities;
-    public List<Enhancer> enhancers;
-    public int souls;
-    public bool died;
-
     private LevelGenerator levelGenerator;
-    private GameObject shop;
 
     private void Awake()
     {
@@ -46,7 +48,10 @@ public class GameController : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
         #endregion
+
+        levelGenerator = GetComponent<LevelGenerator>();
     }
+
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -63,71 +68,38 @@ public class GameController : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-
-    public void SpawnBlueprint(Vector3 position)
-    {
-        var possibleModifiers = modifiers.FindAll(modifer => !modifer.owned && !modifer.picked);
-        if (possibleModifiers == null) return;
-
-        var spawnedModifier = possibleModifiers[Random.Range(0, possibleModifiers.Count - 1)];
-        GameObject newBlueprint = Instantiate(blueprint);
-        newBlueprint.transform.position = position + new Vector3(0, 1, 0);
-        newBlueprint.GetComponent<BlueprintBehaviour>().modifier = spawnedModifier;
-    }
-
     public void LoadScene() {
         switch (scene) {
             case GameState.TABERN:
-                levelGenerator = GetComponent<LevelGenerator>();
                 levelGenerator.takenPos = new List<Vector2>();
                 currentRoom = SpawnLevel();
-                foreach (GameObject crewMember in GameObject.FindGameObjectsWithTag("CrewMember"))
-                {
-                    if (innkeeper)
-                    {
-                        crewMember.SetActive(true);//if we have a list and not just a bool for each change this
-                        crewMember.GetComponent<Animator>().SetBool("IDLE", true);
-                    }
-                }
-                SpawnPlayer();
-                #region Setup Camera
-                CameraManager.instance.player = player.transform;
-                CameraManager.instance.SetupCamera(currentRoom.transform.position);
-            #endregion
 
-                player.GetComponent<Player>().SetupPlayer();
-                //GameObject.Find("Innkeeper").GetComponent<InnkeeperBehaviour>().FillShop();
-                player.GetComponent<Player>().health = 100;// the player heals every time he enters the tabern
+                GameObject.Find("Innkeeper").SetActive(true);
+
+                SpawnPlayer();
+                player.GetComponent<Player>().Heal();
+
+                SetupCamera();
 
                 break;
 
             case GameState.GAME:
                 died = false;
-
-                #region Setup Initial Room
-                levelGenerator = GetComponent<LevelGenerator>();
+                
                 levelGenerator.takenPos = new List<Vector2>();
                 currentRoom = SpawnLevel();
                 currentRoom.GetComponent<SpawnController>().alreadySpawned = true;
+
                 SpawnPlayer();
-
-                player.GetComponent<Player>().SetupPlayer();
-
-                #endregion
-
-                #region Setup Camera
-                CameraManager.instance.player = player.transform;
-                CameraManager.instance.SetupCamera(currentRoom.transform.position);
-                #endregion
+                SetupCamera();
 
                 break;
 
             case GameState.LOBBY:
-                gameObject.GetComponent<LevelGenerator>().currentLevel = -1;
-                #region Setup Initial Room
+                levelGenerator.currentLevel = -1;
                 currentRoom = GameObject.Find("Map");
+
                 SpawnPlayer();
-                #endregion
 
                 if (!died)
                 {
@@ -139,43 +111,25 @@ public class GameController : MonoBehaviour
                 lobbySoulsHUD = GameObject.Find("SoulsNumber").GetComponent<Text>();
                 lobbySoulsHUD.text = souls.ToString();
 
-                foreach (GameObject crewMember in GameObject.FindGameObjectsWithTag("CrewMember"))
-                {
-                    if (blacksmith)
-                    {
-                        crewMember.SetActive(true);//if we have a list and not just a bool for each change this
-                        crewMember.GetComponent<Animator>().SetBool("IDLE", true);
-                    }
-                    else if (alchemist)
-                    {
-                        crewMember.SetActive(true);//if we have a list and not just a bool for each change this
-                        crewMember.GetComponent<Animator>().SetBool("IDLE", true);
-                    }
-                    else
-                    {
-                        crewMember.SetActive(false);//if we have a list and not just a bool for each change this
-                    }
-                }
-                player.GetComponent<Player>().SetupPlayer();
+                GameObject.Find("Blacksmith").SetActive(blacksmith);
+                GameObject.Find("Alchemist").SetActive(alchemist);
+
                 GameObject.Find("Alchemist").GetComponent<AlchemistBehaviour>().FillShop();
                 GameObject.FindGameObjectWithTag("Shop").GetComponent<Shop>().FillShop();
 
-                #region Setup Camera
-                CameraManager.instance.player = player.transform;
-                CameraManager.instance.SetupCamera(currentRoom.transform.position);
-            #endregion
+                SetupCamera();
 
-                GetComponent<LevelGenerator>().tabernaSpawned = false;
+                levelGenerator.tabernaSpawned = false;
                 break;
+
             case GameState.ARENA:
                 currentRoom = GameObject.Find("Arena");
                 SpawnPlayer();
-                player.GetComponent<Player>().SetupPlayer();
-                //currentRoom.GetComponent<SpawnController>().Spawn(player);
+
                 godMode = true;
-                CameraManager.instance.player = player.transform;
-                CameraManager.instance.SetupCamera(currentRoom.transform.position);
+                SetupCamera();
                 break;
+
             default:
                 break;
         }
@@ -183,21 +137,24 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-
-        Debug.Log(GameController.instance.player.GetComponent<Rigidbody>().velocity);
-
-
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.G))
+        if (Input.GetKey(KeyCode.LeftControl))
         {
-            Debug.Log("God Mode activated.");
-            godMode = !godMode;
-        }
-        if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.D))
-        {
-            Debug.Log("Debug Mode activated.");
-            debugMode = !debugMode;
-        }
 
+            if (Input.GetKeyDown(KeyCode.F)) {
+                debugMode = !debugMode;
+
+                string status = debugMode ? "activated" : "deactivated";
+                Debug.Log("Debug mode " + status);
+            }
+
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                godMode = !godMode;
+
+                string status = godMode ? "activated" : "deactivated";
+                Debug.Log("God mode " + status);
+            }  
+        }
     }
 
     private GameObject SpawnLevel()
@@ -209,6 +166,25 @@ public class GameController : MonoBehaviour
     {
         player = Instantiate(playerPrefab);
         player.transform.position = currentRoom.transform.position;
+        player.GetComponent<Player>().SetupPlayer();
+    }
+
+
+    public void SpawnBlueprint(Vector3 position)
+    {
+        var possibleModifiers = modifiers.FindAll(modifer => !modifer.owned && !modifer.picked);
+        if (possibleModifiers == null) return;
+
+        var spawnedModifier = possibleModifiers[Random.Range(0, possibleModifiers.Count - 1)];
+
+        GameObject newBlueprint = Instantiate(blueprint);
+        newBlueprint.transform.position = position + new Vector3(0, 1, 0);
+        newBlueprint.GetComponent<BlueprintBehaviour>().modifier = spawnedModifier;
+    }
+
+    private void SetupCamera() {
+        CameraManager.instance.player = player.transform;
+        CameraManager.instance.SetupCamera(currentRoom.transform.position);
     }
 
     public void ChangeRoom(GameObject door)

@@ -115,7 +115,6 @@ public class GameController : MonoBehaviour
                 GameObject.Find("Alchemist").SetActive(alchemist);
 
                 GameObject.Find("Alchemist").GetComponent<AlchemistBehaviour>().FillShop();
-                GameObject.FindGameObjectWithTag("Shop").GetComponent<Shop>().FillShop();
 
 
                 levelGenerator.tabernaSpawned = false;

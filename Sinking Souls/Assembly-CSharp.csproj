@@ -126,8 +126,6 @@
     <Compile Include="Assets\Addons\JMO Assets\Cartoon FX\Scripts\CFX_LightFlicker.cs" />
     <Compile Include="Assets\Addons\JMO Assets\Cartoon FX\Scripts\CFX_LightIntensityFade.cs" />
     <Compile Include="Assets\AilinBoss.cs" />
-    <Compile Include="Assets\AlchemistBehaviour.cs" />
-    <Compile Include="Assets\InnkeeperBehaviour.cs" />
     <Compile Include="Assets\Loader.cs" />
     <Compile Include="Assets\Scripts\Abilities\Ability.cs" />
     <Compile Include="Assets\Scripts\Abilities\AbilityHolder.cs" />
@@ -159,7 +157,6 @@
     <Compile Include="Assets\Scripts\Levels\DoorBehaviour.cs" />
     <Compile Include="Assets\Scripts\Levels\LevelGenerator.cs" />
     <Compile Include="Assets\Scripts\Levels\Room.cs" />
-    <Compile Include="Assets\Scripts\Lobby\BlacksmithBehaviour.cs" />
     <Compile Include="Assets\Scripts\Lobby\CrewMember.cs" />
     <Compile Include="Assets\Scripts\Lobby\LobbyDoor.cs" />
     <Compile Include="Assets\Scripts\Modifiers\Inventory\ElectricModifier.cs" />
@@ -205,6 +202,11 @@
     <Compile Include="Assets\Scripts\PlugableAI\State.cs" />
     <Compile Include="Assets\Scripts\PlugableAI\Transition.cs" />
     <Compile Include="Assets\Scripts\SeiralizableWraper.cs" />
+    <Compile Include="Assets\Scripts\Shops\AlchemistBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Shops\BlacksmithBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Shops\InnkeeperBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Shops\ShopBehaviour.cs" />
+    <Compile Include="Assets\Scripts\Shops\ShopItem.cs" />
     <Compile Include="Assets\Scripts\Spawner\SpawnController.cs" />
     <Compile Include="Assets\Scripts\Spawner\SpawnerConfiguration.cs" />
     <Compile Include="Assets\Scripts\State Machine Behaviours\AnimatorResetBoolAtEnd.cs" />
@@ -213,11 +215,9 @@
     <Compile Include="Assets\Scripts\Tools\ArenaTool.cs" />
     <Compile Include="Assets\Scripts\UI\InGameUI.cs" />
     <Compile Include="Assets\Scripts\UI\ScrollbarBehaviour.cs" />
-    <Compile Include="Assets\Scripts\UI\Shop.cs" />
     <Compile Include="Assets\Scripts\UI\UIShowLife.cs" />
     <Compile Include="Assets\Scripts\Weapons\Weapon.cs" />
     <Compile Include="Assets\Scripts\Weapons\WeaponHolder.cs" />
-    <Compile Include="Assets\ShopItem.cs" />
     <Compile Include="Assets\tryChangeColor.cs" />
     <Compile Include="Assets\waveTrigger.cs" />
     <None Include="Assets\Addons\JMO Assets\Cartoon FX\Shaders\CFX3 Multiply Color.shader" />

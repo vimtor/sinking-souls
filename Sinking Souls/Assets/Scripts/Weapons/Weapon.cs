@@ -5,8 +5,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Weapon")]
 public class Weapon : ScriptableObject {
 
+    [Header("Weapon Information")]
 	public GameObject model;
+    new public string name;
+    public string description;
+    public Sprite sprite;
     
+    [Header("Weapon Properties")]
     public float useDelay;
     public float baseDamage;
     public float criticDamage;

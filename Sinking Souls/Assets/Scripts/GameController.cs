@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
     public int souls;
     public List<Modifier> modifiers;
     public List<Ability> abilities;
+    public List<Weapon> weapons;
     public List<Enhancer> enhancers;
     
     [HideInInspector] public bool died;
@@ -115,7 +116,6 @@ public class GameController : MonoBehaviour
                 GameObject.Find("Alchemist").SetActive(alchemist);
 
                 GameObject.Find("Alchemist").GetComponent<AlchemistBehaviour>().FillShop();
-                GameObject.FindGameObjectWithTag("Shop").GetComponent<Shop>().FillShop();
 
 
                 levelGenerator.tabernaSpawned = false;

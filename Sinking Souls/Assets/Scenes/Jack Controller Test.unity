@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -193,7 +193,7 @@ Transform:
   m_GameObject: {fileID: 387374001}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -178, y: -197, z: 0}
-  m_LocalScale: {x: 19.845, y: 1, z: 18.007}
+  m_LocalScale: {x: 431.72473, y: 1, z: 347.43222}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -240,7 +240,17 @@ Prefab:
     - target: {fileID: 114895126049269276, guid: 44389e0974990014b85d7b72e8893276,
         type: 2}
       propertyPath: movementSpeed
-      value: 0.1
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114895126049269276, guid: 44389e0974990014b85d7b72e8893276,
+        type: 2}
+      propertyPath: dashSpeed
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 95444158685507266, guid: 44389e0974990014b85d7b72e8893276,
+        type: 2}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 44389e0974990014b85d7b72e8893276, type: 2}

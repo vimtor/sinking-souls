@@ -9,6 +9,11 @@ public class JackController : MonoBehaviour {
     public float rotationDamping = 0.15f;
     public float movementSpeed = 100.0f;
     public float dashSpeed = 100.0f;
+    public float dashLength = 1;
+
+    [Header("Animator parameters")]
+    public float attackLength = 1;
+    public float attackSpeed = 1;
 
     [Header("Character Equipment")]
     public Ability ability;
@@ -17,8 +22,11 @@ public class JackController : MonoBehaviour {
     private Animator animator;
     private Rigidbody rb;
 
+    private bool movable = true;
+
     private readonly int speedParam = Animator.StringToHash("Speed");
     private readonly int attackParam = Animator.StringToHash("Attack");
+    private readonly int dashParam = Animator.StringToHash("Dash");
     private readonly int spellParam = Animator.StringToHash("Spell");
     private readonly int weaponTypeParam = Animator.StringToHash("WeaponType");
     private readonly int spellTypeParam = Animator.StringToHash("SpellType");
@@ -35,7 +43,12 @@ public class JackController : MonoBehaviour {
         forward.y = 0;
         forward = Vector3.Normalize(forward);
         side = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
-	}
+
+        foreach(var anim in animator.runtimeAnimatorController.animationClips) {
+            if (anim.name == "Walking" || anim.name == "Running") { }
+        }
+
+    }
 
     private void FixedUpdate() {
 
@@ -43,10 +56,11 @@ public class JackController : MonoBehaviour {
         Vector3 verticalMovement = forward * InputHandler.LeftJoystick.y;
         Vector3 direction = horizontalMovement - verticalMovement;
 
+
         float magnitude = Vector3.Magnitude(direction);
         animator.SetFloat(speedParam, magnitude, movementDamping, Time.deltaTime);
 
-        if (!InputHandler.LeftJoystickZero()) {
+        if (!InputHandler.LeftJoystickZero() && movable) {
             Rotate();
 
             rb.MovePosition(transform.position + transform.forward * movementSpeed * magnitude * Time.deltaTime);
@@ -88,6 +102,7 @@ public class JackController : MonoBehaviour {
     }
 
     private void Attack() {
+        movable = false;
         animator.SetTrigger(attackParam);
 
         // Set via weapon type.
@@ -103,7 +118,15 @@ public class JackController : MonoBehaviour {
     }
 
     private void Dash() {
-        rb.AddForce(transform.forward * dashSpeed * Time.deltaTime, ForceMode.Impulse);
+        movable = false;
+        animator.SetTrigger(dashParam);
+        rb.AddForce(transform.forward * dashSpeed * Time.fixedDeltaTime, ForceMode.Impulse);
+        StartCoroutine(StopDash());
+    }
+    IEnumerator StopDash() {
+        yield return new WaitForSeconds(dashLength);
+        rb.velocity = Vector3.zero;
+        movable = true;
     }
 
     // Refactor Entity to play the hit animation.

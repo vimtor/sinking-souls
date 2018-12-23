@@ -35,7 +35,15 @@ public class BlacksmithBehaviour : MonoBehaviour
     public void FillShop() {
         bool firstSelected = false;
         totalSouls = GameController.instance.souls;
-        foreach (var weapon in GameController.instance.weapons) {
+
+        if (GameController.instance.weapons.Count == 0)
+        {
+            Debug.LogError("Weapon list is empty.");
+            return;
+        }
+
+        foreach (var weapon in GameController.instance.weapons)
+        {
             GameObject weaponItem = Instantiate(weaponItemUI);
 
             weaponItem.transform.Find("Icon").GetComponent<Image>().sprite = weapon.sprite;
@@ -48,9 +56,9 @@ public class BlacksmithBehaviour : MonoBehaviour
                 firstSelected = true;
             }
 
-            foreach(var modifier in GameController.instance.modifiers) {
+            //foreach(var modifier in GameController.instance.modifiers) {
 
-            }
+            //}
         }
 
         maxItems = GameController.instance.abilities.Count;
@@ -59,9 +67,6 @@ public class BlacksmithBehaviour : MonoBehaviour
     public void UpdateShop() {
         shopPanel.transform.GetChild(0).GetChild(currentItem).GetComponentInChildren<Button>().Select();
         holder = shopPanel.transform.GetChild(0).GetChild(currentItem).gameObject;
-        remainingSouls = totalSouls - holder.GetComponent<ShopItem>().price;
-        price.text = holder.transform.Find("Price").GetComponent<Text>().text;
-        remaining.text = remainingSouls.ToString();
     }
 
     private void Update() {

@@ -21,6 +21,7 @@ public class GameController : MonoBehaviour
     public int souls;
     public List<Modifier> modifiers;
     public List<Ability> abilities;
+    public List<Weapon> weapons;
     public List<Enhancer> enhancers;
     
     [HideInInspector] public bool died;

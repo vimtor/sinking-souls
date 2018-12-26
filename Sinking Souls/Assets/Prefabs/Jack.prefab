@@ -1290,7 +1290,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 172afb99f15b38945a0b8218e7a98077, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -1318,12 +1318,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95322807ad3445947971ffc792430851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementDamping: 0.2
-  rotationDamping: 6
-  movementSpeed: 4
-  dashSpeed: 100
+  m_MovementDamping: 0.2
+  m_RotationDamping: 15
+  m_AttackRotationDamping: 0
+  m_MovementSpeed: 10
+  m_DashSpeed: 700
   ability: {fileID: 11400000, guid: fddf5f21314ce444ea3a0fee462174df, type: 2}
-  weapon: {fileID: 0}
+  weapon: {fileID: 11400000, guid: 770641d31570a724f8f8eeb86cdada2f, type: 2}
 --- !u!136 &136655065544577980
 CapsuleCollider:
   m_ObjectHideFlags: 1

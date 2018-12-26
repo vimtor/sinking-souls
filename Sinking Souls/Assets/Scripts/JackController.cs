@@ -1,135 +1,164 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class JackController : MonoBehaviour {
 
+    delegate void StateAction();
+
+    private enum PlayerState { DASHING, MOVING, ATTACKING, HITTED, NONE };
+    private PlayerState m_PlayerState;
+
     [Header("Game-feel parameters")]
-    public float movementDamping = 0.15f;
-    public float rotationDamping = 0.15f;
-    public float movementSpeed = 100.0f;
-    public float dashSpeed = 100.0f;
-    public float dashLength = 1;
+    public float m_MovementDamping;
+    public float m_RotationDamping;
+
+    [Space(5)]
+    public float m_MovementSpeed;
+    public float m_DashSpeed;
+
 
     [Header("Animator parameters")]
-    public float attackLength = 1;
-    public float attackSpeed = 1;
+    private float m_AttackLength;
+    private float m_DashLength;
+
 
     [Header("Character Equipment")]
     public Ability ability;
     public Weapon weapon;
 
-    private Animator animator;
-    private Rigidbody rb;
+    private Animator m_Animator;
+    private Rigidbody m_Rigidbody;
 
-    private bool movable = true;
+    private readonly int m_SpeedParam = Animator.StringToHash("Speed");
+    private readonly int m_AttackParam = Animator.StringToHash("Attack");
+    private readonly int m_DashParam = Animator.StringToHash("Dash");
+    private readonly int m_SpellParam = Animator.StringToHash("Spell");
+    private readonly int m_WeaponTypeParam = Animator.StringToHash("WeaponType");
+    private readonly int m_SpellTypeParam = Animator.StringToHash("SpellType");
 
-    private readonly int speedParam = Animator.StringToHash("Speed");
-    private readonly int attackParam = Animator.StringToHash("Attack");
-    private readonly int dashParam = Animator.StringToHash("Dash");
-    private readonly int spellParam = Animator.StringToHash("Spell");
-    private readonly int weaponTypeParam = Animator.StringToHash("WeaponType");
-    private readonly int spellTypeParam = Animator.StringToHash("SpellType");
-    private readonly int attackTypeParam = Animator.StringToHash("AttackType");
+    private Vector3 m_Forward;
+    private Vector3 m_Side;
+    private Vector3 m_HorizontalMovement;
+    private Vector3 m_VerticalMovement;
+    private Vector3 m_Direction;
 
-    private Vector3 forward;
-    private Vector3 side;
+    void Start()
+    {
+        // Get the necessary components.
+        m_Animator = GetComponent<Animator>();
+        m_Rigidbody = GetComponent<Rigidbody>();
 
-    void Start () {
-        animator = GetComponent<Animator>();
-        rb = GetComponent<Rigidbody>();
+        // Calculate the forward and side vectors relative to the camera.
+        m_Forward = Camera.main.transform.forward;
+        m_Forward.y = 0;
+        m_Forward = Vector3.Normalize(m_Forward);
+        m_Side = Quaternion.Euler(new Vector3(0, 90, 0)) * m_Forward;
 
-        forward = Camera.main.transform.forward;
-        forward.y = 0;
-        forward = Vector3.Normalize(forward);
-        side = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
+        // Get animation lengths.
+        var animationClips = m_Animator.runtimeAnimatorController.animationClips;
+        m_AttackLength = Array.Find(animationClips, clip => clip.name == "Klaus_1").length;
+        m_DashLength = Array.Find(animationClips, clip => clip.name == "Forward Roll").length;
 
-        foreach(var anim in animator.runtimeAnimatorController.animationClips) {
-            if (anim.name == "Walking" || anim.name == "Running") { }
-        }
-
+        // Initialize private members.
+        m_PlayerState = PlayerState.MOVING;
     }
 
-    private void FixedUpdate() {
+    private void FixedUpdate()
+    {
+        m_HorizontalMovement = m_Side * InputHandler.LeftJoystick.x;
+        m_VerticalMovement = m_Forward * InputHandler.LeftJoystick.y;
+        m_Direction = m_HorizontalMovement - m_VerticalMovement;
 
-        Vector3 horizontalMovement = side * InputHandler.LeftJoystick.x;
-        Vector3 verticalMovement = forward * InputHandler.LeftJoystick.y;
-        Vector3 direction = horizontalMovement - verticalMovement;
+        switch (m_PlayerState)
+        {
+            case PlayerState.DASHING:
+                break;
 
+            case PlayerState.MOVING:
+                m_Animator.SetFloat(m_SpeedParam, m_Direction.magnitude, m_MovementDamping, Time.deltaTime);
 
-        float magnitude = Vector3.Magnitude(direction);
-        animator.SetFloat(speedParam, magnitude, movementDamping, Time.deltaTime);
+                Rotate();
+                Move();
 
-        if (!InputHandler.LeftJoystickZero() && movable) {
-            Rotate();
+                if (InputHandler.ButtonB()) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING);
 
-            rb.MovePosition(transform.position + transform.forward * movementSpeed * magnitude * Time.deltaTime);
+                if (InputHandler.ButtonX()) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
+
+                break;
+
+            case PlayerState.ATTACKING:
+                // For combos purposes.
+                if (InputHandler.ButtonX()) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
+                break;
+
+            default:
+                break;
         }
-        
-
-        if (InputHandler.ButtonX()) {
-            Attack();
-        }
-
-        if (InputHandler.ButtonY()) {
-            Spell();
-        }
-
-        if (InputHandler.ButtonB()) {
-            Dash();
-        }
-    }
-
-    /// <summary>
-    /// Rotates the character to the desired position smoothly, using an specified rotation damping.
-    /// </summary>
-    private void Rotate() {
-        Vector3 horizontalMovement = side * InputHandler.LeftJoystick.x;
-        Vector3 verticalMovement = forward * InputHandler.LeftJoystick.y;
-
-        Vector3 direction = horizontalMovement - verticalMovement;
-        Quaternion rotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * rotationDamping);
-    }
-
-    /// <summary>
-    /// Moves the character to the desired position and
-    /// also changes the basic locomotion parameters of the blend tree.
-    /// </summary>
-    private void Move() {
-
         
     }
 
-    private void Attack() {
-        movable = false;
-        animator.SetTrigger(attackParam);
+    #region ChangeState Functions
 
-        // Set via weapon type.
-        animator.SetInteger(weaponTypeParam, 0);
-        animator.SetInteger(attackParam, 0);
+    private void ChangeState(StateAction action, float delay, PlayerState newState, PlayerState returnState)
+    {
+        StartCoroutine(ChangeStateCoroutine(action, delay, newState, returnState));
+    }
+
+    private IEnumerator ChangeStateCoroutine(StateAction action, float delay, PlayerState newState, PlayerState returnState)
+    {
+        m_PlayerState = newState;
+        action();
+        yield return new WaitForSecondsRealtime(delay);
+        m_Rigidbody.velocity = Vector3.zero;
+        m_PlayerState = returnState;
+    }
+
+    #endregion
+
+    #region Movement Functions
+
+    private void Move()
+    {
+        m_Rigidbody.MovePosition(transform.position + transform.forward * m_MovementSpeed * m_Direction.magnitude * Time.deltaTime);
+    }
+
+    private void Rotate()
+    {
+        if (InputHandler.LeftJoystickZero()) return;
+
+        Quaternion rotation = Quaternion.LookRotation(m_Direction);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * m_RotationDamping);
+    }
+
+    #endregion
+
+
+    private void Attack()
+    {
+        m_Animator.SetFloat(m_SpeedParam, 0);
+
+        // Set weapon type and attack type.
+        m_Animator.SetInteger(m_WeaponTypeParam, 1);
+        m_Animator.SetTrigger(m_AttackParam);
 
         // Activate weapon.
+
     }
 
-    private void Spell() {
-        animator.SetTrigger(spellParam);
+    private void Spell()
+    {
+        m_Animator.SetTrigger(m_SpellParam);
         ability.Use(gameObject);
     }
 
-    private void Dash() {
-        movable = false;
-        animator.SetTrigger(dashParam);
-        rb.AddForce(transform.forward * dashSpeed * Time.fixedDeltaTime, ForceMode.Impulse);
-        StartCoroutine(StopDash());
-    }
-    IEnumerator StopDash() {
-        yield return new WaitForSeconds(dashLength);
-        rb.velocity = Vector3.zero;
-        movable = true;
+    private void Dash()
+    {
+        m_Animator.SetTrigger(m_DashParam);
+        m_Rigidbody.AddForce(transform.forward * m_DashSpeed * Time.fixedDeltaTime, ForceMode.Impulse);
     }
 
-    // Refactor Entity to play the hit animation.
     private void Hit() {
 
     }

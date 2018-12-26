@@ -33,7 +33,7 @@ public class InGameUI : MonoBehaviour {
     }
 
     private void Update() {
-        healthAmount.fillAmount = playerRef.health / playerRef.maxHealth;
+        healthAmount.fillAmount = playerRef.Health / playerRef.MaxHealth;
         soulsAmount.text = GameController.instance.souls.ToString();
 
         UpdateAbility();
@@ -41,7 +41,7 @@ public class InGameUI : MonoBehaviour {
     }
 
     private void UpdateAbility() {
-        int cooldown = (int)playerRef.abilityCooldown;
+        int cooldown = (int)playerRef.AbilityCooldown;
 
         if (cooldown > 0) {
             abilityOverlay.enabled = true;

@@ -44,9 +44,7 @@ public abstract class ShopBehaviour<T> : MonoBehaviour {
                 UpdateShop();
 
                 // Stop the player.
-                GameController.instance.player.GetComponent<Player>().state = Player.State.IDLE;
-                GameController.instance.player.GetComponent<Player>().HandleInput();
-                GameController.instance.player.GetComponent<Player>().move = false;
+                GameController.instance.player.GetComponent<Player>().CanMove = false;
             }
         }
         else {
@@ -65,7 +63,7 @@ public abstract class ShopBehaviour<T> : MonoBehaviour {
             // Close the store.
             if (InputHandler.ButtonB()) {
                 shopPanel.SetActive(false);
-                GameController.instance.player.GetComponent<Player>().move = true;
+                GameController.instance.player.GetComponent<Player>().CanMove = true;
                 currentItem = 0;
             }
         }

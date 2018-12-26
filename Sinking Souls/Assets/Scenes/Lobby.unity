@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -765,6 +765,12 @@ Prefab:
       value: 
       objectReference: {fileID: 1712059607537146, guid: dcb62e3c05cf9bf4aaabf37511d4fc34,
         type: 2}
+    - target: {fileID: 114337623052856484, guid: 258b637205f84f34c91c424fca3067e4,
+        type: 2}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 1822640109020134, guid: 44389e0974990014b85d7b72e8893276,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 258b637205f84f34c91c424fca3067e4, type: 2}
   m_IsPrefabAsset: 0
@@ -1407,7 +1413,8 @@ Prefab:
       propertyPath: shopPanel
       value: 
       objectReference: {fileID: 1545305944}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114517713994226608, guid: 435f8e596c38f2c46b55fdfb8210d1db, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 435f8e596c38f2c46b55fdfb8210d1db, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &1159093149
@@ -1991,13 +1998,14 @@ Prefab:
         type: 2}
       propertyPath: shopPanel
       value: 
-      objectReference: {fileID: 1467911307}
+      objectReference: {fileID: 0}
     - target: {fileID: 114135463513367512, guid: 628b15137f927f84282cd58b5572c779,
         type: 2}
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114194327077121312, guid: 628b15137f927f84282cd58b5572c779, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 628b15137f927f84282cd58b5572c779, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &1603315540
@@ -2776,17 +2784,17 @@ Prefab:
     - target: {fileID: 20764667997126220, guid: ddad4ba9c482e0544b5e1312cafa7b9b,
         type: 2}
       propertyPath: far clip plane
-      value: 5000
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 20764667997126220, guid: ddad4ba9c482e0544b5e1312cafa7b9b,
         type: 2}
       propertyPath: field of view
-      value: 40
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 20764667997126220, guid: ddad4ba9c482e0544b5e1312cafa7b9b,
         type: 2}
       propertyPath: orthographic size
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddad4ba9c482e0544b5e1312cafa7b9b, type: 2}

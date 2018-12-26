@@ -7,7 +7,7 @@ public class AttackAction : Action {
 
     public override void Act(AIController controller) {
         controller.SetAnimBool("ATTACK");
-        controller.GetComponent<Enemy>().weapon.Attack();
+        controller.GetComponent<Enemy>().Weapon.Attack();
         Rotate(controller, 2);
     }
 

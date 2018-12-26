@@ -10,11 +10,11 @@ public class CrewMember : Entity {
     void Start () {
         OnStart();
         controller = GetComponent<AIController>();
-        for (int i = 0; i < animator.runtimeAnimatorController.animationClips.Length; i++) {
-            var animationClip = animator.runtimeAnimatorController.animationClips[i];
+        for (int i = 0; i < m_Animator.runtimeAnimatorController.animationClips.Length; i++) {
+            var animationClip = m_Animator.runtimeAnimatorController.animationClips[i];
             clipLength.Add(animationClip.name, animationClip.length);
         }
-        controller.animator = animator;
+        controller.animator = m_Animator;
     }
 
 }

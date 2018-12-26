@@ -30,7 +30,7 @@ public abstract class Ability : ScriptableObject
             SetParent(newParent);
             SetEntity();
             if (CheckThrown()) {
-                if (position == null) Configure(SetPrefab(entity.hand.transform));
+                if (position == null) Configure(SetPrefab(entity.m_WeaponHand.transform));
                 else Configure(SetPrefab(position));
                
             }

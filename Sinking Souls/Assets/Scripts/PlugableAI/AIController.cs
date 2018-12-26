@@ -31,7 +31,7 @@ public class AIController : MonoBehaviour {
         //inRangeTime = 0;
         aiActive = true;
         navMeshAgent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Entity>().animator;
+        animator = GetComponent<Animator>();
 
         defaultAbility = gameObject.GetComponent<Enemy>().ability;
         if (aiActive) navMeshAgent.enabled = true;
@@ -43,17 +43,18 @@ public class AIController : MonoBehaviour {
         if(!player)
             player = GameController.instance.player;
 
+        currentState.UpdateState(this);
+
+        stateTimeElapsed += Time.deltaTime;
+        timeElapsed += Time.deltaTime;
+        count += Time.deltaTime;
+
         try
         {
-            currentState.UpdateState(this);
-
-            stateTimeElapsed += Time.deltaTime;
-            timeElapsed += Time.deltaTime;
-            count += Time.deltaTime;
-        }
-        catch(Exception exception)
-        {
             
+        }
+        catch (Exception exception) {
+            Debug.Log(exception);
         }
     }
 
@@ -84,7 +85,7 @@ public class AIController : MonoBehaviour {
     private void OnExitState() {
         stateTimeElapsed = 0;
         timeElapsed = 0;
-        GetComponent<Enemy>().weapon.hitting = false;
+        GetComponent<Enemy>().Weapon.hitting = false;
         GetComponent<Enemy>().thrown = false;
         navMeshAgent.enabled = false;
         if (gameObject.GetComponent<ParticleSystem>()) gameObject.GetComponent<ParticleSystem>().Stop();
@@ -92,7 +93,7 @@ public class AIController : MonoBehaviour {
             gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
             stop = false;
         }
-        gameObject.GetComponent<Enemy>().weapon.ShrinkCollision();
+        gameObject.GetComponent<Enemy>().Weapon.ShrinkCollision();
         // gameObject.GetComponent<Enemy>().ability = defaultAbility;
     }
 

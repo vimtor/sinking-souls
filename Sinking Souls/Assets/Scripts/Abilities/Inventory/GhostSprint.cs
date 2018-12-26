@@ -13,8 +13,8 @@ public class GhostSprint : Ability {
     private bool thrown = false;
 
     public override void Passive(GameObject go) {
-        go.GetComponent<Entity>().walkSpeed = newSpeed;
-        if (active && go.GetComponent<Entity>().weapon.hitting == true) {
+        go.GetComponent<Player>().MovementSpeed = newSpeed;
+        if (active && go.GetComponent<Entity>().Weapon.hitting == true) {
             GameController.instance.godMode = false;
             GameController.instance.player.transform.GetChild(1).GetComponent<Renderer>().material.color = GameController.instance.player.GetComponent<Entity>().originalColor;
             newSpeed = orignalSpeed;

@@ -2,434 +2,194 @@
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using System;
 
 public class Player : Entity {
 
-    public enum State {
-        IDLE,
-        ATTACK_1,
-        ATTACK_2,
-        ATTACK_3,
-        MOVEMENT,
-        ABILITY,
-        DASH
-    };
+    delegate void StateAction();
 
-    public float attackOffset;
-    public float rotationSpeed;
-    public float actionRotationSpeed;
+    private enum PlayerState { DASHING, MOVING, ATTACKING, HITTED, NONE };
+    private PlayerState m_PlayerState;
 
-    public Ability dash;
-    public Ability ability;
+    [Header("Movement parameters")]
+    public float m_MovementDamping;
+    public float m_RotationDamping;
 
-    [HideInInspector] public bool move;
-    [HideInInspector] public State state;
-    [HideInInspector] public float dashCooldown;
-    [HideInInspector] public float abilityCooldown;
-    [HideInInspector] public Dictionary<string, float> clipLength = new Dictionary<string, float>();
+    [Space(5)]
+    public float m_MovementSpeed;
+    public float MovementSpeed
+    {
+        get { return m_MovementSpeed; }
+        set { if (value > 0) m_MovementSpeed = value; }
+    }
+    public float m_DashSpeed;
 
-    private State lastState;
-    private float time;
-    private Vector3 forward, right;
+    private readonly int m_SpeedParam = Animator.StringToHash("Speed");
+    private readonly int m_AttackParam = Animator.StringToHash("Attack");
+    private readonly int m_DashParam = Animator.StringToHash("Dash");
+    private readonly int m_SpellParam = Animator.StringToHash("Spell");
+    private readonly int m_WeaponTypeParam = Animator.StringToHash("WeaponType");
+    private readonly int m_SpellTypeParam = Animator.StringToHash("SpellType");
 
+    private float m_AttackLength;
+    private float m_DashLength;
 
+    private Vector3 m_Forward;
+    private Vector3 m_Side;
+    private Vector3 m_HorizontalMovement;
+    private Vector3 m_VerticalMovement;
+    private Vector3 m_Direction;
+
+    private bool m_CanMove;
+    public bool CanMove
+    {
+        get { return m_CanMove;  }
+        set { m_CanMove = value; }
+    }
+
+    private float m_AbilityCooldown;
+    public float AbilityCooldown
+    {
+        get { return m_AbilityCooldown; }
+    }
+
+    // To avoid transition overlaping.
+    private byte m_TransitionCount;
 
     public void SetupPlayer() {
         OnStart();
-        move = true;
-        state = State.IDLE;
-        dashCooldown = abilityCooldown = 0;
-        forward = new Vector3 (Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z) ;
-        right = Quaternion.Euler(new Vector3(0, 90, 0)) * forward;
 
-        #region Setup Animations
-        for (int i = 0; i < animator.runtimeAnimatorController.animationClips.Length; i++) {
-            var animationClip = animator.runtimeAnimatorController.animationClips[i];
-            clipLength.Add(animationClip.name, animationClip.length);
-        }
+        // Calculate the forward and side vectors relative to the camera.
+        m_Forward = Camera.main.transform.forward;
+        m_Forward.y = 0;
+        m_Forward = Vector3.Normalize(m_Forward);
+        m_Side = Quaternion.Euler(new Vector3(0, 90, 0)) * m_Forward;
 
-        clipLength["Attack1Anim"] = clipLength["Attack1Anim"] / 3;
-        clipLength["Attack2Anim"] = clipLength["Attack2Anim"] / 3;
-        clipLength["Attack3Anim"] = clipLength["Attack3Anim"] / 3;
-        clipLength["DashAnim"] = clipLength["DashAnim"] / 2;
-        #endregion
+        // Get animation lengths.
+        var animationClips = m_Animator.runtimeAnimatorController.animationClips;
+        m_AttackLength = Array.Find(animationClips, clip => clip.name == "Klaus_1").length;
+        m_DashLength = Array.Find(animationClips, clip => clip.name == "Forward Roll").length * 0.9f;
 
-        EquipWeapon();
+        // Initialize private members.
+        m_PlayerState = PlayerState.MOVING;
+        m_AbilityCooldown = 0.0f;
+        m_CanMove = true;
     }
 
-    private void Update() {
+    private void FixedUpdate()
+    {
+        if (!m_CanMove) return;
+
         CheckDead();
-        if (ability.passive) {
-            ability.Passive(gameObject);
-        }
-    }
+        if (m_Ability.passive) m_Ability.Passive(gameObject);
 
-    private void FixedUpdate() {
-        if(move) HandleInput();
-    }
-
-    private void SetRotation(float _speed) {
-        if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
-            Vector3 horizontal = right * InputHandler.LeftJoystick.x;
-            Vector3 vertical = forward * InputHandler.LeftJoystick.y;
-            facingDir = horizontal - vertical;
-
-            Vector3 newDir = Vector3.RotateTowards(transform.forward, facingDir, _speed * Time.deltaTime, 0);
-
-            transform.rotation = Quaternion.LookRotation(newDir);
-        }
-    }
-
-    public void HandleInput() {
         // Things that needs to be always on false so they can be changed to true if needed.
-        weapon.hitting = false;
+        m_Weapon.hitting = false;
         gameObject.layer = LayerMask.NameToLayer("Player");
 
-        StateMachine();
 
+        m_HorizontalMovement = m_Side * InputHandler.LeftJoystick.x;
+        m_VerticalMovement = m_Forward * InputHandler.LeftJoystick.y;
+        m_Direction = m_HorizontalMovement - m_VerticalMovement;
 
-        time += Time.deltaTime;
-        if (dashCooldown > 0) dashCooldown -= Time.deltaTime;
-        if (abilityCooldown > 0) abilityCooldown -= Time.deltaTime;
-    }
+        switch (m_PlayerState)
+        {
+            case PlayerState.DASHING:
+                break;
 
-    public void StateMachine() {
-        switch (state) {
+            case PlayerState.MOVING:
+                m_Animator.SetFloat(m_SpeedParam, m_Direction.magnitude, m_MovementDamping, Time.deltaTime);
 
-            #region STATE_IDLE
-            case State.IDLE:
-                SetAnimBool("IDLE");
+                Rotate();
+                Move();
 
-                if (InputHandler.ButtonX()) {
-                    lastState = State.IDLE;
-                    state = State.ATTACK_1;
-                    time = 0;
-                    AudioManager.instance.Play("Attack1");
-                }   
+                if (InputHandler.ButtonB()) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING);
 
-                if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
-                    state = State.MOVEMENT;
-                    lastState = State.IDLE;
-                    AudioManager.instance.Play("Walk");
-                }
-
-                if (InputHandler.ButtonB()) {
-                    if(dashCooldown <= 0) { 
-                        state = State.DASH;
-                        lastState = State.IDLE;
-                        dashCooldown = dash.cooldown;
-                        time = 0;
-
-                        AudioManager.instance.Play("Dash");
-                    }
-                } 
-
-                if (InputHandler.ButtonY()) {
-                    if (abilityCooldown <= 0) {
-                        state = State.ABILITY;
-                        lastState = State.IDLE;
-                        abilityCooldown = ability.cooldown;
-                        time = 0;
-                    }
-                } 
-            break;
-            #endregion
-
-            #region STATE_ATTACK_1
-            case State.ATTACK_1:
-
-                SetAnimBool("ATTACK_1");
-                if(time > (clipLength["Attack1Anim"] / 3)) weapon.Attack();
-                SetRotation(actionRotationSpeed);
-
-                                                                            // you can substraca little offset to makit more fluid
-                if (InputHandler.ButtonX() && time > (clipLength["Attack1Anim"]/3)*2 && time < clipLength["Attack1Anim"] + attackOffset) {
-                    lastState = State.ATTACK_1;
-                    state = State.ATTACK_2;
-                    time = 0;
-                    AudioManager.instance.Play("Attack2");
-                }
-
-                if (InputHandler.ButtonB()) {
-                    if (time > clipLength["Attack1Anim"]/2) { //if this seems like a good idea turn rotation on after 2/3 of the attack
-                        if (dashCooldown <= 0) {
-                            state = State.DASH;
-                            lastState = State.ATTACK_1;
-                            dashCooldown = dash.cooldown;
-                            time = 0;
-                            AudioManager.instance.Play("Dash");
-                        }
-                    }
-                }
-
-                if (InputHandler.ButtonY()) {
-                    if (time > clipLength["Attack1Anim"] / 2) { //if this seems like a good idea turn rotation on after 2/3 of the attack
-                        if (abilityCooldown <= 0) {
-                            state = State.ABILITY;
-                            lastState = State.ATTACK_1;
-                            abilityCooldown = ability.cooldown;
-                            time = 0;
-                        }
-                    }
-                }
-
-                else if(time > clipLength["Attack1Anim"]) {//change frome attack1time to exact length of the animation
-                        lastState = State.ATTACK_1;
-                        state = State.IDLE;
-                }
-                if(InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
-                    if(time > clipLength["Attack1Anim"]) { 
-                        lastState = State.ATTACK_1;
-                        state = State.MOVEMENT;
-                    }
-                }
+                if (InputHandler.ButtonX()) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
 
                 break;
-            #endregion
 
-            #region STATE_ATTACK_2
-            case State.ATTACK_2:
-                SetAnimBool("ATTACK_2");
-                if(time > (clipLength["Attack2Anim"] / 3)) weapon.Attack();
-                SetRotation(actionRotationSpeed);
-
-                if (InputHandler.ButtonX() && time > (clipLength["Attack2Anim"] / 3) * 2 && time < clipLength["Attack2Anim"] + attackOffset) {
-                    lastState = State.ATTACK_2;
-                    state = State.ATTACK_3;
-                    time = 0;
-
-                    AudioManager.instance.Play("Attack1");
-                }
-                else if (time > clipLength["Attack2Anim"]) {
-                    lastState = State.ATTACK_2;
-                    state = State.IDLE;
-                }
-                if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
-                    if (time > clipLength["Attack2Anim"]) {
-                        lastState = State.ATTACK_2;
-                        state = State.MOVEMENT;
-                    }
-                }
-                if (InputHandler.ButtonB()) {
-                    if (time > clipLength["Attack2Anim"]/2) { //if this seems like a good idea turn rotation on after 2/3 of the attack
-                        if (dashCooldown <= 0) {
-                            state = State.DASH;
-                            lastState = State.ATTACK_2;
-                            dashCooldown = dash.cooldown;
-                            time = 0;
-
-                            AudioManager.instance.Play("Dash");
-                        }
-                    }
-                }
-                if (InputHandler.ButtonY()) {
-                    if (time > clipLength["Attack2Anim"] / 2) { //if this seems like a good idea turn rotation on after 2/3 of the attack
-                        if (abilityCooldown <= 0) {
-                            state = State.ABILITY;
-                            lastState = State.ATTACK_2;
-                            abilityCooldown = ability.cooldown;
-                            time = 0;
-                        }
-                    }
-                }
-            break;
-            #endregion
-
-            #region STATE_ATTACK_3
-            case State.ATTACK_3:
-
-                SetAnimBool("ATTACK_3");
-                if(time > (clipLength["Attack3Anim"] / 3)) weapon.Attack();
-                SetRotation(actionRotationSpeed);
-
-                if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
-                    if(time > clipLength["Attack3Anim"]) { 
-                        lastState = State.ATTACK_3;
-                        state = State.MOVEMENT;
-                    }
-                }
-
-                if (InputHandler.ButtonX() && time > (clipLength["Attack3Anim"] / 3) * 2 && time < clipLength["Attack3Anim"] + attackOffset) {
-                    lastState = State.ATTACK_3;
-                    state = State.ATTACK_1;
-                    time = 0;
-                }
-                else if (time > clipLength["Attack3Anim"]) {
-                    lastState = State.ATTACK_3;
-                    state = State.IDLE;
-                }
-                if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
-                    if (time > clipLength["Attack3Anim"]) {
-                        lastState = State.ATTACK_3;
-                        state = State.MOVEMENT;
-                    }
-                }
-                if (InputHandler.ButtonB()) {
-                    if (time > clipLength["Attack3Anim"]/2) { //if this seems like a good idea turn rotation on after 2/3 of the attack
-                        //SetRotation(30);
-                        if (dashCooldown <= 0) {
-                            state = State.DASH;
-                            lastState = State.ATTACK_3;
-                            dashCooldown = dash.cooldown;
-                            time = 0;
-
-                            AudioManager.instance.Play("Dash");
-                        }
-                    }
-                }
-            break;
-            #endregion
-
-            #region STATE_MOVEMENT
-            case State.MOVEMENT:
-                SetAnimBool("RUN");
-                SetRotation(rotationSpeed);
-
-                rb.MovePosition(transform.position + (transform.forward * walkSpeed * Time.deltaTime));
-
-                if (InputHandler.LeftJoystick.x == 0 && InputHandler.LeftJoystick.y == 0) {
-                    state = State.IDLE;
-                    lastState = State.MOVEMENT;
-                    AudioManager.instance.Pause("Walk");
-                }
-
-                if (InputHandler.ButtonX()) {
-                    if (lastState == State.ATTACK_1 && time < clipLength["Attack1Anim"] + attackOffset) {
-                            lastState = State.MOVEMENT;
-                            state = State.ATTACK_2;
-                            time = 0;
-                            AudioManager.instance.Play("Attack2");
-                    }
-                    else if (lastState == State.ATTACK_2 && time < clipLength["Attack2Anim"] + attackOffset) {
-                            lastState = State.MOVEMENT;
-                            state = State.ATTACK_3;
-                            time = 0;
-                            AudioManager.instance.Play("Attack1");
-                    }
-                    else {
-                        state = State.ATTACK_1;
-                        lastState = State.MOVEMENT;
-                        time = 0;
-                        AudioManager.instance.Play("Attack1");
-                    }
-                }
-                if (InputHandler.ButtonB()) {
-                    if (dashCooldown <= 0) {
-                        state = State.DASH;
-                        lastState = State.IDLE;
-                        dashCooldown = dash.cooldown;
-                        time = 0;
-
-                        AudioManager.instance.Pause("Walk");
-                        AudioManager.instance.Play("Dash");
-                    }
-                } 
-                if (InputHandler.ButtonY()) {
-                    if (abilityCooldown <= 0) {
-                        state = State.ABILITY;
-                        lastState = State.IDLE;
-                        abilityCooldown = ability.cooldown;
-                        time = 0;
-                        AudioManager.instance.Pause("Walk");
-                }else{
-                    Debug.Log("wait for cooldown");
-                }
-                }
+            case PlayerState.ATTACKING:
+                // For combos purposes.
+                if (InputHandler.ButtonX()) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
                 break;
-            #endregion
-
-            #region STATE_ABILITY
-            case State.ABILITY:
-                SetAnimBool("THROW");
-                if (time > clipLength["ThrowAnim"]/2) {
-                    Ability();
-                }   
-
-                if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
-                    if (time > clipLength["ThrowAnim"]) {
-                        lastState = State.ABILITY;
-                        state = State.MOVEMENT;
-                        time = 0;
-                        thrown = false;
-                        AudioManager.instance.Play("Walk");
-                    }
-                }
-                else {
-                    if (time > clipLength["ThrowAnim"]) {
-                        lastState = State.ABILITY;
-                        state = State.IDLE;
-                        time = 0;
-                        thrown = false;
-                    }
-                }
-                if (InputHandler.ButtonX()) { 
-                    if (time > (clipLength["ThrowAnim"] / 3) * 2) { //if 2/3 of the animation has passed
-                        lastState = State.ABILITY;
-                        state = State.ATTACK_1;
-                        time = 0;
-                        thrown = false;
-                    }
-                }   
-            break;
-            #endregion
-
-            #region STATE_DASH
-            case State.DASH:
-                SetAnimBool("DASH");
-                gameObject.layer = LayerMask.NameToLayer("PlayerDash");
-
-                Dash();
-                if (InputHandler.LeftJoystick.x != 0 || InputHandler.LeftJoystick.y != 0) {
-                    if (time > clipLength["DashAnim"]/2) {
-                        rb.velocity = GetComponent<Transform>().forward * 0;
-                        lastState = State.DASH;
-                        state = State.MOVEMENT;
-                        time = 0;
-                        AudioManager.instance.Play("Walk");
-                    }
-                }
-                else {
-                    if (time > clipLength["DashAnim"] / 2) {
-                        rb.velocity = GetComponent<Transform>().forward * 0;
-                        lastState = State.DASH;
-                        state = State.IDLE;
-                        time = 0;
-                    }
-                }
-                break;
-            #endregion
 
             default:
                 break;
         }
     }
 
+    #region ChangeState Functions
 
-    public void Ability() {
-        if (ability.passive) {
-            ability.Activate();
-        }else ability.Use(gameObject);
+    private void ChangeState(StateAction action, float delay, PlayerState newState, PlayerState returnState)
+    {
+        StartCoroutine(ChangeStateCoroutine(action, delay, newState, returnState));
     }
 
-    public void Dash() {
-        // Dash C# should be implemented in the future when the dash possible behaviours are defined. 
-        dash.Use(gameObject);
+    private IEnumerator ChangeStateCoroutine(StateAction action, float delay, PlayerState newState, PlayerState returnState)
+    {
+        m_TransitionCount++;
+
+        m_PlayerState = newState;
+        action();
+
+        yield return new WaitForSecondsRealtime(delay);
+        m_Rigidbody.velocity = Vector3.zero;
+        if (m_TransitionCount <= 1) m_PlayerState = returnState;
+
+        m_TransitionCount--;
     }
 
-    public void SetAnimBool(string str) {
-        animator.SetBool("ATTACK_1", false);
-        animator.SetBool("ATTACK_2", false);
-        animator.SetBool("ATTACK_3", false);
-        animator.SetBool("RUN", false);
-        animator.SetBool("IDLE", false);
-        animator.SetBool("THROW", false);
-        animator.SetBool("DASH", false);
+    #endregion
 
-        animator.SetBool(str, true);
+    #region Movement Functions
+
+    private void Move()
+    {
+        m_Rigidbody.MovePosition(transform.position + transform.forward * m_MovementSpeed * m_Direction.magnitude * Time.deltaTime);
     }
+
+    private void Rotate()
+    {
+        if (InputHandler.LeftJoystickZero()) return;
+
+        Quaternion rotation = Quaternion.LookRotation(m_Direction);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * m_RotationDamping);
+    }
+
+    #endregion
+
+    #region Action Functions
+
+    private void Attack()
+    {
+        m_Animator.SetFloat(m_SpeedParam, 0);
+
+        // Set weapon type and attack type.
+        m_Animator.SetInteger(m_WeaponTypeParam, 1);
+        m_Animator.SetTrigger(m_AttackParam);
+
+        // Activate weapon.
+
+    }
+
+    private void Dash()
+    {
+        m_Animator.SetTrigger(m_DashParam);
+        m_Rigidbody.AddForce(transform.forward * m_DashSpeed * Time.fixedDeltaTime, ForceMode.Impulse);
+    }
+
+    public void Spell() {
+        m_Animator.SetTrigger(m_SpellParam);
+        if (m_Ability.passive) m_Ability.Activate();
+        else m_Ability.Use(gameObject);
+    }
+
+    #endregion
+
 
     public void CheckDead() {
-        if (health <= 0 && !GameController.instance.godMode) {
+        if (Health <= 0 && !GameController.instance.godMode) {
             GameController.instance.died = true;
             GameController.instance.scene = GameController.GameState.LOBBY;
             SceneManager.LoadScene("Lobby", LoadSceneMode.Single);

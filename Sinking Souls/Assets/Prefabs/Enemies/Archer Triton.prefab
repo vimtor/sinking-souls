@@ -1410,7 +1410,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1284746805127638}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.048435, y: 0, z: 0.45482942}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4112340177563186}
@@ -2117,22 +2117,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eecd7ff4b5aca041b30e1fe1e2bcf66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  maxHealth: 100
-  walkSpeed: 0
-  weapon: {fileID: 11400000, guid: c958c4727a0750a4a988ffdbd5dc3e10, type: 2}
-  hand: {fileID: 1903170545890858}
-  baseModifier: {fileID: 0}
-  hitParticle: {fileID: 1130428619529126, guid: 70040a7882551274a858724f9a3539ad,
-    type: 2}
-  healParticles: {fileID: 1371165808136484, guid: ce265fe01c459044d9d3646286ba3981,
-    type: 2}
+  m_Health: 100
+  m_MaxHealth: 100
+  m_Weapon: {fileID: 11400000, guid: c958c4727a0750a4a988ffdbd5dc3e10, type: 2}
+  m_Ability: {fileID: 11400000, guid: 1c65a31ad04070446b36237c4329c509, type: 2}
+  m_WeaponHand: {fileID: 1623249758888734}
+  m_HitParticles: {fileID: 0}
+  m_HealParticles: {fileID: 0}
   thrown: 0
-  rb: {fileID: 54127995589383576}
-  animator: {fileID: 95380807781379840}
-  facingDir: {x: 0, y: 0, z: 0}
   hit: 0
-  collider: {fileID: 136219435029149894}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0
   souls: 0

@@ -1679,7 +1679,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1385483958721288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.7053146, y: 0, z: -1.7011832}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4990060215620444}
@@ -2117,25 +2117,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eecd7ff4b5aca041b30e1fe1e2bcf66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  maxHealth: 100
-  walkSpeed: 0
-  weapon: {fileID: 11400000, guid: 1ba0f7287288e644cab90827dfad6f5b, type: 2}
-  hand: {fileID: 1872723886815680}
-  baseModifier: {fileID: 0}
-  hitParticle: {fileID: 1130428619529126, guid: 70040a7882551274a858724f9a3539ad,
-    type: 2}
-  healParticles: {fileID: 1371165808136484, guid: ce265fe01c459044d9d3646286ba3981,
-    type: 2}
+  m_Health: 100
+  m_MaxHealth: 100
+  m_Weapon: {fileID: 11400000, guid: 1ba0f7287288e644cab90827dfad6f5b, type: 2}
+  m_Ability: {fileID: 0}
+  m_WeaponHand: {fileID: 1861097913389226}
+  m_HitParticles: {fileID: 0}
+  m_HealParticles: {fileID: 0}
   thrown: 0
-  rb: {fileID: 54356768254446344}
-  animator: {fileID: 95245457837962514}
-  facingDir: {x: 0, y: 0, z: 0}
   hit: 0
-  collider: {fileID: 136408814012046772}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0
-  souls: 0
+  souls: 20
   ability: {fileID: 0}
 --- !u!136 &136408814012046772
 CapsuleCollider:

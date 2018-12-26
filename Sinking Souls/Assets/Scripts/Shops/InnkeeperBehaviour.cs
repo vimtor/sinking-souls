@@ -84,13 +84,13 @@ public class InnkeeperBehaviour : MonoBehaviour
         remaining.text = remainingSouls.ToString();
         if(holder.GetComponent<ShopItem>().life)
         {
-            baseStat.text = "Life: " + GameController.instance.player.GetComponent<Player>().health.ToString();
-            upgradedStat.text = (GameController.instance.player.GetComponent<Player>().health + GameController.instance.player.GetComponent<Player>().health * (holder.GetComponent<ShopItem>().baseEnhancer/100f)).ToString();
+            baseStat.text = "Life: " + GameController.instance.player.GetComponent<Player>().Health.ToString();
+            upgradedStat.text = (GameController.instance.player.GetComponent<Player>().Health + GameController.instance.player.GetComponent<Player>().Health * (holder.GetComponent<ShopItem>().baseEnhancer/100f)).ToString();
         }
         else if (holder.GetComponent<ShopItem>().damage)
         {
-            baseStat.text = "Damage: " + GameController.instance.player.GetComponent<Player>().weapon.baseDamage.ToString();
-            upgradedStat.text = (GameController.instance.player.GetComponent<Player>().weapon.baseDamage + GameController.instance.player.GetComponent<Player>().weapon.baseDamage * (holder.GetComponent<ShopItem>().baseEnhancer / 100f)).ToString();
+            baseStat.text = "Damage: " + GameController.instance.player.GetComponent<Player>().Weapon.baseDamage.ToString();
+            upgradedStat.text = (GameController.instance.player.GetComponent<Player>().Weapon.baseDamage + GameController.instance.player.GetComponent<Player>().Weapon.baseDamage * (holder.GetComponent<ShopItem>().baseEnhancer / 100f)).ToString();
         }
     }
 
@@ -110,9 +110,7 @@ public class InnkeeperBehaviour : MonoBehaviour
                 upgradedStat = GameObject.Find("UpgradedStat").GetComponent<Text>();
                 UpdateShop();
                 //Stop the player
-                GameController.instance.player.GetComponent<Player>().state = Player.State.IDLE;
-                GameController.instance.player.GetComponent<Player>().HandleInput();
-                GameController.instance.player.GetComponent<Player>().move = false;
+                GameController.instance.player.GetComponent<Player>().CanMove = false;
 
             }
         }
@@ -135,7 +133,7 @@ public class InnkeeperBehaviour : MonoBehaviour
             if (InputHandler.ButtonB())
             {
                 inGameShopPanel.SetActive(false);
-                GameController.instance.player.GetComponent<Player>().move = true;
+                GameController.instance.player.GetComponent<Player>().CanMove = true;
                 currentItem = 0;
             }
         }

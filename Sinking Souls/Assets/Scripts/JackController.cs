@@ -165,8 +165,4 @@ public class JackController : MonoBehaviour {
         m_Animator.SetTrigger(m_DashParam);
         m_Rigidbody.AddForce(transform.forward * m_DashSpeed * Time.fixedDeltaTime, ForceMode.Impulse);
     }
-
-    private void Hit() {
-
-    }
 }

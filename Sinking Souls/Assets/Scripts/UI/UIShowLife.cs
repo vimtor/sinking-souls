@@ -13,6 +13,6 @@ public class UIShowLife : MonoBehaviour {
     }
 
     void Update () {
-        text.text = GameController.instance.player.GetComponent<Player>().health.ToString();
+        text.text = GameController.instance.player.GetComponent<Player>().Health.ToString();
     }
 }

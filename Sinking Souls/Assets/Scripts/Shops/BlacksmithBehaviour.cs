@@ -82,9 +82,7 @@ public class BlacksmithBehaviour : MonoBehaviour
                 UpdateShop();
 
                 // Stop the player.
-                GameController.instance.player.GetComponent<Player>().state = Player.State.IDLE;
-                GameController.instance.player.GetComponent<Player>().HandleInput();
-                GameController.instance.player.GetComponent<Player>().move = false;
+                GameController.instance.player.GetComponent<Player>().CanMove = false;
             }
         }
         else {
@@ -103,7 +101,7 @@ public class BlacksmithBehaviour : MonoBehaviour
             // Close the store.
             if (InputHandler.ButtonB()) {
                 shopPanel.SetActive(false);
-                GameController.instance.player.GetComponent<Player>().move = true;
+                GameController.instance.player.GetComponent<Player>().CanMove = true;
                 currentItem = 0;
             }
         }

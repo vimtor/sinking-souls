@@ -92,6 +92,7 @@ public class GameController : MonoBehaviour
 
                 SpawnPlayer();
                 SetupCamera();
+                SetupPlayer();
 
                 break;
 
@@ -101,6 +102,7 @@ public class GameController : MonoBehaviour
 
                 SpawnPlayer();
                 SetupCamera();
+                SetupPlayer();
 
                 if (!died)
                 {
@@ -165,9 +167,18 @@ public class GameController : MonoBehaviour
     {
         player = Instantiate(playerPrefab);
         player.transform.position = currentRoom.transform.position;
-        player.GetComponent<Player>().SetupPlayer();
     }
 
+    private void SetupCamera()
+    {
+        CameraManager.instance.player = player.transform;
+        CameraManager.instance.SetupCamera(currentRoom.transform.position);
+    }
+
+    private void SetupPlayer()
+    {
+        player.GetComponent<Player>().SetupPlayer();
+    }
 
     public void SpawnBlueprint(Vector3 position)
     {
@@ -181,10 +192,6 @@ public class GameController : MonoBehaviour
         newBlueprint.GetComponent<BlueprintBehaviour>().modifier = spawnedModifier;
     }
 
-    private void SetupCamera() {
-        CameraManager.instance.player = player.transform;
-        CameraManager.instance.SetupCamera(currentRoom.transform.position);
-    }
 
     public void ChangeRoom(GameObject door)
     {

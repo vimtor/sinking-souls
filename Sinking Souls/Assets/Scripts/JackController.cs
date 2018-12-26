@@ -25,8 +25,8 @@ public class JackController : MonoBehaviour {
 
 
     [Header("Character Equipment")]
-    public Ability ability;
-    public Weapon weapon;
+    public Ability m_Ability;
+    public Weapon m_Weapon;
 
     private Animator m_Animator;
     private Rigidbody m_Rigidbody;
@@ -43,6 +43,8 @@ public class JackController : MonoBehaviour {
     private Vector3 m_HorizontalMovement;
     private Vector3 m_VerticalMovement;
     private Vector3 m_Direction;
+
+    private byte m_TransitionCount;
 
     void Start()
     {
@@ -108,11 +110,16 @@ public class JackController : MonoBehaviour {
 
     private IEnumerator ChangeStateCoroutine(StateAction action, float delay, PlayerState newState, PlayerState returnState)
     {
+        m_TransitionCount++;
+
         m_PlayerState = newState;
         action();
+
         yield return new WaitForSecondsRealtime(delay);
         m_Rigidbody.velocity = Vector3.zero;
-        m_PlayerState = returnState;
+        if (m_TransitionCount <= 1) m_PlayerState = returnState;
+
+        m_TransitionCount--;
     }
 
     #endregion
@@ -150,7 +157,7 @@ public class JackController : MonoBehaviour {
     private void Spell()
     {
         m_Animator.SetTrigger(m_SpellParam);
-        ability.Use(gameObject);
+        m_Ability.Use(gameObject);
     }
 
     private void Dash()

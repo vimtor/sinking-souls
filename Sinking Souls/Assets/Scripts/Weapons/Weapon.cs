@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [CreateAssetMenu(menuName = "Weapon")]
 public class Weapon : ScriptableObject {
@@ -12,38 +13,54 @@ public class Weapon : ScriptableObject {
     public Sprite sprite;
     
     [Header("Weapon Properties")]
-    public float useDelay;
     public float baseDamage;
     public float criticDamage;
     public Modifier modifier;
 
+    [Header("Animation Properties")]
+    [Range(0.0f, 5.0f)] public float startHitting;
+    [Range(0.0f, 5.0f)] public float endHitting;
+
     [HideInInspector] public float damage;
-    [HideInInspector] public bool hitting;
     [HideInInspector] public GameObject weapon;
 
     private Vector3 originalSize;
     private BoxCollider boxCollider;
 
-    private void Start() {
-        boxCollider = model.GetComponent<BoxCollider>();
-    }
-
     public void Instantiate(GameObject parent, GameObject owner) {
         weapon = Instantiate(model, parent.transform);
         weapon.transform.parent = parent.transform;
+
         weapon.AddComponent<WeaponHolder>().holder = this;
         weapon.GetComponent<WeaponHolder>().owner = owner;
-        if (weapon.GetComponent<BoxCollider>()) originalSize = weapon.GetComponent<BoxCollider>().size;
+
+        boxCollider = weapon.GetComponent<BoxCollider>();
+        if (boxCollider != null)
+        {
+            originalSize = boxCollider.size;
+            boxCollider.enabled = false;
+        }
     }
 
     public void Attack() {
         damage = baseDamage;
-        hitting = true;
+        if (boxCollider.enabled == false) GameController.instance.StartCoroutine(AttackCoroutine());
+    }
+
+    private IEnumerator AttackCoroutine()
+    {
+        yield return new WaitForSecondsRealtime(startHitting);
+        try { boxCollider.enabled = true; }
+        catch (Exception) { yield break; }
+                    
+        yield return new WaitForSecondsRealtime(endHitting);
+        try { boxCollider.enabled = false; }
+        catch (Exception) { yield break; }
     }
 
     public void CriticAttack() {
         damage = criticDamage;
-        hitting = true;
+        boxCollider.enabled = true;
     }
 
     public void GrowCollision(int mult) {

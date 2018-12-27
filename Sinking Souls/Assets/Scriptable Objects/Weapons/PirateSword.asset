@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Name: PirateSword
   m_EditorClassIdentifier: 
   model: {fileID: 1114648630281456, guid: 9cfb090e028a647488affa694995e87f, type: 2}
-  name: Pirate Sword
+  name: Klaus
   description: Arrr
   sprite: {fileID: 21300000, guid: 99e18b275d2a72942b6e2e29c0af6640, type: 3}
-  useDelay: 0.5
   baseDamage: 40
   criticDamage: 50
   modifier: {fileID: 11400000, guid: 2b9b733efd55e0f40901ad0d69cc3b6d, type: 2}
-  damage: 0
-  hitting: 0
+  startHitting: 0.16
+  endHitting: 0.94
+  damage: 40
+  hitting: 1
   weapon: {fileID: 0}

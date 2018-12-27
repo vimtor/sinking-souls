@@ -32,9 +32,9 @@ public abstract class Ability : ScriptableObject
             if (CheckThrown()) {
                 if (position == null) Configure(SetPrefab(entity.m_WeaponHand.transform));
                 else Configure(SetPrefab(position));
-               
             }
-        }else {
+        }
+        else {
             Activate();
         }
     }
@@ -51,7 +51,9 @@ public abstract class Ability : ScriptableObject
         instantiated.transform.position = position.position;
 
         target = parent.gameObject.tag == "Player" ? "Enemy" : "Player";
-        instantiated.AddComponent<AbilityHolder>().holder = this;
+        instantiated.AddComponent<AbilityHolder>();
+        instantiated.GetComponent<AbilityHolder>().holder = this;
+        instantiated.GetComponent<AbilityHolder>().owner = parent;
 
         return instantiated;
     }

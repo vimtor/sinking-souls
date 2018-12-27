@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelGenerator : MonoBehaviour {
-
+public class LevelGenerator : MonoBehaviour
+{
     #region Minimap Configuration
     [Header("Minimap Configuration")]
     public GameObject roomIconPrefab;

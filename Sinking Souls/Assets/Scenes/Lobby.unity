@@ -693,83 +693,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114646670468762960, guid: 258b637205f84f34c91c424fca3067e4,
-        type: 2}
-      propertyPath: RoomsA.Array.data[2].List.Array.data[0]
-      value: 
-      objectReference: {fileID: 1079177880312500, guid: d2eb2f7d4ded0554997096dfe9cbabcb,
-        type: 2}
-    - target: {fileID: 114646670468762960, guid: 258b637205f84f34c91c424fca3067e4,
-        type: 2}
-      propertyPath: RoomsA.Array.data[3].List.Array.data[0]
-      value: 
-      objectReference: {fileID: 1079177880312500, guid: d2eb2f7d4ded0554997096dfe9cbabcb,
-        type: 2}
-    - target: {fileID: 114646670468762960, guid: 258b637205f84f34c91c424fca3067e4,
-        type: 2}
-      propertyPath: RoomsB.Array.data[2].List.Array.data[0]
-      value: 
-      objectReference: {fileID: 1807310307562632, guid: 28554333dcec52d4cb3c223f8c388cc5,
-        type: 2}
-    - target: {fileID: 114646670468762960, guid: 258b637205f84f34c91c424fca3067e4,
-        type: 2}
-      propertyPath: RoomsB.Array.data[3].List.Array.data[0]
-      value: 
-      objectReference: {fileID: 1807310307562632, guid: 28554333dcec52d4cb3c223f8c388cc5,
-        type: 2}
-    - target: {fileID: 114646670468762960, guid: 258b637205f84f34c91c424fca3067e4,
-        type: 2}
-      propertyPath: RoomsC.Array.data[2].List.Array.data[0]
-      value: 
-      objectReference: {fileID: 1087139973820096, guid: 3e46be8fd4aed3f46a823cc2ee8f1b13,
-        type: 2}
-    - target: {fileID: 114646670468762960, guid: 258b637205f84f34c91c424fca3067e4,
-        type: 2}
-      propertyPath: RoomsC.Array.data[3].List.Array.data[0]
-      value: 
-      objectReference: {fileID: 1087139973820096, guid: 3e46be8fd4aed3f46a823cc2ee8f1b13,
-        type: 2}
-    - target: {fileID: 114646670468762960, guid: 258b637205f84f34c91c424fca3067e4,
-        type: 2}
-      propertyPath: RoomsD.Array.data[2].List.Array.data[0]
-      value: 
-      objectReference: {fileID: 1891851351360820, guid: 23753ff1eaf6dae48915763b230af390,
-        type: 2}
-    - target: {fileID: 114646670468762960, guid: 258b637205f84f34c91c424fca3067e4,
-        type: 2}
-      propertyPath: RoomsD.Array.data[3].List.Array.data[0]
-      value: 
-      objectReference: {fileID: 1891851351360820, guid: 23753ff1eaf6dae48915763b230af390,
-        type: 2}
-    - target: {fileID: 114646670468762960, guid: 258b637205f84f34c91c424fca3067e4,
-        type: 2}
-      propertyPath: RoomsE.Array.data[2].List.Array.data[0]
-      value: 
-      objectReference: {fileID: 1475618307286918, guid: ef6536d51c2e1544785e959e613c392c,
-        type: 2}
-    - target: {fileID: 114646670468762960, guid: 258b637205f84f34c91c424fca3067e4,
-        type: 2}
-      propertyPath: RoomsE.Array.data[3].List.Array.data[0]
-      value: 
-      objectReference: {fileID: 1475618307286918, guid: ef6536d51c2e1544785e959e613c392c,
-        type: 2}
-    - target: {fileID: 114646670468762960, guid: 258b637205f84f34c91c424fca3067e4,
-        type: 2}
-      propertyPath: RoomsE.Array.data[2].List.Array.data[1]
-      value: 
-      objectReference: {fileID: 1712059607537146, guid: dcb62e3c05cf9bf4aaabf37511d4fc34,
-        type: 2}
-    - target: {fileID: 114646670468762960, guid: 258b637205f84f34c91c424fca3067e4,
-        type: 2}
-      propertyPath: RoomsE.Array.data[3].List.Array.data[1]
-      value: 
-      objectReference: {fileID: 1712059607537146, guid: dcb62e3c05cf9bf4aaabf37511d4fc34,
-        type: 2}
     - target: {fileID: 114337623052856484, guid: 258b637205f84f34c91c424fca3067e4,
         type: 2}
-      propertyPath: playerPrefab
+      propertyPath: player
       value: 
-      objectReference: {fileID: 1822640109020134, guid: 44389e0974990014b85d7b72e8893276,
+      objectReference: {fileID: 1589807051420334, guid: 49e416f76c3ef9049a0ff61d55781277,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 258b637205f84f34c91c424fca3067e4, type: 2}
@@ -2784,17 +2712,17 @@ Prefab:
     - target: {fileID: 20764667997126220, guid: ddad4ba9c482e0544b5e1312cafa7b9b,
         type: 2}
       propertyPath: far clip plane
-      value: 1000
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 20764667997126220, guid: ddad4ba9c482e0544b5e1312cafa7b9b,
         type: 2}
       propertyPath: field of view
-      value: 2
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 20764667997126220, guid: ddad4ba9c482e0544b5e1312cafa7b9b,
         type: 2}
       propertyPath: orthographic size
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ddad4ba9c482e0544b5e1312cafa7b9b, type: 2}

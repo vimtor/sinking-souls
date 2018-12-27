@@ -8,12 +8,14 @@ public class Player : Entity {
 
     delegate void StateAction();
 
-    private enum PlayerState { DASHING, MOVING, ATTACKING, HITTED, NONE };
+    private enum PlayerState { DASHING, MOVING, ATTACKING, REACTING, NONE };
     private PlayerState m_PlayerState;
 
     [Header("Movement parameters")]
     public float m_MovementDamping;
-    public float m_RotationDamping;
+    public float m_MovementRotationDamping;
+    public float m_AttackRotationDamping;
+    private float m_RotationDamping;
 
     [Space(5)]
     public float m_MovementSpeed;
@@ -83,13 +85,8 @@ public class Player : Entity {
         CheckDead();
         if (m_Ability.passive) m_Ability.Passive(gameObject);
 
-        // Things that needs to be always on false so they can be changed to true if needed.
-        m_Weapon.hitting = false;
-        gameObject.layer = LayerMask.NameToLayer("Player");
-
-
-        m_HorizontalMovement = m_Side * InputHandler.LeftJoystick.x;
-        m_VerticalMovement = m_Forward * InputHandler.LeftJoystick.y;
+        m_HorizontalMovement = m_Side * InputManager.LeftJoystick.x;
+        m_VerticalMovement = m_Forward * InputManager.LeftJoystick.y;
         m_Direction = m_HorizontalMovement - m_VerticalMovement;
 
         switch (m_PlayerState)
@@ -97,21 +94,33 @@ public class Player : Entity {
             case PlayerState.DASHING:
                 break;
 
+            case PlayerState.REACTING:
+                if (!m_Hitted) m_PlayerState = PlayerState.MOVING;
+                break;
+
             case PlayerState.MOVING:
+                // Move this to out function.
+                gameObject.layer = LayerMask.NameToLayer("Player");
+                m_RotationDamping = m_MovementRotationDamping;
+
                 m_Animator.SetFloat(m_SpeedParam, m_Direction.magnitude, m_MovementDamping, Time.deltaTime);
 
                 Rotate();
                 Move();
 
-                if (InputHandler.ButtonB()) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING);
+                if (InputManager.ButtonB()) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING);
 
-                if (InputHandler.ButtonX()) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
+                if (InputManager.ButtonX()) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
 
+                if (m_Hitted) m_PlayerState = PlayerState.REACTING;
                 break;
 
             case PlayerState.ATTACKING:
                 // For combos purposes.
-                if (InputHandler.ButtonX()) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
+                if (m_Hitted) m_PlayerState = PlayerState.REACTING;
+                Rotate();
+                if (InputManager.ButtonX()) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
+                if (InputManager.ButtonB()) break;
                 break;
 
             default:
@@ -151,7 +160,7 @@ public class Player : Entity {
 
     private void Rotate()
     {
-        if (InputHandler.LeftJoystickZero()) return;
+        if (InputManager.LeftJoystickZero()) return;
 
         Quaternion rotation = Quaternion.LookRotation(m_Direction);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * m_RotationDamping);
@@ -163,18 +172,23 @@ public class Player : Entity {
 
     private void Attack()
     {
+        // Reset the movement animator parameters.
         m_Animator.SetFloat(m_SpeedParam, 0);
 
         // Set weapon type and attack type.
         m_Animator.SetInteger(m_WeaponTypeParam, 1);
         m_Animator.SetTrigger(m_AttackParam);
 
-        // Activate weapon.
+        m_RotationDamping = m_AttackRotationDamping;
 
+        // Activate weapon.
+        m_Weapon.Attack();
     }
 
     private void Dash()
     {
+        gameObject.layer = LayerMask.NameToLayer("Dash");
+
         m_Animator.SetTrigger(m_DashParam);
         m_Rigidbody.AddForce(transform.forward * m_DashSpeed * Time.fixedDeltaTime, ForceMode.Impulse);
     }

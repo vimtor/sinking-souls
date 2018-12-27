@@ -2117,22 +2117,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eecd7ff4b5aca041b30e1fe1e2bcf66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 70
-  maxHealth: 0
-  walkSpeed: 0
-  weapon: {fileID: 11400000, guid: c958c4727a0750a4a988ffdbd5dc3e10, type: 2}
-  hand: {fileID: 1903170545890858}
-  baseModifier: {fileID: 0}
-  hitParticle: {fileID: 1130428619529126, guid: 70040a7882551274a858724f9a3539ad,
+  m_Health: 100
+  m_MaxHealth: 100
+  m_HittedRecovery: 0
+  m_Weapon: {fileID: 0}
+  m_Ability: {fileID: 0}
+  m_WeaponHand: {fileID: 0}
+  m_HitParticles: {fileID: 1744851154924106, guid: 83dbb4b59e1254c4bac5e18986484a49,
     type: 2}
-  healParticles: {fileID: 1371165808136484, guid: ce265fe01c459044d9d3646286ba3981,
-    type: 2}
+  m_HealParticles: {fileID: 0}
   thrown: 0
-  rb: {fileID: 54127995589383576}
-  animator: {fileID: 95380807781379840}
-  facingDir: {x: 0, y: 0, z: 0}
   hit: 0
-  collider: {fileID: 136219435029149894}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0
   souls: 0

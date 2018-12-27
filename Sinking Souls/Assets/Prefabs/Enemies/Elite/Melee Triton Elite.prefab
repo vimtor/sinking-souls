@@ -2102,10 +2102,12 @@ MonoBehaviour:
   stateTimeElapsed: 0
   timeElapsed: 0
   externalTime: 0
+  count: 0
   aiActive: 0
   stop: 0
   forceState: 0
   last: {fileID: 0}
+  Ailin: {fileID: 0}
 --- !u!114 &114391764216755740
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2117,22 +2119,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eecd7ff4b5aca041b30e1fe1e2bcf66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 400
-  walkSpeed: 0
-  weapon: {fileID: 11400000, guid: 59d593d17ccb5c74189907334af37ced, type: 2}
-  hand: {fileID: 1872723886815680}
-  baseModifier: {fileID: 0}
-  hitParticle: {fileID: 1130428619529126, guid: 70040a7882551274a858724f9a3539ad,
+  m_Health: 0
+  m_MaxHealth: 0
+  m_HittedRecovery: 0
+  m_Weapon: {fileID: 0}
+  m_Ability: {fileID: 0}
+  m_WeaponHand: {fileID: 0}
+  m_HitParticles: {fileID: 1744851154924106, guid: 83dbb4b59e1254c4bac5e18986484a49,
     type: 2}
+  m_HealParticles: {fileID: 0}
   thrown: 0
-  rb: {fileID: 54356768254446344}
-  animator: {fileID: 95245457837962514}
-  facingDir: {x: 0, y: 0, z: 0}
   hit: 0
-  collider: {fileID: 136408814012046772}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0
-  soul: {fileID: 11400000, guid: 9169ff36e06e2b74f8e0c5bed2839f61, type: 2}
+  souls: 0
   ability: {fileID: 0}
 --- !u!136 &136408814012046772
 CapsuleCollider:

@@ -76,7 +76,7 @@ public class BlacksmithBehaviour : MonoBehaviour
 
         if (!shopPanel.activeSelf) {
             // Open the store.
-            if (InputHandler.ButtonA() && (distPlayer.magnitude < range)) {
+            if (InputManager.ButtonA() && (distPlayer.magnitude < range)) {
                 shopPanel.SetActive(true);
 
                 UpdateShop();
@@ -87,19 +87,19 @@ public class BlacksmithBehaviour : MonoBehaviour
         }
         else {
             // Browse the store.
-            if (InputHandler.LeftJoystick.y == 1 && !updating) {
+            if (InputManager.LeftJoystick.y == 1 && !updating) {
                 updating = true;
                 currentItem = (currentItem + 1) % maxItems;
                 StartCoroutine(WaitTime());
             }
-            else if (InputHandler.LeftJoystick.y == -1 && !updating) {
+            else if (InputManager.LeftJoystick.y == -1 && !updating) {
                 updating = true;
                 currentItem = mod(currentItem - 1, maxItems);
                 StartCoroutine(WaitTime());
             }
 
             // Close the store.
-            if (InputHandler.ButtonB()) {
+            if (InputManager.ButtonB()) {
                 shopPanel.SetActive(false);
                 GameController.instance.player.GetComponent<Player>().CanMove = true;
                 currentItem = 0;

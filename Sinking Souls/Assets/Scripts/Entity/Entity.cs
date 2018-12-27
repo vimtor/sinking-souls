@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public class Entity : MonoBehaviour {
-
+public class Entity : MonoBehaviour
+{
     #region Entity Stats
     [Header("Stats")]
     [SerializeField] protected float m_Health;
@@ -17,6 +17,13 @@ public class Entity : MonoBehaviour {
     public float MaxHealth
     {
         get { return m_MaxHealth; }
+    }
+
+    [SerializeField] protected float m_HittedRecovery;
+    protected bool m_Hitted;
+    public bool Hitted
+    {
+        get { return m_Hitted; }
     }
     #endregion
 
@@ -55,7 +62,7 @@ public class Entity : MonoBehaviour {
     #endregion
 
     [HideInInspector] public bool thrown; 
-    [HideInInspector] public bool hit = false;
+    
     [HideInInspector] public enum ModifierState { FIRE, TOXIC, ELECTRIC, ICE };
     [HideInInspector] public Dictionary<ModifierState, int> currentModifierState = new Dictionary<ModifierState, int>();
     [HideInInspector] public Color originalColor;
@@ -64,38 +71,23 @@ public class Entity : MonoBehaviour {
 
     protected void OnStart()
     {
-        originalColor = transform.GetChild(1).GetComponent<Renderer>().material.color;
-
-        for (int i = 0; i < 4; i++) {
-            currentModifierState[(ModifierState)i] = 0;
-        }
-        
         // Get the necessary components.
         m_Rigidbody = GetComponent<Rigidbody>();
         m_Animator = GetComponent<Animator>();
         m_CapsuleCollider = GetComponent<CapsuleCollider>();
 
         EquipWeapon();
+
+        m_Hitted = false;
+        m_HittedRecovery = 0.7f;
+
+        originalColor = transform.GetChild(1).GetComponent<Renderer>().material.color;
+        for (int i = 0; i < 4; i++) currentModifierState[(ModifierState)i] = 0;
     }
 
-    protected void Apply(Modifier modifier) {
-        if(modifier != null) {
-            modifier.Apply(gameObject);
-        }
-    }
-
-    public void EquipWeapon() {
-        m_Weapon.Instantiate(m_WeaponHand, gameObject);
-    }
-
-    public void TakeDamage(float damage) {
-        m_Health -= damage;
-        transform.GetChild(1).GetComponent<Renderer>().material.color = Color.red;
-        gettingDamage = true;
-        GameController.instance.StartCoroutine(ResetColor(0.1f));
-    }
-
+    #region Heal Functions
     public void Heal(float heal) {
+        // Add health until the maximun.
         m_Health += m_Health + heal > m_MaxHealth ? m_MaxHealth : heal;
 
         bool noHeal = true;
@@ -113,8 +105,11 @@ public class Entity : MonoBehaviour {
     public void Heal() {
         Heal(m_MaxHealth);
     }
+    #endregion
 
-    IEnumerator ResetColor(float time) {
+    #region Utils Functions
+    IEnumerator ResetColor(float time)
+    {
         yield return new WaitForSeconds(time);
 
         try
@@ -125,46 +120,79 @@ public class Entity : MonoBehaviour {
         catch(Exception)
         {
             yield break;
-        }
-        
+        }   
     }
 
+    public void EquipWeapon()
+    {
+        m_Weapon.Instantiate(m_WeaponHand, gameObject);
+    }
+    #endregion
 
-    private void OnTriggerEnter(Collider other) {
+    #region React Functions
 
-        if (other.tag == "Weapon" && other.GetComponent<WeaponHolder>().owner.tag != tag)
+    private void React(Vector3 hitterPosition)
+    {
+        m_Hitted = true;
+
+        Vector3 hitDirection = hitterPosition - transform.position;
+        Vector3 hitPosition = Quaternion.Inverse(transform.rotation) * hitDirection.normalized;
+
+        m_Animator.SetFloat("HitX", hitPosition.x);
+        m_Animator.SetFloat("HitY", hitPosition.z);
+        m_Animator.SetTrigger("React");
+
+        StartCoroutine(ReactCoroutine());
+    }
+
+    private IEnumerator ReactCoroutine()
+    { 
+        yield return new WaitForSecondsRealtime(m_HittedRecovery);
+        m_Hitted = false;
+    }
+
+    #endregion
+
+
+    protected void Apply(Modifier modifier)
+    {
+        if (modifier != null)
         {
-            if (other.GetComponent<WeaponHolder>().holder.hitting && !hit) {
-                hit = true;
+            modifier.Apply(gameObject);
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        m_Health -= damage;
+        transform.GetChild(1).GetComponent<Renderer>().material.color = Color.red;
+        gettingDamage = true;
+        GameController.instance.StartCoroutine(ResetColor(0.1f));
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Weapon")
+        {
+            if (!m_Hitted && other.GetComponent<WeaponHolder>().owner.tag != tag)
+            {
+                React(other.GetComponent<WeaponHolder>().owner.transform.position);
                 TakeDamage(other.GetComponent<WeaponHolder>().holder.damage);
                 Apply(other.GetComponent<WeaponHolder>().holder.modifier);
-                
-                if(tag == "Enemy") CameraManager.instance.Hit(0.05f, 2.5f);
-                GameObject hitO = Instantiate(m_HitParticles);
-                hitO.transform.position = other.transform.position;
-                Destroy(hitO, 1);
+
+                GameObject hitParticles = Instantiate(m_HitParticles);
+                hitParticles.transform.position = other.transform.position;
+                Destroy(hitParticles, 1);
             }
         }
         else if (other.tag == "Ability")
         {
-            if(gameObject.tag == other.GetComponent<AbilityHolder>().holder.target) {
+            if(gameObject.tag == other.GetComponent<AbilityHolder>().holder.target)
+            {
+                React(other.GetComponent<AbilityHolder>().owner.transform.position);
                 TakeDamage(other.GetComponent<AbilityHolder>().holder.damage);
                 Apply(other.gameObject.GetComponent<AbilityHolder>().holder.modifier);
             }
         }
-    }
-
-
-    private void OnTriggerExit(Collider other) {
-
-        if (other.tag == "Weapon") {
-            hit = false;
-        }
-        else if (other.tag == "Ability") {
-            if (gameObject.tag == other.GetComponent<AbilityHolder>().holder.target) {
-                hit = false;
-            }
-        }
-
-    }
+    }    
 }

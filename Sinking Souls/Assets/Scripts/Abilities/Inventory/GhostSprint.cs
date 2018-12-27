@@ -14,12 +14,11 @@ public class GhostSprint : Ability {
 
     public override void Passive(GameObject go) {
         go.GetComponent<Player>().MovementSpeed = newSpeed;
-        if (active && go.GetComponent<Entity>().Weapon.hitting == true) {
+        if (active) {
             GameController.instance.godMode = false;
             GameController.instance.player.transform.GetChild(1).GetComponent<Renderer>().material.color = GameController.instance.player.GetComponent<Entity>().originalColor;
             newSpeed = orignalSpeed;
             active = thrown = false;
-            Debug.Log("Returned to normal attack");
         }
     }
 
@@ -41,7 +40,6 @@ public class GhostSprint : Ability {
         GameController.instance.godMode = false;
         GameController.instance.player.transform.GetChild(1).GetComponent<Renderer>().material.color = GameController.instance.player.GetComponent<Entity>().originalColor;
         active = thrown = false;
-        Debug.Log("Returned to normal");
     }
 
     protected override void Configure(GameObject player) {}

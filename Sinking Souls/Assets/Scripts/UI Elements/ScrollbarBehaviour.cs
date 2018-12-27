@@ -8,8 +8,8 @@ public class ScrollbarBehaviour : MonoBehaviour {
     public Scrollbar scrollbar;
 
     private void Update() {
-        if (InputHandler.LeftJoystick.y > 0) scrollbar.value -= 0.05f;
-        if (InputHandler.LeftJoystick.y < 0) scrollbar.value += 0.05f;
+        if (InputManager.LeftJoystick.y > 0) scrollbar.value -= 0.05f;
+        if (InputManager.LeftJoystick.y < 0) scrollbar.value += 0.05f;
     }
 
 }

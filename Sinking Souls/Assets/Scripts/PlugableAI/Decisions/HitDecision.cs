@@ -7,7 +7,7 @@ public class HitDecision : Decision {
 
     public override bool Decide(AIController controller) {
 
-        return controller.GetComponent<Enemy>().hit;
+        return controller.GetComponent<Enemy>().Hitted;
 
     }
 }

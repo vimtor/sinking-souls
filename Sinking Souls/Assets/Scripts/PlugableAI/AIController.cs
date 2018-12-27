@@ -48,14 +48,6 @@ public class AIController : MonoBehaviour {
         stateTimeElapsed += Time.deltaTime;
         timeElapsed += Time.deltaTime;
         count += Time.deltaTime;
-
-        try
-        {
-            
-        }
-        catch (Exception exception) {
-            Debug.Log(exception);
-        }
     }
 
     public void TransitionToState(State nextState) {
@@ -85,7 +77,6 @@ public class AIController : MonoBehaviour {
     private void OnExitState() {
         stateTimeElapsed = 0;
         timeElapsed = 0;
-        GetComponent<Enemy>().Weapon.hitting = false;
         GetComponent<Enemy>().thrown = false;
         navMeshAgent.enabled = false;
         if (gameObject.GetComponent<ParticleSystem>()) gameObject.GetComponent<ParticleSystem>().Stop();

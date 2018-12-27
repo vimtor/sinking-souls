@@ -5,7 +5,7 @@ using UnityEngine;
 // Source Implementaion: https://drive.google.com/file/d/1CPFBDIOvw45Y8DtUXx_A4j4VAxMRJuav/view?usp=sharing
 
 
-public class InputHandler : MonoBehaviour {
+public class InputManager : MonoBehaviour {
 
     public static Vector2 LeftJoystick;
     public static Vector2 RightJoystick;

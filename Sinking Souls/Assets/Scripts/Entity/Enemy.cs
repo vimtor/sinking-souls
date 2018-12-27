@@ -27,7 +27,6 @@ public class Enemy : Entity {
 
     private void Update() {
         if (m_Health <= 0) Die();
-
     }
 
     private void Die() {

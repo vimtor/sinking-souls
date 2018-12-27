@@ -122,7 +122,7 @@ public class CameraManager : MonoBehaviour {
     }
 
     private void RotateCamera() {
-        Vector3 angles = new Vector3(0, InputHandler.RightJoystick.x, 0);
+        Vector3 angles = new Vector3(0, InputManager.RightJoystick.x, 0);
         offset = Quaternion.Euler(angles) * offset;
         transform.position = center + offset;
         transform.LookAt(center);

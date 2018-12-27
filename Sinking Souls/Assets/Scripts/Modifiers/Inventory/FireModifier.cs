@@ -42,7 +42,7 @@ public class FireModifier : Modifier {
                 go.GetComponent<Enemy>().currentModifierState[Entity.ModifierState.FIRE] -= 1;
             }
         }
-        catch(Exception exception)
+        catch(Exception)
         {
             yield break;
         }

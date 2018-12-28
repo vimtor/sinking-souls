@@ -61,12 +61,27 @@ public class Entity : MonoBehaviour
     private CapsuleCollider m_CapsuleCollider;
     #endregion
 
-    [HideInInspector] public bool thrown; 
-    
-    [HideInInspector] public enum ModifierState { FIRE, TOXIC, ELECTRIC, ICE };
-    [HideInInspector] public Dictionary<ModifierState, int> currentModifierState = new Dictionary<ModifierState, int>();
+    #region Modifier Variables
+    public enum ModifierState { FIRE, TOXIC, ELECTRIC, ICE };
+    private Dictionary<ModifierState, int> m_CurrentModifierState;
+    public Dictionary<ModifierState, int> CurrentModifierState
+    {
+        get { return m_CurrentModifierState; }
+    }
+    #endregion
+
+    // THIS NEEDS TO BE REMOVED. USE ANIMATION EVENTS INSTEAD.
+    private bool m_AbilityThrown;
+    public bool AbilityThrown
+    {
+        get { return m_AbilityThrown; }
+        set { m_AbilityThrown = value; }
+    }
+
     [HideInInspector] public Color originalColor;
     [HideInInspector] public bool gettingDamage = false;
+
+    private BoxCollider m_WeaponCollider;
 
 
     protected void OnStart()
@@ -76,13 +91,25 @@ public class Entity : MonoBehaviour
         m_Animator = GetComponent<Animator>();
         m_CapsuleCollider = GetComponent<CapsuleCollider>();
 
+
+        // Setup entity weapon.
         EquipWeapon();
+        // Get weapon collider reference to avoid errors when using animation events.
+        m_WeaponCollider = m_Weapon.BoxCollider;
+
+
+        // To avoid different prefabs accesing the same ability.
+        if (m_Ability != null) m_Ability = Instantiate(m_Ability);
+
+
+        // Other variables.
+        originalColor = transform.GetChild(1).GetComponent<Renderer>().material.color;
+
+        m_CurrentModifierState = new Dictionary<ModifierState, int>();
+        for (int i = 0; i < 4; i++) m_CurrentModifierState[(ModifierState)i] = 0;
 
         m_Hitted = false;
-        m_HittedRecovery = 0.7f;
-
-        originalColor = transform.GetChild(1).GetComponent<Renderer>().material.color;
-        for (int i = 0; i < 4; i++) currentModifierState[(ModifierState)i] = 0;
+        m_HittedRecovery = 0.8f;
     }
 
     #region Heal Functions
@@ -127,6 +154,15 @@ public class Entity : MonoBehaviour
     {
         m_Weapon.Instantiate(m_WeaponHand, gameObject);
     }
+
+
+    // These functions are called via animation events.
+    protected void EnableCollider() { m_WeaponCollider.enabled = true; }
+    protected void DisableCollider() { m_WeaponCollider.enabled = false; }
+    protected void UseAbility() {
+        Debug.Log("Ability" + gameObject.GetInstanceID());
+        m_Ability.Use(gameObject);
+    }
     #endregion
 
     #region React Functions
@@ -153,8 +189,8 @@ public class Entity : MonoBehaviour
 
     #endregion
 
-
-    protected void Apply(Modifier modifier)
+    #region Damage Functions
+    protected void ApplyModifier(Modifier modifier)
     {
         if (modifier != null)
         {
@@ -162,13 +198,15 @@ public class Entity : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float damage)
+    public void ApplyDamage(float damage)
     {
         m_Health -= damage;
         transform.GetChild(1).GetComponent<Renderer>().material.color = Color.red;
         gettingDamage = true;
         GameController.instance.StartCoroutine(ResetColor(0.1f));
     }
+
+    #endregion
 
     private void OnTriggerEnter(Collider other)
     {
@@ -177,8 +215,8 @@ public class Entity : MonoBehaviour
             if (!m_Hitted && other.GetComponent<WeaponHolder>().owner.tag != tag)
             {
                 React(other.GetComponent<WeaponHolder>().owner.transform.position);
-                TakeDamage(other.GetComponent<WeaponHolder>().holder.damage);
-                Apply(other.GetComponent<WeaponHolder>().holder.modifier);
+                ApplyDamage(other.GetComponent<WeaponHolder>().holder.damage);
+                ApplyModifier(other.GetComponent<WeaponHolder>().holder.modifier);
 
                 GameObject hitParticles = Instantiate(m_HitParticles);
                 hitParticles.transform.position = other.transform.position;
@@ -190,8 +228,8 @@ public class Entity : MonoBehaviour
             if(gameObject.tag == other.GetComponent<AbilityHolder>().holder.target)
             {
                 React(other.GetComponent<AbilityHolder>().owner.transform.position);
-                TakeDamage(other.GetComponent<AbilityHolder>().holder.damage);
-                Apply(other.gameObject.GetComponent<AbilityHolder>().holder.modifier);
+                ApplyDamage(other.GetComponent<AbilityHolder>().holder.damage);
+                ApplyModifier(other.gameObject.GetComponent<AbilityHolder>().holder.modifier);
             }
         }
     }    

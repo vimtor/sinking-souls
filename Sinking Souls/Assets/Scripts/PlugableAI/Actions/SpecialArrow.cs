@@ -18,7 +18,7 @@ public class SpecialArrow : Action
         clipLength = controller.GetComponent<Enemy>().clipLength["SpellAnim"];
         controller.SetAnimBool("SPELL");
 
-        if (!controller.GetComponent<Enemy>().thrown && (controller.CheckIfCountDownElapsed(clipLength * actionFrame)))
+        if (!controller.GetComponent<Enemy>().AbilityThrown && (controller.CheckIfCountDownElapsed(clipLength * actionFrame)))
         {
             controller.gameObject.GetComponent<Enemy>().ability = arrow;
             controller.GetComponent<Enemy>().ability.Use(controller.gameObject);
@@ -28,7 +28,7 @@ public class SpecialArrow : Action
         if (controller.CheckIfCountDownElapsed(controller.GetComponent<Enemy>().clipLength["SpellAnim"]))
         {
             controller.stateTimeElapsed = 0;
-            controller.GetComponent<Enemy>().thrown = false;
+            controller.GetComponent<Enemy>().AbilityThrown = false;
 
         }
 

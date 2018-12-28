@@ -77,7 +77,7 @@ public class AIController : MonoBehaviour {
     private void OnExitState() {
         stateTimeElapsed = 0;
         timeElapsed = 0;
-        GetComponent<Enemy>().thrown = false;
+        GetComponent<Enemy>().AbilityThrown = false;
         navMeshAgent.enabled = false;
         if (gameObject.GetComponent<ParticleSystem>()) gameObject.GetComponent<ParticleSystem>().Stop();
         if (stop) {

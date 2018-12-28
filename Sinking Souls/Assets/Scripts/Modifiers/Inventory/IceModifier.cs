@@ -9,13 +9,13 @@ public class IceModifier : Modifier {
     public float reduction;
 
     public override void Apply(GameObject go) {
-        if(go.tag == "Enemy" && go.GetComponent<Enemy>().currentModifierState[Entity.ModifierState.ICE] == 0) originalSpeed = go.GetComponent<AIController>().navMeshAgent.speed;
-        if (go.tag == "Enemy" && go.GetComponent<Enemy>().currentModifierState[Entity.ModifierState.ICE] < 4) {
+        if(go.tag == "Enemy" && go.GetComponent<Enemy>().CurrentModifierState[Entity.ModifierState.ICE] == 0) originalSpeed = go.GetComponent<AIController>().navMeshAgent.speed;
+        if (go.tag == "Enemy" && go.GetComponent<Enemy>().CurrentModifierState[Entity.ModifierState.ICE] < 4) {
             float speed = go.GetComponent<AIController>().navMeshAgent.speed;
             speed = speed * reduction;
             go.GetComponent<AIController>().navMeshAgent.speed = speed;
             GameController.instance.StartCoroutine(MeltIce(duration, originalSpeed, go));
-            go.GetComponent<Enemy>().currentModifierState[Entity.ModifierState.ICE] += 1;
+            go.GetComponent<Enemy>().CurrentModifierState[Entity.ModifierState.ICE] += 1;
             Debug.Log(go.GetComponent<AIController>().navMeshAgent.speed);
         }
 
@@ -25,7 +25,7 @@ public class IceModifier : Modifier {
         yield return new WaitForSeconds(time);
         Debug.Log("Returned");
         go.GetComponent<AIController>().navMeshAgent.speed = _speed;
-        go.GetComponent<Enemy>().currentModifierState[Entity.ModifierState.ICE] -= 1;
+        go.GetComponent<Enemy>().CurrentModifierState[Entity.ModifierState.ICE] -= 1;
 
     }
 }

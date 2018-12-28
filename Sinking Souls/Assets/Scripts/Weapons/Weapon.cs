@@ -26,6 +26,10 @@ public class Weapon : ScriptableObject {
 
     private Vector3 originalSize;
     private BoxCollider boxCollider;
+    public BoxCollider BoxCollider
+    {
+        get { return boxCollider; }
+    }
 
     public void Instantiate(GameObject parent, GameObject owner) {
         weapon = Instantiate(model, parent.transform);
@@ -44,18 +48,6 @@ public class Weapon : ScriptableObject {
 
     public void Attack() {
         damage = baseDamage;
-        if (boxCollider.enabled == false) GameController.instance.StartCoroutine(AttackCoroutine());
-    }
-
-    private IEnumerator AttackCoroutine()
-    {
-        yield return new WaitForSecondsRealtime(startHitting);
-        try { boxCollider.enabled = true; }
-        catch (Exception) { yield break; }
-                    
-        yield return new WaitForSecondsRealtime(endHitting);
-        try { boxCollider.enabled = false; }
-        catch (Exception) { yield break; }
     }
 
     public void CriticAttack() {
@@ -69,6 +61,16 @@ public class Weapon : ScriptableObject {
 
     public void ShrinkCollision() {
         if (weapon.GetComponent<BoxCollider>()) weapon.GetComponent<BoxCollider>().size = originalSize;
+    }
+
+    public void EnableCollider()
+    {
+        boxCollider.enabled = true;
+    }
+
+    public void DisableCollider()
+    {
+        boxCollider.enabled = false;
     }
 
 }

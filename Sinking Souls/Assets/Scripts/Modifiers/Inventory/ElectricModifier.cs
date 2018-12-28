@@ -11,11 +11,11 @@ public class ElectricModifier : Modifier {
 
     public override void Apply(GameObject go) {
         if (go.tag == "Enemy") {
-            go.GetComponent<Enemy>().TakeDamage(damage);
-            if (Random.value < stuntProv/100 && go.GetComponent<Enemy>().currentModifierState[Entity.ModifierState.ELECTRIC] == 0) {
+            go.GetComponent<Enemy>().ApplyDamage(damage);
+            if (Random.value < stuntProv/100 && go.GetComponent<Enemy>().CurrentModifierState[Entity.ModifierState.ELECTRIC] == 0) {
                 Debug.Log("Stuned moderfucker");
                 GameController.instance.StartCoroutine(StopStun(go));
-                go.GetComponent<Enemy>().currentModifierState[Entity.ModifierState.ELECTRIC] += 1;
+                go.GetComponent<Enemy>().CurrentModifierState[Entity.ModifierState.ELECTRIC] += 1;
                 go.GetComponent<AIController>().externalTime = duration;
                 go.GetComponent<AIController>().forceState = true;
             }
@@ -24,7 +24,7 @@ public class ElectricModifier : Modifier {
 
     IEnumerator StopStun(GameObject go) {
         yield return new WaitForSeconds(duration);
-        go.GetComponent<Enemy>().currentModifierState[Entity.ModifierState.ELECTRIC] = 0;
+        go.GetComponent<Enemy>().CurrentModifierState[Entity.ModifierState.ELECTRIC] = 0;
         Debug.Log("Unestuned");
     }
 

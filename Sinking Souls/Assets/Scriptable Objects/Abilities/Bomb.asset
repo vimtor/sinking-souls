@@ -11,14 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75043b6a57bb4a840bf8619312229dc6, type: 3}
   m_Name: Bomb
   m_EditorClassIdentifier: Assembly-CSharp::Bomb
-  cooldown: 12
-  damage: 1000
-  modifier: {fileID: 0}
-  prefab: {fileID: 1472989274308880, guid: 6f98f20d2df7a614991bc2cfb1fea7ff, type: 2}
-  sprite: {fileID: 21300000, guid: 99e18b275d2a72942b6e2e29c0af6640, type: 3}
   name: Bomb
   description: Powerful area damage
   price: 200
+  sprite: {fileID: 21300000, guid: 99e18b275d2a72942b6e2e29c0af6640, type: 3}
+  cooldown: 12
+  damage: 1000
+  passive: 0
+  modifier: {fileID: 0}
+  prefab: {fileID: 1472989274308880, guid: 6f98f20d2df7a614991bc2cfb1fea7ff, type: 2}
   target: Enemy
   entity: {fileID: 0}
   explotionForce: 500

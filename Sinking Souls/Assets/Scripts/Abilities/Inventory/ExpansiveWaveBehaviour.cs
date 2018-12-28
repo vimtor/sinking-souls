@@ -40,7 +40,7 @@ public class ExpansiveWaveBehaviour : MonoBehaviour
         if (exteriorCollision && !interiorCollision && !hitted)
         {
             hitted = true;
-            GameController.instance.player.GetComponent<Entity>().TakeDamage(damage);
+            GameController.instance.player.GetComponent<Entity>().ApplyDamage(damage);
         }
     }
 

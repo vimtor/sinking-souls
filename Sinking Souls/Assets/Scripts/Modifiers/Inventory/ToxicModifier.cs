@@ -9,13 +9,13 @@ public class ToxicModifier : Modifier {
     private GameObject particlesObject;
 
     public override void Apply(GameObject go) {
-        if (go.tag == "Enemy" && go.GetComponent<Enemy>().currentModifierState[Entity.ModifierState.TOXIC] < 1) {
+        if (go.tag == "Enemy" && go.GetComponent<Enemy>().CurrentModifierState[Entity.ModifierState.TOXIC] < 1) {
             GameController.instance.StartCoroutine(ApplyToxic(go));
-            go.GetComponent<Enemy>().currentModifierState[Entity.ModifierState.TOXIC] += 1;
+            go.GetComponent<Enemy>().CurrentModifierState[Entity.ModifierState.TOXIC] += 1;
             go.AddComponent<tryChangeColor>();
 
         }
-        Debug.Log(go.GetComponent<Enemy>().currentModifierState[Entity.ModifierState.TOXIC]);
+        Debug.Log(go.GetComponent<Enemy>().CurrentModifierState[Entity.ModifierState.TOXIC]);
     }
 
     private void InstantiateParticles(GameObject go) {
@@ -26,7 +26,7 @@ public class ToxicModifier : Modifier {
 
     IEnumerator ApplyToxic(GameObject go) {
         yield return new WaitForSeconds(hitTime);
-        go.GetComponent<Enemy>().TakeDamage(damage);
+        go.GetComponent<Enemy>().ApplyDamage(damage);
         
 
         GameController.instance.StartCoroutine(ApplyToxic(go));

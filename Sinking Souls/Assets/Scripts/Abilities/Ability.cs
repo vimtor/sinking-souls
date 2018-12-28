@@ -25,17 +25,18 @@ public abstract class Ability : ScriptableObject
 
     protected GameObject parent;
 
-    public void Use(GameObject newParent, Transform position = null) {
-        if (!passive) {
+    public void Use(GameObject newParent, Transform position = null)
+    {
+        if (passive)
+        {
+            Activate();
+        }
+        else
+        {
             SetParent(newParent);
             SetEntity();
-            if (CheckThrown()) {
-                if (position == null) Configure(SetPrefab(entity.m_WeaponHand.transform));
-                else Configure(SetPrefab(position));
-            }
-        }
-        else {
-            Activate();
+            if (position == null) Configure(SetPrefab(entity.m_WeaponHand.transform));
+            else Configure(SetPrefab(position));
         }
     }
 
@@ -61,9 +62,9 @@ public abstract class Ability : ScriptableObject
     protected bool CheckThrown()
     {
         if (entity == null) return true;
-        if (!entity.thrown)
+        if (!entity.AbilityThrown)
         {
-            entity.thrown = true;
+            entity.AbilityThrown = true;
             return true;
         }
 

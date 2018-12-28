@@ -14,23 +14,25 @@ public class Player : Entity {
     #region Game-feel Variables
     [Header("Movement parameters")]
     public float m_MovementDamping;
-
-    [Tooltip("How much the player will advance which each step of the attack.")]
-    [Range(0.0f, 1.0f)] public float m_AttackStepForce;
-
-    [Space(5)]
-    public float m_MovementRotationDamping;
-    public float m_AttackRotationDamping;
-    private float m_RotationDamping;
-
-    [Space(5)]
     public float m_MovementSpeed;
     public float MovementSpeed
     {
         get { return m_MovementSpeed; }
         set { if (value > 0) m_MovementSpeed = value; }
     }
+    public float m_DashMovementSpeed;
     public float m_DashSpeed;
+    private float m_OriginalMovementSpeed;
+
+    [Tooltip("How much the player will advance which each step of the attack.")]
+    [Range(0.0f, 1.0f)] public float m_AttackStepForce;
+
+    [Space(5)]
+
+    public float m_MovementRotationDamping;
+    public float m_AttackRotationDamping;
+    public float m_DashRotationDamping;
+    private float m_RotationDamping;   
     #endregion
 
     #region Animator Variables
@@ -61,11 +63,7 @@ public class Player : Entity {
     }
     #endregion
 
-    private float m_AbilityCooldown;
-    public float AbilityCooldown
-    {
-        get { return m_AbilityCooldown; }
-    }
+    
 
     // To avoid transition overlaping.
     private byte m_TransitionCount;
@@ -86,6 +84,7 @@ public class Player : Entity {
         m_SpellLength = Array.Find(animationClips, clip => clip.name == "Throw").length;
 
         // Initialize private members.
+        m_OriginalMovementSpeed = m_MovementSpeed;
         m_PlayerState = PlayerState.MOVING;
         m_AbilityCooldown = 0.0f;
         m_CanMove = true;
@@ -105,6 +104,11 @@ public class Player : Entity {
         switch (m_PlayerState)
         {
             case PlayerState.DASHING:
+                m_RotationDamping = m_DashRotationDamping;
+                m_MovementSpeed = m_DashMovementSpeed;
+                Move();
+                Rotate();
+
                 // To avoid capturing input and later using it.
                 InputManager.ButtonX();
                 InputManager.ButtonB();
@@ -121,9 +125,12 @@ public class Player : Entity {
                 break;
 
             case PlayerState.MOVING:
-                // Move this to out function.
+                // Move this to an out function.
                 gameObject.layer = LayerMask.NameToLayer("Player");
                 m_RotationDamping = m_MovementRotationDamping;
+                m_MovementSpeed = m_OriginalMovementSpeed;
+                m_WeaponCollider.enabled = false;
+
 
                 m_Animator.SetFloat(m_SpeedParam, m_Direction.magnitude, m_MovementDamping, Time.deltaTime);
 
@@ -131,13 +138,12 @@ public class Player : Entity {
                 Move();
 
                 if (InputManager.ButtonB()) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING);
-
                 if (InputManager.ButtonX()) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
                 if (InputManager.ButtonY())
                 {
                     if (m_AbilityCooldown <= 0.0f)
                     {
-                        m_AbilityCooldown = m_Ability.cooldown;
+                        
                         ChangeState(Spell, m_SpellLength, PlayerState.SPELLING, PlayerState.MOVING);
                     }
                 }
@@ -146,22 +152,27 @@ public class Player : Entity {
                 break;
 
             case PlayerState.ATTACKING:
-                // For combos purposes.
                 if (m_Hitted) m_PlayerState = PlayerState.REACTING;
 
                 // Behaviour while attacking.
                 if (InputManager.ButtonX()) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING); // Enable combo strings.
                 Rotate(); // Rotate with attacking rotation damping.
 
-                // To avoid capturing input and later using it.
-                InputManager.ButtonB();
-                InputManager.ButtonY();
+                if (InputManager.ButtonB()) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING);
+                if (InputManager.ButtonY())
+                {
+                    if (m_AbilityCooldown <= 0.0f)
+                    {
+                        ChangeState(Spell, m_SpellLength, PlayerState.SPELLING, PlayerState.MOVING);
+                    }
+                }
                 break;
 
             case PlayerState.SPELLING:
+                if (InputManager.ButtonB()) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING);
+
                 // To avoid capturing input and later using it.
                 InputManager.ButtonX();
-                InputManager.ButtonB();
                 InputManager.ButtonY();
                 break;
 
@@ -187,8 +198,12 @@ public class Player : Entity {
         action();
 
         yield return new WaitForSecondsRealtime(delay);
-        m_Rigidbody.velocity = Vector3.zero;
-        if (m_TransitionCount <= 1) m_PlayerState = returnState;
+        
+        if (m_TransitionCount <= 1)
+        {
+            m_Rigidbody.velocity = Vector3.zero;
+            m_PlayerState = returnState;
+        } 
 
         m_TransitionCount--;
     }
@@ -235,6 +250,7 @@ public class Player : Entity {
     private void Dash()
     {
         gameObject.layer = LayerMask.NameToLayer("Dash");
+        m_WeaponCollider.enabled = false;
 
         m_Animator.SetTrigger(m_DashParam);
         m_Rigidbody.AddForce(transform.forward * m_DashSpeed * Time.fixedDeltaTime, ForceMode.Impulse);
@@ -242,6 +258,8 @@ public class Player : Entity {
 
     private void Spell()
     {
+        m_WeaponCollider.enabled = false;
+
         if (m_Ability.passive)
         {
             // Activate the passive behaviour.

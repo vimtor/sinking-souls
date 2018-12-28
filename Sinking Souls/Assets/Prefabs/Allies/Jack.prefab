@@ -1339,20 +1339,21 @@ MonoBehaviour:
   m_MaxHealth: 200
   m_HittedRecovery: 0.7
   m_Weapon: {fileID: 11400000, guid: 770641d31570a724f8f8eeb86cdada2f, type: 2}
-  m_Ability: {fileID: 11400000, guid: fddf5f21314ce444ea3a0fee462174df, type: 2}
   m_WeaponHand: {fileID: 1277820498822216}
+  m_Ability: {fileID: 11400000, guid: fddf5f21314ce444ea3a0fee462174df, type: 2}
   m_HitParticles: {fileID: 1744851154924106, guid: 83dbb4b59e1254c4bac5e18986484a49,
     type: 2}
   m_HealParticles: {fileID: 0}
-  thrown: 0
   originalColor: {r: 1, g: 1, b: 1, a: 1}
   gettingDamage: 0
   m_MovementDamping: 0.2
+  m_MovementSpeed: 10
+  m_DashMovementSpeed: 5
+  m_DashSpeed: 400
   m_AttackStepForce: 0.11
   m_MovementRotationDamping: 17
   m_AttackRotationDamping: 4
-  m_MovementSpeed: 10
-  m_DashSpeed: 600
+  m_DashRotationDamping: 3
 --- !u!136 &136655065544577980
 CapsuleCollider:
   m_ObjectHideFlags: 1

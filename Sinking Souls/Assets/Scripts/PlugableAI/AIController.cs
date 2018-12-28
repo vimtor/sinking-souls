@@ -74,18 +74,24 @@ public class AIController : MonoBehaviour {
     //    return (inRangeTime >= duration);
     //}
 
-    private void OnExitState() {
-        stateTimeElapsed = 0;
-        timeElapsed = 0;
-        GetComponent<Enemy>().AbilityThrown = false;
-        navMeshAgent.enabled = false;
-        if (gameObject.GetComponent<ParticleSystem>()) gameObject.GetComponent<ParticleSystem>().Stop();
-        if (stop) {
-            gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-            stop = false;
+    private void OnExitState()
+    {
+        try
+        {
+            stateTimeElapsed = 0;
+            timeElapsed = 0;
+            GetComponent<Enemy>().AbilityThrown = false;
+            navMeshAgent.enabled = false;
+            if (gameObject.GetComponent<ParticleSystem>()) gameObject.GetComponent<ParticleSystem>().Stop();
+            if (stop)
+            {
+                gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                stop = false;
+            }
+
+            gameObject.GetComponent<Enemy>().Weapon.ShrinkCollision();
         }
-        gameObject.GetComponent<Enemy>().Weapon.ShrinkCollision();
-        // gameObject.GetComponent<Enemy>().ability = defaultAbility;
+        catch (Exception) {}
     }
 
     public void SetAnimBool(string str) {

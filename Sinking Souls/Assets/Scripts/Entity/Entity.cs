@@ -35,14 +35,23 @@ public class Entity : MonoBehaviour
         get { return m_Weapon; }
         set { m_Weapon = value; }
     }
+
+    [Tooltip("Where the weapon will be instantiated.")]
+    public GameObject m_WeaponHand;
+    protected BoxCollider m_WeaponCollider;
+
     [SerializeField] protected Ability m_Ability;
     public Ability Ability
     {
         get { return m_Ability; }
         set { m_Ability = value; }
     }
-    [Tooltip("Where the weapon will be instantiated.")]
-    public GameObject m_WeaponHand;
+    
+    protected float m_AbilityCooldown;
+    public float AbilityCooldown
+    {
+        get { return m_AbilityCooldown; }
+    }
     #endregion
 
     #region Particles
@@ -80,9 +89,7 @@ public class Entity : MonoBehaviour
 
     [HideInInspector] public Color originalColor;
     [HideInInspector] public bool gettingDamage = false;
-
-    private BoxCollider m_WeaponCollider;
-
+    
 
     protected void OnStart()
     {
@@ -159,8 +166,9 @@ public class Entity : MonoBehaviour
     // These functions are called via animation events.
     protected void EnableCollider() { m_WeaponCollider.enabled = true; }
     protected void DisableCollider() { m_WeaponCollider.enabled = false; }
-    protected void UseAbility() {
-        Debug.Log("Ability" + gameObject.GetInstanceID());
+    protected void UseAbility()
+    {
+        m_AbilityCooldown = m_Ability.cooldown;
         m_Ability.Use(gameObject);
     }
     #endregion
@@ -210,27 +218,31 @@ public class Entity : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Weapon")
-        {
-            if (!m_Hitted && other.GetComponent<WeaponHolder>().owner.tag != tag)
-            {
-                React(other.GetComponent<WeaponHolder>().owner.transform.position);
-                ApplyDamage(other.GetComponent<WeaponHolder>().holder.damage);
-                ApplyModifier(other.GetComponent<WeaponHolder>().holder.modifier);
+        if (m_Hitted) return;
 
-                GameObject hitParticles = Instantiate(m_HitParticles);
-                hitParticles.transform.position = other.transform.position;
-                Destroy(hitParticles, 1);
-            }
-        }
-        else if (other.tag == "Ability")
+        switch (other.tag)
         {
-            if(gameObject.tag == other.GetComponent<AbilityHolder>().holder.target)
-            {
-                React(other.GetComponent<AbilityHolder>().owner.transform.position);
-                ApplyDamage(other.GetComponent<AbilityHolder>().holder.damage);
-                ApplyModifier(other.gameObject.GetComponent<AbilityHolder>().holder.modifier);
-            }
+            case "Weapon":
+                if (other.GetComponent<WeaponHolder>().owner.tag != tag)
+                {
+                    React(other.GetComponent<WeaponHolder>().owner.transform.position);
+                    ApplyDamage(other.GetComponent<WeaponHolder>().holder.damage);
+                    ApplyModifier(other.GetComponent<WeaponHolder>().holder.modifier);
+
+                    GameObject hitParticles = Instantiate(m_HitParticles);
+                    hitParticles.transform.position = other.transform.position;
+                    Destroy(hitParticles, 1);
+                }
+                break;
+
+            case "Ability":
+                if (gameObject.tag == other.GetComponent<AbilityHolder>().holder.target)
+                {
+                    React(other.GetComponent<AbilityHolder>().owner.transform.position);
+                    ApplyDamage(other.GetComponent<AbilityHolder>().holder.damage);
+                    ApplyModifier(other.gameObject.GetComponent<AbilityHolder>().holder.modifier);
+                }
+                break;
         }
     }    
 }

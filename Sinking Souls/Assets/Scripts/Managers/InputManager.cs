@@ -52,14 +52,16 @@ public class InputManager : MonoBehaviour {
 
     void Update() {
 
-        if (!buttonA) buttonA = Input.GetButtonDown("BUTTON_A");
-        if (!buttonB) buttonB = Input.GetButtonDown("BUTTON_B");
-        if (!buttonX) buttonX = Input.GetButtonDown("BUTTON_X");
-        if (!buttonY) buttonY = Input.GetButtonDown("BUTTON_Y");
+        if (!buttonA) buttonA = Input.GetButtonDown("BUTTON_A") || Input.GetKeyDown(KeyCode.U);
+        if (!buttonB) buttonB = Input.GetButtonDown("BUTTON_B") || Input.GetKeyDown(KeyCode.I);
+        if (!buttonX) buttonX = Input.GetButtonDown("BUTTON_X") || Input.GetKeyDown(KeyCode.O);
+        if (!buttonY) buttonY = Input.GetButtonDown("BUTTON_Y") || Input.GetKeyDown(KeyCode.P);
         if (!buttonRT) buttonRT = Input.GetAxis("BUTTON_RT") >= 0.5;
 
         LeftJoystick = new Vector2(Input.GetAxis("JOYSTICK_LH"), Input.GetAxis("JOYSTICK_LV"));
         RightJoystick = new Vector2(Input.GetAxis("JOYSTICK_RH"), Input.GetAxis("JOYSTICK_RV"));
+
+        if (LeftJoystickZero()) LeftJoystick = new Vector2(Input.GetAxis("KEY_HORIZONTAL"), Input.GetAxis("KEY_VERTICAL"));
 
     }
 

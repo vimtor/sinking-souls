@@ -7,40 +7,38 @@ public class LobbyDoor : MonoBehaviour {
 
     public string sceneToLoad;
 
-    private void Update() {
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            GameController.instance.scene = GameController.GameState.GAME;
-            GameController.instance.gameObject.GetComponent<LevelGenerator>().currentLevel++;
-            Debug.Log(GameController.instance.gameObject.GetComponent<LevelGenerator>().currentLevel);
-            SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
-        }
-    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (!other.CompareTag("Player")) return;
 
-    private void OnTriggerEnter(Collider other) {
-        if (other.tag == "Player") {
-            switch (sceneToLoad) {
-                case "Lobby":
-                    GameController.instance.scene = GameController.GameState.LOBBY;
+        switch (sceneToLoad)
+        {
+            case "Lobby":
+                GameController.instance.ChangeScene(sceneToLoad);
+                break;
 
-                    SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
-                    break;
-                case "Game":
-                    if(GameController.instance.scene == GameController.GameState.TABERN)
-                    GameController.instance.gameObject.GetComponent<LevelGenerator>().currentLevel--;
+            case "Game":
+                if (GameController.instance.scene == GameController.GameState.TABERN)
+                {
+                    GameController.instance.LevelGenerator.currentLevel--;
+                }
+                
 
-                    GameController.instance.gameObject.GetComponent<LevelGenerator>().currentLevel++;
-                    GameController.instance.scene = GameController.GameState.GAME;
+                GameController.instance.LevelGenerator.currentLevel++;
+                if (GameController.instance.LevelGenerator.currentLevel == 2 && !GameController.instance.LevelGenerator.tabernaSpawned)
+                {
+                    // CHANGE THIS TO UNIQUE TAVERN SCENE.
+                    GameController.instance.scene = GameController.GameState.TABERN;
+                    SceneManager.LoadScene("Game", LoadSceneMode.Single);
+                    return;
+                }
 
-                    if (GameController.instance.gameObject.GetComponent<LevelGenerator>().currentLevel == 2 && !GameController.instance.gameObject.GetComponent<LevelGenerator>().tabernaSpawned)
-                        GameController.instance.scene = GameController.GameState.TABERN;
+                GameController.instance.ChangeScene("Game");
+                break;
 
-                    SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
-                    break;
-                case "LoadScene":
-                    GameController.instance.scene = GameController.GameState.LOADSCENE;
-                    SceneManager.LoadScene(sceneToLoad, LoadSceneMode.Single);
-                    break;
-            }
+            case "LoadScene":
+                GameController.instance.ChangeScene("LoadScene");
+                break;
         }
     }
 }

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class GameController : MonoBehaviour
 {
-    public enum GameState { LOBBY, GAME, ARENA, LOADSCENE, TABERN };
+    public enum GameState { LOBBY, GAME, ARENA, LOADSCENE, TABERN, MAIN_MENU };
     public GameState scene = GameState.LOBBY;
 
     [Header("Prefabs")]
@@ -33,6 +34,10 @@ public class GameController : MonoBehaviour
     [HideInInspector] public Text lobbySoulsHUD;
 
     private LevelGenerator levelGenerator;
+    public LevelGenerator LevelGenerator
+    {
+        get { return levelGenerator;  }
+    }
 
     private void Awake()
     {
@@ -53,24 +58,13 @@ public class GameController : MonoBehaviour
         levelGenerator = GetComponent<LevelGenerator>();
     }
 
-
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    public void LoadScene()
     {
-        LoadScene();
-    }
+        switch (scene)
+        {
+            case GameState.MAIN_MENU:
+                break;
 
-    void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    public void LoadScene() {
-        switch (scene) {
             case GameState.TABERN:
                 levelGenerator.takenPos = new List<Vector2>();
                 currentRoom = SpawnLevel();
@@ -158,6 +152,86 @@ public class GameController : MonoBehaviour
         }
     }
 
+    #region SceneManagment Functions
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        LoadScene();
+    }
+
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    public void ChangeScene(string sceneName)
+    {
+        switch (sceneName.ToUpper())
+        {
+            case "LOBBY":
+                scene = GameState.LOBBY;
+                break;
+
+            case "LOADSCENE":
+                scene = GameState.LOADSCENE;
+                break;
+
+            case "GAME":
+                scene = GameState.GAME;
+                break;
+
+            case "TABERN":
+                scene = GameState.TABERN;
+                break;
+
+            default:
+                Debug.LogError("A scene named " + sceneName + " was not found.");
+                return;
+        }
+
+        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+    }
+
+    public void ChangeScene(GameState newScene)
+    {
+        scene = newScene;
+        switch (scene)
+        {
+            case GameState.LOBBY:
+                SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
+                break;
+
+            case GameState.GAME:
+                SceneManager.LoadScene("Game", LoadSceneMode.Single);
+                break;
+
+            case GameState.LOADSCENE:
+                SceneManager.LoadScene("LoadScene", LoadSceneMode.Single);
+                break;
+
+            case GameState.TABERN:
+                break;
+            case GameState.MAIN_MENU:
+                SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
+                break;
+            default:
+                break;
+        }
+
+        
+    }
+
+    public void QuitApplication()
+    {
+        Application.Quit();
+    }
+    #endregion
+
+    #region Spawn Functions
     private GameObject SpawnLevel()
     {
         return levelGenerator.Spawn();
@@ -169,6 +243,20 @@ public class GameController : MonoBehaviour
         player.transform.position = currentRoom.transform.position;
     }
 
+    public void SpawnBlueprint(Vector3 position)
+    {
+        var possibleModifiers = modifiers.FindAll(modifer => !modifer.owned && !modifer.picked);
+        if (possibleModifiers.Count == 0) return;
+
+        var spawnedModifier = possibleModifiers[UnityEngine.Random.Range(0, possibleModifiers.Count - 1)];
+
+        GameObject newBlueprint = Instantiate(blueprint);
+        newBlueprint.transform.position = position + new Vector3(0, 1, 0);
+        newBlueprint.GetComponent<BlueprintBehaviour>().modifier = spawnedModifier;
+    }
+    #endregion
+
+    #region Setup Functions
     private void SetupCamera()
     {
         CameraManager.instance.player = player.transform;
@@ -179,19 +267,6 @@ public class GameController : MonoBehaviour
     {
         player.GetComponent<Player>().SetupPlayer();
     }
-
-    public void SpawnBlueprint(Vector3 position)
-    {
-        var possibleModifiers = modifiers.FindAll(modifer => !modifer.owned && !modifer.picked);
-        if (possibleModifiers.Count == 0) return;
-
-        var spawnedModifier = possibleModifiers[Random.Range(0, possibleModifiers.Count - 1)];
-
-        GameObject newBlueprint = Instantiate(blueprint);
-        newBlueprint.transform.position = position + new Vector3(0, 1, 0);
-        newBlueprint.GetComponent<BlueprintBehaviour>().modifier = spawnedModifier;
-    }
-
 
     public void ChangeRoom(GameObject door)
     {
@@ -206,5 +281,6 @@ public class GameController : MonoBehaviour
         room.transform.Find("NavMesh").gameObject.SetActive(true);
         room.GetComponent<SpawnController>().Spawn(player);
     }
+    #endregion
 
 }

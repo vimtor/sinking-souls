@@ -4505,20 +4505,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec0bc333aafb924db5df9e7f6517fb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1000
-  maxHealth: 0
-  walkSpeed: 10
-  weapon: {fileID: 0}
-  hand: {fileID: 0}
-  baseModifier: {fileID: 0}
-  hitParticle: {fileID: 0}
-  healParticles: {fileID: 0}
-  thrown: 0
-  rb: {fileID: 0}
-  animator: {fileID: 0}
-  facingDir: {x: 0, y: 0, z: 0}
-  hit: 0
-  collider: {fileID: 0}
+  m_Health: 0
+  m_MaxHealth: 0
+  m_HittedRecovery: 0
+  m_Weapon: {fileID: 0}
+  m_WeaponHand: {fileID: 0}
+  m_Ability: {fileID: 0}
+  m_HitParticles: {fileID: 0}
+  m_HealParticles: {fileID: 0}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0
 --- !u!136 &136007774964468608

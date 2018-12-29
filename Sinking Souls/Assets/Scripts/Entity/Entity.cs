@@ -119,27 +119,6 @@ public class Entity : MonoBehaviour
         m_HittedRecovery = 0.8f;
     }
 
-    #region Heal Functions
-    public void Heal(float heal) {
-        // Add health until the maximun.
-        m_Health += m_Health + heal > m_MaxHealth ? m_MaxHealth : heal;
-
-        bool noHeal = true;
-        for(int i = 0; i < transform.childCount; i++) {
-            if (transform.GetChild(i).tag == "FxTemporaire") noHeal = false;
-        }
-
-        if (noHeal) {
-            GameObject healGo = Instantiate(m_HealParticles);
-            healGo.transform.position = gameObject.transform.position;
-            healGo.transform.parent = gameObject.transform;
-        }
-    }
-
-    public void Heal() {
-        Heal(m_MaxHealth);
-    }
-    #endregion
 
     #region Utils Functions
     IEnumerator ResetColor(float time)
@@ -163,14 +142,45 @@ public class Entity : MonoBehaviour
     }
 
 
+    public void Heal(float heal)
+    {
+        // Add health until the maximun.
+        m_Health += m_Health + heal > m_MaxHealth ? m_MaxHealth : heal;
+
+        bool noHeal = true;
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).tag == "FxTemporaire") noHeal = false;
+        }
+
+        if (noHeal)
+        {
+            GameObject healGo = Instantiate(m_HealParticles);
+            healGo.transform.position = gameObject.transform.position;
+            healGo.transform.parent = gameObject.transform;
+        }
+    }
+
+    public void Heal()
+    {
+        Heal(m_MaxHealth);
+    }
+    #endregion
+
+    #region AnimationEvents Functions
     // These functions are called via animation events.
     protected void EnableCollider() { m_WeaponCollider.enabled = true; }
     protected void DisableCollider() { m_WeaponCollider.enabled = false; }
+
     protected void UseAbility()
     {
         m_AbilityCooldown = m_Ability.cooldown;
         m_Ability.Use(gameObject);
     }
+
+    protected void PlaySound(string name)  { AudioManager.instance.Play(name);  }
+    protected void StopSound(string name)  { AudioManager.instance.Stop(name);  }
+    protected void PauseSound(string name) { AudioManager.instance.Pause(name); }
     #endregion
 
     #region React Functions

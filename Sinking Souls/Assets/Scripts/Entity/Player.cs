@@ -80,7 +80,7 @@ public class Player : Entity {
         // Get animation lengths.
         var animationClips = m_Animator.runtimeAnimatorController.animationClips;
         m_AttackLength = Array.Find(animationClips, clip => clip.name == "Klaus_1").length;
-        m_DashLength = Array.Find(animationClips, clip => clip.name == "ForwardRoll").length * 0.9f;
+        m_DashLength = Array.Find(animationClips, clip => clip.name == "Dash").length * 0.9f;
         m_SpellLength = Array.Find(animationClips, clip => clip.name == "Throw").length;
 
         // Initialize private members.
@@ -106,6 +106,7 @@ public class Player : Entity {
             case PlayerState.DASHING:
                 m_RotationDamping = m_DashRotationDamping;
                 m_MovementSpeed = m_DashMovementSpeed;
+
                 Move();
                 Rotate();
 
@@ -143,7 +144,7 @@ public class Player : Entity {
                 {
                     if (m_AbilityCooldown <= 0.0f)
                     {
-                        
+                        // Ability cooldwon is reset in the UseAbility method.
                         ChangeState(Spell, m_SpellLength, PlayerState.SPELLING, PlayerState.MOVING);
                     }
                 }

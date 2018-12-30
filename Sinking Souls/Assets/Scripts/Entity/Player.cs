@@ -80,7 +80,7 @@ public class Player : Entity {
         // Get animation lengths.
         var animationClips = m_Animator.runtimeAnimatorController.animationClips;
         m_AttackLength = Array.Find(animationClips, clip => clip.name == "Klaus_1").length;
-        m_DashLength = Array.Find(animationClips, clip => clip.name == "Dash").length * 0.9f;
+        m_DashLength = Array.Find(animationClips, clip => clip.name == "Dash").length * 0.85f;
         m_SpellLength = Array.Find(animationClips, clip => clip.name == "Throw").length;
 
         // Initialize private members.
@@ -110,8 +110,9 @@ public class Player : Entity {
                 Move();
                 Rotate();
 
+                if (InputManager.ButtonX()) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
+
                 // To avoid capturing input and later using it.
-                InputManager.ButtonX();
                 InputManager.ButtonB();
                 InputManager.ButtonY();
                 break;

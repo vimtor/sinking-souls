@@ -133,22 +133,20 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.F1))
         {
-            if (Input.GetKeyDown(KeyCode.F)) {
-                debugMode = !debugMode;
+            debugMode = !debugMode;
 
-                string status = debugMode ? "activated" : "deactivated";
-                Debug.Log("Debug mode " + status);
-            }
+            string status = debugMode ? "activated" : "deactivated";
+            Debug.Log("Debug mode " + status);
+        }
 
-            if (Input.GetKeyDown(KeyCode.G))
-            {
-                godMode = !godMode;
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            godMode = !godMode;
 
-                string status = godMode ? "activated" : "deactivated";
-                Debug.Log("God mode " + status);
-            }  
+            string status = godMode ? "activated" : "deactivated";
+            Debug.Log("God mode " + status);
         }
     }
 

@@ -10,6 +10,8 @@ public class GameController : MonoBehaviour
     public enum GameState { LOBBY, GAME, ARENA, LOADSCENE, TABERN, MAIN_MENU };
     public GameState scene = GameState.LOBBY;
 
+    public GameObject m_LobbyRoom;
+
     [Header("Prefabs")]
     public GameObject playerPrefab;
     public GameObject blueprint;
@@ -92,7 +94,7 @@ public class GameController : MonoBehaviour
 
             case GameState.LOBBY:
                 levelGenerator.currentLevel = -1;
-                currentRoom = GameObject.Find("Map");
+                currentRoom = m_LobbyRoom;
 
                 SpawnPlayer();
                 SetupCamera();

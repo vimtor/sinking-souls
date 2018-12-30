@@ -32,10 +32,6 @@ public class AudioManager : MonoBehaviour {
 
     }
 
-    private void Start() {
-        music[0].source.Play();
-    }
-
     private void SetupSound(Sound sound) {
 
         sound.source = gameObject.AddComponent<AudioSource>();
@@ -47,8 +43,8 @@ public class AudioManager : MonoBehaviour {
 
     }
 
-    public void ChangeVolume(float volume, SoundType type) {
-
+    public void ChangeVolume(float volume, SoundType type)
+    {
         if(volume > 1 || volume < 0) Debug.LogError("Volume value is not valid.");
 
         switch (type) {
@@ -63,8 +59,8 @@ public class AudioManager : MonoBehaviour {
 
     }
 
-    public void Play(string name) {
-
+    public void Play(string name)
+    {
         Sound soundToPlay = Array.Find(effects, sound => sound.name == name);
 
         if (soundToPlay == null) {
@@ -73,7 +69,19 @@ public class AudioManager : MonoBehaviour {
         }
 
         soundToPlay.source.Play();
+    }
 
+    public void PlayMusic(string name)
+    {
+        Sound soundToPlay = Array.Find(music, sound => sound.name == name);
+
+        if (soundToPlay == null)
+        {
+            Debug.LogWarning("Sound" + name + " not found");
+            return;
+        }
+
+        soundToPlay.source.Play();
     }
 
 

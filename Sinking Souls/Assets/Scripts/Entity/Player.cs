@@ -80,7 +80,7 @@ public class Player : Entity {
         // Get animation lengths.
         var animationClips = m_Animator.runtimeAnimatorController.animationClips;
         m_AttackLength = Array.Find(animationClips, clip => clip.name == "Klaus_1").length;
-        m_DashLength = Array.Find(animationClips, clip => clip.name == "Forward Roll").length * 0.9f;
+        m_DashLength = Array.Find(animationClips, clip => clip.name == "ForwardRoll").length * 0.9f;
         m_SpellLength = Array.Find(animationClips, clip => clip.name == "Throw").length;
 
         // Initialize private members.

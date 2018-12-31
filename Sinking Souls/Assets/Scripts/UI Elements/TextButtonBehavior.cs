@@ -33,8 +33,8 @@ public class TextButtonBehavior : MonoBehaviour,
 
     private void SelectButton()
     {
-        if (Random.value < 0.5f) AudioManager.instance.Play("MenuButton_1");
-        else AudioManager.instance.Play("MenuButton_2");
+        if (Random.value < 0.5f) AudioManager.Instance.PlayEffect("MenuButton_1");
+        else AudioManager.Instance.PlayEffect("MenuButton_2");
 
         m_TextMesh.text = "- " + m_TextBackup + " -";
     }
@@ -46,7 +46,7 @@ public class TextButtonBehavior : MonoBehaviour,
 
     private void SubmitButton()
     {
-        AudioManager.instance.Play("MenuButton_Click");
+        AudioManager.Instance.PlayEffect("MenuButton_Click");
     }
 
 }

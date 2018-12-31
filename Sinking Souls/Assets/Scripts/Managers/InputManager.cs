@@ -37,7 +37,8 @@ public class InputManager : MonoBehaviour {
     }
     #endregion
 
-    public static bool ButtonSwitch(ref bool button) {
+    public static bool ButtonSwitch(ref bool button)
+    {
         if (button) {
             button = false;
             return true;
@@ -50,8 +51,8 @@ public class InputManager : MonoBehaviour {
         return LeftJoystick == Vector2.zero;
     }
 
-    void Update() {
-
+    void Update()
+    {
         if (!buttonA) buttonA = Input.GetButtonDown("BUTTON_A") || Input.GetKeyDown(KeyCode.U);
         if (!buttonB) buttonB = Input.GetButtonDown("BUTTON_B") || Input.GetKeyDown(KeyCode.I);
         if (!buttonX) buttonX = Input.GetButtonDown("BUTTON_X") || Input.GetKeyDown(KeyCode.O);
@@ -61,8 +62,7 @@ public class InputManager : MonoBehaviour {
         LeftJoystick = new Vector2(Input.GetAxis("JOYSTICK_LH"), Input.GetAxis("JOYSTICK_LV"));
         RightJoystick = new Vector2(Input.GetAxis("JOYSTICK_RH"), Input.GetAxis("JOYSTICK_RV"));
 
-        // if (LeftJoystickZero()) LeftJoystick = new Vector2(Input.GetAxis("KEY_HORIZONTAL"), Input.GetAxis("KEY_VERTICAL"));
-
+        if (LeftJoystickZero()) LeftJoystick = new Vector2(Input.GetAxis("KEY_HORIZONTAL"), Input.GetAxis("KEY_VERTICAL"));
     }
 
 

@@ -59,53 +59,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e1c174035a3a8489facddf829feba3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effects:
-  - name: Attack_1
-    clip: {fileID: 8300000, guid: 946555c8ed30e1d4a981535b6606db38, type: 3}
-    volume: 0.3
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Attack_2
-    clip: {fileID: 8300000, guid: db32cd2628adc7d40844b1d5635a18de, type: 3}
-    volume: 0.3
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: BombExplosion
-    clip: {fileID: 8300000, guid: 84d70dbe2694028498c5d8635de1f9d4, type: 3}
-    volume: 0.05
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Walk
-    clip: {fileID: 8300000, guid: ae427817bc30982468abd656505059d0, type: 3}
-    volume: 0.25
-    pitch: 0.75
-    loop: 1
-    source: {fileID: 0}
+  m_AudioMixer: {fileID: 24100000, guid: 7d544745a2fc46442b72ec9193a586d9, type: 2}
+  m_EffectsGroup: {fileID: 243920509866495750, guid: 7d544745a2fc46442b72ec9193a586d9,
+    type: 2}
+  m_MusicGroup: {fileID: 243697107603061852, guid: 7d544745a2fc46442b72ec9193a586d9,
+    type: 2}
+  m_Effects:
   - name: MenuButton_1
     clip: {fileID: 8300000, guid: e1e7686cce675454a9e5c50fdbd0f0ee, type: 3}
-    volume: 0.4
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: MenuButton_2
     clip: {fileID: 8300000, guid: 55908936895c66344b1454582e29d937, type: 3}
-    volume: 0.4
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
   - name: MenuButton_Click
     clip: {fileID: 8300000, guid: 57fba2112bfc45f4f805fc2bc4df1773, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 0
     source: {fileID: 0}
-  music:
-  - name: Soundtrack
-    clip: {fileID: 8300000, guid: b6bba6103eb11a442899906782fa7859, type: 3}
-    volume: 0.3
-    pitch: 1
-    loop: 1
-    source: {fileID: 0}
+  m_Music: []

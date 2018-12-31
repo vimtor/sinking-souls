@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+#if UNITY_EDITOR
+
 public class AICreatorTool : EditorWindow {
 
     public class ActionField {
@@ -172,3 +174,5 @@ public class AICreatorTool : EditorWindow {
         }
     }
 }
+
+#endif

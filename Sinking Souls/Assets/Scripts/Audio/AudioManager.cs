@@ -1,23 +1,29 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Audio;
 
-public class AudioManager : MonoBehaviour {
+public class AudioManager : MonoBehaviour
+{
+    public static AudioManager m_Instance;
+    public static AudioManager Instance
+    {
+        get { return m_Instance; }
+    }
 
-    public static AudioManager instance = null; // Singleton.
+    [Header("AudioMixer Setup")]
+    public AudioMixer m_AudioMixer;
+    public AudioMixerGroup m_EffectsGroup;
+    public AudioMixerGroup m_MusicGroup;
 
     [Header("Sound Lists")]
-    public Sound[] effects;
-    public Sound[] music;
-
-    public enum SoundType {
-        EFFECT, MUSIC
-    };
+    public Sound[] m_Effects;
+    public Sound[] m_Music;
 
     private void Awake() {
 
         #region SINGLETON
-        if(instance == null) {
-            instance = this;
+        if(m_Instance == null) {
+            m_Instance = this;
         }
         else {
             Destroy(gameObject);
@@ -27,41 +33,55 @@ public class AudioManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
         #endregion
 
-        Array.ForEach(effects, sound => SetupSound(sound));
-        Array.ForEach(music, sound => SetupSound(sound));
-
+        Array.ForEach(m_Effects, sound => SetupEffect(sound));
+        Array.ForEach(m_Music, sound => SetupMusic(sound));
     }
 
-    private void SetupSound(Sound sound) {
-
+    #region Setup Functions
+    private void SetupSound(Sound sound)
+    {
         sound.source = gameObject.AddComponent<AudioSource>();
 
         sound.source.clip = sound.clip;
         sound.source.volume = sound.volume;
         sound.source.pitch = sound.pitch;
         sound.source.loop = sound.loop;
-
     }
 
-    public void ChangeVolume(float volume, SoundType type)
+    private void SetupEffect(Sound sound)
     {
-        if(volume > 1 || volume < 0) Debug.LogError("Volume value is not valid.");
-
-        switch (type) {
-            case SoundType.EFFECT:
-                Array.ForEach(effects, sound => sound.source.volume = volume);
-                break;
-
-            case SoundType.MUSIC:
-                Array.ForEach(music, sound => sound.source.volume = volume);
-                break;
-        }
-
+        SetupSound(sound);
+        sound.source.outputAudioMixerGroup = m_EffectsGroup;
     }
 
-    public void Play(string name)
+    private void SetupMusic(Sound sound)
     {
-        Sound soundToPlay = Array.Find(effects, sound => sound.name == name);
+        SetupSound(sound);
+        sound.source.outputAudioMixerGroup = m_MusicGroup;
+    }
+    #endregion
+
+    #region Change Volume Functions
+    public void SetMasterVolume(float volume)
+    {
+        m_AudioMixer.SetFloat("MasterVolume", volume);
+    }
+
+    public void SetEffectsVolume(float volume)
+    {
+        m_AudioMixer.SetFloat("EffectsVolume", volume);
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        m_AudioMixer.SetFloat("MusicVolume", volume);
+    }
+    #endregion
+
+    #region Audio Playing Functions
+    public void PlayEffect(string name)
+    {
+        Sound soundToPlay = Array.Find(m_Effects, sound => sound.name == name);
 
         if (soundToPlay == null) {
             Debug.LogWarning("Sound" + name + " not found");
@@ -73,7 +93,7 @@ public class AudioManager : MonoBehaviour {
 
     public void PlayMusic(string name)
     {
-        Sound soundToPlay = Array.Find(music, sound => sound.name == name);
+        Sound soundToPlay = Array.Find(m_Music, sound => sound.name == name);
 
         if (soundToPlay == null)
         {
@@ -87,7 +107,7 @@ public class AudioManager : MonoBehaviour {
 
     public void Pause(string name) {
 
-        Sound soundToPlay = Array.Find(effects, sound => sound.name == name);
+        Sound soundToPlay = Array.Find(m_Effects, sound => sound.name == name);
 
         if (soundToPlay == null) {
             Debug.LogWarning("Sound" + name + " not found");
@@ -99,7 +119,7 @@ public class AudioManager : MonoBehaviour {
 
     public void Stop(string name)
     {
-        Sound soundToPlay = Array.Find(effects, sound => sound.name == name);
+        Sound soundToPlay = Array.Find(m_Effects, sound => sound.name == name);
 
         if (soundToPlay == null)
         {
@@ -109,4 +129,5 @@ public class AudioManager : MonoBehaviour {
 
         soundToPlay.source.Stop();
     }
+    #endregion
 }

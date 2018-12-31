@@ -36,7 +36,7 @@ public class BombBehaviour : MonoBehaviour {
 
         Instantiate(effect, transform.position, Quaternion.identity).transform.localEulerAngles += new Vector3(90, 0, 0);
         CameraManager.instance.Shake(0.1f, 0.08f);
-        AudioManager.instance.Play("BombExplosion");
+        AudioManager.Instance.PlayEffect("BombExplosion");
         StartCoroutine(DestroyBomb());
     }
 

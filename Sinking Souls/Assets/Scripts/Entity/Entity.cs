@@ -178,9 +178,9 @@ public class Entity : MonoBehaviour
         m_Ability.Use(gameObject);
     }
 
-    protected void PlaySound(string name)  { AudioManager.instance.Play(name);  }
-    protected void StopSound(string name)  { AudioManager.instance.Stop(name);  }
-    protected void PauseSound(string name) { AudioManager.instance.Pause(name); }
+    protected void PlaySound(string name)  { AudioManager.Instance.PlayEffect(name);  }
+    protected void StopSound(string name)  { AudioManager.Instance.Stop(name);  }
+    protected void PauseSound(string name) { AudioManager.Instance.Pause(name); }
     #endregion
 
     #region React Functions

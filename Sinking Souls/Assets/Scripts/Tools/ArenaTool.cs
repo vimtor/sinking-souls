@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+#if UNITY_EDITOR
+
 public class ArenaTool : EditorWindow {
 
     public GameObject enemy;
@@ -165,3 +167,5 @@ public class ArenaTool : EditorWindow {
     }
 
 }
+
+#endif

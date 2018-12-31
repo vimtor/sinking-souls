@@ -3,10 +3,10 @@ using System.Collections;
 using System;
 using UnityEngine;
 
-public class OptionManager : MonoBehaviour
+public class SettingsManager : MonoBehaviour
 {
-    private static OptionManager m_Instance;
-    public static OptionManager Instance
+    private static SettingsManager m_Instance;
+    public static SettingsManager Instance
     {
         get { return m_Instance; }
     }
@@ -47,18 +47,21 @@ public class OptionManager : MonoBehaviour
     public float EffectsVolume
     {
         set { m_EffectsVolume = value; }
+        get { return m_EffectsVolume; }
     }
 
     private float m_MusicVolume;
     public float MusicVolume
     {
         set { m_MusicVolume = value; }
+        get { return m_MusicVolume; }
     }
 
     private float m_MasterVolume;
     public float MasterVolume
     {
         set { m_MasterVolume = value; }
+        get { return m_MasterVolume; }
     }
     #endregion
 
@@ -79,6 +82,11 @@ public class OptionManager : MonoBehaviour
         #endregion
 
         m_Resolutions = Screen.resolutions;
+
+        AudioManager.Instance.AudioMixer.GetFloat("MasterVolume", out m_MasterVolume);
+        AudioManager.Instance.AudioMixer.GetFloat("EffectsVolume", out m_EffectsVolume);
+        AudioManager.Instance.AudioMixer.GetFloat("MusicVolume", out m_MusicVolume);
+
     }
 
     public void SetOptions()

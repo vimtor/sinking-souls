@@ -35,6 +35,12 @@ public class InputManager : MonoBehaviour {
     public static bool ButtonRT() {
         return ButtonSwitch(ref buttonY);
     }
+
+    private static bool start;
+    public static bool Start()
+    {
+        return ButtonSwitch(ref start);
+    }
     #endregion
 
     public static bool ButtonSwitch(ref bool button)
@@ -57,7 +63,9 @@ public class InputManager : MonoBehaviour {
         if (!buttonB) buttonB = Input.GetButtonDown("BUTTON_B") || Input.GetKeyDown(KeyCode.I);
         if (!buttonX) buttonX = Input.GetButtonDown("BUTTON_X") || Input.GetKeyDown(KeyCode.O);
         if (!buttonY) buttonY = Input.GetButtonDown("BUTTON_Y") || Input.GetKeyDown(KeyCode.P);
+
         if (!buttonRT) buttonRT = Input.GetAxis("BUTTON_RT") >= 0.5;
+        if (!start) start = Input.GetButtonDown("START") || Input.GetKeyDown(KeyCode.Escape);
 
         LeftJoystick = new Vector2(Input.GetAxis("JOYSTICK_LH"), Input.GetAxis("JOYSTICK_LV"));
         RightJoystick = new Vector2(Input.GetAxis("JOYSTICK_RH"), Input.GetAxis("JOYSTICK_RV"));

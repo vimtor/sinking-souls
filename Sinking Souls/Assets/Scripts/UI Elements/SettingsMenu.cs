@@ -9,7 +9,7 @@ using TMPro;
 /// This class is thought to be an adapter or interface between the UI and OptionsManager.
 /// It has different functions that use OptionsManager functions.
 /// </summary>
-public class OptionsMenu : MonoBehaviour
+public class SettingsMenu : MonoBehaviour
 {
     public TMP_Dropdown m_ResolutionsDropdown;
     public TMP_Dropdown m_GraphicsDropdown;
@@ -22,7 +22,7 @@ public class OptionsMenu : MonoBehaviour
     void Start ()
     {
         #region ResolutionDropdown Setup
-        var resolutions = OptionManager.Instance.Resolutions;
+        var resolutions = SettingsManager.Instance.Resolutions;
 
         // Add the resolution options as formatted strings.
         List<string> options = new List<string>();
@@ -42,51 +42,55 @@ public class OptionsMenu : MonoBehaviour
         #endregion
 
         #region QualityDropdown Setup
-        List<string> qualities = new List<string>(OptionManager.Instance.Qualities);
+        List<string> qualities = new List<string>(SettingsManager.Instance.Qualities);
         m_GraphicsDropdown.ClearOptions();
         m_GraphicsDropdown.AddOptions(qualities);
 
         m_GraphicsDropdown.value = QualitySettings.GetQualityLevel();
         m_ResolutionsDropdown.RefreshShownValue();
         #endregion
+
+        m_MasterSlider.value = SettingsManager.Instance.MasterVolume;
+        m_EffectsSlider.value = SettingsManager.Instance.EffectsVolume;
+        m_MusicSlider.value = SettingsManager.Instance.MusicVolume;
     }
 
     #region Graphics API
     public void SetOptions()
     {
-        OptionManager.Instance.SetOptions();
+        SettingsManager.Instance.SetOptions();
     }
 
     public void SetResolution()
     {
-        OptionManager.Instance.ResolutionIndex = m_ResolutionsDropdown.value;
+        SettingsManager.Instance.ResolutionIndex = m_ResolutionsDropdown.value;
     }
 
     public void SetFullscreen()
     {
-        OptionManager.Instance.IsFullscreen = m_FullscreenToggle.isOn;
+        SettingsManager.Instance.IsFullscreen = m_FullscreenToggle.isOn;
     }
 
     public void SetQuality()
     {
-        OptionManager.Instance.QualityLevel = m_GraphicsDropdown.value;
+        SettingsManager.Instance.QualityLevel = m_GraphicsDropdown.value;
     }
     #endregion
 
     #region Audio API
     public void SetMasterVolume()
     {
-        OptionManager.Instance.MasterVolume = m_MasterSlider.value;
+        SettingsManager.Instance.MasterVolume = m_MasterSlider.value;
     }
 
     public void SetEffectsVolume()
     {
-        OptionManager.Instance.EffectsVolume = m_EffectsSlider.value;
+        SettingsManager.Instance.EffectsVolume = m_EffectsSlider.value;
     }
 
     public void SetMusicVolume()
     {
-        OptionManager.Instance.MusicVolume = m_MusicSlider.value;
+        SettingsManager.Instance.MusicVolume = m_MusicSlider.value;
     }
     #endregion
 }

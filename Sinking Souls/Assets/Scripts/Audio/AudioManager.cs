@@ -11,16 +11,21 @@ public class AudioManager : MonoBehaviour
     }
 
     [Header("AudioMixer Setup")]
-    public AudioMixer m_AudioMixer;
-    public AudioMixerGroup m_EffectsGroup;
-    public AudioMixerGroup m_MusicGroup;
+    [SerializeField] private AudioMixer m_AudioMixer;
+    public AudioMixer AudioMixer
+    {
+        get { return m_AudioMixer; }
+    }
+
+    [SerializeField] private AudioMixerGroup m_EffectsGroup;
+    [SerializeField] private AudioMixerGroup m_MusicGroup;
 
     [Header("Sound Lists")]
     public Sound[] m_Effects;
     public Sound[] m_Music;
 
-    private void Awake() {
-
+    private void Awake()
+    {
         #region SINGLETON
         if(m_Instance == null) {
             m_Instance = this;
@@ -84,7 +89,7 @@ public class AudioManager : MonoBehaviour
         Sound soundToPlay = Array.Find(m_Effects, sound => sound.name == name);
 
         if (soundToPlay == null) {
-            Debug.LogWarning("Sound" + name + " not found");
+            Debug.LogWarning("Sound " + name + " not found");
             return;
         }
 
@@ -97,7 +102,7 @@ public class AudioManager : MonoBehaviour
 
         if (soundToPlay == null)
         {
-            Debug.LogWarning("Sound" + name + " not found");
+            Debug.LogWarning("Sound " + name + " not found");
             return;
         }
 

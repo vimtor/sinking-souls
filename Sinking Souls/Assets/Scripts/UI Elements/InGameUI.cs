@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using System;
+using TMPro;
 
 public class InGameUI : MonoBehaviour {
 
@@ -18,21 +16,23 @@ public class InGameUI : MonoBehaviour {
     private Player playerRef;
 
     private Image healthAmount;
-    private Text soulsAmount;
-    private Text abilityCooldown;
+    private TextMeshProUGUI soulsAmount;
+    private TextMeshProUGUI abilityCooldown;
     private Image abilityOverlay;
 
 
-    private void Start() {
+    private void Start()
+    {
         healthAmount = healthbar.transform.Find("Amount").GetComponent<Image>();
-        soulsAmount = souls.GetComponent<Text>();
-        abilityCooldown = ability.transform.Find("Cooldown").GetComponent<Text>();
+        soulsAmount = souls.GetComponent<TextMeshProUGUI>();
+        abilityCooldown = ability.transform.Find("Cooldown").GetComponent<TextMeshProUGUI>();
         abilityOverlay = ability.transform.Find("Overlay").GetComponent<Image>();
 
         playerRef = GameController.instance.player.GetComponent<Player>();
     }
 
-    private void Update() {
+    private void Update()
+    {
         healthAmount.fillAmount = playerRef.Health / playerRef.MaxHealth;
         soulsAmount.text = GameController.instance.souls.ToString();
 

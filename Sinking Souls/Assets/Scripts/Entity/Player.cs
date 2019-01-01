@@ -6,10 +6,15 @@ using System;
 
 public class Player : Entity {
 
+    #region State Logic
     delegate void StateAction();
 
     private enum PlayerState { DASHING, MOVING, ATTACKING, REACTING, SPELLING, NONE };
     private PlayerState m_PlayerState;
+
+    // To avoid transition overlaping.
+    private byte m_TransitionCount;
+    #endregion
 
     #region Game-feel Variables
     [Header("Movement parameters")]
@@ -20,19 +25,23 @@ public class Player : Entity {
         get { return m_MovementSpeed; }
         set { if (value > 0) m_MovementSpeed = value; }
     }
+    public float m_MaxMovementSpeed;
+    public float m_MovementRotationDamping;
+
+    [Space(10)]
+
     public float m_DashMovementSpeed;
     public float m_DashSpeed;
-    private float m_OriginalMovementSpeed;
+    public float m_DashRotationDamping;
+
+    [Space(10)]
 
     [Tooltip("How much the player will advance which each step of the attack.")]
     [Range(0.0f, 1.0f)] public float m_AttackStepForce;
-
-    [Space(5)]
-
-    public float m_MovementRotationDamping;
     public float m_AttackRotationDamping;
-    public float m_DashRotationDamping;
-    private float m_RotationDamping;   
+
+    private float m_RotationDamping;
+    private float m_OriginalMovementSpeed;
     #endregion
 
     #region Animator Variables
@@ -64,11 +73,9 @@ public class Player : Entity {
     #endregion
 
     
-
-    // To avoid transition overlaping.
-    private byte m_TransitionCount;
-
-    public void SetupPlayer() {
+    
+    public void SetupPlayer()
+    {
         OnStart();
 
         // Calculate the forward and side vectors relative to the camera.
@@ -88,6 +95,8 @@ public class Player : Entity {
         m_PlayerState = PlayerState.MOVING;
         m_AbilityCooldown = 0.0f;
         m_CanMove = true;
+        m_WeaponCollider.enabled = false;
+        m_RotationDamping = m_MovementRotationDamping;
     }
 
     private void FixedUpdate()
@@ -104,9 +113,6 @@ public class Player : Entity {
         switch (m_PlayerState)
         {
             case PlayerState.DASHING:
-                m_RotationDamping = m_DashRotationDamping;
-                m_MovementSpeed = m_DashMovementSpeed;
-
                 Move();
                 Rotate();
 
@@ -127,19 +133,12 @@ public class Player : Entity {
                 break;
 
             case PlayerState.MOVING:
-                // Move this to an out function.
-                gameObject.layer = LayerMask.NameToLayer("Player");
-                m_RotationDamping = m_MovementRotationDamping;
-                m_MovementSpeed = m_OriginalMovementSpeed;
-                m_WeaponCollider.enabled = false;
-
-
                 m_Animator.SetFloat(m_SpeedParam, m_Direction.magnitude, m_MovementDamping, Time.deltaTime);
 
                 Rotate();
                 Move();
 
-                if (InputManager.ButtonB()) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING);
+                if (InputManager.ButtonB()) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
                 if (InputManager.ButtonX()) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
                 if (InputManager.ButtonY())
                 {
@@ -160,7 +159,7 @@ public class Player : Entity {
                 if (InputManager.ButtonX()) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING); // Enable combo strings.
                 Rotate(); // Rotate with attacking rotation damping.
 
-                if (InputManager.ButtonB()) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING);
+                if (InputManager.ButtonB()) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
                 if (InputManager.ButtonY())
                 {
                     if (m_AbilityCooldown <= 0.0f)
@@ -171,7 +170,7 @@ public class Player : Entity {
                 break;
 
             case PlayerState.SPELLING:
-                if (InputManager.ButtonB()) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING);
+                if (InputManager.ButtonB()) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
 
                 // To avoid capturing input and later using it.
                 InputManager.ButtonX();
@@ -187,12 +186,12 @@ public class Player : Entity {
 
     #region ChangeState Functions
 
-    private void ChangeState(StateAction action, float delay, PlayerState newState, PlayerState returnState)
+    private void ChangeState(StateAction action, float delay, PlayerState newState, PlayerState returnState, bool resetVelocity = true)
     {
-        StartCoroutine(ChangeStateCoroutine(action, delay, newState, returnState));
+        StartCoroutine(ChangeStateCoroutine(action, delay, newState, returnState, resetVelocity));
     }
 
-    private IEnumerator ChangeStateCoroutine(StateAction action, float delay, PlayerState newState, PlayerState returnState)
+    private IEnumerator ChangeStateCoroutine(StateAction action, float delay, PlayerState newState, PlayerState returnState, bool resetVelocity)
     {
         m_TransitionCount++;
 
@@ -203,8 +202,9 @@ public class Player : Entity {
         
         if (m_TransitionCount <= 1)
         {
-            m_Rigidbody.velocity = Vector3.zero;
+            if (resetVelocity) m_Rigidbody.velocity = Vector3.zero;
             m_PlayerState = returnState;
+            if (m_PlayerState == PlayerState.MOVING) ResetMovement();
         } 
 
         m_TransitionCount--;
@@ -217,7 +217,14 @@ public class Player : Entity {
     private void Move()
     {
         // In the future change this to add force and put materials with friction in them.
-        m_Rigidbody.MovePosition(transform.position + transform.forward * m_MovementSpeed * m_Direction.magnitude * Time.fixedDeltaTime);
+        // m_Rigidbody.MovePosition(transform.position + transform.forward * m_MovementSpeed * m_Direction.magnitude * Time.fixedDeltaTime);
+        Vector3 velocity = m_Rigidbody.velocity;
+        velocity.y = 0;
+
+        if (velocity.magnitude < m_MaxMovementSpeed)
+        {
+            m_Rigidbody.AddForce(m_Direction * m_MovementSpeed * Time.fixedDeltaTime);
+        }   
     }
 
     private void Rotate()
@@ -226,6 +233,14 @@ public class Player : Entity {
 
         Quaternion rotation = Quaternion.LookRotation(m_Direction);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * m_RotationDamping);
+    }
+
+    private void ResetMovement()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Player");
+        m_RotationDamping = m_MovementRotationDamping;
+        m_MovementSpeed = m_OriginalMovementSpeed;
+        m_WeaponCollider.enabled = false;
     }
 
     #endregion
@@ -251,6 +266,9 @@ public class Player : Entity {
 
     private void Dash()
     {
+        m_RotationDamping = m_DashRotationDamping;
+        m_MovementSpeed = m_DashMovementSpeed;
+
         gameObject.layer = LayerMask.NameToLayer("Dash");
         m_WeaponCollider.enabled = false;
 

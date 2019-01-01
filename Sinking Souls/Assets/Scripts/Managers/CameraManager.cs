@@ -7,6 +7,8 @@ public class CameraManager : MonoBehaviour {
 
     public static CameraManager instance = null; // Singleton.
 
+    public float offsetMultiplier;
+
     [HideInInspector] public Transform player;
 
     private CinemachineVirtualCamera virtualCamera;
@@ -35,9 +37,12 @@ public class CameraManager : MonoBehaviour {
     /// Setup initial center and offset values, based on how the camera is initially positioned.
     /// </summary>
     /// <param name="roomCenter"></param>
-    public void SetupCamera (Vector3 roomCenter) {
+    public void SetupCamera (Vector3 roomCenter)
+    {
         center = roomCenter;
-        offset = new Vector3(-21, 17, -21);
+        // offset = new Vector3(-21, 17, -21);
+        offset = new Vector3(-1, 0.8f, -1);
+        offset *= offsetMultiplier;
         boxCollider = GetComponent<BoxCollider>();
 
         SetupCenter(center);
@@ -46,10 +51,7 @@ public class CameraManager : MonoBehaviour {
 
         virtualCamera.Follow = player.transform.Find("CameraFollow");
     }
-	
-	void Update () {
-        // MoveCollider();
-    }
+
 
     private void MoveCollider() {
         Vector3 size = boxCollider.size;

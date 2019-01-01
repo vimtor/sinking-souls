@@ -10,7 +10,12 @@ public class AIController : MonoBehaviour {
     public State remainState;
 
     [HideInInspector] public GameObject player;
-    [HideInInspector] public Animator animator;
+    private Animator m_Animator;
+    public Animator Animator
+    {
+        get { return m_Animator; }
+    }
+
     [HideInInspector] public NavMeshAgent navMeshAgent;
     [HideInInspector] public float stateTimeElapsed;
     [HideInInspector] public float timeElapsed;
@@ -31,7 +36,7 @@ public class AIController : MonoBehaviour {
         //inRangeTime = 0;
         aiActive = true;
         navMeshAgent = GetComponent<NavMeshAgent>();
-        animator = GetComponent<Animator>();
+        m_Animator = GetComponent<Animator>();
 
         defaultAbility = gameObject.GetComponent<Enemy>().ability;
         if (aiActive) navMeshAgent.enabled = true;
@@ -96,18 +101,18 @@ public class AIController : MonoBehaviour {
 
     public void SetAnimBool(string str) {
 
-        animator.SetBool("RUN", false);
-        animator.SetBool("IDLE", false);
-        animator.SetBool("ATTACK", false);
-        animator.SetBool("REACT", false);
-        animator.SetBool("SPELL", false);
-        animator.SetBool("TELEPORT", false);
-        animator.SetBool("TURN", false);
-        animator.SetBool("CHARGESTAB", false);
-        animator.SetBool("STAB", false);
-        animator.SetBool("ENDSTAB", false);
+        m_Animator.SetBool("RUN", false);
+        m_Animator.SetBool("IDLE", false);
+        m_Animator.SetBool("ATTACK", false);
+        m_Animator.SetBool("REACT", false);
+        m_Animator.SetBool("SPELL", false);
+        m_Animator.SetBool("TELEPORT", false);
+        m_Animator.SetBool("TURN", false);
+        m_Animator.SetBool("CHARGESTAB", false);
+        m_Animator.SetBool("STAB", false);
+        m_Animator.SetBool("ENDSTAB", false);
 
-        animator.SetBool(str, true);
+        m_Animator.SetBool(str, true);
 
     }
 

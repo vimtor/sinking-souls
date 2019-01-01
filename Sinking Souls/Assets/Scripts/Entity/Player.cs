@@ -224,7 +224,7 @@ public class Player : Entity {
         if (velocity.magnitude < m_MaxMovementSpeed)
         {
             m_Rigidbody.AddForce(m_Direction * m_MovementSpeed * Time.fixedDeltaTime);
-        }   
+        }
     }
 
     private void Rotate()

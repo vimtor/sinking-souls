@@ -144,7 +144,8 @@ public class ArenaTool : EditorWindow {
         return true;
     }
 
-    private void SpawnEnemy() {
+    private void SpawnEnemy()
+    {
         GameObject instantiated = Instantiate(enemy);
         instantiated.transform.position = spawnHolder.transform.GetChild(0).position;
         instantiated.GetComponent<AIController>().SetupAI();

@@ -3,15 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "PlugableAI/Actions/React")]
-public class HitAction : Action {
-
-    public bool waitAnimation;
-
-    public override void Act(AIController controller) {
-
-        if (waitAnimation)
-            elapsed = controller.CheckIfCountDownElapsed(controller.GetComponent<Enemy>().clipLength["ReactAnim"]);
-
+public class HitAction : Action
+{
+    public override void Act(AIController controller)
+    {
         controller.navMeshAgent.enabled = false;
         controller.SetAnimBool("REACT");
 

@@ -4,9 +4,12 @@ using UnityEngine;
 
 [CreateAssetMenu (menuName = "PlugableAI/Actions/Chase")]
 public class ChaseAction : Action {
-	public override void Act(AIController controller) {
+	public override void Act(AIController controller)
+    {
         controller.navMeshAgent.enabled = true;
-        controller.SetAnimBool("RUN");
+        float speed = Vector3.Magnitude(controller.navMeshAgent.velocity);
+
+        controller.Animator.SetFloat("Speed", speed);
         controller.navMeshAgent.SetDestination(controller.player.transform.position);
     }
 

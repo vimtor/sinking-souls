@@ -13,9 +13,6 @@ public class AilinHitAction : Action
     {
         controller.rageTime = 0;
         //Default reaction
-        if (waitAnimation)
-            elapsed = controller.CheckIfCountDownElapsed(controller.GetComponent<Enemy>().clipLength["ReactAnim"]);
-
         controller.navMeshAgent.enabled = false;
         controller.SetAnimBool("REACT");
 

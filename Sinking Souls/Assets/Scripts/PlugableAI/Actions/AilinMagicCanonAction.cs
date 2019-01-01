@@ -15,7 +15,6 @@ public class AilinMagicCanon : Action
     public override void Act(AIController controller)
     {
 
-        clipLength = controller.GetComponent<Enemy>().clipLength["SpellAnim"];
         controller.SetAnimBool("SPELL");
 
         if (!controller.GetComponent<Enemy>().AbilityThrown && (controller.CheckIfCountDownElapsed(clipLength * actionFrame)))
@@ -23,15 +22,6 @@ public class AilinMagicCanon : Action
             controller.gameObject.GetComponent<Enemy>().ability = spell;
             controller.GetComponent<Enemy>().ability.Use(controller.gameObject);
         }
-
-
-        if (controller.CheckIfCountDownElapsed(controller.GetComponent<Enemy>().clipLength["SpellAnim"]))
-        {
-            controller.stateTimeElapsed = 0;
-            controller.GetComponent<Enemy>().AbilityThrown = false;
-
-        }
-
     }
 
 }

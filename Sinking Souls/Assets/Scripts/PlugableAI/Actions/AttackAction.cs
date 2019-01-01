@@ -5,13 +5,16 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "PlugableAI/Actions/Attack")]
 public class AttackAction : Action {
 
-    public override void Act(AIController controller) {
-        controller.SetAnimBool("ATTACK");
-        controller.GetComponent<Enemy>().Weapon.Attack();
+    public override void Act(AIController controller)
+    {
+        controller.Animator.SetTrigger("Attack");
+
+        // To rotate while attacking.
         Rotate(controller, 2);
     }
 
-    private void Rotate(AIController controller, float _speed) {
+    private void Rotate(AIController controller, float _speed)
+    {
         Vector3 myPos = controller.gameObject.transform.position;
         Vector3 playerPos = controller.player.transform.position;
         Vector3 facingDir = playerPos - myPos;

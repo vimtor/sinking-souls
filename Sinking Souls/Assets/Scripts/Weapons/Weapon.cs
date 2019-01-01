@@ -17,10 +17,6 @@ public class Weapon : ScriptableObject {
     public float criticDamage;
     public Modifier modifier;
 
-    [Header("Animation Properties")]
-    [Range(0.0f, 5.0f)] public float startHitting;
-    [Range(0.0f, 5.0f)] public float endHitting;
-
     [HideInInspector] public float damage;
     [HideInInspector] public GameObject weapon;
 
@@ -31,7 +27,8 @@ public class Weapon : ScriptableObject {
         get { return boxCollider; }
     }
 
-    public void Instantiate(GameObject parent, GameObject owner) {
+    public void Instantiate(GameObject parent, GameObject owner)
+    {
         weapon = Instantiate(model, parent.transform);
         weapon.transform.parent = parent.transform;
 
@@ -44,6 +41,8 @@ public class Weapon : ScriptableObject {
             originalSize = boxCollider.size;
             boxCollider.enabled = false;
         }
+
+        damage = baseDamage;
     }
 
     public void Attack() {

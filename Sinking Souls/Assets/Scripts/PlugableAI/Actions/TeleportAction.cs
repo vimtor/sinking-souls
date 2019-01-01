@@ -9,18 +9,13 @@ public class TeleportAction : Action {
     [Range(0.0f, 1.0f)] public float actionFrame;
     public float radius;
 
-    public override void Act(AIController controller) {
-
+    public override void Act(AIController controller)
+    {
         controller.SetAnimBool("TELEPORT");
-        float clipLenght = controller.GetComponent<Enemy>().clipLength["TeleportAnim"];
-        elapsed = controller.CheckIfCountDownElapsed(clipLenght);
 
-        if (controller.CheckIfCountDownElapsed(clipLenght * actionFrame)) {
-            Vector3 newPosition = RandomNavmeshLocation(controller);
-            controller.transform.position = newPosition;
-            elapsed = true;
-        }
-        
+        Vector3 newPosition = RandomNavmeshLocation(controller);
+        controller.transform.position = newPosition;
+        elapsed = true;
     }
 
     public Vector3 RandomNavmeshLocation(AIController controller) {

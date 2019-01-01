@@ -122,6 +122,7 @@ public class GameController : MonoBehaviour
 
                 SpawnPlayer();
                 SetupCamera();
+                SetupPlayer();
 
                 godMode = true;
                 break;

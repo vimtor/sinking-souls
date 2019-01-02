@@ -1,71 +1,79 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-// Source Implementaion: https://drive.google.com/file/d/1CPFBDIOvw45Y8DtUXx_A4j4VAxMRJuav/view?usp=sharing
-
+// Each Update captures if the button is pressed and gets cleaned when the fixed updates finish.
+//
+// If you want to check input on the fixed update use the simple getter,
+// but in the update clean the input once captured.
 
 public class InputManager : MonoBehaviour {
 
     public static Vector2 LeftJoystick;
     public static Vector2 RightJoystick;
 
-    #region --- BUTTON FUNCTIONS ---
-    private static bool buttonX;
-    public static bool ButtonX() {
-        return ButtonSwitch(ref buttonX);
-    }
-
-    private static bool buttonA;
-    public static bool ButtonA() {
-        return ButtonSwitch(ref buttonA);
-    }
-
-    private static bool buttonB;
-    public static bool ButtonB() {
-        return ButtonSwitch(ref buttonB);
-    }
-
-    private static bool buttonY;
-    public static bool ButtonY() {
-        return ButtonSwitch(ref buttonY);
-    }
-
-    private static bool buttonRT;
-    public static bool ButtonRT() {
-        return ButtonSwitch(ref buttonY);
-    }
-
-    private static bool start;
-    public static bool Start()
+    #region Button Variables
+    public static bool m_ButtonX;
+    public static bool ButtonX
     {
-        return ButtonSwitch(ref start);
+        get { return m_ButtonX; }
+        set { m_ButtonX = value; }
+    }
+
+    private static bool m_ButtonA;
+    public static bool ButtonA
+    {
+        get { return m_ButtonA; }
+        set { m_ButtonA = value; }
+    }
+
+    private static bool m_ButtonB;
+    public static bool ButtonB
+    {
+        get { return m_ButtonB; }
+        set { m_ButtonB = value; }
+    }
+
+    private static bool m_ButtonY;
+    public static bool ButtonY
+    {
+        get { return m_ButtonY; }
+        set { m_ButtonY = value; }
+    }
+
+    private static bool m_ButtonRT;
+    public static bool ButtonRT
+    {
+        get { return m_ButtonRT; }
+        set { m_ButtonRT = value; }
+    }
+
+    private static bool m_ButtonStart;
+    public static bool ButtonStart
+    {
+        get { return m_ButtonStart; }
+        set { m_ButtonStart = value; }
     }
     #endregion
-
-    public static bool ButtonSwitch(ref bool button)
-    {
-        if (button) {
-            button = false;
-            return true;
-        }
-
-        return false;
-    }
 
     public static bool LeftJoystickZero() {
         return LeftJoystick == Vector2.zero;
     }
 
+    private void Start()
+    {
+        StartCoroutine(CleanInput());
+    }
+
     void Update()
     {
-        if (!buttonA) buttonA = Input.GetButtonDown("BUTTON_A") || Input.GetKeyDown(KeyCode.U);
-        if (!buttonB) buttonB = Input.GetButtonDown("BUTTON_B") || Input.GetKeyDown(KeyCode.I);
-        if (!buttonX) buttonX = Input.GetButtonDown("BUTTON_X") || Input.GetKeyDown(KeyCode.O);
-        if (!buttonY) buttonY = Input.GetButtonDown("BUTTON_Y") || Input.GetKeyDown(KeyCode.P);
+        if (Input.GetButtonDown("BUTTON_A") || Input.GetKeyDown(KeyCode.U)) m_ButtonA = true;
+        if (Input.GetButtonDown("BUTTON_B") || Input.GetKeyDown(KeyCode.I)) m_ButtonB = true;
+        if (Input.GetButtonDown("BUTTON_X") || Input.GetKeyDown(KeyCode.O)) m_ButtonX = true; 
+        if (Input.GetButtonDown("BUTTON_Y") || Input.GetKeyDown(KeyCode.P)) m_ButtonY = true;
 
-        if (!buttonRT) buttonRT = Input.GetAxis("BUTTON_RT") >= 0.5;
-        if (!start) start = Input.GetButtonDown("START") || Input.GetKeyDown(KeyCode.Escape);
+        if (Input.GetAxis("BUTTON_RT") >= 0.5) m_ButtonRT = true;
+
+        if (Input.GetButtonDown("START") || Input.GetKeyDown(KeyCode.Escape)) m_ButtonStart = true;
 
         LeftJoystick = new Vector2(Input.GetAxis("JOYSTICK_LH"), Input.GetAxis("JOYSTICK_LV"));
         RightJoystick = new Vector2(Input.GetAxis("JOYSTICK_RH"), Input.GetAxis("JOYSTICK_RV"));
@@ -73,6 +81,19 @@ public class InputManager : MonoBehaviour {
         if (LeftJoystickZero()) LeftJoystick = new Vector2(Input.GetAxis("KEY_HORIZONTAL"), Input.GetAxis("KEY_VERTICAL"));
     }
 
+    IEnumerator CleanInput()
+    {
+        while (true)
+        {
+            yield return new WaitForFixedUpdate();
+            m_ButtonA = false;
+            m_ButtonB = false;
+            m_ButtonX = false;
+            m_ButtonY = false;
 
+            m_ButtonStart = false;
+            m_ButtonRT = false;
+        }
+    }
 
 }

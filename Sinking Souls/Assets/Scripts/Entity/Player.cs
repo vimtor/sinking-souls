@@ -115,20 +115,11 @@ public class Player : Entity {
                 Move();
                 Rotate();
 
-                if (InputManager.ButtonX()) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
-
-                // To avoid capturing input and later using it.
-                InputManager.ButtonB();
-                InputManager.ButtonY();
+                if (InputManager.ButtonX) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
                 break;
 
             case PlayerState.REACTING:
                 if (!m_Hitted) m_PlayerState = PlayerState.MOVING;
-
-                // To avoid capturing input and later using it.
-                InputManager.ButtonX();
-                InputManager.ButtonB();
-                InputManager.ButtonY();
                 break;
 
             case PlayerState.MOVING:
@@ -137,9 +128,9 @@ public class Player : Entity {
                 Rotate();
                 Move();
 
-                if (InputManager.ButtonB()) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
-                if (InputManager.ButtonX()) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
-                if (InputManager.ButtonY())
+                if (InputManager.ButtonB) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
+                if (InputManager.ButtonX) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
+                if (InputManager.ButtonY)
                 {
                     if (m_AbilityCooldown <= 0.0f)
                     {
@@ -155,11 +146,12 @@ public class Player : Entity {
                 if (m_Hitted) m_PlayerState = PlayerState.REACTING;
 
                 // Behaviour while attacking.
-                if (InputManager.ButtonX()) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING); // Enable combo strings.
+                if (InputManager.ButtonX) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING); // Enable combo strings.
+                
                 Rotate(); // Rotate with attacking rotation damping.
 
-                if (InputManager.ButtonB()) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
-                if (InputManager.ButtonY())
+                if (InputManager.ButtonB) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
+                if (InputManager.ButtonY)
                 {
                     if (m_AbilityCooldown <= 0.0f)
                     {
@@ -169,11 +161,8 @@ public class Player : Entity {
                 break;
 
             case PlayerState.SPELLING:
-                if (InputManager.ButtonB()) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
+                if (InputManager.ButtonB) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
 
-                // To avoid capturing input and later using it.
-                InputManager.ButtonX();
-                InputManager.ButtonY();
                 break;
 
             default:

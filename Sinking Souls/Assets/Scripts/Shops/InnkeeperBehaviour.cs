@@ -101,7 +101,7 @@ public class InnkeeperBehaviour : MonoBehaviour
         if (!inGameShopPanel.activeSelf)
         {
             //Open the store
-            if (InputManager.ButtonA() && (distPlayer.magnitude < range))
+            if (InputManager.ButtonA && (distPlayer.magnitude < range))
             {
                 inGameShopPanel.SetActive(true);
                 price = GameObject.Find("SoulsPrice").GetComponent<Text>();
@@ -130,7 +130,7 @@ public class InnkeeperBehaviour : MonoBehaviour
                 StartCoroutine(waitTime(0.3f));
             }
             //Close the store
-            if (InputManager.ButtonB())
+            if (InputManager.ButtonB)
             {
                 inGameShopPanel.SetActive(false);
                 GameController.instance.player.GetComponent<Player>().CanMove = true;

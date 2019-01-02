@@ -80,7 +80,7 @@ public class AlchemistBehaviour : MonoBehaviour
 
         if (!shopPanel.activeSelf) {
             // Open the store.
-            if (InputManager.ButtonA() && (distPlayer.magnitude < range)) {
+            if (InputManager.ButtonA && (distPlayer.magnitude < range)) {
                 shopPanel.SetActive(true);
                 price = GameObject.Find("SoulsPrice").GetComponent<Text>();
                 remaining = GameObject.Find("SoulsRemaining").GetComponent<Text>();
@@ -104,7 +104,7 @@ public class AlchemistBehaviour : MonoBehaviour
             }
 
             // Close the store.
-            if (InputManager.ButtonB()) {
+            if (InputManager.ButtonB) {
                 shopPanel.SetActive(false);
                 GameController.instance.player.GetComponent<Player>().CanMove = true;
                 currentItem = 0;

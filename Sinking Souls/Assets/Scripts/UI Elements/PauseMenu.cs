@@ -19,8 +19,10 @@ public class PauseMenu : MonoBehaviour
 	
 	void Update ()
     {
-		if (InputManager.Start())
+		if (InputManager.ButtonStart)
         {
+            InputManager.ButtonStart = false;
+
             if (!m_IsPaused)
             {
                 Pause();
@@ -30,9 +32,19 @@ public class PauseMenu : MonoBehaviour
                 Resume();
             }
         }
+
+        if (m_IsPaused)
+        {
+            if (InputManager.ButtonB)
+            {
+                InputManager.ButtonB = false;
+                Resume();
+            }
+        }
+        
 	}
 
-    private void Pause()
+    public void Pause()
     {
         m_IsPaused = true;
         m_PauseContent.SetActive(true);
@@ -40,7 +52,7 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 0.0f;
     }
 
-    private void Resume()
+    public void Resume()
     {
         m_IsPaused = false;
         m_PauseContent.SetActive(false);

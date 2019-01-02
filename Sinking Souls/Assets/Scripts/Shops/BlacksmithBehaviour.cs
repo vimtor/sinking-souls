@@ -76,7 +76,7 @@ public class BlacksmithBehaviour : MonoBehaviour
 
         if (!shopPanel.activeSelf) {
             // Open the store.
-            if (InputManager.ButtonA() && (distPlayer.magnitude < range)) {
+            if (InputManager.ButtonA && (distPlayer.magnitude < range)) {
                 shopPanel.SetActive(true);
 
                 UpdateShop();
@@ -99,7 +99,7 @@ public class BlacksmithBehaviour : MonoBehaviour
             }
 
             // Close the store.
-            if (InputManager.ButtonB()) {
+            if (InputManager.ButtonB) {
                 shopPanel.SetActive(false);
                 GameController.instance.player.GetComponent<Player>().CanMove = true;
                 currentItem = 0;

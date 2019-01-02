@@ -27,7 +27,7 @@ public class AilinExpansionWaveAction : Action
     /// <returns></returns>
     IEnumerator delay(float time, int times, AilinBoss controller)
     {
-        controller.GetComponent<Enemy>().ability.Use(controller.gameObject, controller.transform);
+        // controller.GetComponent<Enemy>().ability.Use(controller.gameObject, controller.transform);
         yield return new WaitForSeconds(time);
         if (times - 1 > 0) GameController.instance.StartCoroutine(delay(delayTime, times - 1, controller));
         else controller.stateFinished = true;

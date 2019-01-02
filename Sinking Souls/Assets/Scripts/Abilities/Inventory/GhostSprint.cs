@@ -23,7 +23,8 @@ public class GhostSprint : Ability {
     }
 
     public override void Activate() {
-        if (!thrown) {
+        if (!thrown)
+        {
             active = true;
             thrown = true;
             GameController.instance.godMode = true;

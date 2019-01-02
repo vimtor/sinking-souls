@@ -6,7 +6,8 @@ using UnityEngine;
 
 public class IdleAction : Action {
 
-    public override void Act(AIController controller) {
-        controller.SetAnimBool("IDLE");
+    public override void UpdateAction(AIController controller)
+    {
+        controller.Animator.SetFloat("Speed", 0);
     }
 }

@@ -7,7 +7,7 @@ public class SpecialArrow : Action
 {
     public Ability arrow;
 
-    public override void Act(AIController controller)
+    public override void UpdateAction(AIController controller)
     {
         controller.SetAnimBool("SPELL");
     }

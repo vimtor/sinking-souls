@@ -7,7 +7,7 @@ public class Enemy : Entity {
     private AIController controller;
     public int souls;
 
-    [HideInInspector] public Ability ability;
+    [HideInInspector] public Ability[] abilities;
 
 
     private void Start()
@@ -15,7 +15,7 @@ public class Enemy : Entity {
         OnStart();
 
         controller = GetComponent<AIController>();
-        ability = GetComponent<Enemy>().Ability;
+        abilities = GetComponent<Enemy>().Abilities;
     }
 
     private void Update() {

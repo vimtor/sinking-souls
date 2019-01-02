@@ -11,7 +11,7 @@ public class WanderAction : Action {
     private bool isMoving = false;
     private Vector3 newPosition;
 
-    public override void Act(AIController controller) {
+    public override void UpdateAction(AIController controller) {
 
         Debug.Log("Wandering");
 

@@ -29,13 +29,13 @@ public class AilinAttackSelectorDecision : Decision
                     //If player is going straight to the enemy
                     if (PlayerTrajectory(controller))
                     {
-                        if (rand <= 65) controller.currentState.transitions[0].trueState = magicCanonState;             // 65%
-                        else controller.currentState.transitions[0].trueState = waterPilarsState;                       // 35%
+                        if (rand <= 65) controller.CurrentState.transitions[0].trueState = magicCanonState;             // 65%
+                        else controller.CurrentState.transitions[0].trueState = waterPilarsState;                       // 35%
                     }
                     else
                     {
-                        if (rand <= 35) controller.currentState.transitions[0].trueState = magicCanonState;             // 35%
-                        else controller.currentState.transitions[0].trueState = waterPilarsState;                       // 65%
+                        if (rand <= 35) controller.CurrentState.transitions[0].trueState = magicCanonState;             // 35%
+                        else controller.CurrentState.transitions[0].trueState = waterPilarsState;                       // 65%
                     }
                 }
                 //If playes is in expansion wave range
@@ -44,15 +44,15 @@ public class AilinAttackSelectorDecision : Decision
                     //If player is going straight to the enemy
                     if (PlayerTrajectory(controller))
                     {
-                        if (rand <= 50) controller.currentState.transitions[0].trueState = magicCanonState;             // 50%
-                        else if (rand <= 80) controller.currentState.transitions[0].trueState = expansiveWaveState;     // 30%
-                        else controller.currentState.transitions[0].trueState = waterPilarsState;                       // 20%
+                        if (rand <= 50) controller.CurrentState.transitions[0].trueState = magicCanonState;             // 50%
+                        else if (rand <= 80) controller.CurrentState.transitions[0].trueState = expansiveWaveState;     // 30%
+                        else controller.CurrentState.transitions[0].trueState = waterPilarsState;                       // 20%
                     }
                     else
                     {
-                        if (rand <= 20) controller.currentState.transitions[0].trueState = magicCanonState;             // 20%
-                        else if (rand <= 64) controller.currentState.transitions[0].trueState = expansiveWaveState;     // 45%
-                        else controller.currentState.transitions[0].trueState = waterPilarsState;                       // 35%
+                        if (rand <= 20) controller.CurrentState.transitions[0].trueState = magicCanonState;             // 20%
+                        else if (rand <= 64) controller.CurrentState.transitions[0].trueState = expansiveWaveState;     // 45%
+                        else controller.CurrentState.transitions[0].trueState = waterPilarsState;                       // 35%
                     }
                 }
             }
@@ -66,22 +66,22 @@ public class AilinAttackSelectorDecision : Decision
                 if (!controller.firstAttack)
                 {
                     controller.firstAttack = true;
-                    controller.currentState.transitions[0].trueState = expansiveWaveState;
+                    controller.CurrentState.transitions[0].trueState = expansiveWaveState;
                 }
                 else
                 {
                     //If player is going straight to the enemy
                     if (PlayerTrajectory(controller))
                     {
-                        if (rand <= 20) controller.currentState.transitions[0].trueState = magicCanonState;             // 20%
-                        else if (rand <= 70) controller.currentState.transitions[0].trueState = expansiveWaveState;     // 50%
-                        else controller.currentState.transitions[0].trueState = waterPilarsState;                       // 30%
+                        if (rand <= 20) controller.CurrentState.transitions[0].trueState = magicCanonState;             // 20%
+                        else if (rand <= 70) controller.CurrentState.transitions[0].trueState = expansiveWaveState;     // 50%
+                        else controller.CurrentState.transitions[0].trueState = waterPilarsState;                       // 30%
                     }
                     else
                     {
-                        if (rand <= 20) controller.currentState.transitions[0].trueState = magicCanonState;             // 20%
-                        else if (rand <= 60) controller.currentState.transitions[0].trueState = expansiveWaveState;     // 40%
-                        else controller.currentState.transitions[0].trueState = waterPilarsState;                       // 40%
+                        if (rand <= 20) controller.CurrentState.transitions[0].trueState = magicCanonState;             // 20%
+                        else if (rand <= 60) controller.CurrentState.transitions[0].trueState = expansiveWaveState;     // 40%
+                        else controller.CurrentState.transitions[0].trueState = waterPilarsState;                       // 40%
                     }
                 }
             }

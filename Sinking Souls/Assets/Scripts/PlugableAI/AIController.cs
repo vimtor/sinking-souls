@@ -1,21 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using UnityEngine.AI;
 using UnityEngine;
 
 public class AIController : MonoBehaviour {
 
-    public State currentState;
+    public State m_CurrentState;
+    public State CurrentState
+    {
+        get { return m_CurrentState; }
+        set { m_CurrentState = value; }
+    }
+
     public State remainState;
 
-    [HideInInspector] public GameObject player;
+    
     private Animator m_Animator;
     public Animator Animator
     {
         get { return m_Animator; }
     }
 
+    private float[] m_AttackLengths;
+
+    [HideInInspector] public GameObject player;
     [HideInInspector] public NavMeshAgent navMeshAgent;
     [HideInInspector] public float stateTimeElapsed;
     [HideInInspector] public float timeElapsed;
@@ -30,7 +40,8 @@ public class AIController : MonoBehaviour {
 
     private Ability defaultAbility;
 
-    public virtual void SetupAI() {
+    public virtual void SetupAI()
+    {
         stateTimeElapsed = 0;
         timeElapsed = count = 0;
         //inRangeTime = 0;
@@ -38,17 +49,22 @@ public class AIController : MonoBehaviour {
         navMeshAgent = GetComponent<NavMeshAgent>();
         m_Animator = GetComponent<Animator>();
 
-        defaultAbility = gameObject.GetComponent<Enemy>().ability;
+        var animationClips = m_Animator.runtimeAnimatorController.animationClips;
+        var attackClips = Array.FindAll(animationClips, clip => clip.name.Contains("Attack"));
+        m_AttackLengths = attackClips.Select(clip => clip.length).ToArray();
+
+        // defaultAbility = gameObject.GetComponent<Enemy>().ability;
         if (aiActive) navMeshAgent.enabled = true;
     }
 
-    protected virtual void Update() {
+    protected virtual void Update()
+    {
         if (!aiActive)
             return;
         if(!player)
             player = GameController.instance.player;
 
-        currentState.UpdateState(this);
+        m_CurrentState.UpdateState(this);
 
         stateTimeElapsed += Time.deltaTime;
         timeElapsed += Time.deltaTime;
@@ -57,7 +73,7 @@ public class AIController : MonoBehaviour {
 
     public void TransitionToState(State nextState) {
         if(nextState != remainState) {
-            currentState = nextState;
+            m_CurrentState = nextState;
             OnExitState();
         }
     }
@@ -70,14 +86,14 @@ public class AIController : MonoBehaviour {
         return (timeElapsed >= duration);
     }
 
+    public bool CheckIfAttackElapsed(int attackID)
+    {
+        return (stateTimeElapsed >= m_AttackLengths[attackID]);
+    }
+
     public bool CountElapsed(float duration) {
         return (count >= duration);
     }
-
-    //public bool CheckIfTimeTranscurred(float duration)
-    //{
-    //    return (inRangeTime >= duration);
-    //}
 
     private void OnExitState()
     {

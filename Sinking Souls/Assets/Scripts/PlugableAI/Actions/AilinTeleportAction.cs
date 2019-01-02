@@ -9,7 +9,7 @@ public class AilinTeleportAction : Action
     public List<GameObject> teleportPoints;
     private Vector3 newPosition;
 
-    public override void Act(AIController controller)
+    public override void UpdateAction(AIController controller)
     {
         int maxDistance = 0;
         foreach(GameObject tp in teleportPoints)

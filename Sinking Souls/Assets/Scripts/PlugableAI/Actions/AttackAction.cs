@@ -3,24 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "PlugableAI/Actions/Attack")]
-public class AttackAction : Action {
+public class AttackAction : Action
+{
+    [Header("Configuration")]
+    public int m_AttackType;
+    public float m_RotationDamping;
 
-    public override void Act(AIController controller)
+    public override void StartAction(AIController controller)
     {
-        controller.Animator.SetTrigger("Attack");
+        base.StartAction(controller);
 
-        // To rotate while attacking.
-        Rotate(controller, 2);
+        // Reset speed float to avoid walking when the animation finishes.
+        controller.Animator.SetFloat("Speed", 0);
+
+        // Play the attack animation (which hits via AnimationEvents).
+        controller.Animator.SetInteger("AttackType", m_AttackType);
+        controller.Animator.SetTrigger("Attack");
     }
 
-    private void Rotate(AIController controller, float _speed)
+    public override void UpdateAction(AIController controller)
     {
-        Vector3 myPos = controller.gameObject.transform.position;
-        Vector3 playerPos = controller.player.transform.position;
-        Vector3 facingDir = playerPos - myPos;
+        elapsed = controller.CheckIfAttackElapsed(m_AttackType);
 
-        Vector3 newDir = Vector3.RotateTowards(controller.gameObject.transform.forward, facingDir, _speed * Time.deltaTime, 0);
+        // To rotate while attacking.
+        Rotate(controller);
+    }
 
+    private void Rotate(AIController controller)
+    {
+        Vector3 shooter = controller.gameObject.transform.position;
+        Vector3 target = controller.player.transform.position;
+        Vector3 direction = target - shooter;
+
+        Vector3 newDir = Vector3.RotateTowards(controller.gameObject.transform.forward, direction, m_RotationDamping * Time.deltaTime, 0);
         controller.gameObject.transform.rotation = Quaternion.LookRotation(newDir);
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 public class ChargeStabAction : Action {
     public string animName;
     private bool done = false;
-    public override void Act(AIController controller) {
+    public override void UpdateAction(AIController controller) {
             controller.SetAnimBool(animName);
     }
 }

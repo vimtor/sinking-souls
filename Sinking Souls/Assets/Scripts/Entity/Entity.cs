@@ -40,11 +40,11 @@ public class Entity : MonoBehaviour
     public GameObject m_WeaponHand;
     protected BoxCollider m_WeaponCollider;
 
-    [SerializeField] protected Ability m_Ability;
-    public Ability Ability
+    [SerializeField] protected Ability[] m_Abilities;
+    public Ability[] Abilities
     {
-        get { return m_Ability; }
-        set { m_Ability = value; }
+        get { return m_Abilities; }
+        set { m_Abilities = value; }
     }
     
     protected float m_AbilityCooldown;
@@ -106,7 +106,7 @@ public class Entity : MonoBehaviour
 
 
         // To avoid different prefabs accesing the same ability.
-        if (m_Ability != null) m_Ability = Instantiate(m_Ability);
+        if (m_Abilities != null) Array.ForEach(m_Abilities, ability => Instantiate(ability));
 
 
         // Other variables.
@@ -172,10 +172,10 @@ public class Entity : MonoBehaviour
     protected void EnableCollider() { m_WeaponCollider.enabled = true; }
     protected void DisableCollider() { m_WeaponCollider.enabled = false; }
 
-    protected void UseAbility()
+    protected void UseAbility(int abilityID)
     {
-        m_AbilityCooldown = m_Ability.cooldown;
-        m_Ability.Use(gameObject);
+        m_AbilityCooldown = m_Abilities[abilityID].cooldown;
+        m_Abilities[abilityID].Use(gameObject);
     }
 
     protected void PlaySound(string name)  { AudioManager.Instance.PlayEffect(name);  }

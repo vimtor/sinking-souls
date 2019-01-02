@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu (menuName = "PlugableAI/Actions/Chase")]
 public class ChaseAction : Action {
-	public override void Act(AIController controller)
+	public override void UpdateAction(AIController controller)
     {
         controller.navMeshAgent.enabled = true;
         float speed = Vector3.Magnitude(controller.navMeshAgent.velocity);

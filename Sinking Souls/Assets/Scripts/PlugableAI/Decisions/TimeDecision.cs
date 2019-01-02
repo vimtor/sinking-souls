@@ -8,7 +8,8 @@ public class TimeDecision : Decision {
     [Tooltip("If this time has elapsed, it will return true.")]
     public float minimunTime;
 
-    public override bool Decide(AIController controller) {
+    public override bool Decide(AIController controller)
+    {
         return (controller.CheckIfTimeElapsed(minimunTime));
     }
 

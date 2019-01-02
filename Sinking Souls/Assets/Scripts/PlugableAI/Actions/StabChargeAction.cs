@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "PlugableAI/Actions/StabChargeAction")]
 public class StabChargeAction : Action {
     
-    public override void Act(AIController controller) {
+    public override void UpdateAction(AIController controller) {
         controller.gameObject.GetComponent<ParticleSystem>().Play();
         controller.SetAnimBool("STAB");
         Rotate(controller, 3);

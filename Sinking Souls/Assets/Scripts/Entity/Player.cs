@@ -72,8 +72,7 @@ public class Player : Entity {
     }
     #endregion
 
-    
-    
+
     public void SetupPlayer()
     {
         OnStart();
@@ -104,7 +103,7 @@ public class Player : Entity {
         if (!m_CanMove) return;
 
         CheckDead();
-        if (m_Ability.passive) m_Ability.Passive(gameObject);
+        if (m_Abilities[0].IsPassive()) m_Abilities[0].Passive(gameObject);
 
         m_HorizontalMovement = m_Side * InputManager.LeftJoystick.x;
         m_VerticalMovement = m_Forward * InputManager.LeftJoystick.y;
@@ -280,10 +279,10 @@ public class Player : Entity {
     {
         m_WeaponCollider.enabled = false;
 
-        if (m_Ability.passive)
+        if (m_Abilities[0].IsPassive())
         {
             // Activate the passive behaviour.
-            m_Ability.Activate();
+            m_Abilities[0].Activate();
         }
         else
         {

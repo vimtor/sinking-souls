@@ -4,7 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "PlugableAI/Actions/Enchant")]
 public class EnchantAction : Action {
     public float healPerSecond = 10;
-    public override void Act(AIController controller) {
+    public override void UpdateAction(AIController controller) {
         Enemy[] enemies = FindObjectsOfType<Enemy>();
         foreach(Enemy en in enemies) {
             if (en.GetComponent<AIController>().aiActive && en.gameObject != controller.gameObject) Enchant(en);

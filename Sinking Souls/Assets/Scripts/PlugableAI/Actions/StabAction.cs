@@ -7,7 +7,7 @@ using UnityEngine;
         public float dashTime;
         public float dashSpeed;
 
-        public override void Act(AIController controller) {
+        public override void UpdateAction(AIController controller) {
         controller.transform.GetComponent<Rigidbody>().velocity = controller.transform.forward.normalized * dashSpeed;
         controller.SetAnimBool("ENDSTAB");
         controller.gameObject.GetComponent<Enemy>().Weapon.CriticAttack();

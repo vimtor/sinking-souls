@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu (menuName = "PlugableAI/Actions/Look")]
 public class LookAction : Action {
 
-    public override void Act(AIController controller) {
+    public override void UpdateAction(AIController controller) {
         Look(controller);
     }
 

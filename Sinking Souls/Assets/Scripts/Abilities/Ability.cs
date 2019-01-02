@@ -1,9 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class Ability : ScriptableObject
 {
+    public enum AbilityType { PASSIVE, PREFAB, USE };
 
     [Header("Ability Information")]
     new public string name;
@@ -14,38 +13,62 @@ public abstract class Ability : ScriptableObject
     [Header("General Properties")]
     public int cooldown;
     public float damage;
-    public bool passive = false;
+
+    public AbilityType abilityType;
     public Modifier modifier;
     public GameObject prefab;
-
-    [Header("Specific Properties")]
+    
 
     [HideInInspector] public string target;
     [HideInInspector] public Entity entity;
 
     protected GameObject parent;
 
+
     public void Use(GameObject newParent, Transform position = null)
     {
-        if (passive)
+        SetParent(newParent);
+        SetEntity();
+
+        switch (abilityType)
         {
-            Activate();
-        }
-        else
-        {
-            SetParent(newParent);
-            SetEntity();
-            if (position == null) Configure(SetPrefab(entity.m_WeaponHand.transform));
-            else Configure(SetPrefab(position));
+            case AbilityType.PASSIVE:
+            case AbilityType.USE:
+                Activate();
+                break;
+
+            case AbilityType.PREFAB:
+                if (position == null)
+                {
+                    Configure(SetPrefab(entity.m_WeaponHand.transform));
+                }
+                else
+                {
+                    Configure(SetPrefab(position));
+                }
+                break;
+
+            default:
+                break;
         }
     }
 
+    // For prefab ability type.
+    protected virtual void Configure(GameObject prefab) { }
+
+    // For passive ability type.
     public virtual void Passive(GameObject go) { }
 
+    // For passive and use ability type.
     public virtual void Activate() {}
 
-    protected abstract void Configure(GameObject prefab);
 
+    public bool IsPassive()
+    {
+        return abilityType == AbilityType.PASSIVE;
+    }
+
+    #region Configure Functions
     protected GameObject SetPrefab(Transform position)
     {
         GameObject instantiated = Instantiate(prefab);
@@ -59,18 +82,6 @@ public abstract class Ability : ScriptableObject
         return instantiated;
     }
 
-    protected bool CheckThrown()
-    {
-        if (entity == null) return true;
-        if (!entity.AbilityThrown)
-        {
-            entity.AbilityThrown = true;
-            return true;
-        }
-
-        return false;
-    }
-
     protected void SetParent(GameObject newParent)
     {
         if (parent == null) parent = newParent;
@@ -80,4 +91,5 @@ public abstract class Ability : ScriptableObject
     {
         if (entity == null && parent.GetComponent<Entity>()) entity = parent.GetComponent<Entity>();
     }
+    #endregion
 }

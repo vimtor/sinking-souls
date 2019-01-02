@@ -9,14 +9,19 @@ public class State : ScriptableObject {
     public Transition[] transitions;
 
     private bool m_ElapsedActions = true;
+
     private bool m_InitialActionsDone = false;
+    public bool InitialActionsDone
+    {
+        set { m_InitialActionsDone = value; }
+    }
 
 
     public void UpdateState(AIController controller)
-    { 
+    {
         if (!m_InitialActionsDone) StartActions(controller);
+        
         UpdateActions(controller);
-
         if (m_ElapsedActions) CheckTransitions(controller);
     }
 
@@ -42,19 +47,20 @@ public class State : ScriptableObject {
 
     private void CheckTransitions(AIController controller)
     {
+        m_InitialActionsDone = false;
+        controller.stateTimeElapsed = 0.0f;
+
         foreach (Transition transition in transitions)
         {
             if (transition.decision.Decide(controller))
             {
                 controller.TransitionToState(transition.trueState);
             }
-            else {
+            else
+            {
                 controller.TransitionToState(transition.falseState);
             }
         }
-
-        controller.stateTimeElapsed = 0.0f;
-        m_InitialActionsDone = false;
     }
 
 }

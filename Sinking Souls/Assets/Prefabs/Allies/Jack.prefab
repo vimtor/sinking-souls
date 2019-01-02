@@ -275,7 +275,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4033438645526394}
   - component: {fileID: 95732213664712496}
-  - component: {fileID: 65270345991399052}
+  - component: {fileID: 136388384125499226}
   - component: {fileID: 54685272980931752}
   - component: {fileID: 114357467405385464}
   m_Layer: 9
@@ -1306,18 +1306,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!65 &65270345991399052
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1374338400793274}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 1}
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!95 &95732213664712496
 Animator:
   serializedVersion: 3
@@ -1368,6 +1356,19 @@ MonoBehaviour:
   m_DashRotationDamping: 3
   m_AttackStepForce: 0.11
   m_AttackRotationDamping: 4
+--- !u!136 &136388384125499226
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1374338400793274}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.25, z: 0}
 --- !u!137 &137905872894173184
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

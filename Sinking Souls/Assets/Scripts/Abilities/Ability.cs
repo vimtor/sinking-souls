@@ -2,8 +2,6 @@
 
 public abstract class Ability : ScriptableObject
 {
-    public enum AbilityType { PASSIVE, PREFAB, USE };
-
     [Header("Ability Information")]
     new public string name;
     public string description;
@@ -14,7 +12,12 @@ public abstract class Ability : ScriptableObject
     public int cooldown;
     public float damage;
 
-    public AbilityType abilityType;
+    [SerializeField] protected bool m_IsPassive;
+    public bool IsPassive
+    {
+        get { return m_IsPassive; }
+    }
+
     public Modifier modifier;
     public GameObject prefab;
     
@@ -25,48 +28,23 @@ public abstract class Ability : ScriptableObject
     protected GameObject parent;
 
 
-    public void Use(GameObject newParent, Transform position = null)
+    public void Use(GameObject newParent)
     {
         SetParent(newParent);
         SetEntity();
 
-        switch (abilityType)
-        {
-            case AbilityType.PASSIVE:
-            case AbilityType.USE:
-                Activate();
-                break;
-
-            case AbilityType.PREFAB:
-                if (position == null)
-                {
-                    Configure(SetPrefab(entity.m_WeaponHand.transform));
-                }
-                else
-                {
-                    Configure(SetPrefab(position));
-                }
-                break;
-
-            default:
-                break;
-        }
+        if (m_IsPassive) Activate();
+        else Configure(SetPrefab(entity.WeaponHand.transform));
     }
 
     // For prefab ability type.
     protected virtual void Configure(GameObject prefab) { }
 
-    // For passive ability type.
+    // Passive behaviour.
     public virtual void Passive(GameObject go) { }
 
     // For passive and use ability type.
     public virtual void Activate() {}
-
-
-    public bool IsPassive()
-    {
-        return abilityType == AbilityType.PASSIVE;
-    }
 
     #region Configure Functions
     protected GameObject SetPrefab(Transform position)

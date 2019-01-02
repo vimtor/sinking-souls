@@ -13,8 +13,7 @@ public class LookDecision : Decision
 
     public override bool Decide(AIController controller)
     {
-        bool targetVisible = Look(controller);
-        return targetVisible;
+        return Look(controller);
     }
 
     private bool Look(AIController controller)

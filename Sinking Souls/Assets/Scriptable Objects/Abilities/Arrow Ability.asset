@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 588a738019ae9d54e9ea20e5ae05f970, type: 3}
+  m_Name: Arrow Ability
+  m_EditorClassIdentifier: 
+  name: ArrowAbility
+  description: Arrow
+  price: 50
+  sprite: {fileID: 21300000, guid: 9eecf435758e0614491332a8cece9812, type: 3}
+  cooldown: 2
+  damage: 10
+  m_IsPassive: 0
+  modifier: {fileID: 0}
+  prefab: {fileID: 1748118066162102, guid: 8293bd4100a492a4abf6c537e8fe9e3e, type: 2}
+  target: Player
+  entity: {fileID: 0}
+  arrowForce: 1250

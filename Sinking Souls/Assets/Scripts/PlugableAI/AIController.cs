@@ -59,10 +59,8 @@ public class AIController : MonoBehaviour {
 
     protected virtual void Update()
     {
-        if (!aiActive)
-            return;
-        if(!player)
-            player = GameController.instance.player;
+        if (!aiActive) return;
+        if (!player) player = GameController.instance.player;
 
         m_CurrentState.UpdateState(this);
 
@@ -71,8 +69,10 @@ public class AIController : MonoBehaviour {
         count += Time.deltaTime;
     }
 
-    public void TransitionToState(State nextState) {
-        if(nextState != remainState) {
+    public void TransitionToState(State nextState)
+    {
+        if (nextState != remainState)
+        {
             m_CurrentState = nextState;
             OnExitState();
         }
@@ -97,22 +97,14 @@ public class AIController : MonoBehaviour {
 
     private void OnExitState()
     {
-        try
-        {
-            stateTimeElapsed = 0;
-            timeElapsed = 0;
-            GetComponent<Enemy>().AbilityThrown = false;
-            navMeshAgent.enabled = false;
-            if (gameObject.GetComponent<ParticleSystem>()) gameObject.GetComponent<ParticleSystem>().Stop();
-            if (stop)
-            {
-                gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                stop = false;
-            }
+        // To avoid skipping the next state start actions.
+        m_CurrentState.InitialActionsDone = false;
 
-            gameObject.GetComponent<Enemy>().Weapon.ShrinkCollision();
-        }
-        catch (Exception) {}
+        // Reset time counters.
+        stateTimeElapsed = 0.0f;
+
+        // Reset the rest of variables needed.
+        navMeshAgent.enabled = false;
     }
 
     public void SetAnimBool(string str) {

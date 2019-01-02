@@ -37,7 +37,12 @@ public class Entity : MonoBehaviour
     }
 
     [Tooltip("Where the weapon will be instantiated.")]
-    public GameObject m_WeaponHand;
+    [SerializeField] protected GameObject m_WeaponHand;
+    public GameObject WeaponHand
+    {
+        get { return m_WeaponHand; }
+    }
+
     protected BoxCollider m_WeaponCollider;
 
     [SerializeField] protected Ability[] m_Abilities;
@@ -187,6 +192,7 @@ public class Entity : MonoBehaviour
 
     private void React(Vector3 hitterPosition)
     {
+        m_WeaponCollider.enabled = false;
         m_Hitted = true;
 
         Vector3 hitDirection = hitterPosition - transform.position;

@@ -103,7 +103,7 @@ public class Player : Entity {
         if (!m_CanMove) return;
 
         CheckDead();
-        if (m_Abilities[0].IsPassive()) m_Abilities[0].Passive(gameObject);
+        if (m_Abilities[0].IsPassive) m_Abilities[0].Passive(gameObject);
 
         m_HorizontalMovement = m_Side * InputManager.LeftJoystick.x;
         m_VerticalMovement = m_Forward * InputManager.LeftJoystick.y;
@@ -279,22 +279,14 @@ public class Player : Entity {
     {
         m_WeaponCollider.enabled = false;
 
-        if (m_Abilities[0].IsPassive())
-        {
-            // Activate the passive behaviour.
-            m_Abilities[0].Activate();
-        }
-        else
-        {
-            // Reset the movement animator parameters.
-            m_Animator.SetFloat(m_SpeedParam, 0);
+        // Reset the movement animator parameters.
+        m_Animator.SetFloat(m_SpeedParam, 0);
 
-            // Set weapon type and attack type.
-            m_Animator.SetInteger(m_SpellTypeParam, 1);
+        // Set weapon type and attack type.
+        m_Animator.SetInteger(m_SpellTypeParam, 1);
 
-            // The animation is the one who calls UseAbility() via animation events.
-            m_Animator.SetTrigger(m_SpellParam);
-        }
+        // The animation is the one who calls UseAbility() via animation events.
+        m_Animator.SetTrigger(m_SpellParam);
     }
 
     #endregion

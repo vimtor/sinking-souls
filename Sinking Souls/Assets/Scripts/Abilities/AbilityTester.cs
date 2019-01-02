@@ -10,12 +10,13 @@ public class AbilityTester : MonoBehaviour {
     private float time = 0;
 
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
         time += Time.deltaTime;
         if(time >= delay)
         {
             time = 0;
-            ability.Use(this.gameObject, this.transform);
+            ability.Use(gameObject);
         }
 	}
 }

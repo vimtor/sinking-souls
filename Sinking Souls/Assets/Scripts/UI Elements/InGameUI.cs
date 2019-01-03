@@ -34,7 +34,7 @@ public class InGameUI : MonoBehaviour {
     private void Update()
     {
         healthAmount.fillAmount = playerRef.Health / playerRef.MaxHealth;
-        soulsAmount.text = GameController.instance.souls.ToString();
+        soulsAmount.text = GameController.instance.RunSouls.ToString();
 
         UpdateAbility();
         UpdateMinimap();

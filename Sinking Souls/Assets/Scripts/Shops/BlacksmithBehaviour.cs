@@ -34,7 +34,7 @@ public class BlacksmithBehaviour : MonoBehaviour
 
     public void FillShop() {
         bool firstSelected = false;
-        totalSouls = GameController.instance.souls;
+        totalSouls = GameController.instance.LobbySouls;
 
         if (GameController.instance.weapons.Count == 0)
         {

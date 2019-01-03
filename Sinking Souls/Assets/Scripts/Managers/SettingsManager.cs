@@ -72,9 +72,9 @@ public class SettingsManager : MonoBehaviour
         {
             m_Instance = this;
         }
-        else if (m_Instance != this)
+        else
         {
-            Destroy(this);
+            Destroy(gameObject);
             return;
         }
 
@@ -82,11 +82,13 @@ public class SettingsManager : MonoBehaviour
         #endregion
 
         m_Resolutions = Screen.resolutions;
+    }
 
+    private void Start()
+    {
         AudioManager.Instance.AudioMixer.GetFloat("MasterVolume", out m_MasterVolume);
         AudioManager.Instance.AudioMixer.GetFloat("EffectsVolume", out m_EffectsVolume);
         AudioManager.Instance.AudioMixer.GetFloat("MusicVolume", out m_MusicVolume);
-
     }
 
     public void SetOptions()

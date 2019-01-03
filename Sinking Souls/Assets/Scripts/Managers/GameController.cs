@@ -17,9 +17,22 @@ public class GameController : MonoBehaviour
     [Header("Crew Members")]
     public bool blacksmith = false;
     public bool alchemist = false;
-    
+
     [Header("Items")]
-    public int souls;
+    [SerializeField] private int m_LobbySouls;
+    public int LobbySouls
+    {
+        get { return m_LobbySouls; }
+        set { m_LobbySouls = value; }
+    }
+
+    private int m_RunSouls;
+    public int RunSouls
+    {
+        get { return m_RunSouls; }
+        set { m_RunSouls = value; }
+    }
+
     public List<Modifier> modifiers;
     public List<Ability> abilities;
     public List<Weapon> weapons;
@@ -46,9 +59,9 @@ public class GameController : MonoBehaviour
         {
             instance = this;
         }
-        else if (instance != this)
+        else
         {
-            Destroy(this);
+            Destroy(gameObject);
             return;
         }
 
@@ -71,8 +84,7 @@ public class GameController : MonoBehaviour
 
                 GameObject.Find("Innkeeper").SetActive(true);
 
-                SpawnPlayer();
-                SetupCamera();
+                SetupGame();
                 player.GetComponent<Player>().Heal();
 
                 break;
@@ -84,9 +96,7 @@ public class GameController : MonoBehaviour
                 currentRoom = SpawnLevel();
                 currentRoom.GetComponent<SpawnController>().alreadySpawned = true;
 
-                SpawnPlayer();
-                SetupCamera();
-                SetupPlayer();
+                SetupGame();
 
                 break;
 
@@ -94,19 +104,22 @@ public class GameController : MonoBehaviour
                 levelGenerator.currentLevel = -1;
                 currentRoom = GameObject.Find("PlayerSpawn");
 
-                SpawnPlayer();
-                SetupCamera();
-                SetupPlayer();
+                SetupGame();
 
-                if (!died)
+                if (died)
                 {
+                    m_RunSouls = 0;
+                }
+                else
+                {
+                    m_LobbySouls += m_RunSouls;
                     modifiers.FindAll(modifier => modifier.picked).ForEach(modifier => modifier.owned = true);
                 }
 
                 modifiers.ForEach(modifier => modifier.picked = false);
 
                 lobbySoulsHUD = GameObject.Find("SoulsNumber").GetComponent<Text>();
-                lobbySoulsHUD.text = souls.ToString();
+                lobbySoulsHUD.text = LobbySouls.ToString();
 
                 GameObject.Find("Blacksmith").SetActive(blacksmith);
                 GameObject.Find("Alchemist").SetActive(alchemist);
@@ -120,9 +133,7 @@ public class GameController : MonoBehaviour
             case GameState.ARENA:
                 currentRoom = GameObject.Find("Arena");
 
-                SpawnPlayer();
-                SetupCamera();
-                SetupPlayer();
+                SetupGame();
 
                 godMode = true;
                 break;
@@ -256,6 +267,13 @@ public class GameController : MonoBehaviour
     #endregion
 
     #region Setup Functions
+    private void SetupGame()
+    {
+        SpawnPlayer();
+        SetupCamera();
+        SetupPlayer();
+    }
+
     private void SetupCamera()
     {
         CameraManager.instance.player = player.transform;

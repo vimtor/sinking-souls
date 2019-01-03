@@ -49,7 +49,7 @@ public class InnkeeperBehaviour : MonoBehaviour
     public void FillShop()
     {
         bool firstSelected = false;
-        totalSouls = GameController.instance.souls;
+        totalSouls = GameController.instance.LobbySouls;
         foreach (Enhancer en in GameController.instance.enhancers)
         {
             GameObject item = Instantiate(UIItem, inGameShopPanel.transform.GetChild(0), false);

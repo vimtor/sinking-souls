@@ -6,7 +6,10 @@ public abstract class Modifier : ScriptableObject {
 
     [Header("Ability Information")]
     new public string name;
+
+    [Multiline]
     public string description;
+
     public int price;
     public Sprite sprite;
     public int tier;

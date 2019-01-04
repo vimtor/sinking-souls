@@ -25,6 +25,10 @@ public class InputManager : MonoBehaviour {
         get { return m_ButtonA; }
         set { m_ButtonA = value; }
     }
+    public static bool GetButtonA()
+    {
+        return Input.GetButtonDown("BUTTON_A") || Input.GetKeyDown(KeyCode.U);
+    }
 
     private static bool m_ButtonB;
     public static bool ButtonB
@@ -32,6 +36,10 @@ public class InputManager : MonoBehaviour {
         get { return m_ButtonB; }
         set { m_ButtonB = value; }
     }
+    public static bool GetButtonB()
+    {
+        return Input.GetButtonDown("BUTTON_B") || Input.GetKeyDown(KeyCode.I);
+    }          
 
     private static bool m_ButtonY;
     public static bool ButtonY
@@ -91,7 +99,6 @@ public class InputManager : MonoBehaviour {
             m_ButtonX = false;
             m_ButtonY = false;
 
-            m_ButtonStart = false;
             m_ButtonRT = false;
         }
     }

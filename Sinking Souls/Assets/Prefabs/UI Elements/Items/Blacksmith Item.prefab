@@ -355,7 +355,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114023244253555116}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114999963596547798}
+        m_MethodName: EquipModifier
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114999963596547798
@@ -375,6 +386,7 @@ MonoBehaviour:
   priceMultiplier: 0
   life: 0
   damage: 0
+  modifier: {fileID: 0}
 --- !u!222 &222107755491006034
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -478,7 +490,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1308820731434558}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 325.73148}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9802962, y: 0.9802962, z: 0.9802962}
   m_Children:
   - {fileID: 224258734884254898}
@@ -491,7 +503,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -36.712875}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 543.4, y: 105.61}
   m_Pivot: {x: 0.5, y: 1.0000001}
 --- !u!224 &224975009870577310

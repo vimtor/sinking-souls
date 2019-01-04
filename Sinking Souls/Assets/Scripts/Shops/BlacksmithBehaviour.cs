@@ -1,120 +1,109 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using System;
+using System.Linq;
 
 public class BlacksmithBehaviour : MonoBehaviour
 {
     [Header("Shop Interface")]
-    public GameObject shopPanel;
-    public GameObject weaponItemUI;
-    public GameObject modifierItemUI;
+    public GameObject m_ShopPanel;
+    public GameObject m_Item;
 
-    [Header("Shop Behaviour")]
-    public float scrollDelay;
-    public int range = 5;
+    [Space(10)]
 
-    // Selected item.
-    private GameObject holder;
-    private int currentItem = 0;
-    private int maxItems;
+    public Text m_Price;
+    public Text m_RemainingSouls;
 
-    // Range of the crewmate.
-    private Vector3 distPlayer;
+    [Header("Configuration")]
+    public EventSystem m_EventSystem;
+    public int m_InteractRange;
 
-    // HUD info.
-    private Text price;
-    private int totalSouls;
-    [HideInInspector] public int remainingSouls;
-    private Text remaining;
-    private Text lobbySoulsHUD;
-    private Color defaultColor;
 
-    private bool updating = false;
+    private Vector3 m_DistancePlayer;
+    private GameObject m_OldSelection;
 
-    public void FillShop() {
-        bool firstSelected = false;
-        totalSouls = GameController.instance.LobbySouls;
 
-        if (GameController.instance.weapons.Count == 0)
-        {
-            Debug.LogError("Weapon list is empty.");
-            return;
-        }
-
-        foreach (var weapon in GameController.instance.weapons)
-        {
-            GameObject weaponItem = Instantiate(weaponItemUI);
-
-            weaponItem.transform.Find("Icon").GetComponent<Image>().sprite = weapon.sprite;
-            weaponItem.transform.Find("Name").GetComponent<Text>().text = weapon.name;
-            weaponItem.transform.SetParent(shopPanel.transform.GetChild(0), false);
-
-            if (!firstSelected) {
-                GameObject.Find("EventSystem").GetComponent<UnityEngine.EventSystems.EventSystem>().firstSelectedGameObject = weaponItem;
-                holder = weaponItem;
-                firstSelected = true;
-            }
-
-            //foreach(var modifier in GameController.instance.modifiers) {
-
-            //}
-        }
-
-        maxItems = GameController.instance.abilities.Count;
+    protected GameObject SetupItem(Modifier modifier)
+    {
+        return Configure(Instantiate(m_Item), modifier);
     }
 
-    public void UpdateShop() {
-        shopPanel.transform.GetChild(0).GetChild(currentItem).GetComponentInChildren<Button>().Select();
-        holder = shopPanel.transform.GetChild(0).GetChild(currentItem).gameObject;
+    protected GameObject Configure(GameObject item, Modifier modifier)
+    {
+        // Configure the ui item.
+        item.transform.Find("Icon").GetComponent<Image>().sprite = modifier.sprite;
+        item.transform.Find("Name").GetComponent<Text>().text = modifier.name;
+        item.transform.Find("Description").GetComponent<Text>().text = modifier.description;
+        item.transform.Find("Price").GetComponent<Text>().text = modifier.price.ToString();
+        item.transform.SetParent(m_ShopPanel.transform.GetChild(0), false);
+
+        // Store values in the ShopItem component for easier acces later on.
+        item.GetComponent<ShopItem>().price = modifier.price;
+        item.GetComponent<ShopItem>().modifier = modifier;
+
+        return item;
     }
 
-    private void Update() {
-        if (!GameController.instance.m_RescuedBlacksmith) return;
+    public void FillShop()
+    {
+        Modifier[] modifiers = Array.FindAll(GameController.instance.modifiers, modifier => modifier.owned);
+        Debug.Log(modifiers.Length);
 
-        distPlayer = GameController.instance.player.GetComponent<Player>().transform.position - transform.position;
+        // Select first selected game object.
+        m_EventSystem.SetSelectedGameObject(SetupItem(modifiers[0]));
 
-        if (!shopPanel.activeSelf) {
+        // Instantiate the rest of the items unless the first one.
+        Array.ForEach(modifiers.Skip(1).ToArray(), modifier => SetupItem(modifier));
+    }
+
+    public void UpdateShop()
+    {
+        GameObject selectedItem = m_EventSystem.currentSelectedGameObject;
+
+        m_Price.text = selectedItem.transform.Find("Price").GetComponent<Text>().text;
+
+        int remainingSouls = GameController.instance.LobbySouls - selectedItem.GetComponent<ShopItem>().price;
+        m_RemainingSouls.text = remainingSouls.ToString();
+
+        m_OldSelection = m_EventSystem.currentSelectedGameObject;
+    }
+
+    private void Update()
+    {
+        m_DistancePlayer = GameController.instance.player.GetComponent<Player>().transform.position - transform.position;
+
+        if (!m_ShopPanel.activeSelf)
+        {
             // Open the store.
-            if (InputManager.ButtonA && (distPlayer.magnitude < range)) {
-                shopPanel.SetActive(true);
-
+            if (InputManager.GetButtonA() && (m_DistancePlayer.magnitude < m_InteractRange))
+            {
+                m_ShopPanel.SetActive(true);
+                FillShop();
                 UpdateShop();
 
                 // Stop the player.
-                GameController.instance.player.GetComponent<Player>().CanMove = false;
+                GameController.instance.player.GetComponent<Player>().Stop();
+                GetComponent<Animator>().SetTrigger("Talk");
             }
         }
-        else {
-            // Browse the store.
-            if (InputManager.LeftJoystick.y == 1 && !updating) {
-                updating = true;
-                currentItem = (currentItem + 1) % maxItems;
-                StartCoroutine(WaitTime());
-            }
-            else if (InputManager.LeftJoystick.y == -1 && !updating) {
-                updating = true;
-                currentItem = mod(currentItem - 1, maxItems);
-                StartCoroutine(WaitTime());
-            }
-
+        else
+        {
             // Close the store.
-            if (InputManager.ButtonB) {
-                shopPanel.SetActive(false);
-                GameController.instance.player.GetComponent<Player>().CanMove = true;
-                currentItem = 0;
+            if (InputManager.GetButtonB())
+            {
+                InputManager.ButtonB = false;
+
+                m_ShopPanel.SetActive(false);
+                GameController.instance.player.GetComponent<Player>().Resume();
             }
+
+            if (m_EventSystem.currentSelectedGameObject != m_OldSelection)
+            {
+                UpdateShop();
+            }
+
+            m_OldSelection = m_EventSystem.currentSelectedGameObject;
         }
-    }
-
-    IEnumerator WaitTime() {
-        UpdateShop();
-        yield return new WaitForSeconds(scrollDelay);
-        updating = false;
-    }
-
-    //Module function (takes into account the negative numbers)
-    int mod(int x, int m) {
-        return (x % m + m) % m;
     }
 }

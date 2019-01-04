@@ -4,8 +4,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using System;
 
-public class Player : Entity {
-
+public class Player : Entity
+{
     #region State Logic
     delegate void StateAction();
 
@@ -281,12 +281,30 @@ public class Player : Entity {
     #endregion
 
 
-    public void CheckDead() {
-        if (Health <= 0 && !GameController.instance.godMode) {
+    public void CheckDead()
+    {
+        if (Health <= 0 && !GameController.instance.godMode)
+        {
             GameController.instance.died = true;
             GameController.instance.scene = GameController.GameState.LOBBY;
             SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
         }
+    }
+
+    public void Resume()
+    {
+        m_CanMove = true;
+    }
+
+    public void Stop()
+    {
+        m_CanMove = false;
+        m_Animator.SetFloat(m_SpeedParam, 0);
+    }
+
+    public void EquipModifier(Modifier modifier)
+    {
+        m_Weapon.modifier = modifier;
     }
 
 }

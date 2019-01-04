@@ -38,9 +38,9 @@ public class GameController : MonoBehaviour
         set { m_RunSouls = value; }
     }
 
-    public List<Modifier> modifiers;
-    public List<Ability> abilities;
-    public List<Weapon> weapons;
+    public Modifier[] modifiers;
+    public Ability[] abilities;
+    public Weapon[] weapons;
     public List<Enhancer> enhancers;
     
     [HideInInspector] public bool died;
@@ -118,13 +118,12 @@ public class GameController : MonoBehaviour
                 else
                 {
                     m_LobbySouls += m_RunSouls;
-                    modifiers.FindAll(modifier => modifier.picked).ForEach(modifier => modifier.owned = true);
+
+                    var pickedModifiers = Array.FindAll(modifiers, modifier => modifier.picked);
+                    Array.ForEach(pickedModifiers, modifier => modifier.owned = true);
                 }
 
-                modifiers.ForEach(modifier => modifier.picked = false);
-
-                lobbySoulsHUD = GameObject.Find("SoulsNumber").GetComponent<Text>();
-                lobbySoulsHUD.text = LobbySouls.ToString();
+                Array.ForEach(modifiers, modifier => modifier.picked = false);
 
                 #region Crew Members
                 m_BlacksmithObject = GameObject.Find("Galen");
@@ -264,10 +263,10 @@ public class GameController : MonoBehaviour
 
     public void SpawnBlueprint(Vector3 position)
     {
-        var possibleModifiers = modifiers.FindAll(modifer => !modifer.owned && !modifer.picked);
-        if (possibleModifiers.Count == 0) return;
+        var possibleModifiers = Array.FindAll(modifiers, modifer => !modifer.owned && !modifer.picked);
+        if (possibleModifiers.Length == 0) return;
 
-        var spawnedModifier = possibleModifiers[UnityEngine.Random.Range(0, possibleModifiers.Count - 1)];
+        var spawnedModifier = possibleModifiers[UnityEngine.Random.Range(0, possibleModifiers.Length - 1)];
 
         GameObject newBlueprint = Instantiate(blueprint);
         newBlueprint.transform.position = position + new Vector3(0, 1, 0);

@@ -14,9 +14,14 @@ public class GameController : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject blueprint;
 
+    #region Crew Members
     [Header("Crew Members")]
-    public bool blacksmith = false;
-    public bool alchemist = false;
+    public bool m_RescuedBlacksmith = false;
+    public bool m_RescuedAlchemist = false;
+
+    private GameObject m_BlacksmithObject;
+    private GameObject m_AlchemistObject;
+    #endregion
 
     [Header("Items")]
     [SerializeField] private int m_LobbySouls;
@@ -121,11 +126,15 @@ public class GameController : MonoBehaviour
                 lobbySoulsHUD = GameObject.Find("SoulsNumber").GetComponent<Text>();
                 lobbySoulsHUD.text = LobbySouls.ToString();
 
-                GameObject.Find("Blacksmith").SetActive(blacksmith);
-                GameObject.Find("Alchemist").SetActive(alchemist);
+                #region Crew Members
+                m_BlacksmithObject = GameObject.Find("Galen");
+                m_AlchemistObject = GameObject.Find("Ailin");
 
-                GameObject.Find("Alchemist").GetComponent<AlchemistBehaviour>().FillShop();
+                m_BlacksmithObject.SetActive(m_RescuedBlacksmith);
+                m_AlchemistObject.SetActive(m_RescuedAlchemist);
 
+                m_AlchemistObject.GetComponent<AlchemistBehaviour>().FillShop();
+                #endregion
 
                 levelGenerator.tabernaSpawned = false;
                 break;

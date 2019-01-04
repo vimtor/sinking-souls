@@ -3,124 +3,95 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class AlchemistBehaviour : MonoBehaviour
 {
     [Header("Shop Interface")]
-    public GameObject shopPanel;
-    public GameObject UIItem;
+    public GameObject m_ShopPanel;
+    public GameObject m_Item;
 
-    [Header("Shop Behaviour")]
-    public float scrollDelay;
-    public int range = 5;
+    [Space(10)]
 
-    // Selected item.
-    private GameObject holder;
-    private int currentItem = 0;
-    private int maxItems;
+    private Text m_Price;
+    private Text m_RemainingSouls;
 
-    // Range of the crewmate.
-    private Vector3 distPlayer;
+    [Header("Configuration")]
+    public EventSystem m_EventSystem;
+    public int m_InteractRange;
 
-    // HUD info.
-    private Text price;
-    private int totalSouls;
-    [HideInInspector] public int remainingSouls;
-    private Text remaining;
-    private Text lobbySoulsHUD;
-    private Color defaultColor;
 
-    private bool updating = false;
+    private int m_TotalSouls;
+    private Vector3 m_DistPlayer;
 
-    private void Start() {
-        //lobbySoulsHUD = GameObject.Find("SoulsNumber").GetComponent<Text>();
-        //defaultColor = lobbySoulsHUD.color;
-    }
 
-    /// <summary>
-    /// Carga todas las abilidades disponibles en la tienda.
-    /// </summary>
-    public void FillShop() {
+    public void FillShop()
+    {
         bool firstSelected = false;
-        totalSouls = GameController.instance.LobbySouls;
-        foreach (Ability ab in GameController.instance.abilities) {
-            GameObject item = Instantiate(UIItem);
+        foreach (Ability ability in GameController.instance.abilities)
+        {
+            GameObject item = Instantiate(m_Item);
 
-            item.transform.Find("Icon").GetComponent<Image>().sprite = ab.sprite;
+            // Configure the ui item.
+            item.transform.Find("Icon").GetComponent<Image>().sprite = ability.sprite;
+            item.transform.Find("Name").GetComponent<Text>().text = ability.name;
+            item.transform.Find("Price").GetComponent<Text>().text = ability.price.ToString();
+            item.transform.SetParent(m_ShopPanel.transform.GetChild(0), false);
 
-            item.GetComponent<ShopItem>().price = ab.price;
-            item.transform.Find("Price").GetComponent<Text>().text = ab.price.ToString();
+            // Store values in the ShopItem component for easier acces later on.
+            item.GetComponent<ShopItem>().price = ability.price;
 
-            item.transform.Find("Name").GetComponent<Text>().text = ab.name;
-
-            item.transform.SetParent(shopPanel.transform.GetChild(0), false);
-
-            if (!firstSelected) {
-                GameObject.Find("EventSystem").GetComponent<UnityEngine.EventSystems.EventSystem>().firstSelectedGameObject = item;
-                holder = item;
+            // Select first game object.
+            if (!firstSelected)
+            {
+                m_EventSystem.SetSelectedGameObject(item);
                 firstSelected = true;
             }
+
+            Debug.Log("Item added");
         }
 
-        maxItems = GameController.instance.abilities.Count;
+        m_TotalSouls = GameController.instance.LobbySouls;
     }
 
-    public void UpdateShop() {
-        shopPanel.transform.GetChild(0).GetChild(currentItem).GetComponentInChildren<Button>().Select();
-        holder = shopPanel.transform.GetChild(0).GetChild(currentItem).gameObject;
-        remainingSouls = totalSouls - holder.GetComponent<ShopItem>().price;
-        price.text = holder.transform.Find("Price").GetComponent<Text>().text;
-        remaining.text = remainingSouls.ToString();
+    public void UpdateShop()
+    {
+        GameObject selectedItem = m_EventSystem.currentSelectedGameObject;
+
+        m_Price.text = selectedItem.transform.Find("Price").GetComponent<Text>().text;
+        int remainingSouls = m_TotalSouls - selectedItem.GetComponent<ShopItem>().price;
+        m_RemainingSouls.text = remainingSouls.ToString();
     }
 
-    private void Update() {
-        if (!GameController.instance.alchemist) return;
+    private void Update()
+    {
+        m_DistPlayer = GameController.instance.player.GetComponent<Player>().transform.position - transform.position;
 
-        distPlayer = GameController.instance.player.GetComponent<Player>().transform.position - transform.position;
-
-        if (!shopPanel.activeSelf) {
+        if (!m_ShopPanel.activeSelf)
+        {
             // Open the store.
-            if (InputManager.ButtonA && (distPlayer.magnitude < range)) {
-                shopPanel.SetActive(true);
-                price = GameObject.Find("SoulsPrice").GetComponent<Text>();
-                remaining = GameObject.Find("SoulsRemaining").GetComponent<Text>();
+            if (InputManager.ButtonA && (m_DistPlayer.magnitude < m_InteractRange))
+            {
+                m_ShopPanel.SetActive(true);
+                m_Price = GameObject.Find("SoulsPrice").GetComponent<Text>();
+                m_RemainingSouls = GameObject.Find("SoulsRemaining").GetComponent<Text>();
                 UpdateShop();
 
                 // Stop the player.
                 GameController.instance.player.GetComponent<Player>().CanMove = false;
             }
         }
-        else {
-            // Browse the store.
-            if (InputManager.LeftJoystick.y == 1 && !updating) {
-                updating = true;
-                currentItem = (currentItem + 1) % maxItems;
-                StartCoroutine(WaitTime());
-            }
-            else if (InputManager.LeftJoystick.y == -1 && !updating) {
-                updating = true;
-                currentItem = mod(currentItem - 1, maxItems);
-                StartCoroutine(WaitTime());
-            }
-
+        else
+        {
             // Close the store.
-            if (InputManager.ButtonB) {
-                shopPanel.SetActive(false);
+            if (InputManager.ButtonB)
+            {
+                InputManager.ButtonB = false;
+
+                m_ShopPanel.SetActive(false);
                 GameController.instance.player.GetComponent<Player>().CanMove = true;
-                currentItem = 0;
             }
         }
-    }
-
-    IEnumerator WaitTime() {
-        UpdateShop();
-        yield return new WaitForSeconds(scrollDelay);
-        updating = false;
-    }
-
-    //Module function (takes into account the negative numbers)
-    int mod(int x, int m) {
-        return (x % m + m) % m;
     }
 
 }

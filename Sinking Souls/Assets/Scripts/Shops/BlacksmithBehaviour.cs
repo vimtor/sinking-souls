@@ -70,7 +70,7 @@ public class BlacksmithBehaviour : MonoBehaviour
     }
 
     private void Update() {
-        if (!GameController.instance.blacksmith) return;
+        if (!GameController.instance.m_RescuedBlacksmith) return;
 
         distPlayer = GameController.instance.player.GetComponent<Player>().transform.position - transform.position;
 

@@ -36,7 +36,7 @@ public class TextButtonBehavior : MonoBehaviour,
         if (Random.value < 0.5f) AudioManager.Instance.PlayEffect("MenuButton_1");
         else AudioManager.Instance.PlayEffect("MenuButton_2");
 
-        m_TextMesh.text = "- " + m_TextBackup + " -";
+        m_TextMesh.text = "~ " + m_TextBackup + " ~";
     }
 
     private void DeselectButton()

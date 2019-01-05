@@ -41,7 +41,7 @@ public class GameController : MonoBehaviour
     public Modifier[] modifiers;
     public Ability[] abilities;
     public Weapon[] weapons;
-    public List<Enhancer> enhancers;
+    public Enhancer[] enhancers;
     
     [HideInInspector] public bool died;
     [HideInInspector] public static GameController instance;
@@ -132,7 +132,10 @@ public class GameController : MonoBehaviour
                 m_BlacksmithObject.SetActive(m_RescuedBlacksmith);
                 m_AlchemistObject.SetActive(m_RescuedAlchemist);
 
-                m_AlchemistObject.GetComponent<AlchemistBehaviour>().FillShop();
+                if (m_RescuedBlacksmith) m_BlacksmithObject.GetComponent<BlacksmithBehaviour>().FillShop();
+                if (m_RescuedAlchemist) m_AlchemistObject.GetComponent<AlchemistBehaviour>().FillShop();
+
+                GameObject.Find("Innkeeper").GetComponent<InnkeeperBehaviour>().FillShop();
                 #endregion
 
                 levelGenerator.tabernaSpawned = false;
@@ -307,5 +310,10 @@ public class GameController : MonoBehaviour
         room.GetComponent<SpawnController>().Spawn(player);
     }
     #endregion
+
+    public bool CanBuy(int price)
+    {
+        return m_LobbySouls - price > 0;
+    }
 
 }

@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 using System.Linq;
+using TMPro;
 
 
 public class AlchemistBehaviour : MonoBehaviour
@@ -34,8 +35,8 @@ public class AlchemistBehaviour : MonoBehaviour
     {
         // Configure the ui item.
         item.transform.Find("Icon").GetComponent<Image>().sprite = ability.sprite;
-        item.transform.Find("Name").GetComponent<Text>().text = ability.name;
-        item.transform.Find("Price").GetComponent<Text>().text = ability.price.ToString();
+        item.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = ability.name;
+        item.transform.Find("Price").GetComponent<TextMeshProUGUI>().text = ability.price.ToString();
         item.transform.SetParent(m_ShopPanel.transform.GetChild(0), false);
 
         // Store values in the ShopItem component for easier acces later on.
@@ -59,7 +60,7 @@ public class AlchemistBehaviour : MonoBehaviour
     {
         GameObject selectedItem = m_EventSystem.currentSelectedGameObject;
 
-        m_Price.text = selectedItem.transform.Find("Price").GetComponent<Text>().text;
+        m_Price.text = selectedItem.transform.Find("Price").GetComponent<TextMeshProUGUI>().text;
 
         int remainingSouls = GameController.instance.LobbySouls - selectedItem.GetComponent<ShopItem>().price;
         m_RemainingSouls.text = remainingSouls.ToString();
@@ -77,7 +78,6 @@ public class AlchemistBehaviour : MonoBehaviour
             if (InputManager.GetButtonA() && (m_DistancePlayer.magnitude < m_InteractRange))
             {
                 m_ShopPanel.SetActive(true);
-                FillShop();
                 UpdateShop();
 
                 // Stop the player.
@@ -96,6 +96,8 @@ public class AlchemistBehaviour : MonoBehaviour
                 GameController.instance.player.GetComponent<Player>().Resume();
             }
 
+
+            // Check if selected item was updated.
             if (m_EventSystem.currentSelectedGameObject != m_OldSelection)
             {
                 UpdateShop();

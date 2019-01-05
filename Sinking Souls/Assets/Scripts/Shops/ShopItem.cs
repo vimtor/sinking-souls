@@ -10,10 +10,13 @@ public class ShopItem : MonoBehaviour {
     [HideInInspector] public float priceMultiplier;
     [HideInInspector] public bool life;
     [HideInInspector] public bool damage;
+
     [HideInInspector] public Modifier modifier;
 
     public void EquipModifier()
     {
+        if (GameController.instance.CanBuy(price)) return;
+
         GameController.instance.player.GetComponent<Player>().EquipModifier(modifier);
     }
 }

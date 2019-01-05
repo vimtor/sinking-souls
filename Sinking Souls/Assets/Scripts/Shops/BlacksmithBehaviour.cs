@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 using System.Linq;
+using TMPro;
 
 public class BlacksmithBehaviour : MonoBehaviour
 {
@@ -33,9 +34,9 @@ public class BlacksmithBehaviour : MonoBehaviour
     {
         // Configure the ui item.
         item.transform.Find("Icon").GetComponent<Image>().sprite = modifier.sprite;
-        item.transform.Find("Name").GetComponent<Text>().text = modifier.name;
-        item.transform.Find("Description").GetComponent<Text>().text = modifier.description;
-        item.transform.Find("Price").GetComponent<Text>().text = modifier.price.ToString();
+        item.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = modifier.name;
+        item.transform.Find("Description").GetComponent<TextMeshProUGUI>().text = modifier.description;
+        item.transform.Find("Price").GetComponent<TextMeshProUGUI>().text = modifier.price.ToString();
         item.transform.SetParent(m_ShopPanel.transform.GetChild(0), false);
 
         // Store values in the ShopItem component for easier acces later on.
@@ -48,7 +49,6 @@ public class BlacksmithBehaviour : MonoBehaviour
     public void FillShop()
     {
         Modifier[] modifiers = Array.FindAll(GameController.instance.modifiers, modifier => modifier.owned);
-        Debug.Log(modifiers.Length);
 
         // Select first selected game object.
         m_EventSystem.SetSelectedGameObject(SetupItem(modifiers[0]));
@@ -61,7 +61,7 @@ public class BlacksmithBehaviour : MonoBehaviour
     {
         GameObject selectedItem = m_EventSystem.currentSelectedGameObject;
 
-        m_Price.text = selectedItem.transform.Find("Price").GetComponent<Text>().text;
+        m_Price.text = selectedItem.transform.Find("Price").GetComponent<TextMeshProUGUI>().text;
 
         int remainingSouls = GameController.instance.LobbySouls - selectedItem.GetComponent<ShopItem>().price;
         m_RemainingSouls.text = remainingSouls.ToString();
@@ -79,7 +79,6 @@ public class BlacksmithBehaviour : MonoBehaviour
             if (InputManager.GetButtonA() && (m_DistancePlayer.magnitude < m_InteractRange))
             {
                 m_ShopPanel.SetActive(true);
-                FillShop();
                 UpdateShop();
 
                 // Stop the player.

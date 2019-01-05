@@ -287,25 +287,25 @@ public class LevelGenerator : MonoBehaviour
                 if (room.type == Room.RoomType.ELITE) room.prefab = RoomsEliteD[currentLevel].List[Random.Range(0, RoomsEliteD[currentLevel].List.Count - 1)];
                 else room.prefab = RoomsD[currentLevel].List[Random.Range(0, RoomsD[currentLevel].List.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
-                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 180 + 180, 0));
             }
             else if (room.doorTop == true && room.doorBot == true && room.doorLeft == false && room.doorRight == true) {
                 if (room.type == Room.RoomType.ELITE) room.prefab = RoomsEliteD[currentLevel].List[Random.Range(0, RoomsEliteD[currentLevel].List.Count - 1)];
                 else room.prefab = RoomsD[currentLevel].List[Random.Range(0, RoomsD[currentLevel].List.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
-                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 0 + 180, 0));
             }
             else if (room.doorTop == true && room.doorBot == false && room.doorLeft == true && room.doorRight == true) {
                 if (room.type == Room.RoomType.ELITE) room.prefab = RoomsEliteD[currentLevel].List[Random.Range(0, RoomsEliteD[currentLevel].List.Count - 1)];
                 else room.prefab = RoomsD[currentLevel].List[Random.Range(0, RoomsD[currentLevel].List.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
-                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 270, 0));
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 270 + 180, 0));
             }
             else if (room.doorTop == false && room.doorBot == true && room.doorLeft == true && room.doorRight == true) {
                 if (room.type == Room.RoomType.ELITE) room.prefab = RoomsEliteD[currentLevel].List[Random.Range(0, RoomsEliteD[currentLevel].List.Count - 1)];
                 else room.prefab = RoomsD[currentLevel].List[Random.Range(0, RoomsD[currentLevel].List.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
-                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 90 + 180, 0));
             }
             #endregion
 
@@ -329,25 +329,25 @@ public class LevelGenerator : MonoBehaviour
                 if (room.type == Room.RoomType.ELITE) room.prefab = RoomsEliteB[currentLevel].List[Random.Range(0, RoomsEliteB[currentLevel].List.Count - 1)];
                 else room.prefab = RoomsB[currentLevel].List[Random.Range(0, RoomsB[currentLevel].List.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
-                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 90, 0));
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 90 + 90, 0));
             }
             else if (room.doorTop == false && room.doorBot == true && room.doorLeft == false && room.doorRight == true) {
                 if (room.type == Room.RoomType.ELITE) room.prefab = RoomsEliteB[currentLevel].List[Random.Range(0, RoomsEliteB[currentLevel].List.Count - 1)];
                 else room.prefab = RoomsB[currentLevel].List[Random.Range(0, RoomsB[currentLevel].List.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
-                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 180 + 90, 0));
             }
             else if (room.doorTop == false && room.doorBot == true && room.doorLeft == true && room.doorRight == false) {
                 if (room.type == Room.RoomType.ELITE) room.prefab = RoomsEliteB[currentLevel].List[Random.Range(0, RoomsEliteB[currentLevel].List.Count - 1)];
                 else room.prefab = RoomsB[currentLevel].List[Random.Range(0, RoomsB[currentLevel].List.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
-                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 270, 0));
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 270 + 90, 0));
             }
             else if (room.doorTop == true && room.doorBot == false && room.doorLeft == true && room.doorRight == false) {
                 if (room.type == Room.RoomType.ELITE) room.prefab = RoomsEliteB[currentLevel].List[Random.Range(0, RoomsEliteB[currentLevel].List.Count - 1)];
                 else room.prefab = RoomsB[currentLevel].List[Random.Range(0, RoomsB[currentLevel].List.Count - 1)];
                 currentRoom = SpawnRoom(room, roomSize, roomCount);
-                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+                currentRoom.transform.rotation = Quaternion.Euler(new Vector3(0, 0 + 90, 0));
             }
             #endregion
 

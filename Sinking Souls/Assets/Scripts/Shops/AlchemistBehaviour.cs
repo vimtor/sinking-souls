@@ -41,13 +41,14 @@ public class AlchemistBehaviour : MonoBehaviour
 
         // Store values in the ShopItem component for easier acces later on.
         item.GetComponent<ShopItem>().price = ability.price;
+        item.GetComponent<ShopItem>().ability = ability;
 
         return item;
     }
 
     public void FillShop()
     {
-        Ability[] abilities = GameController.instance.abilities;
+        Ability[] abilities = Array.FindAll(GameController.instance.abilities, ability => ability.CanUpgrade());
 
         // Select first selected game object.
         m_EventSystem.SetSelectedGameObject(SetupItem(abilities[0]));

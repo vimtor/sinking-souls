@@ -10,12 +10,14 @@ public class Entity : MonoBehaviour
     [SerializeField] protected float m_Health;
     public float Health
     {
+        set { m_Health = value; }
         get { return m_Health; }
     }
 
     [SerializeField] protected float m_MaxHealth;
     public float MaxHealth
     {
+        set { m_MaxHealth = value; }
         get { return m_MaxHealth; }
     }
 

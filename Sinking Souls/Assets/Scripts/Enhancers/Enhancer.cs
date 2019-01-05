@@ -3,48 +3,56 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[CreateAssetMenu(menuName = "Enhancer/newEnhancer")]
+[CreateAssetMenu(menuName = "Enhancer")]
 public class Enhancer : ScriptableObject
 {
     [Header("Enhancer Information")]
+    public Sprite sprite;
     new public string name;
     public string description;
+
     public int basePrice;
     public int baseEnhancer;
+
     public float priceMultiplier;
     public float enhancerMultiplier;
-    public Sprite sprite;
-
-    [Header("General Properties")]
+    
     public bool life;
     public bool damage;
-    //public bool passive = false;
-    //public Modifier modifier;
-    //public GameObject prefab;
 
-    [Header("Specific Properties")]
+    public int m_MaxBuys;
+    public int m_BuyNumber;
 
-    [HideInInspector] public string target;
-    [HideInInspector] public Entity entity;
-
-    protected GameObject parent;
-
-    public void Use(GameObject newParent, Transform position = null)
+    public void Use()
     {
+        if (!CanUse()) return;
+
+        Player playerRef = GameController.instance.player.GetComponent<Player>();
+
+        if (life)
         {
-            SetParent(newParent);
-            SetEntity();
+            float currentHealth = playerRef.MaxHealth;
 
+            playerRef.MaxHealth = currentHealth * baseEnhancer;
+            playerRef.Health = currentHealth * baseEnhancer;
         }
+        else if (damage)
+        {
+            playerRef.Weapon.damage *= baseEnhancer;
+        }
+        else
+        {
+            Debug.LogError("Enhancer should be either life or damage.");
+            return;
+        }
+
+        basePrice = (int)(basePrice * priceMultiplier);
+        baseEnhancer = (int)(baseEnhancer * enhancerMultiplier);
+        m_BuyNumber++;
     }
 
-    protected void SetParent(GameObject newParent)
+    public bool CanUse()
     {
-        if (parent == null) parent = newParent;
-    }
-
-    protected void SetEntity()
-    {
-        if (entity == null && parent.GetComponent<Entity>()) entity = parent.GetComponent<Entity>();
+        return m_MaxBuys >= m_BuyNumber;
     }
 }

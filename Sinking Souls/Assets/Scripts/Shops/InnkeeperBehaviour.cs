@@ -11,19 +11,14 @@ public class InnkeeperBehaviour : ShopBehaviour<Enhancer>
     public Text m_BaseStat;
     public Text m_UpgradedStat;
 
-    protected override GameObject Configure(GameObject item, Enhancer enchanter)
+    protected override GameObject Configure(GameObject item, Enhancer enhancer)
     {
-        item.transform.Find("Icon").GetComponent<Image>().sprite = enchanter.sprite;
-        item.transform.Find("Price").GetComponent<TextMeshProUGUI>().text = enchanter.basePrice.ToString();
-        item.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = enchanter.name;
-        item.transform.Find("Description").GetComponent<TextMeshProUGUI>().text = enchanter.description;
+        item.transform.Find("Icon").GetComponent<Image>().sprite = enhancer.sprite;
+        item.transform.Find("Price").GetComponent<TextMeshProUGUI>().text = enhancer.basePrice.ToString();
+        item.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = enhancer.name;
+        item.transform.Find("Description").GetComponent<TextMeshProUGUI>().text = enhancer.description;
 
-        item.GetComponent<ShopItem>().price = enchanter.basePrice;
-        item.GetComponent<ShopItem>().priceMultiplier = enchanter.priceMultiplier;
-        item.GetComponent<ShopItem>().baseEnhancer = enchanter.baseEnhancer;
-        item.GetComponent<ShopItem>().enhancerMultiplier = enchanter.enhancerMultiplier;
-        item.GetComponent<ShopItem>().life = enchanter.life;
-        item.GetComponent<ShopItem>().damage = enchanter.damage;
+        item.GetComponent<ShopItem>().enhancer = enhancer;
 
         item.transform.SetParent(m_ShopPanel.transform.GetChild(0), false);
 

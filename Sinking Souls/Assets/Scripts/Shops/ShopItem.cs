@@ -1,8 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using TMPro;
 
-public class ShopItem : MonoBehaviour {
+public class ShopItem : MonoBehaviour
+{
+    public TextMeshProUGUI m_PriceText;
 
     [HideInInspector] public int price;
     [HideInInspector] public int baseEnhancer;
@@ -12,11 +13,36 @@ public class ShopItem : MonoBehaviour {
     [HideInInspector] public bool damage;
 
     [HideInInspector] public Modifier modifier;
+    [HideInInspector] public Ability ability;
+    [HideInInspector] public Enhancer enhancer;
+
 
     public void EquipModifier()
     {
-        if (GameController.instance.CanBuy(price)) return;
+        if (GameController.instance.CanBuy(price))
+        {
+            GameController.instance.player.GetComponent<Player>().EquipModifier(modifier);
+            GameController.instance.LobbySouls -= price;
+        }
+    }
 
-        GameController.instance.player.GetComponent<Player>().EquipModifier(modifier);
+    public void UpgradeAbility()
+    {
+        if (GameController.instance.CanBuy(price))
+        {
+            ability.UpgradeAbility();
+            m_PriceText.text = ability.price.ToString();
+            GameController.instance.LobbySouls -= price;
+        }
+    }
+
+    public void BuyEnhancer()
+    {
+        if (GameController.instance.CanBuy(price))
+        {
+            enhancer.Use();
+            m_PriceText.text = enhancer.basePrice.ToString();
+            GameController.instance.LobbySouls -= price;
+        }
     }
 }

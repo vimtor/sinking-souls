@@ -87,11 +87,12 @@ public class GameController : MonoBehaviour
                 levelGenerator.takenPos = new List<Vector2>();
                 currentRoom = SpawnLevel();
 
-                GameObject.Find("Innkeeper").SetActive(true);
+                GameObject.Find("Triton Innkeeper").SetActive(true);
 
                 SetupGame();
                 player.GetComponent<Player>().Heal();
 
+                GameObject.Find("Triton Innkeeper").GetComponent<InnkeeperBehaviour>().FillShop();
                 break;
 
             case GameState.GAME:
@@ -134,8 +135,6 @@ public class GameController : MonoBehaviour
 
                 if (m_RescuedBlacksmith) m_BlacksmithObject.GetComponent<BlacksmithBehaviour>().FillShop();
                 if (m_RescuedAlchemist) m_AlchemistObject.GetComponent<AlchemistBehaviour>().FillShop();
-
-                GameObject.Find("Innkeeper").GetComponent<InnkeeperBehaviour>().FillShop();
                 #endregion
 
                 levelGenerator.tabernaSpawned = false;
@@ -313,7 +312,7 @@ public class GameController : MonoBehaviour
 
     public bool CanBuy(int price)
     {
-        return m_LobbySouls - price > 0;
+        return (m_LobbySouls - price) > 0;
     }
 
 }

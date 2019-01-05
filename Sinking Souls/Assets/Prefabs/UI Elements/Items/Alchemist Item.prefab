@@ -137,7 +137,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114253140019908682}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114638048983448606}
+        m_MethodName: UpgradeAbility
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114253140019908682
@@ -452,6 +463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5636154eb7493694189814f2e5a49744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_PriceText: {fileID: 114456280603133720}
   price: 0
   baseEnhancer: 0
   enhancerMultiplier: 0
@@ -459,6 +471,8 @@ MonoBehaviour:
   life: 0
   damage: 0
   modifier: {fileID: 0}
+  ability: {fileID: 0}
+  enhancer: {fileID: 0}
 --- !u!114 &114663997184426982
 MonoBehaviour:
   m_ObjectHideFlags: 1

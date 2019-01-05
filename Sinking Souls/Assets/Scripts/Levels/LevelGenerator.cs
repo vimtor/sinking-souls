@@ -134,9 +134,13 @@ public class LevelGenerator : MonoBehaviour
 
     private void SetEliteRoom() {
         int x;
-        x = Random.Range(0, takenPos.Count);
-        Vector2 aux = takenPos[x];
-        grid[(int)aux.x, (int)aux.y].type = Room.RoomType.ELITE;
+        Vector2 aux;
+        do
+        {
+            x = Random.Range(0, takenPos.Count);
+            aux = takenPos[x];
+        } while (grid[(int)aux.x, (int)aux.y].type == Room.RoomType.INITIAL);
+            grid[(int)aux.x, (int)aux.y].type = Room.RoomType.ELITE;      
     }
 
     private void CreateRooms() {
@@ -383,6 +387,7 @@ public class LevelGenerator : MonoBehaviour
 
             if (room.type == Room.RoomType.INITIAL) {
                 initialRoom = currentRoom;
+                Debug.Log(currentRoom.name);
             }
 
             #endregion

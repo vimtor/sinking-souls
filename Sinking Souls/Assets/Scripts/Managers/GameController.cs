@@ -74,7 +74,7 @@ public class GameController : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
         #endregion
-
+        Cursor.visible = false;
         levelGenerator = GetComponent<LevelGenerator>();
     }
 

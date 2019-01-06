@@ -174,6 +174,9 @@ GameObject:
   - component: {fileID: 54153688130001530}
   - component: {fileID: 136261267849923886}
   - component: {fileID: 114558834441481906}
+  - component: {fileID: 114121461738436674}
+  - component: {fileID: 195419481771492128}
+  - component: {fileID: 114499138746096906}
   m_Layer: 0
   m_Name: Ailin
   m_TagString: CrewMember
@@ -883,15 +886,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1276747255361284}
-  m_LocalRotation: {x: -0, y: 0.11062217, z: -0, w: 0.99386257}
-  m_LocalPosition: {x: -0.95, y: -0, z: -9.43}
+  m_LocalRotation: {x: -0, y: -0.44209573, z: -0, w: 0.89696795}
+  m_LocalPosition: {x: 3.2, y: 0, z: -9.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4429868068252266}
   - {fileID: 4240198426395938}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 12.702001, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -52.475002, z: 0}
 --- !u!4 &4744348700262666
 Transform:
   m_ObjectHideFlags: 1
@@ -1064,6 +1067,41 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114121461738436674
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1276747255361284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27115a1663b5ebc4a9dbbeb6a6e5abcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CurrentState: {fileID: 11400000, guid: 35f06207a8d34c14698f0ca2b9e25c1b, type: 2}
+  remainState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
+  player: {fileID: 0}
+  navMeshAgent: {fileID: 0}
+  stateTimeElapsed: 0
+  timeElapsed: 0
+  externalTime: 0
+  count: 0
+  aiActive: 0
+  stop: 0
+  forceState: 0
+  last: {fileID: 0}
+  Ailin: {fileID: 0}
+--- !u!114 &114499138746096906
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1276747255361284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25963e2dff151d54b901536772ee0442, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114558834441481906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1080,7 +1118,7 @@ MonoBehaviour:
   m_Price: {fileID: 0}
   m_RemainingSouls: {fileID: 0}
   m_EventSystem: {fileID: 0}
-  m_InteractRange: 3
+  m_InteractRange: 2
 --- !u!136 &136261267849923886
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1169,3 +1207,24 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.0004081726, y: -0.14614946, z: -0.05708635}
     m_Extent: {x: 1.0761611, y: 1.1080346, z: 0.38024583}
   m_DirtyAABB: 0
+--- !u!195 &195419481771492128
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1276747255361284}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 1000
+  avoidancePriority: 50
+  m_AngularSpeed: 360
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

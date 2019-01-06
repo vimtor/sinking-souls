@@ -74,10 +74,10 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
     {
         m_SelectedItem = m_EventSystem.currentSelectedGameObject;
 
-        m_Price.text = m_SelectedItem.transform.Find("Price").GetComponent<TextMeshProUGUI>().text;
+       // m_Price.text = m_SelectedItem.transform.Find("Price").GetComponent<TextMeshProUGUI>().text;
 
         int remainingSouls = GameController.instance.LobbySouls - m_SelectedItem.GetComponent<ShopItem>().price;
-        m_RemainingSouls.text = remainingSouls.ToString();
+        //m_RemainingSouls.text = remainingSouls.ToString();
 
         m_OldSelection = m_EventSystem.currentSelectedGameObject;
     }

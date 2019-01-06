@@ -432,8 +432,8 @@ public class LevelGenerator : MonoBehaviour
 
                 roomIcon.GetComponent<MeshRenderer>().material = bossRoomIcon;
 
-                instantiatedRoom.GetComponent<SpawnController>().possibleConfigurations.Clear();
-                instantiatedRoom.GetComponent<SpawnController>().possibleConfigurations.Add(Crew[0]); //index depending on wich level you are
+                //instantiatedRoom.GetComponent<SpawnController>().possibleConfigurations.Clear();
+                //instantiatedRoom.GetComponent<SpawnController>().possibleConfigurations.Add(Crew[0]); //index depending on wich level you are
                 break;
 
             case Room.RoomType.ELITE:

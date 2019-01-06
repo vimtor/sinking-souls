@@ -783,7 +783,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4049728750304462, guid: 258b637205f84f34c91c424fca3067e4, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114337623052856484, guid: 258b637205f84f34c91c424fca3067e4,
         type: 2}
@@ -791,11 +791,6 @@ Prefab:
       value: 
       objectReference: {fileID: 1589807051420334, guid: 49e416f76c3ef9049a0ff61d55781277,
         type: 2}
-    - target: {fileID: 114646670468762960, guid: 258b637205f84f34c91c424fca3067e4,
-        type: 2}
-      propertyPath: roomSize
-      value: 39.46
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 258b637205f84f34c91c424fca3067e4, type: 2}
   m_IsPrefabAsset: 0
@@ -872,7 +867,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4312283813708190, guid: 58527ba1223591140bddcea39810d8d2, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1266107447502824, guid: 58527ba1223591140bddcea39810d8d2, type: 2}
       propertyPath: m_Name
@@ -1405,7 +1400,7 @@ Transform:
   - {fileID: 1778786016}
   - {fileID: 1001320027}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1308510656
 GameObject:
@@ -1877,6 +1872,11 @@ Prefab:
     - target: {fileID: 1455352464021472, guid: 84068c6722fcdee47aef410f8e82b146, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114908506300436656, guid: 84068c6722fcdee47aef410f8e82b146,
+        type: 2}
+      propertyPath: m_InteractRange
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84068c6722fcdee47aef410f8e82b146, type: 2}
@@ -2517,7 +2517,7 @@ RectTransform:
   - {fileID: 524005616}
   - {fileID: 1989975320}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2786,6 +2786,11 @@ Prefab:
     - target: {fileID: 1276747255361284, guid: c62a942364bb0fd48b144df53529a38f, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114558834441481906, guid: c62a942364bb0fd48b144df53529a38f,
+        type: 2}
+      propertyPath: m_InteractRange
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c62a942364bb0fd48b144df53529a38f, type: 2}

@@ -174,6 +174,11 @@ public class GameController : MonoBehaviour
             string status = godMode ? "activated" : "deactivated";
             Debug.Log("God mode " + status);
         }
+
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            player.transform.position = GetComponent<LevelGenerator>().lastRoom.GetComponent<DoorBehaviour>().nextDoor.transform.position;
+        }
     }
 
     #region SceneManagment Functions

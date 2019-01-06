@@ -21,6 +21,7 @@ public class LevelGenerator : MonoBehaviour
     public bool tabernaSpawned = false;
     public int currentLevel = -1;
     public int numberRooms = 5;
+    [HideInInspector] public GameObject lastRoom;
 
     [Tooltip("Rate at which elites spawn.")]
     public float eliteRate;
@@ -424,6 +425,11 @@ public class LevelGenerator : MonoBehaviour
                 break;
 
             case Room.RoomType.BOSS:
+                for(int i = 0; i < instantiatedRoom.transform.childCount; i++)
+                {
+                    if (instantiatedRoom.transform.GetChild(i).name == "Door") lastRoom = instantiatedRoom.transform.GetChild(i).gameObject;
+                }
+
                 roomIcon.GetComponent<MeshRenderer>().material = bossRoomIcon;
 
                 instantiatedRoom.GetComponent<SpawnController>().possibleConfigurations.Clear();
@@ -439,6 +445,12 @@ public class LevelGenerator : MonoBehaviour
                 break;
 
             case Room.RoomType.NEXT_FLOOR:
+                for (int i = 0; i < instantiatedRoom.transform.childCount; i++)
+                {
+                    if (instantiatedRoom.transform.GetChild(i).name == "Door") { lastRoom = instantiatedRoom.transform.GetChild(i).gameObject;
+                    Debug.Log("LastRoom asigned");
+                    }
+                }
                 roomIcon.GetComponent<MeshRenderer>().material = nextFloorRoomIcon;
                 break;
 

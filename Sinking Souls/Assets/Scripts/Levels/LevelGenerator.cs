@@ -24,7 +24,7 @@ public class LevelGenerator : MonoBehaviour
 
     [Tooltip("Rate at which elites spawn.")]
     public float eliteRate;
-    public int roomSize;
+    public float roomSize;
 
     [Tooltip("By default the seed will generate randomly if not specified. " +
              "The inputted seed can be any combination of numbers and character.")]
@@ -400,7 +400,7 @@ public class LevelGenerator : MonoBehaviour
         return initialRoom;
     }
 
-    private GameObject SpawnRoom(Room room, int roomSize, int roomCount) {
+    private GameObject SpawnRoom(Room room, float roomSize, int roomCount) {
         Vector3 realPosition = new Vector3(room.gridPos.x, 0, room.gridPos.y);
         realPosition *= roomSize;
         room.prefab.transform.position = transform.position + realPosition;

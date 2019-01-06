@@ -209,10 +209,12 @@ public class Player : Entity
         Vector3 velocity = m_Rigidbody.velocity;
         velocity.y = 0;
 
-        if (velocity.magnitude < m_MaxMovementSpeed)
-        {
-            m_Rigidbody.AddForce(m_Direction * m_MovementSpeed * Time.fixedDeltaTime);
-        }
+        m_Rigidbody.velocity = transform.forward.normalized * InputManager.LeftJoystick.magnitude * m_MovementSpeed;
+
+        //if (velocity.magnitude < m_MaxMovementSpeed)
+        //{
+        //    m_Rigidbody.AddForce(m_Direction * m_MovementSpeed * Time.fixedDeltaTime);
+        //}
     }
 
     private void Rotate()

@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.EventSystems;
 
 public class GameController : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class GameController : MonoBehaviour
     public Ability[] abilities;
     public Weapon[] weapons;
     public Enhancer[] enhancers;
+    public GameObject innKeeperShop;
     
     [HideInInspector] public bool died;
     [HideInInspector] public static GameController instance;
@@ -86,8 +88,10 @@ public class GameController : MonoBehaviour
             case GameState.TABERN:
                 levelGenerator.takenPos = new List<Vector2>();
                 currentRoom = SpawnLevel();
-
-                GameObject.Find("Triton Innkeeper").SetActive(true);
+                GameObject InnKeeper = GameObject.Find("Triton Innkeeper");
+                GameObject pannel = Instantiate(innKeeperShop, GameObject.Find("Canvas").transform, false);
+                InnKeeper.GetComponent<InnkeeperBehaviour>().m_ShopPanel = pannel;
+                InnKeeper.GetComponent<InnkeeperBehaviour>().m_EventSystem = EventSystem.current;
 
                 SetupGame();
                 player.GetComponent<Player>().Heal();

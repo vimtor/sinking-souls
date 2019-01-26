@@ -1,9 +1,11 @@
 # Sinking Souls
 This is our game for the second project subject of [univeristy](https://enti.cat/en/).
 Sinking Souls its a pirate themed rogue-lite in which you will have to rescue your crew to escape the world of the deads.
-## Achievments
+
+## Achievements
 - Good code structure and the creation of systems.
 - Improved plugable state machine based on [this Unity series](https://unity3d.com/learn/tutorials/topics/navigation/finite-state-ai-delegate-pattern).
+
 ## Lessons
 - Good communication with clients, team members and yourself, is essential.
 - We need to learn more about git-flow.

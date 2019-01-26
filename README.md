@@ -1,5 +1,4 @@
 # Sinking Souls
-This is our game for the second project subject of [univeristy](https://enti.cat/en/).
 Sinking Souls its a pirate themed rogue-lite in which you will have to rescue your crew to escape the world of the deads.
 
 ## Achievements

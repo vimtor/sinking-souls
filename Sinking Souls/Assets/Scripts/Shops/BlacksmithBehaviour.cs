@@ -92,7 +92,6 @@ public class BlacksmithBehaviour : MonoBehaviour
             if (InputManager.GetButtonB())
             {
                 InputManager.ButtonB = false;
-
                 m_ShopPanel.SetActive(false);
                 GameController.instance.player.GetComponent<Player>().Resume();
             }
@@ -104,5 +103,6 @@ public class BlacksmithBehaviour : MonoBehaviour
 
             m_OldSelection = m_EventSystem.currentSelectedGameObject;
         }
+
     }
 }

@@ -86,6 +86,8 @@ public class Entity : MonoBehaviour
     }
     #endregion
 
+    [HideInInspector] public GameObject lockedEnemy = null;
+
     // THIS NEEDS TO BE REMOVED. USE ANIMATION EVENTS INSTEAD.
     private bool m_AbilityThrown;
     public bool AbilityThrown
@@ -250,6 +252,8 @@ public class Entity : MonoBehaviour
                     GameObject hitParticles = Instantiate(m_HitParticles);
                     hitParticles.transform.position = other.transform.position;
                     Destroy(hitParticles, 1);
+
+                    if (other.GetComponent<WeaponHolder>().owner.tag == "Player") other.GetComponent<WeaponHolder>().owner.GetComponent<Entity>().lockedEnemy = gameObject;
                 }
                 break;
 
@@ -262,5 +266,8 @@ public class Entity : MonoBehaviour
                 }
                 break;
         }
-    }    
+
+       
+    }
+    
 }

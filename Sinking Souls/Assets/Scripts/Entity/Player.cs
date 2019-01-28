@@ -20,6 +20,7 @@ public class Player : Entity
     [Header("Movement parameters")]
     public float m_MovementDamping;
     public float m_MovementSpeed;
+    public float lockDistance;
     public float MovementSpeed
     {
         get { return m_MovementSpeed; }
@@ -63,6 +64,8 @@ public class Player : Entity
     private Vector3 m_HorizontalMovement;
     private Vector3 m_VerticalMovement;
     private Vector3 m_Direction;
+    private Quaternion fake_Forward;
+    
 
     private bool m_CanMove;
     public bool CanMove
@@ -109,6 +112,8 @@ public class Player : Entity
         m_VerticalMovement = m_Forward * InputManager.LeftJoystick.y;
         m_Direction = m_HorizontalMovement - m_VerticalMovement;
 
+        if(lockedEnemy != null && (lockedEnemy.transform.position - transform.position).magnitude > lockDistance) lockedEnemy = null;
+
         switch (m_PlayerState)
         {
             case PlayerState.DASHING:
@@ -124,9 +129,17 @@ public class Player : Entity
 
             case PlayerState.MOVING:
                 m_Animator.SetFloat(m_SpeedParam, m_Direction.magnitude, m_MovementDamping, Time.deltaTime);
-
-                Rotate();
-                Move();
+                if (lockedEnemy != null)
+                {
+                    Debug.Log(lockedEnemy.tag);
+                    CombatRotation();
+                    CombatMove();
+                }
+                else
+                {
+                    Rotate();
+                    Move();
+                }
 
                 if (InputManager.ButtonB) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
                 if (InputManager.ButtonX) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
@@ -217,11 +230,44 @@ public class Player : Entity
         //}
     }
 
+    private void CombatMove()
+    {
+
+        // In the future change this to add force and put materials with friction in them.
+        // m_Rigidbody.MovePosition(transform.position + transform.forward * m_MovementSpeed * m_Direction.magnitude * Time.fixedDeltaTime);
+        Vector3 velocity = m_Rigidbody.velocity;
+        velocity.y = 0;
+        
+       Vector3 direction = Camera.main.transform.forward.normalized * InputManager.LeftJoystick.y*-1 + (Quaternion.Euler(new Vector3(0, 90, 0)) * Camera.main.transform.forward.normalized) * InputManager.LeftJoystick.x;
+        
+
+        m_Rigidbody.velocity = new Vector3(direction.x, 0, direction.z)*m_MovementSpeed;
+
+        //if (velocity.magnitude < m_MaxMovementSpeed)
+        //{
+        //    m_Rigidbody.AddForce(m_Direction * m_MovementSpeed * Time.fixedDeltaTime);
+        //}
+    }
+
     private void Rotate()
     {
         if (InputManager.LeftJoystickZero()) return;
 
         Quaternion rotation = Quaternion.LookRotation(m_Direction);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * m_RotationDamping);
+    }
+
+    private void CombatRotation()
+    {
+        Debug.Log("Entra");
+        if (InputManager.LeftJoystickZero()) return;
+
+        //Movement
+        Quaternion fakeRotation = Quaternion.LookRotation(m_Direction);
+        fake_Forward = Quaternion.Lerp(fake_Forward, fakeRotation, Time.deltaTime * m_RotationDamping);
+
+        //Rotation round the enemy
+        Quaternion rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * m_RotationDamping);
     }
 

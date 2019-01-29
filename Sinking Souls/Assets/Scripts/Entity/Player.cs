@@ -19,6 +19,14 @@ public class Player : Entity
     #endregion
 
     #region Game-feel Variables
+    [Header("Locked dash degrees")]
+    [Tooltip("From 9 oclock to 3 oclock, make shure that all of this parameters add up to 180 only!")]
+    public float leftOffset = 5;
+    public float leftDegrees = 26.6666f;
+    public float topDegrees = 26.6666f;
+    public float rightDegrees = 26.6666f;
+    public float rightOffset = 5;
+
     [Header("Movement parameters")]
     public float m_MovementDamping;
     public float m_MovementSpeed;
@@ -32,6 +40,7 @@ public class Player : Entity
     }
     public float m_MaxMovementSpeed;
     public float m_MovementRotationDamping;
+    public float m_LockDashLength = 0.2f;
 
     [Space(10)]
 
@@ -111,6 +120,8 @@ public class Player : Entity
 
     private void FixedUpdate()
     {
+        //if(lockedEnemy != null) DrawAngles();
+
         if (!m_CanMove) return;
         m_Animator.SetBool("LoockedEnemy", (lockedEnemy != null));
         CheckDead();
@@ -127,8 +138,8 @@ public class Player : Entity
             case PlayerState.DASHING:
                 Move();
                 Rotate();
-
                 if (InputManager.ButtonX) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
+
                 break;
 
             case PlayerState.REACTING:
@@ -140,20 +151,21 @@ public class Player : Entity
                 {
                     Vector3 LocalSpeed = transform.InverseTransformDirection(m_Rigidbody.velocity);
                     
-                    Debug.Log(LocalSpeed);
                     m_Animator.SetFloat("JoystickX", map(LocalSpeed.x, -MovementSpeed, MovementSpeed, -1, 1));
                     m_Animator.SetFloat("JoystickY", map(LocalSpeed.z, -MovementSpeed, MovementSpeed, -1, 1));
                     CombatRotation();
                     CombatMove();
+                    if (InputManager.ButtonB) ChangeState(LockDash, m_LockDashLength, PlayerState.DASHING, PlayerState.MOVING, false);
                 }
                 else
                 {
                     m_Animator.SetFloat(m_SpeedParam, m_Direction.magnitude, m_MovementDamping, Time.deltaTime);
                     Rotate();
                     Move();
+                    if (InputManager.ButtonB) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
                 }
 
-                if (InputManager.ButtonB) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
+                
                 if (InputManager.ButtonX) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
                 if (InputManager.ButtonY)
                 {
@@ -329,6 +341,80 @@ public class Player : Entity
 
         m_Animator.SetTrigger(m_DashParam);
         m_Rigidbody.AddForce(transform.forward * m_DashSpeed * Time.fixedDeltaTime, ForceMode.Impulse);
+    }
+
+    private void DrawAngles() {
+
+        Vector3 direction = Camera.main.transform.forward.normalized * InputManager.LeftJoystick.y * -1 + (Quaternion.Euler(new Vector3(0, 90, 0)) * Camera.main.transform.forward.normalized) * InputManager.LeftJoystick.x;
+        Debug.DrawRay(gameObject.transform.position, new Vector3(direction.x, 0, direction.z) * 100, Color.blue);
+
+
+        Vector3 fForward = lockedEnemy.transform.position - gameObject.transform.position;
+        Vector3 aux = Quaternion.Euler(new Vector3(0, -90 + leftOffset, 0)) * fForward;
+        Vector2 start = new Vector2(aux.x, aux.z);
+
+        Debug.DrawRay(gameObject.transform.position, new Vector3(start.x, 0, start.y), Color.red);
+        
+        aux = Quaternion.Euler(new Vector3(0, leftDegrees, 0)) * new Vector3(start.x,0, start.y);
+        start = new Vector2(aux.x, aux.z);
+        Debug.DrawRay(gameObject.transform.position, new Vector3(start.x, 0, start.y), Color.green);
+
+        aux = Quaternion.Euler(new Vector3(0, topDegrees, 0)) * new Vector3(start.x, 0, start.y);
+        start = new Vector2(aux.x, aux.z);
+        Debug.DrawRay(gameObject.transform.position, new Vector3(start.x, 0, start.y), Color.cyan);
+
+        aux = Quaternion.Euler(new Vector3(0, rightDegrees, 0)) * new Vector3(start.x, 0, start.y);
+        start = new Vector2(aux.x, aux.z);
+        Debug.DrawRay(gameObject.transform.position, new Vector3(start.x, 0, start.y), Color.yellow);
+
+    }
+
+    private void LockDash() {
+        Vector3 direction = Camera.main.transform.forward.normalized * InputManager.LeftJoystick.y * -1 + (Quaternion.Euler(new Vector3(0, 90, 0)) * Camera.main.transform.forward.normalized) * InputManager.LeftJoystick.x;
+        Vector2 input = new Vector2(direction.x, direction.z);
+        Vector3 fForward = lockedEnemy.transform.position - gameObject.transform.position;
+
+
+        if (InputManager.LeftJoystick == Vector2.zero) {
+            Debug.Log("Dash in place");
+            return;
+        }
+        else if(Vector2.Angle(new Vector2(fForward.x, fForward.z), input) > 90 - leftOffset) {
+            Debug.Log("Dash BackWards");
+            return;
+        }
+        else {
+            Vector3 aux = Quaternion.Euler(new Vector3(0, -90 + leftOffset, 0)) * fForward;
+            Vector2 start = new Vector2(aux.x, aux.z);
+
+            aux = Quaternion.Euler(new Vector3(0, leftDegrees, 0)) * new Vector3(start.x, 0, start.y);
+            if(Vector2.Angle(start, input) < leftDegrees) {
+                Debug.Log("Dash Left");
+                return;
+            }
+            else {
+                start = new Vector2(aux.x, aux.z);
+                aux = Quaternion.Euler(new Vector3(0, topDegrees, 0)) * new Vector3(start.x, 0, start.y);
+                if(Vector2.Angle(start, input) < topDegrees) {
+                    Debug.Log("Dash Up");
+                    return;
+                }
+                else {
+                    start = new Vector2(aux.x, aux.z);
+                    aux = Quaternion.Euler(new Vector3(0, rightDegrees, 0)) * new Vector3(start.x, 0, start.y);
+                    if(Vector2.Angle(start, input) < rightDegrees) {
+                        Debug.Log("Dash Right");
+                        return;
+                    }
+                }
+
+            }
+
+
+
+
+
+        }
     }
 
     private void Spell()

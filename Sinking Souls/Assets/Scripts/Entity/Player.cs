@@ -100,11 +100,15 @@ public class Player : Entity
         m_WeaponCollider.enabled = false;
         m_RotationDamping = m_MovementRotationDamping;
     }
+    //value, start1, end1, new sratr, new end
+    float map(float s, float a1, float a2, float b1, float b2) {
+        return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
+    }
 
     private void FixedUpdate()
     {
         if (!m_CanMove) return;
-
+        m_Animator.SetBool("LoockedEnemy", (lockedEnemy != null));
         CheckDead();
         if (m_Abilities[0].IsPassive) m_Abilities[0].Passive(gameObject);
 
@@ -128,15 +132,19 @@ public class Player : Entity
                 break;
 
             case PlayerState.MOVING:
-                m_Animator.SetFloat(m_SpeedParam, m_Direction.magnitude, m_MovementDamping, Time.deltaTime);
                 if (lockedEnemy != null)
                 {
-                    Debug.Log(lockedEnemy.tag);
+                    Vector3 LocalSpeed = transform.InverseTransformDirection(m_Rigidbody.velocity);
+                    
+                    Debug.Log(LocalSpeed);
+                    m_Animator.SetFloat("JoystickX", map(LocalSpeed.x, -MovementSpeed, MovementSpeed, -1, 1));
+                    m_Animator.SetFloat("JoystickY", map(LocalSpeed.z, -MovementSpeed, MovementSpeed, -1, 1));
                     CombatRotation();
                     CombatMove();
                 }
                 else
                 {
+                    m_Animator.SetFloat(m_SpeedParam, m_Direction.magnitude, m_MovementDamping, Time.deltaTime);
                     Rotate();
                     Move();
                 }

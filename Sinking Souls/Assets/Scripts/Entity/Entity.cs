@@ -253,6 +253,8 @@ public class Entity : MonoBehaviour
                     hitParticles.transform.position = other.transform.position;
                     Destroy(hitParticles, 1);
 
+                    if (gameObject.tag == "Player") gameObject.GetComponent<Player>().Dodge = Player.DodgeType.NONE;
+
                     if (other.GetComponent<WeaponHolder>().owner.tag == "Player") other.GetComponent<WeaponHolder>().owner.GetComponent<Entity>().lockedEnemy = gameObject;
                 }
                 break;

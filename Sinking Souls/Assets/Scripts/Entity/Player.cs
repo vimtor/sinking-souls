@@ -14,6 +14,9 @@ public class Player : Entity
     private enum PlayerState { DASHING, MOVING, ATTACKING, REACTING, SPELLING, NONE };
     private PlayerState m_PlayerState;
 
+    [HideInInspector] public enum DodgeType { NORMAL, PERFECT, NONE};
+    [HideInInspector] public  DodgeType Dodge;
+
     // To avoid transition overlaping.
     private byte m_TransitionCount;
     #endregion

@@ -297,7 +297,7 @@ public class Player : Entity
         m_RotationDamping = m_AttackRotationDamping;
         m_Rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
         if (lockedEnemy != null && Vector3.Distance(lockedEnemy.transform.position, gameObject.transform.position) > 2.5f && Vector3.Distance(lockedEnemy.transform.position, gameObject.transform.position) < 3.3f)
-            m_Rigidbody.MovePosition(transform.position + ((lockedEnemy.transform.position - gameObject.transform.position) * 0.5f));
+            m_Rigidbody.MovePosition(transform.position + ((lockedEnemy.transform.position - gameObject.transform.position) * 0.35f));
         // Activate weapon.
         m_Weapon.Attack();
     }

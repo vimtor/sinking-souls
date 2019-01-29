@@ -36,6 +36,7 @@ public class Player : Entity
     [Space(10)]
 
     public float m_DashMovementSpeed;
+    public float m_lockedSpeed;
     public float m_DashSpeed;
     public float m_DashRotationDamping;
 
@@ -121,6 +122,9 @@ public class Player : Entity
         m_Direction = m_HorizontalMovement - m_VerticalMovement;
 
         if(lockedEnemy != null && (lockedEnemy.transform.position - transform.position).magnitude > lockDistance) lockedEnemy = null;
+        if (lockedEnemy != null) m_MovementSpeed = m_lockedSpeed;
+        else m_MovementSpeed = m_OriginalMovementSpeed;
+        
 
         switch (m_PlayerState)
         {
@@ -139,8 +143,6 @@ public class Player : Entity
                 if (lockedEnemy != null)
                 {
                     Vector3 LocalSpeed = transform.InverseTransformDirection(m_Rigidbody.velocity);
-                    
-                    Debug.Log(LocalSpeed);
                     m_Animator.SetFloat("JoystickX", map(LocalSpeed.x, -MovementSpeed, MovementSpeed, -1, 1));
                     m_Animator.SetFloat("JoystickY", map(LocalSpeed.z, -MovementSpeed, MovementSpeed, -1, 1));
                     CombatRotation();
@@ -310,7 +312,6 @@ public class Player : Entity
         
         if (lockedEnemy != null && Vector3.Distance(lockedEnemy.transform.position, gameObject.transform.position) > minDist && Vector3.Distance(lockedEnemy.transform.position, gameObject.transform.position) < maxDist)
         {
-            Debug.Log("Ahora");
             transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
             m_Rigidbody.MovePosition(transform.position + ((lockedEnemy.transform.position - gameObject.transform.position) * 0.45f));
         }

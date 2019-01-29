@@ -285,6 +285,7 @@ public class Player : Entity
 
     private void Attack()
     {
+        m_Rigidbody.velocity = Vector3.zero;
         // Reset the movement animator parameters.
         m_Animator.SetFloat(m_SpeedParam, 0);
 
@@ -294,8 +295,9 @@ public class Player : Entity
 
         // Set attack game-feel parameters.
         m_RotationDamping = m_AttackRotationDamping;
-        m_Rigidbody.MovePosition(transform.position + transform.forward * m_AttackStepForce);
-
+        m_Rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+        if (lockedEnemy != null && Vector3.Distance(lockedEnemy.transform.position, gameObject.transform.position) > 2.5f && Vector3.Distance(lockedEnemy.transform.position, gameObject.transform.position) < 3.3f)
+            m_Rigidbody.MovePosition(transform.position + ((lockedEnemy.transform.position - gameObject.transform.position) * 0.5f));
         // Activate weapon.
         m_Weapon.Attack();
     }
@@ -314,6 +316,7 @@ public class Player : Entity
 
     private void Spell()
     {
+        m_Rigidbody.velocity = Vector3.zero;
         m_WeaponCollider.enabled = false;
 
         // Reset the movement animator parameters.

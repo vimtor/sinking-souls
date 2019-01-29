@@ -31,8 +31,8 @@ public class Player : Entity
     public float m_MovementDamping;
     public float m_MovementSpeed;
     public float lockDistance;
-    private float minDist = 1.7f;
-    private float maxDist = 3f;
+    public float minDist = 1.7f;
+    public float maxDist = 3f;
     public float MovementSpeed
     {
         get { return m_MovementSpeed; }
@@ -251,10 +251,6 @@ public class Player : Entity
 
         m_Rigidbody.velocity = transform.forward.normalized * InputManager.LeftJoystick.magnitude * m_MovementSpeed;
 
-        //if (velocity.magnitude < m_MaxMovementSpeed)
-        //{
-        //    m_Rigidbody.AddForce(m_Direction * m_MovementSpeed * Time.fixedDeltaTime);
-        //}
     }
 
     private void CombatMove()
@@ -326,7 +322,8 @@ public class Player : Entity
         if (lockedEnemy != null && Vector3.Distance(lockedEnemy.transform.position, gameObject.transform.position) > minDist && Vector3.Distance(lockedEnemy.transform.position, gameObject.transform.position) < maxDist)
         {
             transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
-            m_Rigidbody.MovePosition(transform.position + ((lockedEnemy.transform.position - gameObject.transform.position) * 0.45f));
+            // m_Rigidbody.MovePosition(transform.position + ((lockedEnemy.transform.position - gameObject.transform.position) * 0.45f));
+            m_Rigidbody.AddForce( (lockedEnemy.transform.position - gameObject.transform.position).normalized*10, ForceMode.Impulse);
         }
            
         // Activate weapon.

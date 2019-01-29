@@ -6,6 +6,8 @@ using System;
 
 public class Player : Entity
 {
+    
+
     #region State Logic
     delegate void StateAction();
 
@@ -21,6 +23,8 @@ public class Player : Entity
     public float m_MovementDamping;
     public float m_MovementSpeed;
     public float lockDistance;
+    private float minDist = 1.7f;
+    private float maxDist = 3f;
     public float MovementSpeed
     {
         get { return m_MovementSpeed; }
@@ -268,7 +272,6 @@ public class Player : Entity
     private void CombatRotation()
     {
         Debug.Log("Entra");
-        if (InputManager.LeftJoystickZero()) return;
 
         //Movement
         Quaternion fakeRotation = Quaternion.LookRotation(m_Direction);
@@ -304,8 +307,14 @@ public class Player : Entity
         // Set attack game-feel parameters.
         m_RotationDamping = m_AttackRotationDamping;
         m_Rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
-        if (lockedEnemy != null && Vector3.Distance(lockedEnemy.transform.position, gameObject.transform.position) > 2.5f && Vector3.Distance(lockedEnemy.transform.position, gameObject.transform.position) < 3.3f)
-            m_Rigidbody.MovePosition(transform.position + ((lockedEnemy.transform.position - gameObject.transform.position) * 0.35f));
+        
+        if (lockedEnemy != null && Vector3.Distance(lockedEnemy.transform.position, gameObject.transform.position) > minDist && Vector3.Distance(lockedEnemy.transform.position, gameObject.transform.position) < maxDist)
+        {
+            Debug.Log("Ahora");
+            transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
+            m_Rigidbody.MovePosition(transform.position + ((lockedEnemy.transform.position - gameObject.transform.position) * 0.45f));
+        }
+           
         // Activate weapon.
         m_Weapon.Attack();
     }

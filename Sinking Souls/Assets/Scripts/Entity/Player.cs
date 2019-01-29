@@ -25,7 +25,9 @@ public class Player : Entity
     public float leftDegrees = 26.6666f;
     public float topDegrees = 26.6666f;
     public float rightDegrees = 26.6666f;
-    public float rightOffset = 5;
+    public float dashSpawningDistance;
+    [Tooltip("how much tho the ceneter does the player spawn when he teleports to left and rigth")]
+    public float centered;
 
     [Header("Movement parameters")]
     public float m_MovementDamping;
@@ -121,7 +123,7 @@ public class Player : Entity
 
     private void FixedUpdate()
     {
-        //if(lockedEnemy != null) DrawAngles();
+        if(lockedEnemy != null) DrawAngles();
 
         if (!m_CanMove) return;
         m_Animator.SetBool("LoockedEnemy", (lockedEnemy != null));
@@ -189,8 +191,13 @@ public class Player : Entity
                 if (InputManager.ButtonX) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING); // Enable combo strings.
                 
                 Rotate(); // Rotate with attacking rotation damping.
-
-                if (InputManager.ButtonB) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
+                if (lockedEnemy != null) {
+                    if (InputManager.ButtonB) ChangeState(LockDash, m_LockDashLength, PlayerState.DASHING, PlayerState.MOVING, false);
+                }
+                else {
+                    if (InputManager.ButtonB) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
+                }
+                
                 if (InputManager.ButtonY)
                 {
                     if (m_AbilityCooldown <= 0.0f)
@@ -201,9 +208,14 @@ public class Player : Entity
                 break;
 
             case PlayerState.SPELLING:
-                if (InputManager.ButtonB) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
+                if (lockedEnemy != null) {
+                    if (InputManager.ButtonB) ChangeState(LockDash, m_LockDashLength, PlayerState.DASHING, PlayerState.MOVING, false);
+                }
+                else {
+                    if (InputManager.ButtonB) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
+                }
 
-                break;
+            break;
 
             default:
                 break;
@@ -388,6 +400,11 @@ public class Player : Entity
 
             aux = Quaternion.Euler(new Vector3(0, leftDegrees, 0)) * new Vector3(start.x, 0, start.y);
             if(Vector2.Angle(start, input) < leftDegrees) {
+                Vector3 spawnDirection = aux + (new Vector3(start.x,0, start.y) / centered);
+                Vector3 spawnPosition = lockedEnemy.transform.position + spawnDirection.normalized * dashSpawningDistance;
+                transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
+                m_Rigidbody.MovePosition(spawnPosition);
+                
                 Debug.Log("Dash Left");
                 return;
             }
@@ -395,6 +412,11 @@ public class Player : Entity
                 start = new Vector2(aux.x, aux.z);
                 aux = Quaternion.Euler(new Vector3(0, topDegrees, 0)) * new Vector3(start.x, 0, start.y);
                 if(Vector2.Angle(start, input) < topDegrees) {
+                    Vector3 spawnDirection = aux + new Vector3(start.x, 0, start.y);
+                    Vector3 spawnPosition = lockedEnemy.transform.position + spawnDirection.normalized * dashSpawningDistance;
+                    transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
+
+                    m_Rigidbody.MovePosition(spawnPosition);
                     Debug.Log("Dash Up");
                     return;
                 }
@@ -402,17 +424,17 @@ public class Player : Entity
                     start = new Vector2(aux.x, aux.z);
                     aux = Quaternion.Euler(new Vector3(0, rightDegrees, 0)) * new Vector3(start.x, 0, start.y);
                     if(Vector2.Angle(start, input) < rightDegrees) {
+                        Vector3 spawnDirection = (aux / centered) + new Vector3(start.x, 0, start.y);
+                        Vector3 spawnPosition = lockedEnemy.transform.position + spawnDirection.normalized * dashSpawningDistance;
+                        transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
+
+                        m_Rigidbody.MovePosition(spawnPosition);
                         Debug.Log("Dash Right");
                         return;
                     }
                 }
 
             }
-
-
-
-
-
         }
     }
 

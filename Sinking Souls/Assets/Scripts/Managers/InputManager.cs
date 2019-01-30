@@ -61,6 +61,14 @@ public class InputManager : MonoBehaviour {
         get { return m_ButtonStart; }
         set { m_ButtonStart = value; }
     }
+
+    private static bool m_ButtonRJ;
+    public static bool ButtonRJ {
+        get { return m_ButtonRJ; }
+        set { m_ButtonRJ = value; }
+    }
+
+    
     #endregion
 
     public static bool LeftJoystickZero() {
@@ -78,6 +86,7 @@ public class InputManager : MonoBehaviour {
         if (Input.GetButtonDown("BUTTON_B") || Input.GetKeyDown(KeyCode.I)) m_ButtonB = true;
         if (Input.GetButtonDown("BUTTON_X") || Input.GetKeyDown(KeyCode.O)) m_ButtonX = true; 
         if (Input.GetButtonDown("BUTTON_Y") || Input.GetKeyDown(KeyCode.P)) m_ButtonY = true;
+        if (Input.GetButtonDown("BUTTON_RIGHTJOYSTICK") || Input.GetKeyDown(KeyCode.L)) m_ButtonRJ = true;
 
         if (Input.GetAxis("BUTTON_RT") >= 0.5) m_ButtonRT = true;
 
@@ -98,7 +107,7 @@ public class InputManager : MonoBehaviour {
             m_ButtonB = false;
             m_ButtonX = false;
             m_ButtonY = false;
-
+            m_ButtonRJ = false;
             m_ButtonRT = false;
         }
     }

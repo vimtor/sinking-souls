@@ -31,7 +31,7 @@ public class Player : Entity
     public float dashSpawningDistance;
     [Tooltip("how much tho the ceneter does the player spawn when he teleports to left and rigth")]
     public float centered;
-
+    public float dashTime;
     [Header("Movement parameters")]
     public float m_MovementDamping;
     public float m_MovementSpeed;
@@ -245,7 +245,23 @@ public class Player : Entity
                 break;
         }
 
+        if (lockedEnemy == null && InputManager.ButtonRJ)
+        {
+            float dist = lockDistance + 1;
+            foreach (GameObject target in GameController.instance.roomEnemies)
+            {
+                if(target != null)
+                if (dist > Vector3.Distance(target.transform.position, transform.position))
+                {
+                    dist = Vector3.Distance(target.transform.position, transform.position);
+                    lockedEnemy = target;
+                }
+            }
+        }
+        else if (lockedEnemy != null && InputManager.ButtonRJ) lockedEnemy = null;
+
         if (m_AbilityCooldown > 0) m_AbilityCooldown -= Time.deltaTime;
+
     }
 
     #region ChangeState Functions
@@ -268,7 +284,7 @@ public class Player : Entity
         {
             if (resetVelocity) m_Rigidbody.velocity = Vector3.zero;
             m_PlayerState = returnState;
-            if (m_PlayerState == PlayerState.MOVING) ResetMovement();
+            if (m_PlayerState == PlayerState.MOVING && lockedEnemy == null) ResetMovement();
         } 
 
         m_TransitionCount--;
@@ -314,18 +330,22 @@ public class Player : Entity
 
             foreach (GameObject target in GameController.instance.roomEnemies)
             {
-                Debug.Log("Something in here");
-                float distance = Vector3.Distance(target.transform.position, transform.position);
-                float angle = Vector2.Angle(direction2, new Vector2(target.transform.position.x, target.transform.position.z) - new Vector2(gameObject.transform.position.x, gameObject.transform.position.z));
-                Debug.Log("Distance " + distance);
-                Debug.Log("Angle " + angle);
-
-                if (distance <= lockDistance && angle < closests)
+                if(target != null)
                 {
-                    Debug.Log("New closest");
-                    lockedEnemy = target;
-                    closests = angle;
+                    Debug.Log("Something in here");
+                    float distance = Vector3.Distance(target.transform.position, transform.position);
+                    float angle = Vector2.Angle(direction2, new Vector2(target.transform.position.x, target.transform.position.z) - new Vector2(gameObject.transform.position.x, gameObject.transform.position.z));
+                    Debug.Log("Distance " + distance);
+                    Debug.Log("Angle " + angle);
+
+                    if (distance <= lockDistance && angle < closests)
+                    {
+                        Debug.Log("New closest");
+                        lockedEnemy = target;
+                        closests = angle;
+                    }
                 }
+            
             }
         }
 
@@ -442,19 +462,24 @@ public class Player : Entity
                 break;
         }
 
-        Dodge = DodgeType.NONE;
+       
         Vector3 direction = Camera.main.transform.forward.normalized * InputManager.LeftJoystick.y * -1 + (Quaternion.Euler(new Vector3(0, 90, 0)) * Camera.main.transform.forward.normalized) * InputManager.LeftJoystick.x;
         Vector2 input = new Vector2(direction.x, direction.z);
         Vector3 fForward = lockedEnemy.transform.position - gameObject.transform.position;
         
 
-        if (InputManager.LeftJoystick == Vector2.zero) {
-
+        if (InputManager.LeftJoystick == Vector2.zero ) {
+            if (Dodge != DodgeType.NONE)
+            {
+                gameObject.layer = LayerMask.NameToLayer("Dash");
+                StartCoroutine(GetBulnerable(dashTime));
+            }
             return;
         }
         else if(Vector2.Angle(new Vector2(fForward.x, fForward.z), input) > 90 - leftOffset) {
             transform.rotation = Quaternion.LookRotation(new Vector3(InputManager.LeftJoystick.x,0, InputManager.LeftJoystick.y)-transform.position);
             lockedEnemy = null;
+
             ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
 
             return;
@@ -468,8 +493,12 @@ public class Player : Entity
                 Vector3 spawnDirection = aux + (new Vector3(start.x,0, start.y) / centered);
                 Vector3 spawnPosition = lockedEnemy.transform.position + spawnDirection.normalized * dashSpawningDistance;
 
+                gameObject.layer = LayerMask.NameToLayer("Dash");
+                StartCoroutine(GetBulnerable(dashTime));
+
                 m_Rigidbody.MovePosition(spawnPosition);
                 m_Rigidbody.velocity = Vector3.zero;
+
                 transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
                 return;
             }
@@ -480,7 +509,11 @@ public class Player : Entity
                     Vector3 spawnDirection = aux + new Vector3(start.x, 0, start.y);
                     Vector3 spawnPosition = lockedEnemy.transform.position + spawnDirection.normalized * dashSpawningDistance;
 
+                    gameObject.layer = LayerMask.NameToLayer("Dash");
+                    StartCoroutine(GetBulnerable(dashTime));
+
                     m_Rigidbody.MovePosition(spawnPosition);
+
                     transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
                     m_Rigidbody.velocity = Vector3.zero;
 
@@ -493,7 +526,11 @@ public class Player : Entity
                         Vector3 spawnDirection = (aux / centered) + new Vector3(start.x, 0, start.y);
                         Vector3 spawnPosition = lockedEnemy.transform.position + spawnDirection.normalized * dashSpawningDistance;
 
+                        gameObject.layer = LayerMask.NameToLayer("Dash");
+                        StartCoroutine(GetBulnerable(dashTime));
+
                         m_Rigidbody.MovePosition(spawnPosition);
+
                         transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
                         m_Rigidbody.velocity = Vector3.zero;
 
@@ -503,6 +540,7 @@ public class Player : Entity
 
             }
         }
+        Dodge = DodgeType.NONE;
     }
 
     private void Spell()
@@ -547,6 +585,15 @@ public class Player : Entity
     public void EquipModifier(Modifier modifier)
     {
         m_Weapon.modifier = modifier;
+    }
+
+   IEnumerator GetBulnerable(float time)
+    {
+        Debug.Log("Entra");
+        yield return new WaitForSeconds(time);
+        Debug.Log("Sale");
+        gameObject.layer = LayerMask.NameToLayer("Player");
+
     }
 
 }

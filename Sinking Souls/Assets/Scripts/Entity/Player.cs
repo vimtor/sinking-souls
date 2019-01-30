@@ -183,6 +183,7 @@ public class Player : Entity
                     ChangeLock();
                     CombatRotation();
                     CombatMove();
+                    gameObject.GetComponent<Hook>().Throw();
 
                     if (InputManager.ButtonB) ChangeState(LockDash, m_LockDashLength, PlayerState.DASHING, PlayerState.MOVING, false);
                 }
@@ -216,6 +217,7 @@ public class Player : Entity
                 if(lockedEnemy == null)
                 Rotate(); // Rotate with attacking rotation damping.
                 if (lockedEnemy != null) {
+                    gameObject.GetComponent<Hook>().Throw();
                     if (InputManager.ButtonB) ChangeState(LockDash, m_LockDashLength, PlayerState.DASHING, PlayerState.MOVING, false);
                 }
                 else {
@@ -319,6 +321,8 @@ public class Player : Entity
         m_Rigidbody.velocity = new Vector3(direction.x, 0, direction.z)*m_MovementSpeed;
 
     }
+
+
 
     private void ChangeLock()
     {

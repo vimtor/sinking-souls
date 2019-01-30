@@ -44,6 +44,7 @@ public class GameController : MonoBehaviour
     public Weapon[] weapons;
     public Enhancer[] enhancers;
     public GameObject innKeeperShop;
+    public List<GameObject> roomEnemies;
     
     [HideInInspector] public bool died;
     [HideInInspector] public static GameController instance;

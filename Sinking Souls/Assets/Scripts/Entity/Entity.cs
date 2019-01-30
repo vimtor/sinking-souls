@@ -179,6 +179,26 @@ public class Entity : MonoBehaviour
     #region AnimationEvents Functions
     // These functions are called via animation events.
     protected void EnableCollider() { m_WeaponCollider.enabled = true; }
+    protected void EnablePerfect()
+    {
+        transform.GetChild(2).GetComponent<BoxCollider>().enabled = true;
+
+    }
+    protected void DisablePerfect()
+    {
+        transform.GetChild(2).GetComponent<BoxCollider>().enabled = false;
+
+    }
+    protected void EnableNormal()
+    {
+        transform.GetChild(3).GetComponent<BoxCollider>().enabled = true;
+
+    }
+    protected void DisableNormal()
+    {
+        transform.GetChild(3).GetComponent<BoxCollider>().enabled = false;
+
+    }
     protected void DisableCollider() { m_WeaponCollider.enabled = false; }
 
     protected void UseAbility(int abilityID)

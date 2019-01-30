@@ -14,8 +14,8 @@ public class Player : Entity
     private enum PlayerState { DASHING, MOVING, ATTACKING, REACTING, SPELLING, NONE };
     private PlayerState m_PlayerState;
 
-    [HideInInspector] public enum DodgeType { NORMAL, PERFECT, NONE};
-    [HideInInspector] public  DodgeType Dodge;
+    [HideInInspector] public enum DodgeType { NONE, NORMAL, PERFECT};
+    public  DodgeType Dodge;
 
     // To avoid transition overlaping.
     private byte m_TransitionCount;
@@ -36,8 +36,8 @@ public class Player : Entity
     public float m_MovementDamping;
     public float m_MovementSpeed;
     public float lockDistance;
-    public float minDist = 1.7f;
-    public float maxDist = 3f;
+    public float minStepDist = 1.7f;
+    public float maxStepDist = 3f;
     public float MovementSpeed
     {
         get { return m_MovementSpeed; }
@@ -107,7 +107,9 @@ public class Player : Entity
 
         // Get animation lengths.
         var animationClips = m_Animator.runtimeAnimatorController.animationClips;
-        m_AttackLength = Array.Find(animationClips, clip => clip.name == "Klaus_1").length;
+        //m_AttackLength = Array.Find(animationClips, clip => clip.name == "Klaus_1").length;
+        m_AttackLength = 0.53f;
+
         m_DashLength = Array.Find(animationClips, clip => clip.name == "Dash").length * 0.85f;
         m_SpellLength = Array.Find(animationClips, clip => clip.name == "Throw").length;
 
@@ -126,7 +128,24 @@ public class Player : Entity
 
     private void FixedUpdate()
     {
-        if(lockedEnemy != null) DrawAngles();
+        switch (Dodge)
+        {
+            case DodgeType.NONE:
+                transform.GetChild(1).GetComponent<Renderer>().material.color = Color.white;
+                break;
+            case DodgeType.NORMAL:
+                transform.GetChild(1).GetComponent<Renderer>().material.color = Color.red;
+
+                break;
+            case DodgeType.PERFECT:
+                transform.GetChild(1).GetComponent<Renderer>().material.color = Color.blue;
+
+                break;
+            default:
+                break;
+        }
+
+        if (lockedEnemy != null) DrawAngles();
 
         if (!m_CanMove) return;
         m_Animator.SetBool("LoockedEnemy", (lockedEnemy != null));
@@ -161,8 +180,10 @@ public class Player : Entity
                     Vector3 LocalSpeed = transform.InverseTransformDirection(m_Rigidbody.velocity);
                     m_Animator.SetFloat("JoystickX", map(LocalSpeed.x, -MovementSpeed, MovementSpeed, -1, 1));
                     m_Animator.SetFloat("JoystickY", map(LocalSpeed.z, -MovementSpeed, MovementSpeed, -1, 1));
+                    ChangeLock();
                     CombatRotation();
                     CombatMove();
+
                     if (InputManager.ButtonB) ChangeState(LockDash, m_LockDashLength, PlayerState.DASHING, PlayerState.MOVING, false);
                 }
                 else
@@ -192,7 +213,7 @@ public class Player : Entity
 
                 // Behaviour while attacking.
                 if (InputManager.ButtonX) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING); // Enable combo strings.
-                
+                if(lockedEnemy == null)
                 Rotate(); // Rotate with attacking rotation damping.
                 if (lockedEnemy != null) {
                     if (InputManager.ButtonB) ChangeState(LockDash, m_LockDashLength, PlayerState.DASHING, PlayerState.MOVING, false);
@@ -281,10 +302,33 @@ public class Player : Entity
 
         m_Rigidbody.velocity = new Vector3(direction.x, 0, direction.z)*m_MovementSpeed;
 
-        //if (velocity.magnitude < m_MaxMovementSpeed)
-        //{
-        //    m_Rigidbody.AddForce(m_Direction * m_MovementSpeed * Time.fixedDeltaTime);
-        //}
+    }
+
+    private void ChangeLock()
+    {
+        if(InputManager.RightJoystick.magnitude > 0.5f)
+        {
+            Vector3 direction = Camera.main.transform.forward.normalized * InputManager.RightJoystick.y * -1 + (Quaternion.Euler(new Vector3(0, 90, 0)) * Camera.main.transform.forward.normalized) * InputManager.RightJoystick.x;
+            float closests = 180;
+            Vector2 direction2 = new Vector2(direction.x, direction.z);
+
+            foreach (GameObject target in GameController.instance.roomEnemies)
+            {
+                Debug.Log("Something in here");
+                float distance = Vector3.Distance(target.transform.position, transform.position);
+                float angle = Vector2.Angle(direction2, new Vector2(target.transform.position.x, target.transform.position.z) - new Vector2(gameObject.transform.position.x, gameObject.transform.position.z));
+                Debug.Log("Distance " + distance);
+                Debug.Log("Angle " + angle);
+
+                if (distance <= lockDistance && angle < closests)
+                {
+                    Debug.Log("New closest");
+                    lockedEnemy = target;
+                    closests = angle;
+                }
+            }
+        }
+
     }
 
     private void Rotate()
@@ -297,7 +341,6 @@ public class Player : Entity
 
     private void CombatRotation()
     {
-        Debug.Log("Entra");
 
         //Movement
         Quaternion fakeRotation = Quaternion.LookRotation(m_Direction);
@@ -334,7 +377,7 @@ public class Player : Entity
         m_RotationDamping = m_AttackRotationDamping;
         m_Rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
         
-        if (lockedEnemy != null && Vector3.Distance(lockedEnemy.transform.position, gameObject.transform.position) > minDist && Vector3.Distance(lockedEnemy.transform.position, gameObject.transform.position) < maxDist)
+        if (lockedEnemy != null && Vector3.Distance(lockedEnemy.transform.position, gameObject.transform.position) > minStepDist && Vector3.Distance(lockedEnemy.transform.position, gameObject.transform.position) < maxStepDist)
         {
             transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
             // m_Rigidbody.MovePosition(transform.position + ((lockedEnemy.transform.position - gameObject.transform.position) * 0.45f));
@@ -384,17 +427,36 @@ public class Player : Entity
     }
 
     private void LockDash() {
+        switch (Dodge)
+        {
+            case DodgeType.NONE:
+                Debug.Log("NONE");
+                break;
+            case DodgeType.NORMAL:
+                Debug.Log("NORMAL");
+                break;
+            case DodgeType.PERFECT:
+                Debug.Log("PERFEcFT");
+                break;
+            default:
+                break;
+        }
+
+        Dodge = DodgeType.NONE;
         Vector3 direction = Camera.main.transform.forward.normalized * InputManager.LeftJoystick.y * -1 + (Quaternion.Euler(new Vector3(0, 90, 0)) * Camera.main.transform.forward.normalized) * InputManager.LeftJoystick.x;
         Vector2 input = new Vector2(direction.x, direction.z);
         Vector3 fForward = lockedEnemy.transform.position - gameObject.transform.position;
-
+        
 
         if (InputManager.LeftJoystick == Vector2.zero) {
-            Debug.Log("Dash in place");
+
             return;
         }
         else if(Vector2.Angle(new Vector2(fForward.x, fForward.z), input) > 90 - leftOffset) {
-            Debug.Log("Dash BackWards");
+            transform.rotation = Quaternion.LookRotation(new Vector3(InputManager.LeftJoystick.x,0, InputManager.LeftJoystick.y)-transform.position);
+            lockedEnemy = null;
+            ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
+
             return;
         }
         else {
@@ -405,10 +467,10 @@ public class Player : Entity
             if(Vector2.Angle(start, input) < leftDegrees) {
                 Vector3 spawnDirection = aux + (new Vector3(start.x,0, start.y) / centered);
                 Vector3 spawnPosition = lockedEnemy.transform.position + spawnDirection.normalized * dashSpawningDistance;
-                transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
+
                 m_Rigidbody.MovePosition(spawnPosition);
-                
-                Debug.Log("Dash Left");
+                m_Rigidbody.velocity = Vector3.zero;
+                transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
                 return;
             }
             else {
@@ -417,10 +479,11 @@ public class Player : Entity
                 if(Vector2.Angle(start, input) < topDegrees) {
                     Vector3 spawnDirection = aux + new Vector3(start.x, 0, start.y);
                     Vector3 spawnPosition = lockedEnemy.transform.position + spawnDirection.normalized * dashSpawningDistance;
-                    transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
 
                     m_Rigidbody.MovePosition(spawnPosition);
-                    Debug.Log("Dash Up");
+                    transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
+                    m_Rigidbody.velocity = Vector3.zero;
+
                     return;
                 }
                 else {
@@ -429,10 +492,11 @@ public class Player : Entity
                     if(Vector2.Angle(start, input) < rightDegrees) {
                         Vector3 spawnDirection = (aux / centered) + new Vector3(start.x, 0, start.y);
                         Vector3 spawnPosition = lockedEnemy.transform.position + spawnDirection.normalized * dashSpawningDistance;
-                        transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
 
                         m_Rigidbody.MovePosition(spawnPosition);
-                        Debug.Log("Dash Right");
+                        transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
+                        m_Rigidbody.velocity = Vector3.zero;
+
                         return;
                     }
                 }

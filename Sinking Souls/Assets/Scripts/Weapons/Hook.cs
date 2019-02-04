@@ -11,14 +11,16 @@ public class Hook : MonoBehaviour {
     {
         if (InputManager.ButtonY)
         {
-            if(InputManager.LeftJoystick.magnitude != 0)
+            Debug.Log("PASO1");
+            if (InputManager.LeftJoystick.magnitude != 0)
             {
 
             }
-            else
+            else         
             {
+                Debug.Log("PASO2");
                 float furthest = 0;
-                GameObject aux= null;
+                GameObject aux = null;
                 foreach (GameObject target in GameController.instance.roomEnemies)
                 {               
                     if(furthest < Vector3.Distance(target.transform.position, transform.position))

@@ -31,6 +31,14 @@ public class Enemy : Entity {
         }
 
         GameController.instance.RunSouls += m_Souls;
+        foreach(GameObject target in GameController.instance.roomEnemies)
+        {
+            if(target.transform.position == transform.position)
+            {
+                GameController.instance.roomEnemies.Remove(target);
+                break;
+            }
+        }
         Destroy(gameObject);
     }
 

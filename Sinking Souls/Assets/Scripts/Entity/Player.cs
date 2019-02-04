@@ -199,7 +199,7 @@ public class Player : Entity
 
                 
                 if (InputManager.ButtonX) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
-                if (InputManager.ButtonY)
+                if (InputManager.ButtonA)
                 {
                     if (m_AbilityCooldown <= 0.0f)
                     {
@@ -219,7 +219,7 @@ public class Player : Entity
                 if(lockedEnemy == null)
                 Rotate(); // Rotate with attacking rotation damping.
                 if (lockedEnemy != null) {
-                    gameObject.GetComponent<Hook>().Throw();
+                if (InputManager.ButtonY) gameObject.GetComponent<Hook>().Throw();
                     if (InputManager.ButtonB) ChangeState(LockDash, m_LockDashLength, PlayerState.DASHING, PlayerState.MOVING, false);
                 }
                 else {
@@ -430,7 +430,10 @@ public class Player : Entity
 
         Vector3 direction = Camera.main.transform.forward.normalized * InputManager.LeftJoystick.y * -1 + (Quaternion.Euler(new Vector3(0, 90, 0)) * Camera.main.transform.forward.normalized) * InputManager.LeftJoystick.x;
         Debug.DrawRay(gameObject.transform.position, new Vector3(direction.x, 0, direction.z) * 100, Color.blue);
-
+        Vector3 range = Quaternion.Euler(new Vector3(0, -GetComponent<Hook>().AngleOffset, 0)) * direction;
+        Debug.DrawRay(gameObject.transform.position, new Vector3(range.x, 0, range.z) * 10000, Color.magenta);
+        range = Quaternion.Euler(new Vector3(0, GetComponent<Hook>().AngleOffset, 0)) * direction;
+        Debug.DrawRay(gameObject.transform.position, new Vector3(range.x, 0, range.z) * 10000, Color.magenta);
 
         Vector3 fForward = lockedEnemy.transform.position - gameObject.transform.position;
         Vector3 aux = Quaternion.Euler(new Vector3(0, -90 + leftOffset, 0)) * fForward;

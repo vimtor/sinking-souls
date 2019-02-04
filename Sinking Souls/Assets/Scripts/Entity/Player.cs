@@ -175,6 +175,9 @@ public class Player : Entity
                 break;
 
             case PlayerState.MOVING:
+
+                if (InputManager.ButtonY) gameObject.GetComponent<Hook>().Throw();
+
                 if (lockedEnemy != null)
                 {
                     Vector3 LocalSpeed = transform.InverseTransformDirection(m_Rigidbody.velocity);
@@ -182,8 +185,7 @@ public class Player : Entity
                     m_Animator.SetFloat("JoystickY", map(LocalSpeed.z, -MovementSpeed, MovementSpeed, -1, 1));
                     ChangeLock();
                     CombatRotation();
-                    CombatMove();
-                    gameObject.GetComponent<Hook>().Throw();
+                    CombatMove();                   
 
                     if (InputManager.ButtonB) ChangeState(LockDash, m_LockDashLength, PlayerState.DASHING, PlayerState.MOVING, false);
                 }

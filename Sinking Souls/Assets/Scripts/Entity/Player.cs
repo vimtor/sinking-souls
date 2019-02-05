@@ -430,28 +430,36 @@ public class Player : Entity
 
         Vector3 direction = Camera.main.transform.forward.normalized * InputManager.LeftJoystick.y * -1 + (Quaternion.Euler(new Vector3(0, 90, 0)) * Camera.main.transform.forward.normalized) * InputManager.LeftJoystick.x;
         Debug.DrawRay(gameObject.transform.position, new Vector3(direction.x, 0, direction.z) * 100, Color.blue);
-        Vector3 range = Quaternion.Euler(new Vector3(0, -GetComponent<Hook>().AngleOffset, 0)) * direction;
-        Debug.DrawRay(gameObject.transform.position, new Vector3(range.x, 0, range.z) * 10000, Color.magenta);
-        range = Quaternion.Euler(new Vector3(0, GetComponent<Hook>().AngleOffset, 0)) * direction;
-        Debug.DrawRay(gameObject.transform.position, new Vector3(range.x, 0, range.z) * 10000, Color.magenta);
+        foreach (GameObject target in GameController.instance.roomEnemies) {
 
-        Vector3 fForward = lockedEnemy.transform.position - gameObject.transform.position;
-        Vector3 aux = Quaternion.Euler(new Vector3(0, -90 + leftOffset, 0)) * fForward;
-        Vector2 start = new Vector2(aux.x, aux.z);
+            Debug.DrawRay(transform.position, target.transform.position - transform.position, Color.green);
 
-        Debug.DrawRay(gameObject.transform.position, new Vector3(start.x, 0, start.y), Color.red);
+            Vector3 enemyProjection = Vector3.Project(new Vector3(target.transform.position.x, 0, target.transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z), new Vector3(direction.x, 0, direction.z).normalized);
+
+            Debug.DrawRay(transform.position, new Vector3(enemyProjection.x, 0, enemyProjection.z), Color.red);
+
+            Vector3 porjectionDirection = (transform.position + new Vector3(enemyProjection.x, 0, enemyProjection.z)) - new Vector3(target.transform.position.x,0,target.transform.position.z);
+
+            Debug.DrawRay(target.transform.position, new Vector3(porjectionDirection.x, 0, porjectionDirection.z), Color.magenta);
+        }
+
+        //Vector3 fForward = lockedEnemy.transform.position - gameObject.transform.position;
+        //Vector3 aux = Quaternion.Euler(new Vector3(0, -90 + leftOffset, 0)) * fForward;
+        //Vector2 start = new Vector2(aux.x, aux.z);
+
+        //Debug.DrawRay(gameObject.transform.position, new Vector3(start.x, 0, start.y), Color.red);
         
-        aux = Quaternion.Euler(new Vector3(0, leftDegrees, 0)) * new Vector3(start.x,0, start.y);
-        start = new Vector2(aux.x, aux.z);
-        Debug.DrawRay(gameObject.transform.position, new Vector3(start.x, 0, start.y), Color.green);
+        //aux = Quaternion.Euler(new Vector3(0, leftDegrees, 0)) * new Vector3(start.x,0, start.y);
+        //start = new Vector2(aux.x, aux.z);
+        //Debug.DrawRay(gameObject.transform.position, new Vector3(start.x, 0, start.y), Color.green);
 
-        aux = Quaternion.Euler(new Vector3(0, topDegrees, 0)) * new Vector3(start.x, 0, start.y);
-        start = new Vector2(aux.x, aux.z);
-        Debug.DrawRay(gameObject.transform.position, new Vector3(start.x, 0, start.y), Color.cyan);
+        //aux = Quaternion.Euler(new Vector3(0, topDegrees, 0)) * new Vector3(start.x, 0, start.y);
+        //start = new Vector2(aux.x, aux.z);
+        //Debug.DrawRay(gameObject.transform.position, new Vector3(start.x, 0, start.y), Color.cyan);
 
-        aux = Quaternion.Euler(new Vector3(0, rightDegrees, 0)) * new Vector3(start.x, 0, start.y);
-        start = new Vector2(aux.x, aux.z);
-        Debug.DrawRay(gameObject.transform.position, new Vector3(start.x, 0, start.y), Color.yellow);
+        //aux = Quaternion.Euler(new Vector3(0, rightDegrees, 0)) * new Vector3(start.x, 0, start.y);
+        //start = new Vector2(aux.x, aux.z);
+        //Debug.DrawRay(gameObject.transform.position, new Vector3(start.x, 0, start.y), Color.yellow);
 
     }
 

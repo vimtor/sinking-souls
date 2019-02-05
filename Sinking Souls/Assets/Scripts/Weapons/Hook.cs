@@ -6,7 +6,7 @@ public class Hook : MonoBehaviour {
 
     public float range;
     public float distanceOffset;
-    public float AngleOffset;
+    public float detectionOffset;
 
 	public void Throw()
     {
@@ -49,20 +49,25 @@ public class Hook : MonoBehaviour {
             Vector3 direction = Camera.main.transform.forward.normalized * InputManager.LeftJoystick.y * -1 + (Quaternion.Euler(new Vector3(0, 90, 0)) * Camera.main.transform.forward.normalized) * InputManager.LeftJoystick.x;
             float minDist = range;
             Vector2 direction2 = new Vector2(direction.x, direction.z);
+            GameObject tpTo = null;
 
-            foreach(GameObject target in GameController.instance.roomEnemies) {
-                float distance = Vector3.Distance(target.transform.position, transform.position);
-                float angle = Vector2.Angle(direction2, new Vector2(target.transform.position.x, target.transform.position.z) - new Vector2(transform.position.x, transform.position.z));
+            foreach (GameObject target in GameController.instance.roomEnemies) {
 
-                if (angle < AngleOffset) {
-                    if(distance < minDist) {
-                        minDist = distance;
-                        transform.position = target.transform.position + (transform.position - target.transform.position).normalized * distanceOffset;
-                        GetComponent<Player>().lockedEnemy = target;
+                Vector3 enemyProjection = Vector3.Project(new Vector3(target.transform.position.x, 0, target.transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z), new Vector3(direction.x, 0, direction.z).normalized);
+                Vector3 porjectionDirection = (transform.position + new Vector3(enemyProjection.x, 0, enemyProjection.z)) - new Vector3(target.transform.position.x, 0, target.transform.position.z);
+
+                if (porjectionDirection.magnitude <= distanceOffset){
+                    if(Vector3.Distance(target.transform.position, transform.position)< minDist){
+                        minDist = Vector3.Distance(target.transform.position, transform.position);
+                        tpTo = target;
                     }
                 }
             }
+            if(tpTo != null) {
+                transform.position = tpTo.transform.position + (transform.position - tpTo.transform.position).normalized * distanceOffset;
+                GetComponent<Player>().lockedEnemy = tpTo;
+            }
+
         }
     }
-
 }

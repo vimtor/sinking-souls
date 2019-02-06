@@ -148,12 +148,14 @@ public class ArenaTool : EditorWindow {
     {
         GameObject instantiated = Instantiate(enemy);
         instantiated.transform.position = spawnHolder.transform.GetChild(0).position;
+        GameController.instance.roomEnemies.Add(instantiated);
         instantiated.GetComponent<AIController>().SetupAI();
     }
 
     private void SpawnConfiguration() {
         foreach (GameObject entity in configuration.entities) {
             GameObject enemy = Instantiate(entity);
+            GameController.instance.roomEnemies.Add(enemy);
             int index = Random.Range(0, spawnPoints.Count - 1);
             enemy.transform.position = spawnPoints[index].transform.position;
             enemy.GetComponent<AIController>().SetupAI();
@@ -161,6 +163,7 @@ public class ArenaTool : EditorWindow {
     }
 
     private void CleanArena() {
+        GameController.instance.roomEnemies = new List<GameObject>();
         var spawnedEnemies = GameObject.FindGameObjectsWithTag("Enemy");
         foreach (GameObject spawnedEnemy in spawnedEnemies) {
             DestroyImmediate(spawnedEnemy);

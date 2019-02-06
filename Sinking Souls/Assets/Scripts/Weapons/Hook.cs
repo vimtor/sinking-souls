@@ -8,9 +8,18 @@ public class Hook : MonoBehaviour {
     public float distanceOffset;
     public float detectionOffset;
     public float pullingSpeed;
+    public GameObject hookObject;
     private GameObject tpTo = null;
+    private GameObject currentHook;
 
-    private bool move = false;
+    public bool move = false;
+
+    public void LaunchHook() {
+        currentHook = Instantiate(hookObject);
+        currentHook.GetComponent<hookBehaviour>().target = tpTo;
+        currentHook.GetComponent<hookBehaviour>().player = gameObject;
+        currentHook.GetComponent<hookBehaviour>().move = true;
+    }
 
 	public void Throw()
     {
@@ -27,8 +36,8 @@ public class Hook : MonoBehaviour {
                     }
                 }
                 if (aux != null) {
-                    move = true;//transform.position = aux.transform.position + (transform.position - aux.transform.position).normalized * distanceOffset;
                     tpTo = aux;
+                    LaunchHook();
                     GetComponent<Player>().lockedEnemy = aux;
                 }
             }
@@ -44,8 +53,8 @@ public class Hook : MonoBehaviour {
                     }
                 }
                 if (aux != null) {
-                    move = true;//transform.position = aux.transform.position + (transform.position - aux.transform.position).normalized * distanceOffset;
                     tpTo = aux;
+                    LaunchHook();
                     GetComponent<Player>().lockedEnemy = aux;
                 }
             }
@@ -70,7 +79,7 @@ public class Hook : MonoBehaviour {
                 }
             }
             if(tpTo != null) {
-                move = true;//transform.position = tpTo.transform.position + (transform.position - tpTo.transform.position).normalized * distanceOffset;
+                LaunchHook();
                 GetComponent<Player>().lockedEnemy = tpTo;
             }
         }
@@ -89,6 +98,7 @@ public class Hook : MonoBehaviour {
                 GetComponent<Player>().lockedEnemy = tpTo;
                 tpTo = null;
                 move = false;
+                if(currentHook != null) Destroy(currentHook);
             }
 
         }

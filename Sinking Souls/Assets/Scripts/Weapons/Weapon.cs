@@ -50,8 +50,8 @@ public class Weapon : ScriptableObject {
     }
 
     public void CriticAttack() {
+        Debug.Log("Critical");
         damage = criticDamage;
-        boxCollider.enabled = true;
     }
 
     public void GrowCollision(int mult) {

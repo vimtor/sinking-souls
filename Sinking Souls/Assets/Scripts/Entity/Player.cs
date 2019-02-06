@@ -9,7 +9,7 @@ public class Player : Entity
     
 
     #region State Logic
-    delegate void StateAction();
+    public delegate void StateAction();
 
     public enum PlayerState { DASHING, MOVING, ATTACKING, REACTING, SPELLING, PULLING, NONE };
     public PlayerState m_PlayerState;
@@ -33,6 +33,7 @@ public class Player : Entity
     public float centered;
     public float dashTime;
     [Header("Movement parameters")]
+    public float dodgeDelay;
     public float m_MovementDamping;
     public float m_MovementSpeed;
     public float lockDistance;
@@ -62,6 +63,7 @@ public class Player : Entity
 
     private float m_RotationDamping;
     private float m_OriginalMovementSpeed;
+    private float dodgeCounter = 0;
     #endregion
 
     #region Animator Variables
@@ -97,8 +99,8 @@ public class Player : Entity
 
     public void SetupPlayer()
     {
+        dodgeCounter = dodgeDelay;
         OnStart();
-
         // Calculate the forward and side vectors relative to the camera.
         m_Forward = Camera.main.transform.forward;
         m_Forward.y = 0;
@@ -128,7 +130,7 @@ public class Player : Entity
 
     private void FixedUpdate()
     {
-        switch (Dodge)
+        switch (Dodge)//change color
         {
             case DodgeType.NONE:
                 transform.GetChild(1).GetComponent<Renderer>().material.color = Color.white;
@@ -164,10 +166,16 @@ public class Player : Entity
         switch (m_PlayerState)
         {
             case PlayerState.DASHING:
-                Move();
-                Rotate();
-                if (InputManager.ButtonX) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
-
+                if (lockedEnemy != null) {
+                    transform.GetChild(1).GetComponent<Renderer>().material.color = Color.green;
+                    //Rotate();
+                    if (InputManager.ButtonX) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
+                }
+                else {
+                    Move();
+                    Rotate();
+                    if (InputManager.ButtonX) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
+                }
                 break;
 
             case PlayerState.REACTING:
@@ -185,9 +193,11 @@ public class Player : Entity
                     m_Animator.SetFloat("JoystickY", map(LocalSpeed.z, -MovementSpeed, MovementSpeed, -1, 1));
                     ChangeLock();
                     CombatRotation();
-                    CombatMove();                   
+                    CombatMove();
 
-                    if (InputManager.ButtonB) ChangeState(LockDash, m_LockDashLength, PlayerState.DASHING, PlayerState.MOVING, false);
+                    if (InputManager.ButtonB) {
+                        ChangeState(LockDash, m_LockDashLength, PlayerState.DASHING, PlayerState.MOVING, false);
+                    }
                 }
                 else
                 {
@@ -220,7 +230,9 @@ public class Player : Entity
                 Rotate(); // Rotate with attacking rotation damping.
                 if (lockedEnemy != null) {
                 if (InputManager.ButtonY) gameObject.GetComponent<Hook>().Throw();
-                    if (InputManager.ButtonB) ChangeState(LockDash, m_LockDashLength, PlayerState.DASHING, PlayerState.MOVING, false);
+                    if (InputManager.ButtonB) {
+                        ChangeState(LockDash, m_LockDashLength, PlayerState.DASHING, PlayerState.MOVING, false);
+                    }
                 }
                 else {
                     if (InputManager.ButtonB) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
@@ -237,7 +249,9 @@ public class Player : Entity
 
             case PlayerState.SPELLING:
                 if (lockedEnemy != null) {
-                    if (InputManager.ButtonB) ChangeState(LockDash, m_LockDashLength, PlayerState.DASHING, PlayerState.MOVING, false);
+                    if (InputManager.ButtonB) {
+                        ChangeState(LockDash, m_LockDashLength, PlayerState.DASHING, PlayerState.MOVING, false);
+                    }
                 }
                 else {
                     if (InputManager.ButtonB) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
@@ -267,12 +281,12 @@ public class Player : Entity
         else if (lockedEnemy != null && InputManager.ButtonRJ) lockedEnemy = null;
 
         if (m_AbilityCooldown > 0) m_AbilityCooldown -= Time.deltaTime;
-
+        dodgeCounter += Time.deltaTime;
     }
 
     #region ChangeState Functions
 
-    private void ChangeState(StateAction action, float delay, PlayerState newState, PlayerState returnState, bool resetVelocity = true)
+    public void ChangeState(StateAction action, float delay, PlayerState newState, PlayerState returnState, bool resetVelocity = true)
     {
         StartCoroutine(ChangeStateCoroutine(action, delay, newState, returnState, resetVelocity));
     }
@@ -416,6 +430,29 @@ public class Player : Entity
         m_Weapon.Attack();
     }
 
+    private void CritickAttack() {
+        m_Rigidbody.velocity = Vector3.zero;
+        // Reset the movement animator parameters.
+        m_Animator.SetFloat(m_SpeedParam, 0);
+
+        // Set weapon type and attack type.
+        m_Animator.SetInteger(m_WeaponTypeParam, 1);
+        m_Animator.SetTrigger(m_AttackParam);
+
+        // Set attack game-feel parameters.
+        m_RotationDamping = m_AttackRotationDamping;
+        m_Rigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+
+        if (lockedEnemy != null && Vector3.Distance(lockedEnemy.transform.position, gameObject.transform.position) > minStepDist && Vector3.Distance(lockedEnemy.transform.position, gameObject.transform.position) < maxStepDist) {
+            transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
+            // m_Rigidbody.MovePosition(transform.position + ((lockedEnemy.transform.position - gameObject.transform.position) * 0.45f));
+            m_Rigidbody.AddForce((lockedEnemy.transform.position - gameObject.transform.position).normalized * 10, ForceMode.Impulse);
+        }
+
+        // Activate weapon.
+        m_Weapon.CriticAttack();
+    }
+
     private void Dash()
     {
         m_RotationDamping = m_DashRotationDamping;
@@ -465,18 +502,35 @@ public class Player : Entity
 
     }
 
+
     private void LockDash() {
         switch (Dodge)
         {
             case DodgeType.NONE:
                 Debug.Log("NONE");
                 break;
+
             case DodgeType.NORMAL:
                 Debug.Log("NORMAL");
-                break;
+                gameObject.layer = LayerMask.NameToLayer("Dash");
+                StartCoroutine(GetBulnerable(dashTime));
+            break;
+
             case DodgeType.PERFECT:
-                Debug.Log("PERFEcFT");
-                break;
+                Vector3 tpDirection = lockedEnemy.transform.position - transform.position;
+                tpDirection = new Vector3(tpDirection.x, 0, tpDirection.z);
+                tpDirection.Normalize();
+
+                m_Rigidbody.transform.position = (lockedEnemy.transform.position + tpDirection * dashSpawningDistance);
+                transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
+                m_Rigidbody.velocity = Vector3.zero;
+                ChangeState(CritickAttack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
+                gameObject.layer = LayerMask.NameToLayer("Dash");
+                StartCoroutine(GetBulnerable(dashTime));
+
+
+            break;
+
             default:
                 break;
         }
@@ -487,15 +541,15 @@ public class Player : Entity
         Vector3 fForward = lockedEnemy.transform.position - gameObject.transform.position;
         
 
-        if (InputManager.LeftJoystick == Vector2.zero ) {
+        if (InputManager.LeftJoystick == Vector2.zero ) {///in place
             if (Dodge != DodgeType.NONE)
             {
                 gameObject.layer = LayerMask.NameToLayer("Dash");
-                StartCoroutine(GetBulnerable(dashTime));
+                
             }
             return;
         }
-        else if(Vector2.Angle(new Vector2(fForward.x, fForward.z), input) > 90 - leftOffset) {
+        else if(Vector2.Angle(new Vector2(fForward.x, fForward.z), input) > 90 - leftOffset) {///back
             transform.rotation = Quaternion.LookRotation(new Vector3(InputManager.LeftJoystick.x,0, InputManager.LeftJoystick.y)-transform.position);
             lockedEnemy = null;
 
@@ -508,14 +562,13 @@ public class Player : Entity
             Vector2 start = new Vector2(aux.x, aux.z);
 
             aux = Quaternion.Euler(new Vector3(0, leftDegrees, 0)) * new Vector3(start.x, 0, start.y);
-            if(Vector2.Angle(start, input) < leftDegrees) {
+            if(Vector2.Angle(start, input) < leftDegrees) {///left
                 Vector3 spawnDirection = aux + (new Vector3(start.x,0, start.y) / centered);
                 Vector3 spawnPosition = lockedEnemy.transform.position + spawnDirection.normalized * dashSpawningDistance;
 
-                gameObject.layer = LayerMask.NameToLayer("Dash");
-                StartCoroutine(GetBulnerable(dashTime));
 
-                m_Rigidbody.MovePosition(spawnPosition);
+
+                m_Rigidbody.transform.position = spawnPosition;
                 m_Rigidbody.velocity = Vector3.zero;
 
                 transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
@@ -524,14 +577,12 @@ public class Player : Entity
             else {
                 start = new Vector2(aux.x, aux.z);
                 aux = Quaternion.Euler(new Vector3(0, topDegrees, 0)) * new Vector3(start.x, 0, start.y);
-                if(Vector2.Angle(start, input) < topDegrees) {
+                if(Vector2.Angle(start, input) < topDegrees) {///top
                     Vector3 spawnDirection = aux + new Vector3(start.x, 0, start.y);
                     Vector3 spawnPosition = lockedEnemy.transform.position + spawnDirection.normalized * dashSpawningDistance;
 
-                    gameObject.layer = LayerMask.NameToLayer("Dash");
-                    StartCoroutine(GetBulnerable(dashTime));
 
-                    m_Rigidbody.MovePosition(spawnPosition);
+                    m_Rigidbody.transform.position = spawnPosition;
 
                     transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
                     m_Rigidbody.velocity = Vector3.zero;
@@ -541,14 +592,12 @@ public class Player : Entity
                 else {
                     start = new Vector2(aux.x, aux.z);
                     aux = Quaternion.Euler(new Vector3(0, rightDegrees, 0)) * new Vector3(start.x, 0, start.y);
-                    if(Vector2.Angle(start, input) < rightDegrees) {
+                    if(Vector2.Angle(start, input) < rightDegrees) {///right
                         Vector3 spawnDirection = (aux / centered) + new Vector3(start.x, 0, start.y);
                         Vector3 spawnPosition = lockedEnemy.transform.position + spawnDirection.normalized * dashSpawningDistance;
 
-                        gameObject.layer = LayerMask.NameToLayer("Dash");
-                        StartCoroutine(GetBulnerable(dashTime));
 
-                        m_Rigidbody.MovePosition(spawnPosition);
+                        m_Rigidbody.transform.position = spawnPosition;
 
                         transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
                         m_Rigidbody.velocity = Vector3.zero;

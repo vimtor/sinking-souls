@@ -1340,6 +1340,8 @@ MonoBehaviour:
   distanceOffset: 2
   detectionOffset: 1.5
   pullingSpeed: 20
+  hookObject: {fileID: 1246853167312152, guid: 383d6141d5f684b4684a490056b2fe30, type: 2}
+  move: 0
 --- !u!114 &114357467405385464
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1374,6 +1376,7 @@ MonoBehaviour:
   dashSpawningDistance: 1.5
   centered: 0.3
   dashTime: 0.6
+  dodgeDelay: 0.7
   m_MovementDamping: 0.2
   m_MovementSpeed: 9
   lockDistance: 5
@@ -1381,7 +1384,7 @@ MonoBehaviour:
   maxStepDist: 3
   m_MaxMovementSpeed: 7
   m_MovementRotationDamping: 50
-  m_LockDashLength: 0.2
+  m_LockDashLength: 0.3
   m_DashMovementSpeed: 10
   m_lockedSpeed: 4
   m_DashSpeed: 15

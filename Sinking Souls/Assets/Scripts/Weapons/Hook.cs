@@ -56,8 +56,8 @@ public class Hook : MonoBehaviour {
                 Vector3 enemyProjection = Vector3.Project(new Vector3(target.transform.position.x, 0, target.transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z), new Vector3(direction.x, 0, direction.z).normalized);
                 Vector3 porjectionDirection = (transform.position + new Vector3(enemyProjection.x, 0, enemyProjection.z)) - new Vector3(target.transform.position.x, 0, target.transform.position.z);
 
-                if (porjectionDirection.magnitude <= distanceOffset){
-                    if(Vector3.Distance(target.transform.position, transform.position)< minDist){
+                if (porjectionDirection.magnitude <= distanceOffset && Vector3.Angle(new Vector3(direction.x,0,direction.z), new Vector3(target.transform.position.x, 0, target.transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z)) < 90){
+                    if(Vector3.Distance(target.transform.position, transform.position) < minDist && target != GetComponent<Player>().lockedEnemy){
                         minDist = Vector3.Distance(target.transform.position, transform.position);
                         tpTo = target;
                     }

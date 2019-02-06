@@ -1338,7 +1338,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 20
   distanceOffset: 2
-  detectionOffset: 2
+  detectionOffset: 1.5
+  pullingSpeed: 20
 --- !u!114 &114357467405385464
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1364,6 +1365,7 @@ MonoBehaviour:
   lockedEnemy: {fileID: 0}
   originalColor: {r: 1, g: 1, b: 1, a: 1}
   gettingDamage: 0
+  m_PlayerState: 0
   Dodge: 0
   leftOffset: -30
   leftDegrees: 91.66666

@@ -11,8 +11,8 @@ public class Player : Entity
     #region State Logic
     delegate void StateAction();
 
-    private enum PlayerState { DASHING, MOVING, ATTACKING, REACTING, SPELLING, NONE };
-    private PlayerState m_PlayerState;
+    public enum PlayerState { DASHING, MOVING, ATTACKING, REACTING, SPELLING, PULLING, NONE };
+    public PlayerState m_PlayerState;
 
     [HideInInspector] public enum DodgeType { NONE, NORMAL, PERFECT};
     public  DodgeType Dodge;
@@ -242,6 +242,8 @@ public class Player : Entity
                 else {
                     if (InputManager.ButtonB) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
                 }
+                break;
+            case PlayerState.PULLING:
 
             break;
 

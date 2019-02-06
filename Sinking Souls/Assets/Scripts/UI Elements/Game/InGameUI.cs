@@ -2,12 +2,16 @@
 using UnityEngine.UI;
 using TMPro;
 
-public class InGameUI : MonoBehaviour {
+public class InGameUI : MonoBehaviour
+{
+    public Image healthbar;
+    public TextMeshProUGUI soulsAmount;
 
-    public GameObject souls;
-    public GameObject ability;
-    public GameObject healthbar;
-
+    [Header("Ability Information")]
+    public Image abilityIcon;
+    public Image abilityOverlay;
+    public TextMeshProUGUI abilityCooldown;
+    
     [Header("Minimap Information")]
     public GameObject minimap;
     public GameObject minimapCamera;
@@ -15,25 +19,15 @@ public class InGameUI : MonoBehaviour {
 
     private Player playerRef;
 
-    private Image healthAmount;
-    private TextMeshProUGUI soulsAmount;
-    private TextMeshProUGUI abilityCooldown;
-    private Image abilityOverlay;
-
-
     private void Start()
     {
-        healthAmount = healthbar.transform.Find("Amount").GetComponent<Image>();
-        soulsAmount = souls.GetComponent<TextMeshProUGUI>();
-        abilityCooldown = ability.transform.Find("Cooldown").GetComponent<TextMeshProUGUI>();
-        abilityOverlay = ability.transform.Find("Overlay").GetComponent<Image>();
-
         playerRef = GameController.instance.player.GetComponent<Player>();
+        abilityIcon.sprite = playerRef.Abilities[0].sprite;
     }
 
     private void Update()
     {
-        healthAmount.fillAmount = playerRef.Health / playerRef.MaxHealth;
+        healthbar.fillAmount = playerRef.Health / playerRef.MaxHealth;
         soulsAmount.text = GameController.instance.RunSouls.ToString();
 
         UpdateAbility();

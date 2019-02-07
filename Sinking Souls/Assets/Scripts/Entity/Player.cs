@@ -96,9 +96,18 @@ public class Player : Entity
     }
     #endregion
 
+    #region Shader Variables
+    public enum animateShader { FORWARD, BACKWARDS, NONE};
+    public float effectDuration;
+    public Vector3 tpPosition = Vector3.zero;
+    public animateShader animate = animateShader.FORWARD;
+    public float current = 0;
+    #endregion
+
 
     public void SetupPlayer()
     {
+        transform.GetChild(1).GetComponent<Renderer>().material.SetFloat("_duration", effectDuration);
         dodgeCounter = dodgeDelay;
         OnStart();
         // Calculate the forward and side vectors relative to the camera.
@@ -146,7 +155,50 @@ public class Player : Entity
             default:
                 break;
         }
+        switch (animate)
+        {
+            case animateShader.BACKWARDS:
+                if (current <= effectDuration)
+                {
+                    current += Time.deltaTime;
+                    transform.GetChild(1).GetComponent<Renderer>().material.SetFloat("_amount", map(current, 0, effectDuration, 0, 1));
+                }
+                else
+                {
+                    if (tpPosition != Vector3.zero)
+                    {
+                        m_Rigidbody.transform.position = tpPosition;
+                        m_Rigidbody.velocity = Vector3.zero;
 
+                        transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
+                    }
+                    animate = animateShader.FORWARD;
+                    current = 0;
+                    tpPosition = Vector3.zero;
+                }
+                break;
+            case animateShader.FORWARD:
+                if (current <= effectDuration)
+                {
+                    current += Time.deltaTime;
+                    transform.GetChild(1).GetComponent<Renderer>().material.SetFloat("_amount", map(current, 0, effectDuration, 1, 0));
+                }
+                else
+                {
+                    if(tpPosition != Vector3.zero) { 
+                        m_Rigidbody.transform.position = tpPosition;
+                        m_Rigidbody.velocity = Vector3.zero;
+
+                        transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
+                    }
+                    animate = animateShader.NONE;
+                    current = 0;
+                    tpPosition = Vector3.zero;
+                }
+                break;
+            case animateShader.NONE:
+                break;
+        }
         if (lockedEnemy != null) DrawAngles();
 
         if (!m_CanMove) return;
@@ -544,6 +596,9 @@ public class Player : Entity
         if (InputManager.LeftJoystick == Vector2.zero ) {///in place
             if (Dodge != DodgeType.NONE)
             {
+                animate = animateShader.BACKWARDS;
+
+                tpPosition = Vector3.zero;
                 gameObject.layer = LayerMask.NameToLayer("Dash");
                 
             }
@@ -565,13 +620,11 @@ public class Player : Entity
             if(Vector2.Angle(start, input) < leftDegrees) {///left
                 Vector3 spawnDirection = aux + (new Vector3(start.x,0, start.y) / centered);
                 Vector3 spawnPosition = lockedEnemy.transform.position + spawnDirection.normalized * dashSpawningDistance;
+                
 
+                animate = animateShader.BACKWARDS;
+                tpPosition = spawnPosition;
 
-
-                m_Rigidbody.transform.position = spawnPosition;
-                m_Rigidbody.velocity = Vector3.zero;
-
-                transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
                 return;
             }
             else {
@@ -581,11 +634,10 @@ public class Player : Entity
                     Vector3 spawnDirection = aux + new Vector3(start.x, 0, start.y);
                     Vector3 spawnPosition = lockedEnemy.transform.position + spawnDirection.normalized * dashSpawningDistance;
 
+                    animate = animateShader.BACKWARDS;
 
-                    m_Rigidbody.transform.position = spawnPosition;
+                    tpPosition = spawnPosition;
 
-                    transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
-                    m_Rigidbody.velocity = Vector3.zero;
 
                     return;
                 }
@@ -596,11 +648,10 @@ public class Player : Entity
                         Vector3 spawnDirection = (aux / centered) + new Vector3(start.x, 0, start.y);
                         Vector3 spawnPosition = lockedEnemy.transform.position + spawnDirection.normalized * dashSpawningDistance;
 
+                        animate = animateShader.BACKWARDS;
 
-                        m_Rigidbody.transform.position = spawnPosition;
+                        tpPosition = spawnPosition;
 
-                        transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
-                        m_Rigidbody.velocity = Vector3.zero;
 
                         return;
                     }

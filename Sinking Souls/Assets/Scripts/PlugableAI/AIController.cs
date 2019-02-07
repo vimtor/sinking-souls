@@ -88,7 +88,7 @@ public class AIController : MonoBehaviour {
 
     public bool CheckIfAttackElapsed(int attackID)
     {
-        return (stateTimeElapsed >= m_AttackLengths[attackID] * 5); //remove * 5
+        return (stateTimeElapsed >= m_AttackLengths[attackID]);
     }
 
     public bool CountElapsed(float duration) {

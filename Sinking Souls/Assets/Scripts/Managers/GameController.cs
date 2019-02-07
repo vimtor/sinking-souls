@@ -47,6 +47,7 @@ public class GameController : MonoBehaviour
     public List<GameObject> roomEnemies;
     
     [HideInInspector] public bool died;
+    [HideInInspector] public bool inTavern;
     [HideInInspector] public static GameController instance;
     [HideInInspector] public bool debugMode = false;
     [HideInInspector] public bool godMode = false;
@@ -75,6 +76,7 @@ public class GameController : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
         #endregion
+
         Cursor.visible = false;
         levelGenerator = GetComponent<LevelGenerator>();
     }
@@ -87,6 +89,7 @@ public class GameController : MonoBehaviour
                 break;
 
             case GameState.TABERN:
+                inTavern = true;
                 levelGenerator.takenPos = new List<Vector2>();
                 currentRoom = SpawnLevel();
                 GameObject InnKeeper = GameObject.Find("Triton Innkeeper");
@@ -108,10 +111,12 @@ public class GameController : MonoBehaviour
                 currentRoom.GetComponent<SpawnController>().alreadySpawned = true;
 
                 SetupGame();
-
                 break;
 
             case GameState.LOBBY:
+                inTavern = false;
+                m_RunSouls = 0;
+
                 levelGenerator.currentLevel = -1;
                 currentRoom = GameObject.Find("PlayerSpawn");
 
@@ -143,6 +148,7 @@ public class GameController : MonoBehaviour
                 #endregion
 
                 levelGenerator.tabernaSpawned = false;
+                SaveManager.Save();
                 break;
 
             case GameState.ARENA:
@@ -323,6 +329,17 @@ public class GameController : MonoBehaviour
     public bool CanBuy(int price)
     {
         return (m_LobbySouls - price) > 0;
+    }
+
+    public void LoadGame()
+    {
+        var save = SaveManager.Load();
+        if (save == null) return;
+
+        m_LobbySouls = save.souls;
+        m_RunSouls = save.runSouls;
+        m_RescuedAlchemist = save.alchemist;
+        m_RescuedBlacksmith = save.blacksmith;
     }
 
 }

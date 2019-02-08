@@ -5,10 +5,29 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "PlugableAI/Actions/Idle")]
 public class IdleAction : Action
 {
+    public Vector2 waitingRange = Vector2.zero;
+    public float time = 0;
+    public float waitTime = 0;
+    public override void StartAction(AIController controller) {
+        time = 0;
+        base.StartAction(controller);
+
+        // Reset speed float to avoid walking when the animation finishes.
+        controller.Animator.SetFloat("Speed", 0);
+        waitTime = Random.Range(waitingRange.x, waitingRange.y);
+        Debug.Log("Idle action ");
+        elapsed = false;
+    }
+
     public override void UpdateAction(AIController controller)
     {
-        controller.Animator.SetFloat("Speed", 0);
+        Debug.Log("Update");
         Rotate(controller);
+        if (time >= waitTime) {
+            Debug.Log("Time " + time + ", waitTime " + waitTime);
+            elapsed = true;
+        }
+        time += Time.deltaTime;
     }
 
     private void Rotate(AIController controller)

@@ -11,5 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd67c1b2fd6121b458816ae83710b563, type: 3}
   m_Name: ChaseState
   m_EditorClassIdentifier: 
-  actions: []
-  transitions: []
+  actions:
+  - {fileID: 11400000, guid: f8ef8429767ff5f4ab53a870e0fc05b2, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: 923be79f5b21e8c43ad3d27e461d0f4d, type: 2}
+    trueState: {fileID: 11400000, guid: fae102b6ee646434981b25f6b00bc401, type: 2}
+    falseState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
+  - decision: {fileID: 11400000, guid: 2bc8c0c3c08ab7d47b3f18e339927996, type: 2}
+    trueState: {fileID: 11400000, guid: 99d181658cd97c94faabd7b096a817a6, type: 2}
+    falseState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}

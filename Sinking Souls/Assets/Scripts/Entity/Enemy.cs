@@ -5,18 +5,13 @@ using UnityEngine;
 public class Enemy : Entity {
 
     private AIController m_AIController;
+    private bool dash;
     public int m_Souls;
+    private float dashSpeed;
 
     [HideInInspector] public Ability[] abilities;
 
-    protected void AddForce(float force) {
-        Debug.Log("Addforce " + force); 
-        m_Rigidbody.velocity = force * transform.forward.normalized;
-        Debug.Log("velocity1 " + m_Rigidbody.velocity);
-    }
-    protected void Stop() {
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
-    }
+
 
     private void Start()
     {
@@ -29,7 +24,9 @@ public class Enemy : Entity {
     private void Update()
     {
         if (m_Health <= 0) Die();
-        Debug.Log("velocity " + m_Rigidbody.velocity);
+        if (dash) {
+            
+        }
     }
 
     private void Die()

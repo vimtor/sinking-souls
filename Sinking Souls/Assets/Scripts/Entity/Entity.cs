@@ -178,6 +178,17 @@ public class Entity : MonoBehaviour
 
     #region AnimationEvents Functions
     // These functions are called via animation events.
+
+    protected void AddForce(float force) {
+        Debug.Log("Addforce " + force);
+        GetComponent<Rigidbody>().velocity = transform.forward.normalized * force;
+        Debug.Log("velocity1 " + m_Rigidbody.velocity);
+    }
+    protected void Stop() {
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+    }
+
+
     protected void EnableCollider() { m_WeaponCollider.enabled = true; }
     protected void EnablePerfect()
     {
@@ -255,6 +266,10 @@ public class Entity : MonoBehaviour
     }
 
     #endregion
+
+    private void Update() {
+        
+    }
 
     private void OnTriggerEnter(Collider other)
     {

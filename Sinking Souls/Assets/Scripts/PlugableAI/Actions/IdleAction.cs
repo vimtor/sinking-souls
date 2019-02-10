@@ -5,9 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "PlugableAI/Actions/Idle")]
 public class IdleAction : Action
 {
+    public float distance = 5;
     public Vector2 waitingRange = Vector2.zero;
-    public float time = 0;
-    public float waitTime = 0;
+    private float time = 0;
+    private float waitTime = 0;
     public override void StartAction(AIController controller) {
         time = 0;
         base.StartAction(controller);
@@ -27,6 +28,11 @@ public class IdleAction : Action
             Debug.Log("Time " + time + ", waitTime " + waitTime);
             elapsed = true;
         }
+        else {
+            if (Vector3.Distance(controller.transform.position, controller.player.transform.position) >= distance) elapsed = true;
+            else elapsed = false;
+        }
+
         time += Time.deltaTime;
     }
 

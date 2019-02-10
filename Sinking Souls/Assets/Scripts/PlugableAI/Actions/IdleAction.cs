@@ -6,8 +6,8 @@ using UnityEngine;
 public class IdleAction : Action
 {
     public Vector2 waitingRange = Vector2.zero;
-    public float time = 0;
-    public float waitTime = 0;
+    private float time = 0;
+    private float waitTime = 0;
     public override void StartAction(AIController controller) {
         time = 0;
         base.StartAction(controller);

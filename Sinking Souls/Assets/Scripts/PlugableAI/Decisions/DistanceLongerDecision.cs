@@ -5,17 +5,12 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "PlugableAI/Decisions/Distance/Longer")]
 
 public class DistanceLongerDecision : Decision {
-    [Tooltip("percentage (0 to 100)")]
-    public int probability;
-    public float minDistance;
+    [Tooltip("True if equals or bigger than this")]
+    public float distance = 0;
 
     public override bool Decide(AIController controller) {
-        RaycastHit hit;
-        float distance = (controller.transform.position - controller.player.transform.position).magnitude;
-        Physics.Raycast(controller.transform.position, (controller.player.transform.position - controller.transform.position), out hit, Mathf.Infinity);
-        int result = Random.Range(0, 100);
-
-        return (distance >= minDistance && hit.transform.tag == "Player" && result <= probability);
+        
+        return (distance >= (controller.transform.position - controller.player.transform.position).magnitude);
     }
 
 }

@@ -79,6 +79,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4886171832651420}
+  - component: {fileID: 114479966623219010}
   m_Layer: 16
   m_Name: AugmentedArrow
   m_TagString: Ability
@@ -361,6 +362,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0, z: 0}
   arrowForce: 0
+--- !u!114 &114479966623219010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1950213813693802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a84aa1b3ca7ddfe48831a9294da15799, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114844460766523256
 MonoBehaviour:
   m_ObjectHideFlags: 1

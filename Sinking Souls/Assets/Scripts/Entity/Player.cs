@@ -133,7 +133,7 @@ public class Player : Entity
         m_RotationDamping = m_MovementRotationDamping;
     }
     //value, start1, end1, new sratr, new end
-    float map(float s, float a1, float a2, float b1, float b2) {
+    public float map(float s, float a1, float a2, float b1, float b2) {
         return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
     }
 

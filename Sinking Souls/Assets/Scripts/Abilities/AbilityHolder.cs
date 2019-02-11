@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AbilityHolder : MonoBehaviour {
 
-    [HideInInspector] public Ability holder;
-    [HideInInspector] public GameObject owner;
+    public Ability holder;
+    public GameObject owner;
 
 }

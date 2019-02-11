@@ -12,5 +12,11 @@ MonoBehaviour:
   m_Name: Mele Attack State
   m_EditorClassIdentifier: 
   actions:
-  - {fileID: 11400000, guid: 53aceb8970a54fe42885477b27954efd, type: 2}
-  transitions: []
+  - {fileID: 11400000, guid: 8f4a84fc8c00e4641b26a4b48861227f, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: 1c32e375d562a2e4190cbd98de2ebc57, type: 2}
+    trueState: {fileID: 11400000, guid: 1ab1796d650150f49896b3bb94e96330, type: 2}
+    falseState: {fileID: 11400000, guid: 1ab1796d650150f49896b3bb94e96330, type: 2}
+  - decision: {fileID: 11400000, guid: c8650a5c7f16d334498e9f76a9960c26, type: 2}
+    trueState: {fileID: 11400000, guid: 1ab1796d650150f49896b3bb94e96330, type: 2}
+    falseState: {fileID: 11400000, guid: 1ab1796d650150f49896b3bb94e96330, type: 2}

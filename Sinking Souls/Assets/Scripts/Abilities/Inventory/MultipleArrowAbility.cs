@@ -12,7 +12,6 @@ public class MultipleArrowAbility : Ability {
     {
         for (int i = 0; i < 3; i++)
         {
-            augmentedArrow.transform.GetChild(i).gameObject.AddComponent<AbilityHolder>().holder = augmentedArrow.GetComponent<AbilityHolder>().holder;
             augmentedArrow.transform.GetChild(i).transform.localRotation = parent.transform.localRotation;
             augmentedArrow.transform.GetChild(i).GetComponent<ArrowBehaviour>().arrowForce = arrowForce;
 

@@ -5,25 +5,43 @@ using UnityEngine.AI;
 
 public class WaterSplashBehaviour : MonoBehaviour {
 
-    [HideInInspector] public float delay;
-    public bool pickRandomPosition = false;
-    public float range = 20;
-    private ParticleSystem particles;
-    private Vector3 playerPosition;
+    public ParticleSystem ribbles;
+    public ParticleSystem waterSplash;
+    public ParticleSystem[] splashEffects;
 
-    private void Awake() {
-        particles = GetComponent<ParticleSystem>();
-        if (!pickRandomPosition) playerPosition = GameController.instance.player.transform.position;
-        else playerPosition = RandomNavmeshLocation(GameController.instance.currentRoom.transform.position);
-        particles.Stop();
+    [HideInInspector] public float delay;
+    [HideInInspector] public bool pickRandomPosition;
+    [HideInInspector] public float range;
+
+    private BoxCollider boxCollider;
+
+    private void Start()
+    {
+        boxCollider = GetComponent<BoxCollider>();
+
+        // Set the start delay for the main splash.
+        var mainSplash = waterSplash.main;
+        mainSplash.startDelay = delay;
+
+        // Do the same for the effects.
+        foreach(var effect in splashEffects)
+        {
+            var effectMain = effect.main;
+            effectMain.startDelay = delay;
+        }
+
         StartCoroutine(Splash());
-        Destroy(gameObject, 0.3f);
     }
 
     private IEnumerator Splash() {
+        // Set initial position.
+        if (!pickRandomPosition) transform.position = GameController.instance.player.transform.position;
+        else transform.position = RandomNavmeshLocation(GameController.instance.currentRoom.transform.position);
+
+        // After the delay enable the hit box and destroy the game object.
         yield return new WaitForSecondsRealtime(delay);
-        transform.position = playerPosition;
-        particles.Play();
+        boxCollider.enabled = true;
+        Destroy(gameObject, 0.3f);
     }
 
     public Vector3 RandomNavmeshLocation(Vector3 center) {

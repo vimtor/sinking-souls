@@ -115,7 +115,8 @@ public class Entity : MonoBehaviour
 
 
         // To avoid different prefabs accesing the same ability.
-        if (m_Abilities != null) Array.ForEach(m_Abilities, ability => Instantiate(ability));
+        if (m_Abilities != null)
+            for(int i = 0; i< m_Abilities.Length; i++)m_Abilities[i] = Instantiate(m_Abilities[i]);
 
 
         // Other variables.
@@ -154,7 +155,7 @@ public class Entity : MonoBehaviour
     public void Heal(float heal)
     {
         // Add health until the maximun.
-        m_Health += m_Health + heal > m_MaxHealth ? m_MaxHealth : heal;
+        m_Health = m_Health + heal > m_MaxHealth ? m_MaxHealth : m_Health + heal;
 
         bool noHeal = true;
         for (int i = 0; i < transform.childCount; i++)
@@ -214,6 +215,7 @@ public class Entity : MonoBehaviour
 
     protected void UseAbility(int abilityID)
     {
+        Debug.Log(gameObject.GetInstanceID());
         m_AbilityCooldown = m_Abilities[abilityID].cooldown;
         m_Abilities[abilityID].Use(gameObject);
     }

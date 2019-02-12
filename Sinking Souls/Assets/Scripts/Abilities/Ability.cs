@@ -110,7 +110,7 @@ public abstract class Ability : ScriptableObject
 
     protected void SetParent(GameObject newParent)
     {
-        if (parent == null) parent = newParent;
+        parent = newParent;
     }
 
     protected void SetEntity()

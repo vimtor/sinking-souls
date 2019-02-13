@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 114584638072486642}
   - component: {fileID: 195962841179963042}
   - component: {fileID: 136749783638334620}
+  - component: {fileID: 114273154424832436}
   m_Layer: 11
   m_Name: Ailin_Boss
   m_TagString: Enemy
@@ -1328,6 +1329,17 @@ MonoBehaviour:
   gettingDamage: 0
   m_Souls: 10
   abilities: []
+--- !u!114 &114273154424832436
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1047257505536246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b96d6a0c2255c74c8e3b4b5584a4d47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114584638072486642
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -36,7 +36,7 @@ public class WaterSplashBehaviour : MonoBehaviour {
     private IEnumerator Splash() {
         // Set initial position.
         if (!pickRandomPosition) transform.position = GameController.instance.player.transform.position;
-        else transform.position = RandomNavmeshLocation(GameController.instance.currentRoom.transform.position);
+        
 
         // After the delay enable the hit box and destroy the game object.
         yield return new WaitForSecondsRealtime(delay);

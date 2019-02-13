@@ -7,7 +7,6 @@ public class WaterSplashBehaviour : MonoBehaviour {
 
     public ParticleSystem ribbles;
     public ParticleSystem waterSplash;
-    public ParticleSystem[] splashEffects;
 
     [HideInInspector] public float delay;
     [HideInInspector] public bool pickRandomPosition;
@@ -19,17 +18,18 @@ public class WaterSplashBehaviour : MonoBehaviour {
     {
         boxCollider = GetComponent<BoxCollider>();
 
-        // Set the start delay for the main splash.
+        // Set the start delay for the main splash and play it afterwards.
         var mainSplash = waterSplash.main;
         mainSplash.startDelay = delay;
 
         // Do the same for the effects.
-        foreach(var effect in splashEffects)
+        foreach(var effect in waterSplash.GetComponentsInChildren<ParticleSystem>())
         {
-            var effectMain = effect.main;
-            effectMain.startDelay = delay;
+            var mainEffect = effect.main;
+            mainEffect.startDelay = delay;
         }
 
+        waterSplash.Play();
         StartCoroutine(Splash());
     }
 
@@ -37,7 +37,6 @@ public class WaterSplashBehaviour : MonoBehaviour {
         // Set initial position.
         if (!pickRandomPosition) transform.position = GameController.instance.player.transform.position;
         
-
         // After the delay enable the hit box and destroy the game object.
         yield return new WaitForSecondsRealtime(delay);
         boxCollider.enabled = true;

@@ -11,12 +11,13 @@ public class AilinBoss : AIController {
     [HideInInspector] public bool firstAttack;
     [HideInInspector] public bool stateFinished;
 
+
+
     public float TimeToRage;
 
 
-    public override void SetupAI()
-    {
-        base.SetupAI();
+    public void Start()
+    {   
         timeInRange = 0;
         rageTime = 0;
         rageMode = false;
@@ -26,8 +27,7 @@ public class AilinBoss : AIController {
 
 	
 	// Update is called once per frame
-	protected override void Update () {
-        base.Update();
+	protected void Update () {
         timeInRange += Time.deltaTime;
         rageTime += Time.deltaTime;
         if (rageTime >= TimeToRage) rageMode = true;

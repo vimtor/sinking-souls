@@ -14,7 +14,10 @@ public class waveTrigger : MonoBehaviour {
                 if (other.tag == "Player") transform.parent.GetComponent<ExpansiveWaveBehaviour>().interiorCollision = true;
                 break;
             case "exterior":
-                if (other.tag == "Player") transform.parent.GetComponent<ExpansiveWaveBehaviour>().exteriorCollision = true;
+                if (other.tag == "Player") {
+                transform.parent.GetComponent<ExpansiveWaveBehaviour>().exteriorCollision = true;
+                Debug.Log("Exterior true");
+                }
                 break;
         }    
     }

@@ -10,8 +10,8 @@ public class ExpansiveWaveBehaviour : MonoBehaviour
     public float speed = 5;
     public int damage;
 
-    [HideInInspector] public bool exteriorCollision;
-    [HideInInspector] public bool interiorCollision;
+    public bool exteriorCollision;
+    public bool interiorCollision;
     private SphereCollider exterior;
     private SphereCollider interior;
     private bool hitted;
@@ -25,6 +25,7 @@ public class ExpansiveWaveBehaviour : MonoBehaviour
         exterior = transform.GetChild(1).GetComponent<SphereCollider>();
         interior.radius = 0;
         exterior.radius = interior.radius + offset;
+        Destroy(gameObject, 10);
     }
 
     private void Update()
@@ -40,7 +41,9 @@ public class ExpansiveWaveBehaviour : MonoBehaviour
         if (exteriorCollision && !interiorCollision && !hitted)
         {
             hitted = true;
+            Debug.Log("Hit");
             GameController.instance.player.GetComponent<Entity>().ApplyDamage(damage);
+            GameController.instance.player.GetComponent<Entity>().React(transform.position); ;
         }
     }
 

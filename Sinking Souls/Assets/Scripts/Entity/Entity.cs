@@ -227,7 +227,7 @@ public class Entity : MonoBehaviour
 
     #region React Functions
 
-    private void React(Vector3 hitterPosition)
+    public void React(Vector3 hitterPosition)
     {
         m_WeaponCollider.enabled = false;
         m_Hitted = true;

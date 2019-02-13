@@ -190,9 +190,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ribbles: {fileID: 198350635604385248}
   waterSplash: {fileID: 198352669822075388}
-  splashEffects:
-  - {fileID: 198966086317269062}
-  - {fileID: 198273303365900624}
   delay: 0
   pickRandomPosition: 0
   range: 20
@@ -208,7 +205,7 @@ ParticleSystem:
   stopAction: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -8893,7 +8890,7 @@ ParticleSystem:
   stopAction: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
@@ -13312,7 +13309,7 @@ ParticleSystem:
   stopAction: 0
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1

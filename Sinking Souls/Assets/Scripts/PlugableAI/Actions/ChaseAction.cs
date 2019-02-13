@@ -12,6 +12,7 @@ public class ChaseAction : Action
 
         controller.Animator.SetFloat("Speed", speed);
         controller.navMeshAgent.SetDestination(controller.player.transform.position);
+        Debug.Log(controller.navMeshAgent.GetInstanceID());
     }
 
 }

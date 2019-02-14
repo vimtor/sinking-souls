@@ -7,8 +7,12 @@ public class IdleAction : Action
 {
     public float distance = 5;
     public Vector2 waitingRange = Vector2.zero;
+    public float unlockedMultiplier = 1;
+
     private float time = 0;
     private float waitTime = 0;
+    
+
     public override void StartAction(AIController controller) {
         time = 0;
         base.StartAction(controller);
@@ -16,19 +20,27 @@ public class IdleAction : Action
         // Reset speed float to avoid walking when the animation finishes.
         controller.Animator.SetFloat("Speed", 0);
         waitTime = Random.Range(waitingRange.x, waitingRange.y);
-        Debug.Log("Idle action ");
+
+        // Check if I am the locked enemy.
+        if (controller.player.GetComponent<Player>().lockedEnemy != controller.gameObject)
+        {
+            // Augment the waiting time to avoid overwhelming the player.
+            waitTime *= unlockedMultiplier;
+        }
+
         elapsed = false;
     }
 
     public override void UpdateAction(AIController controller)
     {
-        Debug.Log("Update");
         Rotate(controller);
-        if (time >= waitTime) {
-            Debug.Log("Time " + time + ", waitTime " + waitTime);
+
+        if (time >= waitTime)
+        {
             elapsed = true;
         }
-        else {
+        else
+        {
             if (Vector3.Distance(controller.transform.position, controller.player.transform.position) >= distance) elapsed = true;
             else elapsed = false;
         }

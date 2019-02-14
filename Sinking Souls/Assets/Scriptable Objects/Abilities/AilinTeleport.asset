@@ -8,20 +8,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9ea61e7e4f938f4b8af40f21dc7805f, type: 3}
-  m_Name: AilinPilarsAbility
+  m_Script: {fileID: 11500000, guid: 18dde22db667c454cb909f52b5b9771e, type: 3}
+  m_Name: AilinTeleport
   m_EditorClassIdentifier: 
   name: 
   description: 
   price: 0
   sprite: {fileID: 0}
   cooldown: 0
-  damage: 20
-  m_IsPassive: 0
+  damage: 0
+  m_IsPassive: 1
   modifier: {fileID: 0}
-  prefab: {fileID: 1218292846739896, guid: 57c3186e53e3cb94b98e8829e5555c77, type: 2}
+  prefab: {fileID: 0}
   m_Upgrades: []
   m_UpgradeNumber: 0
   target: 
   entity: {fileID: 0}
-  distance: 4

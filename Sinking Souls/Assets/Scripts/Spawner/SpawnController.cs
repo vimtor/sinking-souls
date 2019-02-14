@@ -14,7 +14,9 @@ public class SpawnController : MonoBehaviour {
     public bool alreadySpawned = false;
 
     private SpawnerConfiguration configuration;
-    private List<GameObject> spawnPoints;
+
+    //[HideInInspector]
+    public List<GameObject> spawnPoints;
 
     private void Start() {
         spawnPoints = new List<GameObject>();
@@ -46,7 +48,7 @@ public class SpawnController : MonoBehaviour {
                 enemy.GetComponent<AIController>().SetupAI();
             }
 
-            spawnPoints.Clear();
+            //spawnPoints.Clear();
             alreadySpawned = true;
         }
     }

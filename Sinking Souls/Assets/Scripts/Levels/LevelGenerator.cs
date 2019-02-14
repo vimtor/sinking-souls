@@ -21,7 +21,7 @@ public class LevelGenerator : MonoBehaviour
     public bool tabernaSpawned = false;
     public int currentLevel = -1;
     public int numberRooms = 5;
-    [HideInInspector] public GameObject lastRoom;
+    public GameObject lastRoom;
 
     [Tooltip("Rate at which elites spawn.")]
     public float eliteRate;

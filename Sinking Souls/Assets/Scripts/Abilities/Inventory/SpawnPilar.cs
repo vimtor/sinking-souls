@@ -28,6 +28,7 @@ public class SpawnPilar : MonoBehaviour {
             Destroy(actualPilar, pilarLifespan);
             done = true;
             actualPilar.AddComponent<AbilityHolder>().holder = gameObject.GetComponent<AbilityHolder>().holder;
+            actualPilar.GetComponent<AbilityHolder>().owner = gameObject.GetComponent<AbilityHolder>().owner;
             Destroy(gameObject, AuraLifespan);
         }
         count += Time.deltaTime;

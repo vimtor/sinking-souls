@@ -7,7 +7,9 @@ public class ExpansionWaveAbility : Ability
 {
 
     protected override void Configure(GameObject expansionWave)
-    {       
+    {
+        expansionWave.transform.position = parent.transform.position;
+        expansionWave.transform.parent = parent.transform;
     }
 
 }

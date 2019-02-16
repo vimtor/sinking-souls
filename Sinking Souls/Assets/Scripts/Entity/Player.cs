@@ -199,7 +199,7 @@ public class Player : Entity
             case animateShader.NONE:
                 break;
         }
-        if (lockedEnemy != null) DrawAngles();
+        //if (lockedEnemy != null) DrawAngles();
 
         if (!m_CanMove) return;
         m_Animator.SetBool("LoockedEnemy", (lockedEnemy != null));

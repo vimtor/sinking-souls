@@ -4,13 +4,62 @@ using UnityEngine;
 
 public class AilinAIAsistant : MonoBehaviour {
     AIController controller;
-	
-	void Start () {
+
+    public bool rageMode = false;
+    public bool firstAttack = false;
+
+    public float tpTime;
+    public float rageTime;
+    public float rageDuration;
+
+    public float tpDistance;
+
+    public float rageCounter = 0;
+    public float rageDurationCounter = 0;
+    public float tpCounter = 0;
+
+    private float lastLife;
+
+    void Start () {
         controller = GetComponent<AIController>();
+        lastLife = controller.gameObject.GetComponent<Entity>().Health;
 	}
 	
 	
 	void Update () {
-		
+        //TP
+        if (Vector3.Distance(controller.player.transform.position, transform.position) < tpDistance) {
+            tpCounter += Time.deltaTime;
+        }
+        else tpCounter = 0;
+
+        //Rage
+        if (!Hited()) {
+            rageCounter += Time.deltaTime;
+        }
+        else
+            rageCounter = 0;
+
+        if(rageCounter> rageTime) {
+            rageMode = true;
+            rageCounter = 0;
+        }
+        if (rageMode) {
+            rageDurationCounter += Time.deltaTime;
+            if(rageDurationCounter > rageDuration) {
+                rageMode = false;
+                rageDurationCounter = 0;
+                firstAttack = false;
+            }
+        }
 	}
+
+    bool Hited() {
+
+        if(lastLife != controller.gameObject.GetComponent<Entity>().Health) {
+            lastLife = controller.gameObject.GetComponent<Entity>().Health;
+            return true;
+        }
+        return false;
+    }
 }

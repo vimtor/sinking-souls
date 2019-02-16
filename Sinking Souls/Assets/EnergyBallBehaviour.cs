@@ -40,7 +40,8 @@ public class EnergyBallBehaviour : MonoBehaviour {
         }
         if (gameObject.transform.localScale.x >= sizes.y && grown == false) {
             grown = true;
-            GetComponent<Rigidbody>().velocity = speed * transform.forward.normalized;
+            Vector3 dir = GameController.instance.player.transform.position - gameObject.transform.position + new Vector3(0,2,0);
+            GetComponent<Rigidbody>().velocity = speed * dir.normalized;
         }
         if (grown == true) {
             gameObject.transform.localScale -= Vector3.one * sizingSpeeds.y * Time.deltaTime;

@@ -38,6 +38,7 @@ public class RageCanonBehaviour : MonoBehaviour {
     // Update is called once per frame
     void Update () {
         if (!start) {
+            GetComponent<AbilityHolder>();
             GetComponent<AbilityHolder>().owner.transform.rotation = Quaternion.Lerp(GetComponent<AbilityHolder>().owner.transform.rotation, Quaternion.LookRotation(initial), Time.deltaTime * RotationSpeed);
         }
         if(!start && GetComponent<AbilityHolder>().owner.transform.rotation == Quaternion.LookRotation(initial)) {
@@ -46,13 +47,16 @@ public class RageCanonBehaviour : MonoBehaviour {
 
             instantiatedCanon.AddComponent<AbilityHolder>().owner = GetComponent<AbilityHolder>().owner;
             instantiatedCanon.GetComponent<AbilityHolder>().holder = GetComponent<AbilityHolder>().holder;
-            instantiatedCanon.transform.position = transform.position;
+            instantiatedCanon.transform.position = position.transform.position;
+            instantiatedCanon.transform.parent = position.transform;
             instantiatedCanon.transform.rotation = Quaternion.LookRotation(initial);
             Destroy(instantiatedCanon, duration);
+            Destroy(gameObject, duration);
         }
 
         if ( start && instantiatedCanon != null) {
-            GetComponent<AbilityHolder>().owner.transform.rotation = Quaternion.Euler(new Vector3(0, ((initialDegrees*2)/duration * Time.deltaTime) * direction, 0)) * instantiatedCanon.transform.rotation;
+   
+            GetComponent<AbilityHolder>().owner.transform.rotation = Quaternion.Euler(new Vector3(0, ((initialDegrees*2)/duration * Time.deltaTime) * direction, 0)) * GetComponent<AbilityHolder>().owner.transform.rotation;
         }
 
         time += Time.deltaTime;

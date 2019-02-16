@@ -9,50 +9,48 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1694204970352760}
+  m_RootGameObject: {fileID: 1817222941922468}
   m_IsPrefabAsset: 1
---- !u!1 &1694204970352760
+--- !u!1 &1817222941922468
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4183346287613200}
-  - component: {fileID: 114019531868494082}
+  - component: {fileID: 4357236830797616}
+  - component: {fileID: 114180092443804888}
   m_Layer: 0
-  m_Name: RagePilarObject
+  m_Name: RageWaveSpawner
   m_TagString: Ability
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4183346287613200
+--- !u!4 &4357236830797616
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1694204970352760}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.3114915, y: 0, z: 6.679829}
+  m_GameObject: {fileID: 1817222941922468}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114019531868494082
+--- !u!114 &114180092443804888
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1694204970352760}
+  m_GameObject: {fileID: 1817222941922468}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9ee0d315c451ba41b68119b0edd7303, type: 3}
+  m_Script: {fileID: 11500000, guid: 38a717b89d3b8b145b0fdf82cbd256fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pilar: {fileID: 1218292846739896, guid: 57c3186e53e3cb94b98e8829e5555c77, type: 2}
-  count: 10
-  range: 5
-  spawnTimes: {x: 1, y: 2}
-  duration: 5
+  wave: {fileID: 1417155600075316, guid: 07eba8607c4b3cd42b7893444364ad3a, type: 2}
+  spawnInterval: 0.7
+  count: 2

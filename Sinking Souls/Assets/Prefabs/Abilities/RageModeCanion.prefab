@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4975523689689254}
   - component: {fileID: 114887439230951258}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: RageModeCanion
-  m_TagString: Untagged
+  m_TagString: Ability
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   restartTime: 5
   duration: 1
-  center: {x: 0, y: 0, z: 0}
-  playerVelocity: {x: 0, y: 0, z: 0}
+  RotationSpeed: 10
   initialDegrees: 80
   canon: {fileID: 1864035284132966, guid: 3863c95bb60de5a4ea3b5590b1d5fcb9, type: 2}
+  position: {fileID: 0}

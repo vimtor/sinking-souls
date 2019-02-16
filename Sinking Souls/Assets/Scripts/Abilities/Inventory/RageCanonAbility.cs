@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Abilities/Teleport")]
+[CreateAssetMenu(menuName = "Abilities/RageCanon")]
 public class RageCanonAbility : Ability {
 
     protected override void Configure(GameObject canon) {

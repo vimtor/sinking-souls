@@ -31,13 +31,18 @@ public class ScapeAction : Action {
         controller.navMeshAgent.enabled = true;
         float speed = Vector3.Magnitude(controller.navMeshAgent.velocity);
 
-        controller.Animator.SetFloat("Speed", speed);
+        controller.Animator.SetTrigger("Back");
+
         controller.navMeshAgent.SetDestination(targget);
 
         RaycastHit hit;
         Physics.Raycast(controller.transform.position, (controller.player.transform.position - controller.transform.position), out hit, Mathf.Infinity, layerMask);
 
-        if (hit.transform.tag != "Player" || Vector3.Distance(controller.transform.position, targget) < 2 ) elapsed = true;
+        if (hit.transform.tag != "Player" || Vector3.Distance(controller.transform.position, targget) < 2) {
+            elapsed = true;
+            controller.Animator.SetTrigger("Forward");
+
+        }
     }
 
     private void Rotate(AIController controller) {

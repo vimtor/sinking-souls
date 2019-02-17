@@ -14,6 +14,7 @@ public class ExpansiveWaveBehaviour : MonoBehaviour
     public bool interiorCollision;
     private SphereCollider exterior;
     private SphereCollider interior;
+    public ParticleSystem effect;
     private bool hitted;
 
     private void Start()
@@ -25,7 +26,15 @@ public class ExpansiveWaveBehaviour : MonoBehaviour
         exterior = transform.GetChild(1).GetComponent<SphereCollider>();
         interior.radius = 0;
         exterior.radius = interior.radius + offset;
-        Destroy(gameObject, 10);
+        effect = Instantiate(effect);
+        effect.transform.SetParent(gameObject.transform, false);
+        ParticleSystem.MainModule psMain = effect.main;
+        psMain.startSpeed = speed * 0.45f;
+        effect.transform.position = transform.position;
+        effect.Play();
+        Destroy(gameObject, range / speed);
+        
+
     }
 
     private void Update()
@@ -35,7 +44,6 @@ public class ExpansiveWaveBehaviour : MonoBehaviour
             interior.radius += speed * Time.deltaTime;
             exterior.radius = interior.radius + offset;
         }
-        else Destroy(gameObject);
      
 
         if (exteriorCollision && !interiorCollision && !hitted)

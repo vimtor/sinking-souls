@@ -215,7 +215,6 @@ public class Entity : MonoBehaviour
 
     protected void UseAbility(int abilityID)
     {
-        Debug.Log(gameObject.GetInstanceID());
         m_AbilityCooldown = m_Abilities[abilityID].cooldown;
         m_Abilities[abilityID].Use(gameObject);
     }

@@ -9,11 +9,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd67c1b2fd6121b458816ae83710b563, type: 3}
-  m_Name: MeleAttack
+  m_Name: ScapeState
   m_EditorClassIdentifier: 
   actions:
-  - {fileID: 11400000, guid: 09809b86a3a0df142828fcb9ec1f808a, type: 2}
+  - {fileID: 11400000, guid: 1a7e90536d84cfc40b91b534ebdd5550, type: 2}
   transitions:
-  - decision: {fileID: 11400000, guid: d55fb47e02e5b7d478bc91269dc935e8, type: 2}
-    trueState: {fileID: 11400000, guid: f65e62e3278604a478b6814dafffa476, type: 2}
-    falseState: {fileID: 11400000, guid: 70624c42b125fc1439bc544b58fbbcac, type: 2}
+  - decision: {fileID: 11400000, guid: 1c32e375d562a2e4190cbd98de2ebc57, type: 2}
+    trueState: {fileID: 11400000, guid: 70624c42b125fc1439bc544b58fbbcac, type: 2}
+    falseState: {fileID: 0}

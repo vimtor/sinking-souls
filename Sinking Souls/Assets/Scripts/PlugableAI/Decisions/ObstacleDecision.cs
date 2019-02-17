@@ -19,7 +19,6 @@ public class ObstacleDecision : Decision
         float distance = (controller.transform.position - controller.player.transform.position).magnitude;
         Physics.Raycast(controller.transform.position, (controller.player.transform.position - controller.transform.position), out hit, Mathf.Infinity, layerMask);
         int result = Random.Range(0, 100);
-        Debug.Log(hit.transform.name);
 
         if (closer) return (distance <= minDistance && hit.transform.tag == "Player" && result <= probability);
         else

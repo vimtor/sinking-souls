@@ -1345,12 +1345,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b96d6a0c2255c74c8e3b4b5584a4d47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rageTime: 10
+  rageDuration: 40
+  tpTime: 4
+  tpDistance: 5
   rageMode: 0
   firstAttack: 0
-  tpTime: 4
-  rageTime: 40
-  rageDuration: 0
-  tpDistance: 5
   rageCounter: 0
   rageDurationCounter: 0
   tpCounter: 0
@@ -1365,7 +1365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27115a1663b5ebc4a9dbbeb6a6e5abcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CurrentState: {fileID: 11400000, guid: f8a1b01595121dc4a85903e8142e95cd, type: 2}
+  m_CurrentState: {fileID: 11400000, guid: 213a9331f316d9e4c9ff8f33b8fd91fa, type: 2}
   remainState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
   player: {fileID: 0}
   navMeshAgent: {fileID: 0}
@@ -1373,6 +1373,7 @@ MonoBehaviour:
   timeElapsed: 0
   externalTime: 0
   count: 0
+  waitTime: 0
   aiActive: 0
   stop: 0
   forceState: 0

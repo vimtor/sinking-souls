@@ -5,18 +5,26 @@ using UnityEngine;
 public class AilinAIAsistant : MonoBehaviour {
     AIController controller;
 
-    public bool rageMode = false;
-    public bool firstAttack = false;
 
-    public float tpTime;
+   
+
+    [Header("RageMode")]
     public float rageTime;
     public float rageDuration;
 
+    [Space(5)]
+    [Header("Teleport options")]
+    public float tpTime;
     public float tpDistance;
 
-    public float rageCounter = 0;
-    public float rageDurationCounter = 0;
-    public float tpCounter = 0;
+    [Space(5)]
+    [Header("Debug options")]
+    public bool rageMode = false;
+    public bool firstAttack = false;
+
+    [HideInInspector] public float rageCounter = 0;
+    [HideInInspector] public float rageDurationCounter = 0;
+    [HideInInspector] public float tpCounter = 0;
 
     private float lastLife;
 

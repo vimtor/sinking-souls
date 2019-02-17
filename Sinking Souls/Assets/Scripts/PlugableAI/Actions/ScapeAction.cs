@@ -9,7 +9,7 @@ public class ScapeAction : Action {
     public float range;
     public float minDist;
 
-    private Vector3 targget;
+    private Vector3 targget = Vector3.zero;
     private int layerMask = ~((1 << 12) | (1 << 2) | (1 << 16));
 
     public override void StartAction(AIController controller) {

@@ -70,7 +70,7 @@ public class AilinAttackSelectorDecision : Decision
             if (!controller.gameObject.GetComponent<AilinAIAsistant>().firstAttack)
             {
                 controller.gameObject.GetComponent<AilinAIAsistant>().firstAttack = true;
-                controller.CurrentState.transitions[0].trueState = expansiveWaveStateRage;
+                controller.CurrentState.transitions[0].trueState = magicCanonStateRage;
             }
             else
             {

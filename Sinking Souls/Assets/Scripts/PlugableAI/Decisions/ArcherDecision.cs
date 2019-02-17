@@ -19,21 +19,24 @@ public class ArcherDecision : Decision {
         Physics.Raycast(controller.transform.position + new Vector3(0,1,0), (controller.player.transform.position  - controller.transform.position) , out hit, Mathf.Infinity, layerMask);
         Debug.Log("i see: " +  hit.transform.gameObject.name);
         if (hit.transform.tag != "Player") {// no te veo
-            Debug.Log("Chase from here");
+            Debug.Log("Chase");
             controller.CurrentState.transitions[0].trueState = notInSight;
             return true;
         }
         else {// in sight
             if (Vector3.Distance(controller.player.transform.position, controller.transform.position) > closeDistance) {// not close
                 controller.CurrentState.transitions[0].trueState = notCloseInSight;
+                Debug.Log("Shoot");
                 return true;
             }else {// close
                 if(controller.player.GetComponent<Player>().lockedEnemy == controller.gameObject) {//locked
                     controller.CurrentState.transitions[0].trueState = closeLocked;
+                    Debug.Log("Remain");
                     return true;
                 }
                 else {// not locked
                     controller.CurrentState.transitions[0].trueState = closeNotLocked;
+                    Debug.Log("Scape");
                     return true;
                 }
             }

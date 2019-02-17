@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnlockedAndCLose : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+[CreateAssetMenu(menuName = "PlugableAI/Decisions/UnlockedAndCLose")]
+
+public class UnlockedAndCLose : Decision {
+
+    public float distance;
+
+    public override bool Decide(AIController controller)
+    {
+        return (Vector3.Distance(controller.player.transform.position, controller.transform.position) <= distance && controller.player.GetComponent<Player>().lockedEnemy != controller.gameObject);
+    }
 }

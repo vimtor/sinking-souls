@@ -8,6 +8,7 @@ public class AttackAction : Action
     [Header("Configuration")]
     public int m_AttackType;
     public float m_RotationDamping;
+    public float clipSpeed = 1;
 
     public override void StartAction(AIController controller)
     {
@@ -23,8 +24,7 @@ public class AttackAction : Action
 
     public override void UpdateAction(AIController controller)
     {
-        elapsed = controller.CheckIfAttackElapsed(m_AttackType);
-
+        elapsed = controller.CheckIfAttackElapsed(m_AttackType, clipSpeed);
         // To rotate while attacking.
         Rotate(controller);
     }

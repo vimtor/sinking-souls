@@ -20,12 +20,12 @@ public class IdleAction : Action
         // Reset speed float to avoid walking when the animation finishes.
         controller.Animator.SetFloat("Speed", 0);
         waitTime = Random.Range(waitingRange.x, waitingRange.y);
-
+        controller.waitTime = waitTime;
         // Check if I am the locked enemy.
         if (controller.player.GetComponent<Player>().lockedEnemy != controller.gameObject)
         {
             // Augment the waiting time to avoid overwhelming the player.
-            waitTime *= unlockedMultiplier;
+            controller.waitTime = waitTime * unlockedMultiplier;
         }
 
         elapsed = false;
@@ -35,7 +35,7 @@ public class IdleAction : Action
     {
         Rotate(controller);
 
-        if (time >= waitTime)
+        if (time >= controller.waitTime)
         {
             elapsed = true;
         }

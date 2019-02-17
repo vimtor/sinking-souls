@@ -8,10 +8,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57f3e20dd5d98e54c8c6da72087ff65e, type: 3}
-  m_Name: AugmentedArcherTriton_InSightDecision
+  m_Script: {fileID: 11500000, guid: 07f4f3fb09e83274283cf41946cb2028, type: 3}
+  m_Name: InSightAndClose
   m_EditorClassIdentifier: 
-  lessThan: 0
-  maxAngle: 180
-  sightDist: 11
-  probavility: 1
+  probability: 100
+  minDistance: 3
+  closer: 1

@@ -9,14 +9,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd67c1b2fd6121b458816ae83710b563, type: 3}
-  m_Name: ArcherTriton_SpellState
+  m_Name: MeleAttack
   m_EditorClassIdentifier: 
   actions:
-  - {fileID: 11400000, guid: c5c9867df0505f7439826f04c4a6936b, type: 2}
+  - {fileID: 11400000, guid: 09809b86a3a0df142828fcb9ec1f808a, type: 2}
   transitions:
-  - decision: {fileID: 11400000, guid: 36b4bfafefdb2244091ab44787b24cef, type: 2}
+  - decision: {fileID: 11400000, guid: 5cc4fa00673f86c46a75b2f51993af90, type: 2}
     trueState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
     falseState: {fileID: 11400000, guid: 70624c42b125fc1439bc544b58fbbcac, type: 2}
-  - decision: {fileID: 11400000, guid: d60770117f6f1ac49ab26025872ffa0c, type: 2}
-    trueState: {fileID: 11400000, guid: ad19b6a33a58fb74e9384cee93d7fa15, type: 2}
-    falseState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}

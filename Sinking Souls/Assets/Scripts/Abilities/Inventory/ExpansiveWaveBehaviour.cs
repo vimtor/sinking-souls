@@ -8,7 +8,7 @@ public class ExpansiveWaveBehaviour : MonoBehaviour
     public float range = 15;
     public float offset = 2;
     public float speed = 5;
-    public int damage;
+    public float damage;
 
     public bool exteriorCollision;
     public bool interiorCollision;

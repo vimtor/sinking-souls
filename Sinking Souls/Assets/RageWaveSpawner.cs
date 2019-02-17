@@ -23,6 +23,7 @@ public class RageWaveSpawner : MonoBehaviour {
         GameObject i = Instantiate(wave);
         i.AddComponent<AbilityHolder>().holder = GetComponent<AbilityHolder>().holder;
         i.GetComponent<AbilityHolder>().owner = GetComponent<AbilityHolder>().owner;
+        i.GetComponent<ExpansiveWaveBehaviour>().damage = GetComponent<AbilityHolder>().holder.damage;
         i.transform.position = gameObject.transform.position + new Vector3(0,1,0);
     }
 }

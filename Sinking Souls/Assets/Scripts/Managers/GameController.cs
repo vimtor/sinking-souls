@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
 {
     public enum GameState { LOBBY, GAME, ARENA, LOADSCENE, TABERN, MAIN_MENU };
     public GameState scene = GameState.LOBBY;
+    public GameObject mainEnemy;
 
     [Header("Prefabs")]
     public GameObject playerPrefab;

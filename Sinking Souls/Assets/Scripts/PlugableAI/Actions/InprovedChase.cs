@@ -8,6 +8,9 @@ public class InprovedChase : Action {
 
     public float stopingDistance;
     public float enemyDistance;
+    public float distancePlayer;
+    public Vector3 targetPoint;
+   
 
     public override void StartAction(AIController controller) {
         elapsed = false;
@@ -16,9 +19,16 @@ public class InprovedChase : Action {
     }
 
     public override void UpdateAction(AIController controller) {
-        
+        if (!controller.started)
+        {
+            controller.started = true;
+            CalculatePoint(controller);
+        }
+        else targetPoint = controller.player.transform.position + controller.improvedChaseDirection * distancePlayer;
+
         Rotate(controller);
-        CalculatePoint(controller);
+        
+        
 
         controller.navMeshAgent.enabled = true;
         float speed = Vector3.Magnitude(controller.navMeshAgent.velocity);
@@ -27,9 +37,8 @@ public class InprovedChase : Action {
 
         NavMeshHit hit;
 
-        if (NavMesh.SamplePosition(controller.targgetPoint, out hit, Mathf.Infinity, 10)) {
-            controller.navMeshAgent.SetDestination(hit.position);
-            Debug.Log("ENTRA");
+        if (NavMesh.SamplePosition(targetPoint, out hit, Mathf.Infinity, NavMesh.AllAreas)) {
+            controller.navMeshAgent.SetDestination(hit.position);          
         }
     }
 
@@ -43,36 +52,12 @@ public class InprovedChase : Action {
     }
 
     private void CalculatePoint(AIController controller) {
-        elapsed = false;
-        controller.targgetPoint = controller.player.transform.position - controller.transform.position;
-        controller.targgetPoint = controller.player.transform.position - controller.targgetPoint.normalized * stopingDistance;
-        List<Vector3> targgets = new List<Vector3>();
 
-        foreach (GameObject go in GameController.instance.roomEnemies) {
-            if (go.GetComponent<AIController>().type == AIController.Type.MELEE) {
-                if (go.GetComponent<AIController>().targgetPoint != null) {
-                    if (Vector3.Distance(go.GetComponent<AIController>().targgetPoint, controller.targgetPoint) < enemyDistance) {
-                        targgets.Add(go.GetComponent<AIController>().targgetPoint);
-                    }
-                }
-            }
-        }
-
-        if (targgets.Count > 1) {
-            float max = 0, min = Mathf.Infinity;
-            foreach (Vector3 v in targgets) {
-                float dist = Vector3.Distance(v, controller.targgetPoint);
-                if (dist < min) min = dist;
-                else if (dist > max) max = dist;
-            }
-            for (int i = 0; i < targgets.Count; i++) {
-                targgets[i] = controller.player.GetComponent<Player>().map(targgets[i].magnitude, min, max, max, min) * targgets[i].normalized;
-            }
-        }
-
-        foreach (Vector3 v in targgets) {
-            controller.targgetPoint -= v;
-        }
+        controller.improvedChaseDirection = new Vector3(Random.Range(-100, 100), 0, Random.Range(-100, 100)).normalized;
+        Debug.Log(controller.improvedChaseDirection);
+        Debug.Log(this.GetInstanceID());
+        targetPoint = controller.player.transform.position + controller.improvedChaseDirection * distancePlayer;
+    
     }
 
 }

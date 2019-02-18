@@ -6,16 +6,12 @@ using UnityEngine.AI;
 [CreateAssetMenu(menuName = "PlugableAI/Actions/InprovedChase")]
 public class InprovedChase : Action {
 
-    public float stopingDistance;
-    public float enemyDistance;
     public float distancePlayer;
     public Vector3 targetPoint;
+    private bool checkDist = true;
    
 
     public override void StartAction(AIController controller) {
-        elapsed = false;
-        CalculatePoint(controller);
-
     }
 
     public override void UpdateAction(AIController controller) {
@@ -26,9 +22,16 @@ public class InprovedChase : Action {
         }
         else targetPoint = controller.player.transform.position + controller.improvedChaseDirection * distancePlayer;
 
-        Rotate(controller);
-        
-        
+        if (Vector3.Distance(controller.transform.position, controller.player.transform.position) < 1.5f && checkDist)
+        {
+            Debug.Log("algo");
+            checkDist = false;
+            controller.StartCoroutine(PickPosition(0.5f, controller));
+        }
+
+        if (Vector3.Distance(controller.transform.position, targetPoint) < 1) Rotate(controller);
+
+            elapsed = true;
 
         controller.navMeshAgent.enabled = true;
         float speed = Vector3.Magnitude(controller.navMeshAgent.velocity);
@@ -42,6 +45,19 @@ public class InprovedChase : Action {
         }
     }
 
+    IEnumerator PickPosition(float time, AIController controller)
+    {
+            yield return new WaitForSeconds(time);
+            checkDist = true;
+            if (Vector3.Distance(controller.transform.position, controller.player.transform.position) < 1.5f)
+            {
+                CalculatePoint(controller);
+                checkDist = false;
+                controller.StartCoroutine(PickPosition(0.5f, controller));
+            }
+    }
+        
+
     private void Rotate(AIController controller) {
         Vector3 shooter = controller.gameObject.transform.position;
         Vector3 target = controller.player.transform.position;
@@ -54,8 +70,6 @@ public class InprovedChase : Action {
     private void CalculatePoint(AIController controller) {
 
         controller.improvedChaseDirection = new Vector3(Random.Range(-100, 100), 0, Random.Range(-100, 100)).normalized;
-        Debug.Log(controller.improvedChaseDirection);
-        Debug.Log(this.GetInstanceID());
         targetPoint = controller.player.transform.position + controller.improvedChaseDirection * distancePlayer;
     
     }

@@ -11,6 +11,9 @@ public class GameController : MonoBehaviour
     public enum GameState { LOBBY, GAME, ARENA, LOADSCENE, TABERN, MAIN_MENU };
     public GameState scene = GameState.LOBBY;
     public GameObject mainEnemy;
+    public GameObject casualEnemy;
+    public float nextCasualTime;
+    public float casualCounter = 0;
 
     [Header("Prefabs")]
     public GameObject playerPrefab;
@@ -187,6 +190,21 @@ public class GameController : MonoBehaviour
         {
             player.transform.position = GetComponent<LevelGenerator>().lastRoom.GetComponent<DoorBehaviour>().nextDoor.transform.position;
         }
+
+        if (player.GetComponent<Player>().lockedEnemy != null && player.GetComponent<Player>().lockedEnemy != mainEnemy) mainEnemy = player.GetComponent<Player>().lockedEnemy;
+        else if(mainEnemy == null) mainEnemy = roomEnemies[UnityEngine.Random.Range(0, roomEnemies.Count)];
+
+
+        //Time for attack for causal enemies
+        if(nextCasualTime < casualCounter)
+        {
+            casualCounter = 0;
+            nextCasualTime = UnityEngine.Random.Range(4, 6);
+            casualEnemy = roomEnemies[UnityEngine.Random.Range(0, roomEnemies.Count)];
+        }
+        casualCounter += Time.deltaTime;
+        
+
     }
 
     #region SceneManagment Functions

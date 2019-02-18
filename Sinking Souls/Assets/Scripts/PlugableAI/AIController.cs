@@ -8,6 +8,10 @@ using UnityEngine;
 public class AIController : MonoBehaviour {
 
     public State m_CurrentState;
+    [HideInInspector] public bool main;
+    [HideInInspector] public enum Type { MELEE, ARCHER, SORCERER};
+    public Type type;
+    [HideInInspector] public Vector3 targgetPoint;
     public State CurrentState
     {
         get { return m_CurrentState; }

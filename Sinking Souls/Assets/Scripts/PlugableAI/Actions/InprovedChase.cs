@@ -16,18 +16,20 @@ public class InprovedChase : Action {
     }
 
     public override void UpdateAction(AIController controller) {
+        
         Rotate(controller);
         CalculatePoint(controller);
 
         controller.navMeshAgent.enabled = true;
         float speed = Vector3.Magnitude(controller.navMeshAgent.velocity);
-
         controller.Animator.SetFloat("Speed", speed);
+
 
         NavMeshHit hit;
 
         if (NavMesh.SamplePosition(controller.targgetPoint, out hit, Mathf.Infinity, 10)) {
             controller.navMeshAgent.SetDestination(hit.position);
+            Debug.Log("ENTRA");
         }
     }
 

@@ -1310,8 +1310,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CurrentState: {fileID: 11400000, guid: f65e62e3278604a478b6814dafffa476, type: 2}
   main: 0
+  started: 0
+  improvedChaseDirection: {x: 0, y: 0, z: 0}
   type: 1
-  targgetPoint: {x: 0, y: 0, z: 0}
   remainState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
   player: {fileID: 0}
   navMeshAgent: {fileID: 0}
@@ -1347,6 +1348,7 @@ MonoBehaviour:
     type: 2}
   m_HealParticles: {fileID: 1565164962391104, guid: 78ac0be5f22ba4840ab23af6fd80e2e1,
     type: 2}
+  dead: 0
   lockedEnemy: {fileID: 0}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0

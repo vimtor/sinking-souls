@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: TritonArcher Material
-  m_Shader: {fileID: 4800000, guid: 8d2bb70cbf9db8d4da26e15b26e74248, type: 3}
+  m_Shader: {fileID: 4800000, guid: 9913c77db0cfdcb408b36054bb0715e9, type: 3}
   m_ShaderKeywords: _NORMALMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -18,6 +18,14 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_56F37D89:
+        m_Texture: {fileID: 2800000, guid: dbb1ae0dc8d0bdb42bffdc75490c7bd6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_E5C9BA3F:
+        m_Texture: {fileID: 2800000, guid: 29c4db7c3014c0a4caef92b76a6ede23, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: dbb1ae0dc8d0bdb42bffdc75490c7bd6, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -59,6 +67,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_79566762: 1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -82,6 +91,9 @@ Material:
     - _Surface: 0
     - _UVSec: 0
     - _ZWrite: 1
+    - _amount: 100
+    - _duration: 0
+    - _height: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

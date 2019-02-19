@@ -11,5 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd67c1b2fd6121b458816ae83710b563, type: 3}
   m_Name: Scape
   m_EditorClassIdentifier: 
-  actions: []
-  transitions: []
+  actions:
+  - {fileID: 11400000, guid: 27eff79cd9d398c4cba268fd3dab52c3, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: 1c32e375d562a2e4190cbd98de2ebc57, type: 2}
+    trueState: {fileID: 11400000, guid: 1ab1796d650150f49896b3bb94e96330, type: 2}
+    falseState: {fileID: 0}

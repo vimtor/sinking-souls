@@ -732,7 +732,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1818422814107234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.3898544, y: 0, z: 0.45884064}
+  m_LocalPosition: {x: 1.8311379, y: 1.495, z: 4.603}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4790894859124366}
@@ -1308,7 +1308,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1716061989289232}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: -0, z: -0.325}
   m_LocalScale: {x: 6.692913, y: 6.692918, z: 6.6929083}
   m_Children: []
   m_Father: {fileID: 4078688041711498}
@@ -1396,7 +1396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eecd7ff4b5aca041b30e1fe1e2bcf66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Health: 300
+  m_Health: 20
   m_MaxHealth: 300
   m_HittedRecovery: 2
   m_Weapon: {fileID: 11400000, guid: b7cf60aea94f0194498f03320e8fa5fd, type: 2}
@@ -1406,10 +1406,12 @@ MonoBehaviour:
     type: 2}
   m_HealParticles: {fileID: 1565164962391104, guid: 78ac0be5f22ba4840ab23af6fd80e2e1,
     type: 2}
+  dead: 0
   lockedEnemy: {fileID: 0}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0
   m_Souls: 10
+  deathDuration: 3
   abilities: []
 --- !u!114 &114485416827979652
 MonoBehaviour:

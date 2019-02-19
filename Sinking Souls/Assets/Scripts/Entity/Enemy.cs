@@ -7,6 +7,7 @@ public class Enemy : Entity {
     private AIController m_AIController;
     private bool dash;
     public int m_Souls;
+    public float deathDuration = 1f;
     private float dashSpeed;
 
     [HideInInspector] public Ability[] abilities;
@@ -21,31 +22,47 @@ public class Enemy : Entity {
         abilities = GetComponent<Enemy>().Abilities;
     }
 
+    private float deathCounter = 0;
+
     private void Update()
     {
         if (m_Health <= 0) Die();
-        if (dash) {
-            
+        if (dead)
+        {
+            deathCounter += Time.deltaTime;
+            transform.GetChild(1).GetComponent<Renderer>().material.SetFloat("_height", GameController.instance.player.GetComponent<Player>().map(deathCounter, 0, deathDuration, 1, 0));
         }
+       
     }
 
     private void Die()
     {
-        if (GameController.instance.godMode)
+        if (!dead)
         {
-            GameController.instance.SpawnBlueprint(transform.position);
+            Animator.SetTrigger("Die");
+            StartCoroutine(WaitToDie(deathDuration));
+            dead = true;
+            GetComponent<AIController>().aiActive = false;
+            //GetComponent<CapsuleCollider>().enabled = false;
+            GameController.instance.RunSouls += m_Souls;
+            Debug.Log("Dead");
         }
 
-        GameController.instance.RunSouls += m_Souls;
-        foreach(GameObject target in GameController.instance.roomEnemies)
-        {
-            if(target.transform.position == transform.position)
-            {
-                GameController.instance.roomEnemies.Remove(target);
-                break;
-            }
-        }
-        Destroy(gameObject);
     }
 
+    IEnumerator WaitToDie(float time)
+    {
+        yield return new WaitForSeconds(time);
+        Debug.Log("Destroy");
+
+        for(int i = 0; i< GameController.instance.roomEnemies.Count; i++) 
+        {
+            if (GameController.instance.roomEnemies[i] == gameObject)
+            {
+                GameController.instance.roomEnemies.Remove(GameController.instance.roomEnemies[i]);
+            }
+        }
+        Debug.Log("Destroy 2");
+        Destroy(gameObject);
+    }
 }

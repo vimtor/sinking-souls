@@ -406,15 +406,12 @@ public class Player : Entity
             {
                 if(target != null)
                 {
-                    Debug.Log("Something in here");
                     float distance = Vector3.Distance(target.transform.position, transform.position);
                     float angle = Vector2.Angle(direction2, new Vector2(target.transform.position.x, target.transform.position.z) - new Vector2(gameObject.transform.position.x, gameObject.transform.position.z));
-                    Debug.Log("Distance " + distance);
-                    Debug.Log("Angle " + angle);
+
 
                     if (distance <= lockDistance && angle < closests)
                     {
-                        Debug.Log("New closest");
                         lockedEnemy = target;
                         closests = angle;
                     }

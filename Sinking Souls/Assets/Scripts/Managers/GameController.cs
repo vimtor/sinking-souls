@@ -370,7 +370,7 @@ public class GameController : MonoBehaviour
 
     public bool CanBuy(int price)
     {
-        return (m_LobbySouls - price) > 0;
+        return (m_LobbySouls - price) >= 0;
     }
 
     public void LoadGame()

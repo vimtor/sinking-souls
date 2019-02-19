@@ -11,14 +11,14 @@ public class CameraManager : MonoBehaviour {
 
     [HideInInspector] public Transform player;
 
-    private CinemachineVirtualCamera virtualCamera;
+    public CinemachineVirtualCamera virtualCamera;
 
     private Vector3 center, offset;
     private BoxCollider boxCollider;
     private bool gameOn = false;
 
-    private void Awake() {
-
+    private void Awake()
+    {
         #region SINGLETON
         if (instance == null) {
             instance = this;
@@ -28,8 +28,6 @@ public class CameraManager : MonoBehaviour {
             return;
         }
         #endregion
-
-        virtualCamera = transform.GetChild(0).GetComponent<CinemachineVirtualCamera>();
     }
 
 

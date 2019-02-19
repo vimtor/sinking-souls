@@ -21,6 +21,9 @@ public class BlacksmithBehaviour : MonoBehaviour
     public EventSystem m_EventSystem;
     public int m_InteractRange;
 
+    [Header("Camera")]
+    public GameObject m_Camera;
+
 
     private Vector3 m_DistancePlayer;
     private GameObject m_OldSelection;
@@ -83,6 +86,8 @@ public class BlacksmithBehaviour : MonoBehaviour
                 m_ShopTitle.SetActive(true);
                 UpdateShop();
 
+                m_Camera.SetActive(true);
+
                 // Stop the player.
                 GameController.instance.player.GetComponent<Player>().Stop();
                 GetComponent<Animator>().SetTrigger("Talk");
@@ -96,6 +101,9 @@ public class BlacksmithBehaviour : MonoBehaviour
                 InputManager.ButtonB = false;
                 m_ShopPanel.SetActive(false);
                 m_ShopTitle.SetActive(false);
+
+                m_Camera.SetActive(false);
+
                 GameController.instance.player.GetComponent<Player>().Resume();
             }
 

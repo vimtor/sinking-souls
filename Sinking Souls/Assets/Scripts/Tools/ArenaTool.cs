@@ -149,6 +149,7 @@ public class ArenaTool : EditorWindow {
         GameObject instantiated = Instantiate(enemy);
         instantiated.transform.position = spawnHolder.transform.GetChild(0).position;
         GameController.instance.roomEnemies.Add(instantiated);
+        if (GameController.instance.roomEnemies.Count == 1) GameController.instance.mainEnemy = instantiated;
         instantiated.GetComponent<AIController>().SetupAI();
     }
 

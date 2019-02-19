@@ -1435,8 +1435,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CurrentState: {fileID: 11400000, guid: 8f118dbb5d5029643a200fe5a55c8712, type: 2}
   main: 0
+  started: 0
+  improvedChaseDirection: {x: 0, y: 0, z: 0}
   type: 0
-  targgetPoint: {x: 0, y: 0, z: 0}
   remainState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
   player: {fileID: 0}
   navMeshAgent: {fileID: 0}
@@ -1568,7 +1569,7 @@ NavMeshAgent:
   m_Acceleration: 1000
   avoidancePriority: 50
   m_AngularSpeed: 360
-  m_StoppingDistance: 2
+  m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

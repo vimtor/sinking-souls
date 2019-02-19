@@ -50,6 +50,7 @@ public class SpawnController : MonoBehaviour {
 
             //spawnPoints.Clear();
             alreadySpawned = true;
+            GameController.instance.mainEnemy = GameController.instance.roomEnemies[Random.Range(0, GameController.instance.roomEnemies.Count)];
         }
     }
 

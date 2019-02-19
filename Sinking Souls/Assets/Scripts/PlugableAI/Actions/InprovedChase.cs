@@ -6,30 +6,57 @@ using UnityEngine.AI;
 [CreateAssetMenu(menuName = "PlugableAI/Actions/InprovedChase")]
 public class InprovedChase : Action {
 
-    public float stopingDistance;
-    public float enemyDistance;
+    public float distancePlayer;
+    public Vector3 targetPoint;
+    private bool checkDist = true;
+   
 
     public override void StartAction(AIController controller) {
-        elapsed = false;
-        CalculatePoint(controller);
-
     }
 
     public override void UpdateAction(AIController controller) {
-        Rotate(controller);
-        CalculatePoint(controller);
+        if (!controller.started)
+        {
+            controller.started = true;
+            CalculatePoint(controller);
+        }
+        else targetPoint = controller.player.transform.position + controller.improvedChaseDirection * distancePlayer;
+
+        if (Vector3.Distance(controller.transform.position, controller.player.transform.position) < 1.5f && checkDist)
+        {
+            Debug.Log("algo");
+            checkDist = false;
+            controller.StartCoroutine(PickPosition(0.5f, controller));
+        }
+
+        if (Vector3.Distance(controller.transform.position, targetPoint) < 1) Rotate(controller);
+
+            elapsed = true;
 
         controller.navMeshAgent.enabled = true;
         float speed = Vector3.Magnitude(controller.navMeshAgent.velocity);
-
         controller.Animator.SetFloat("Speed", speed);
+
 
         NavMeshHit hit;
 
-        if (NavMesh.SamplePosition(controller.targgetPoint, out hit, Mathf.Infinity, 10)) {
-            controller.navMeshAgent.SetDestination(hit.position);
+        if (NavMesh.SamplePosition(targetPoint, out hit, Mathf.Infinity, NavMesh.AllAreas)) {
+            controller.navMeshAgent.SetDestination(hit.position);          
         }
     }
+
+    IEnumerator PickPosition(float time, AIController controller)
+    {
+            yield return new WaitForSeconds(time);
+            checkDist = true;
+            if (Vector3.Distance(controller.transform.position, controller.player.transform.position) < 1.5f)
+            {
+                CalculatePoint(controller);
+                checkDist = false;
+                controller.StartCoroutine(PickPosition(0.5f, controller));
+            }
+    }
+        
 
     private void Rotate(AIController controller) {
         Vector3 shooter = controller.gameObject.transform.position;
@@ -41,36 +68,10 @@ public class InprovedChase : Action {
     }
 
     private void CalculatePoint(AIController controller) {
-        elapsed = false;
-        controller.targgetPoint = controller.player.transform.position - controller.transform.position;
-        controller.targgetPoint = controller.player.transform.position - controller.targgetPoint.normalized * stopingDistance;
-        List<Vector3> targgets = new List<Vector3>();
 
-        foreach (GameObject go in GameController.instance.roomEnemies) {
-            if (go.GetComponent<AIController>().type == AIController.Type.MELEE) {
-                if (go.GetComponent<AIController>().targgetPoint != null) {
-                    if (Vector3.Distance(go.GetComponent<AIController>().targgetPoint, controller.targgetPoint) < enemyDistance) {
-                        targgets.Add(go.GetComponent<AIController>().targgetPoint);
-                    }
-                }
-            }
-        }
-
-        if (targgets.Count > 1) {
-            float max = 0, min = Mathf.Infinity;
-            foreach (Vector3 v in targgets) {
-                float dist = Vector3.Distance(v, controller.targgetPoint);
-                if (dist < min) min = dist;
-                else if (dist > max) max = dist;
-            }
-            for (int i = 0; i < targgets.Count; i++) {
-                targgets[i] = controller.player.GetComponent<Player>().map(targgets[i].magnitude, min, max, max, min) * targgets[i].normalized;
-            }
-        }
-
-        foreach (Vector3 v in targgets) {
-            controller.targgetPoint -= v;
-        }
+        controller.improvedChaseDirection = new Vector3(Random.Range(-100, 100), 0, Random.Range(-100, 100)).normalized;
+        targetPoint = controller.player.transform.position + controller.improvedChaseDirection * distancePlayer;
+    
     }
 
 }

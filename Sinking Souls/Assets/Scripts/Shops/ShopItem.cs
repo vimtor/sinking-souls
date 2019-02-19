@@ -23,6 +23,7 @@ public class ShopItem : MonoBehaviour
         {
             GameController.instance.player.GetComponent<Player>().EquipModifier(modifier);
             GameController.instance.LobbySouls -= price;
+            AudioManager.Instance.PlayEffect("Forge");
         }
     }
 

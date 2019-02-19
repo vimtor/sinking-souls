@@ -9,6 +9,7 @@ public class BlacksmithBehaviour : MonoBehaviour
 {
     [Header("Shop Interface")]
     public GameObject m_ShopPanel;
+    public GameObject m_ShopTitle;
     public GameObject m_Item;
 
     [Space(10)]
@@ -19,6 +20,9 @@ public class BlacksmithBehaviour : MonoBehaviour
     [Header("Configuration")]
     public EventSystem m_EventSystem;
     public int m_InteractRange;
+
+    [Header("Camera")]
+    public GameObject m_Camera;
 
 
     private Vector3 m_DistancePlayer;
@@ -79,7 +83,10 @@ public class BlacksmithBehaviour : MonoBehaviour
             if (InputManager.GetButtonA() && (m_DistancePlayer.magnitude < m_InteractRange))
             {
                 m_ShopPanel.SetActive(true);
+                m_ShopTitle.SetActive(true);
                 UpdateShop();
+
+                m_Camera.SetActive(true);
 
                 // Stop the player.
                 GameController.instance.player.GetComponent<Player>().Stop();
@@ -93,6 +100,10 @@ public class BlacksmithBehaviour : MonoBehaviour
             {
                 InputManager.ButtonB = false;
                 m_ShopPanel.SetActive(false);
+                m_ShopTitle.SetActive(false);
+
+                m_Camera.SetActive(false);
+
                 GameController.instance.player.GetComponent<Player>().Resume();
             }
 

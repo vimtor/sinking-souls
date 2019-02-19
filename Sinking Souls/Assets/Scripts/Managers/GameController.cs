@@ -18,6 +18,7 @@ public class GameController : MonoBehaviour
     [Header("Prefabs")]
     public GameObject playerPrefab;
     public GameObject blueprint;
+    public GameObject loadingScreen;
 
     #region Crew Members
     [Header("Crew Members")]
@@ -85,6 +86,7 @@ public class GameController : MonoBehaviour
         levelGenerator = GetComponent<LevelGenerator>();
     }
 
+    // TODO: Move this to OnLoadScene to be more clear.
     public void LoadScene()
     {
         switch (scene)
@@ -248,9 +250,30 @@ public class GameController : MonoBehaviour
                 return;
         }
 
-        SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+        StartCoroutine(LoadSceneAsync(sceneName));
+        // SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 
+    IEnumerator LoadSceneAsync(string sceneName)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+
+        // Instantiate the loading screen on the canvas.
+        Instantiate(loadingScreen, GameObject.Find("Canvas").transform);
+        var loadingBar = GameObject.Find("Loading Bar").GetComponent<Image>();
+
+
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / .9f);
+            loadingBar.fillAmount = progress;
+
+            Debug.Log("Loading" + progress + "%");
+            yield return null;
+        }
+    }
+
+    // TODO: Erase this because deprecated.
     public void ChangeScene(GameState newScene)
     {
         scene = newScene;
@@ -347,7 +370,7 @@ public class GameController : MonoBehaviour
 
     public bool CanBuy(int price)
     {
-        return (m_LobbySouls - price) > 0;
+        return (m_LobbySouls - price) >= 0;
     }
 
     public void LoadGame()

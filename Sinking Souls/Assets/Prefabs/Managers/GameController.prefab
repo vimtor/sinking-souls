@@ -53,13 +53,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b1a216b87f73454bae7a4562d14bff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene: 0
+  scene: 5
+  mainEnemy: {fileID: 0}
+  casualEnemy: {fileID: 0}
+  nextCasualTime: 0
+  casualCounter: 0
   playerPrefab: {fileID: 1374338400793274, guid: 44389e0974990014b85d7b72e8893276,
     type: 2}
   blueprint: {fileID: 1656587315307008, guid: 1a7131efd18afaf4cb4d1edaea296ef7, type: 2}
+  loadingScreen: {fileID: 1246850196154892, guid: c78e355cd1dfe6f43963f459cf4c5e2c,
+    type: 2}
   m_RescuedBlacksmith: 1
-  m_RescuedAlchemist: 1
-  m_LobbySouls: 0
+  m_RescuedAlchemist: 0
+  m_LobbySouls: 100
   modifiers:
   - {fileID: 11400000, guid: 2b9b733efd55e0f40901ad0d69cc3b6d, type: 2}
   - {fileID: 11400000, guid: bf9941d22fbf0c7479a59603d39716c2, type: 2}
@@ -77,7 +83,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e414054fa6f953d4997f4f7609e212c0, type: 2}
   innKeeperShop: {fileID: 1783315880503980, guid: 39c87975063fd194483a38147f6b1293,
     type: 2}
+  roomEnemies: []
   died: 0
+  inTavern: 0
   debugMode: 0
   godMode: 0
   currentRoom: {fileID: 0}
@@ -105,6 +113,7 @@ MonoBehaviour:
   tabernaSpawned: 0
   currentLevel: -1
   numberRooms: 15
+  lastRoom: {fileID: 0}
   eliteRate: 1
   roomSize: 39.46
   seed: 

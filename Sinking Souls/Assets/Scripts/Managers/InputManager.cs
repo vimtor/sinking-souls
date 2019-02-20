@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour {
 
     public static Vector2 LeftJoystick;
     public static Vector2 RightJoystick;
+    public static Vector2 Mouse;
 
     #region Button Variables
     public static bool m_ButtonX;
@@ -94,6 +95,7 @@ public class InputManager : MonoBehaviour {
 
         LeftJoystick = new Vector2(Input.GetAxis("JOYSTICK_LH"), Input.GetAxis("JOYSTICK_LV"));
         RightJoystick = new Vector2(Input.GetAxis("JOYSTICK_RH"), Input.GetAxis("JOYSTICK_RV"));
+        Mouse = new Vector2(Input.GetAxis("MouseX"), Input.GetAxis("MouseY"));
 
         if (LeftJoystickZero()) LeftJoystick = new Vector2(Input.GetAxis("KEY_HORIZONTAL"), Input.GetAxis("KEY_VERTICAL"));
     }

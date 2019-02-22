@@ -9,9 +9,13 @@ public class IdleAction : Action
     public Vector2 waitingRange = Vector2.zero;
     public float unlockedMultiplier = 1;
 
+    public bool seen = false;
+
     private float time = 0;
     private float waitTime = 0;
-    
+    private int layerMask = ~((1 << 12) | (1 << 2) | (1 << 16));
+
+
 
     public override void StartAction(AIController controller) {
         time = 0;
@@ -39,10 +43,18 @@ public class IdleAction : Action
         {
             elapsed = true;
         }
-        else
+        else if(!seen)
         {
             if (Vector3.Distance(controller.transform.position, controller.player.transform.position) >= distance) elapsed = true;
             else elapsed = false;
+        }
+        else
+        {
+            RaycastHit hit;
+           
+            Physics.Raycast(controller.transform.position + new Vector3(0,1,0), (controller.player.transform.position - controller.transform.position), out hit, Mathf.Infinity, layerMask);
+            Debug.Log("Hit content = " + hit.transform.gameObject.name);
+            elapsed = (hit.transform.tag != "Player");
         }
 
         time += Time.deltaTime;

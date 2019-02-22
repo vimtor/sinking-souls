@@ -36,7 +36,7 @@ public class AIController : MonoBehaviour {
     [HideInInspector] public float timeElapsed;
     [HideInInspector] public float externalTime;
     [HideInInspector] public float count;
-    [HideInInspector] public float waitTime;
+    public float waitTime;
     [HideInInspector] public bool aiActive = false;
     [HideInInspector] public bool stop = false;
     [HideInInspector] public bool forceState = false;

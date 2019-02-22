@@ -205,6 +205,7 @@ public class GameController : MonoBehaviour
             casualEnemy = roomEnemies[UnityEngine.Random.Range(0, roomEnemies.Count)];
         }
         casualCounter += Time.deltaTime;
+
         
 
     }

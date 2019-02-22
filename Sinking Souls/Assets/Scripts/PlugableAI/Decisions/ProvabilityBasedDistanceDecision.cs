@@ -12,7 +12,7 @@ public class ProvabilityBasedDistanceDecision : Decision
     {
         RaycastHit hit;
         float distance = (controller.transform.position - controller.player.transform.position).magnitude;
-        Physics.Raycast(controller.transform.position, (controller.player.transform.position - controller.transform.position), out hit, Mathf.Infinity);
+        Physics.Raycast(controller.transform.position + new Vector3(0, 1, 0), (controller.player.transform.position - controller.transform.position), out hit, Mathf.Infinity);
         if(hit.transform.tag == "Player")
         {
             if (directlyProportional)

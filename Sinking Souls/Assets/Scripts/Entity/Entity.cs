@@ -85,8 +85,9 @@ public class Entity : MonoBehaviour
         get { return m_CurrentModifierState; }
     }
     #endregion
+    public bool dead = false;
 
-    [HideInInspector] public GameObject lockedEnemy = null;
+    public GameObject lockedEnemy = null;
 
     // THIS NEEDS TO BE REMOVED. USE ANIMATION EVENTS INSTEAD.
     private bool m_AbilityThrown;
@@ -274,7 +275,7 @@ public class Entity : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (m_Hitted) return;
+        if (m_Hitted || dead) return;
 
         switch (other.tag)
         {

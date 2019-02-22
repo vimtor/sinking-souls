@@ -2094,15 +2094,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27115a1663b5ebc4a9dbbeb6a6e5abcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: {fileID: 11400000, guid: 56415e59418fe214aab2b9491e815e11, type: 2}
+  m_CurrentState: {fileID: 0}
+  main: 0
+  started: 0
+  improvedChaseDirection: {x: 0, y: 0, z: 0}
+  type: 0
   remainState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
   player: {fileID: 0}
-  animator: {fileID: 95245457837962514}
   navMeshAgent: {fileID: 195074939404832690}
   stateTimeElapsed: 0
   timeElapsed: 0
   externalTime: 0
   count: 0
+  waitTime: 0
   aiActive: 0
   stop: 0
   forceState: 0
@@ -2123,17 +2127,17 @@ MonoBehaviour:
   m_MaxHealth: 0
   m_HittedRecovery: 0
   m_Weapon: {fileID: 0}
-  m_Ability: {fileID: 0}
   m_WeaponHand: {fileID: 0}
+  m_Abilities: []
   m_HitParticles: {fileID: 1744851154924106, guid: 83dbb4b59e1254c4bac5e18986484a49,
     type: 2}
   m_HealParticles: {fileID: 0}
-  thrown: 0
-  hit: 0
+  dead: 0
+  lockedEnemy: {fileID: 0}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0
-  souls: 0
-  ability: {fileID: 0}
+  m_Souls: 0
+  abilities: []
 --- !u!136 &136408814012046772
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -406,15 +406,12 @@ public class Player : Entity
             {
                 if(target != null)
                 {
-                    Debug.Log("Something in here");
                     float distance = Vector3.Distance(target.transform.position, transform.position);
                     float angle = Vector2.Angle(direction2, new Vector2(target.transform.position.x, target.transform.position.z) - new Vector2(gameObject.transform.position.x, gameObject.transform.position.z));
-                    Debug.Log("Distance " + distance);
-                    Debug.Log("Angle " + angle);
+
 
                     if (distance <= lockDistance && angle < closests)
                     {
-                        Debug.Log("New closest");
                         lockedEnemy = target;
                         closests = angle;
                     }
@@ -445,7 +442,7 @@ public class Player : Entity
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * m_RotationDamping);
     }
 
-    private void ResetMovement()
+    public void ResetMovement()
     {
         gameObject.layer = LayerMask.NameToLayer("Player");
         m_RotationDamping = m_MovementRotationDamping;
@@ -686,6 +683,7 @@ public class Player : Entity
         {
             GameController.instance.died = true;
             GameController.instance.scene = GameController.GameState.LOBBY;
+            GameController.instance.roomEnemies = new List<GameObject>();
             SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
         }
     }

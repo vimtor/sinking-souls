@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using System;
 using System.Linq;
 using TMPro;
+using System.Collections;
 
 public class BlacksmithBehaviour : MonoBehaviour
 {
@@ -20,6 +21,10 @@ public class BlacksmithBehaviour : MonoBehaviour
     [Header("Configuration")]
     public EventSystem m_EventSystem;
     public int m_InteractRange;
+    public float cursorHideTime = 1f;
+
+    [Header("Camera")]
+    public GameObject m_Camera;
 
 
     private Vector3 m_DistancePlayer;
@@ -70,6 +75,9 @@ public class BlacksmithBehaviour : MonoBehaviour
         m_OldSelection = m_EventSystem.currentSelectedGameObject;
     }
 
+    private bool hiding = false;
+    private bool storeOpen = false;
+
     private void Update()
     {
         m_DistancePlayer = GameController.instance.player.GetComponent<Player>().transform.position - transform.position;
@@ -82,6 +90,8 @@ public class BlacksmithBehaviour : MonoBehaviour
                 m_ShopPanel.SetActive(true);
                 m_ShopTitle.SetActive(true);
                 UpdateShop();
+                storeOpen = true;
+                m_Camera.SetActive(true);
 
                 // Stop the player.
                 GameController.instance.player.GetComponent<Player>().Stop();
@@ -96,6 +106,11 @@ public class BlacksmithBehaviour : MonoBehaviour
                 InputManager.ButtonB = false;
                 m_ShopPanel.SetActive(false);
                 m_ShopTitle.SetActive(false);
+
+                storeOpen = false;
+                Cursor.visible = false;
+                m_Camera.SetActive(false);
+
                 GameController.instance.player.GetComponent<Player>().Resume();
             }
 
@@ -107,5 +122,28 @@ public class BlacksmithBehaviour : MonoBehaviour
             m_OldSelection = m_EventSystem.currentSelectedGameObject;
         }
 
+        //Show cursor if moving it
+        if (storeOpen)
+        {
+            if(InputManager.Mouse.magnitude != 0)
+            {
+                hiding = false;
+                Cursor.visible = true;
+            }
+            else if (!hiding)
+            {
+                hiding = true;
+                StartCoroutine(HideMouse(cursorHideTime));
+            }
+        }
+
     }
+
+    //Hide cursor if not use it for certain time
+    IEnumerator HideMouse(float time)
+    {
+        yield return new WaitForSeconds(time);
+        if (hiding) Cursor.visible = false;
+    }
+
 }

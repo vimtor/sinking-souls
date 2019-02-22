@@ -41,6 +41,8 @@ public class Enemy : Entity {
         {
             Animator.SetTrigger("Die");
             StartCoroutine(WaitToDie(deathDuration));
+            GameController.instance.player.GetComponent<Player>().lockedEnemy = null;
+            GameController.instance.player.GetComponent<Player>().ResetMovement();
             dead = true;
             GetComponent<AIController>().aiActive = false;
             //GetComponent<CapsuleCollider>().enabled = false;

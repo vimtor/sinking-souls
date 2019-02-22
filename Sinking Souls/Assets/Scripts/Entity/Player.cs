@@ -442,7 +442,7 @@ public class Player : Entity
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * m_RotationDamping);
     }
 
-    private void ResetMovement()
+    public void ResetMovement()
     {
         gameObject.layer = LayerMask.NameToLayer("Player");
         m_RotationDamping = m_MovementRotationDamping;
@@ -683,6 +683,7 @@ public class Player : Entity
         {
             GameController.instance.died = true;
             GameController.instance.scene = GameController.GameState.LOBBY;
+            GameController.instance.roomEnemies = new List<GameObject>();
             SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
         }
     }

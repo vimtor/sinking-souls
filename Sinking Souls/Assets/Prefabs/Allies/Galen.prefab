@@ -1044,15 +1044,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1455352464021472}
-  m_LocalRotation: {x: -0, y: -0.27506205, z: -0, w: 0.9614265}
-  m_LocalPosition: {x: 2.4769974, y: -0.0002642536, z: -9.323309}
+  m_LocalRotation: {x: -0, y: -0.92635345, z: -0, w: 0.3766555}
+  m_LocalPosition: {x: 1.82, y: -0.0002642274, z: 0.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4089420793648032}
   - {fileID: 4367272532652764}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -31.931002, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -135.74701, z: 0}
 --- !u!4 &4764865230111824
 Transform:
   m_ObjectHideFlags: 1
@@ -1307,11 +1307,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShopPanel: {fileID: 0}
+  m_ShopTitle: {fileID: 0}
   m_Item: {fileID: 1308820731434558, guid: 7817153f6ae06a94eb3234cb39640f66, type: 2}
   m_Price: {fileID: 0}
   m_RemainingSouls: {fileID: 0}
   m_EventSystem: {fileID: 0}
   m_InteractRange: 4
+  cursorHideTime: 1
+  m_Camera: {fileID: 0}
 --- !u!136 &136244169435685834
 CapsuleCollider:
   m_ObjectHideFlags: 1

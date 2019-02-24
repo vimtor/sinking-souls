@@ -259,9 +259,8 @@ public class Player : Entity
                     if (InputManager.ButtonB) ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
                 }
 
-                
                 if (InputManager.ButtonX) ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
-                if (InputManager.ButtonA)
+                if (InputManager.ButtonRT)
                 {
                     if (m_AbilityCooldown <= 0.0f)
                     {

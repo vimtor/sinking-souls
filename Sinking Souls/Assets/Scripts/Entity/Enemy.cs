@@ -34,7 +34,7 @@ public class Enemy : Entity {
         }
        
     }
-
+    public GameObject allie = null;
     private void Die()
     {
         if (!dead)
@@ -47,7 +47,11 @@ public class Enemy : Entity {
             GetComponent<AIController>().aiActive = false;
             //GetComponent<CapsuleCollider>().enabled = false;
             GameController.instance.RunSouls += m_Souls;
-            Debug.Log("Dead");
+            if (allie != null) {
+                GameObject all = Instantiate(allie);
+                all.GetComponent<AIController>().SetupAI();
+                all.transform.position = transform.position;
+            }
         }
 
     }

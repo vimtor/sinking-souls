@@ -27,6 +27,10 @@ public class Enemy : Entity {
     private void Update()
     {
         if (m_Health <= 0) Die();
+
+        if (CurrentModifierState[ModifierState.TOXIC] > 0) transform.GetChild(1).GetComponent<Renderer>().material.SetFloat("_Poison", 1);
+        else transform.GetChild(1).GetComponent<Renderer>().material.SetInt("_Poison", 0);
+
         if (dead)
         {
             deathCounter += Time.deltaTime;

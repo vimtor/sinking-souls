@@ -270,7 +270,6 @@ public class Entity : MonoBehaviour
     #endregion
 
     private void Update() {
-        
     }
 
     private void OnTriggerEnter(Collider other)

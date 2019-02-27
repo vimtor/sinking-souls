@@ -100,6 +100,7 @@ public class Player : Entity
     public enum animateShader { FORWARD, BACKWARDS, NONE};
     public float effectDuration;
     public Vector3 tpPosition = Vector3.zero;
+    public Vector3 enemyPosition = Vector3.zero;
     public animateShader animate = animateShader.FORWARD;
     public float current = 0;
     #endregion
@@ -170,7 +171,7 @@ public class Player : Entity
                         m_Rigidbody.transform.position = tpPosition;
                         m_Rigidbody.velocity = Vector3.zero;
 
-                        transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
+                        transform.rotation = Quaternion.LookRotation(enemyPosition - transform.position);
                     }
                     animate = animateShader.FORWARD;
                     current = 0;
@@ -185,12 +186,12 @@ public class Player : Entity
                 }
                 else
                 {
-                    if(tpPosition != Vector3.zero) { 
-                        m_Rigidbody.transform.position = tpPosition;
-                        m_Rigidbody.velocity = Vector3.zero;
+                    //if(tpPosition != Vector3.zero) { 
+                    //    m_Rigidbody.transform.position = tpPosition;
+                    //    m_Rigidbody.velocity = Vector3.zero;
 
-                        transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
-                    }
+                    //    transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
+                    //}
                     animate = animateShader.NONE;
                     current = 0;
                     tpPosition = Vector3.zero;
@@ -576,8 +577,9 @@ public class Player : Entity
                 gameObject.layer = LayerMask.NameToLayer("Dash");
                 StartCoroutine(GetBulnerable(dashTime));
 
-
-            break;
+                animate = animateShader.BACKWARDS;
+                return;
+               
 
             default:
                 break;
@@ -593,7 +595,7 @@ public class Player : Entity
             if (Dodge != DodgeType.NONE)
             {
                 animate = animateShader.BACKWARDS;
-
+                enemyPosition = lockedEnemy.transform.position;
                 tpPosition = Vector3.zero;
                 gameObject.layer = LayerMask.NameToLayer("Dash");
                 
@@ -619,6 +621,7 @@ public class Player : Entity
                 
 
                 animate = animateShader.BACKWARDS;
+                enemyPosition = lockedEnemy.transform.position;
                 tpPosition = spawnPosition;
 
                 return;
@@ -631,7 +634,7 @@ public class Player : Entity
                     Vector3 spawnPosition = lockedEnemy.transform.position + spawnDirection.normalized * dashSpawningDistance;
 
                     animate = animateShader.BACKWARDS;
-
+                    enemyPosition = lockedEnemy.transform.position;
                     tpPosition = spawnPosition;
 
 
@@ -645,7 +648,7 @@ public class Player : Entity
                         Vector3 spawnPosition = lockedEnemy.transform.position + spawnDirection.normalized * dashSpawningDistance;
 
                         animate = animateShader.BACKWARDS;
-
+                        enemyPosition = lockedEnemy.transform.position;
                         tpPosition = spawnPosition;
 
 

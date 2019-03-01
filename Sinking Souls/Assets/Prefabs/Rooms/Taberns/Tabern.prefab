@@ -257,7 +257,7 @@ GameObject:
   - component: {fileID: 65376165260481288}
   - component: {fileID: 114720517342626394}
   m_Layer: 13
-  m_Name: DoorNextLevel (1)
+  m_Name: LobbyDoor
   m_TagString: Door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4040,7 +4040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa5487d19b3b7f48ab3ec8ef22c6526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: Game
+  sceneToLoad: 1
 --- !u!114 &114527509725724270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4067,7 +4067,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa5487d19b3b7f48ab3ec8ef22c6526, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToLoad: Lobby
+  sceneToLoad: 0
 --- !u!114 &114850473562466958
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -8,17 +8,6 @@ using UnityEngine.EventSystems;
 
 public class GameController : MonoBehaviour
 {
-    public enum GameState
-    {
-        LOBBY,
-        GAME,
-        ARENA,
-        LOADSCENE,
-        TABERN,
-        MAIN_MENU
-    };
-
-    public GameState scene = GameState.LOBBY;
     public GameObject mainEnemy;
     public GameObject casualEnemy;
     public float nextCasualTime;
@@ -26,7 +15,6 @@ public class GameController : MonoBehaviour
 
     [Header("Prefabs")] public GameObject playerPrefab;
     public GameObject blueprint;
-    public GameObject loadingScreen;
 
     #region Crew Members
 
@@ -100,29 +88,31 @@ public class GameController : MonoBehaviour
     }
 
     // TODO: Move this to OnLoadScene to be more clear.
-    public void LoadScene()
+    public void SetupScene(ApplicationManager.GameState scene)
     {
         switch (scene)
         {
-            case GameState.MAIN_MENU:
+            case ApplicationManager.GameState.MAIN_MENU:
                 break;
 
-            case GameState.TABERN:
+            case ApplicationManager.GameState.TABERN:
                 inTavern = true;
                 levelGenerator.takenPos = new List<Vector2>();
                 currentRoom = SpawnLevel();
-                GameObject InnKeeper = GameObject.Find("Triton Innkeeper");
-                GameObject pannel = Instantiate(innKeeperShop, GameObject.Find("Canvas").transform, false);
-                InnKeeper.GetComponent<InnkeeperBehaviour>().m_ShopPanel = pannel;
-                InnKeeper.GetComponent<InnkeeperBehaviour>().m_EventSystem = EventSystem.current;
+
+                var innBehaviour = GameObject.Find("Triton Innkeeper").GetComponent<InnkeeperBehaviour>();
+                var shopPanel = Instantiate(innKeeperShop, GameObject.Find("Canvas").transform, false);
+
+                innBehaviour.m_ShopPanel = shopPanel;
+                innBehaviour.m_EventSystem = EventSystem.current;
 
                 SetupGame();
                 player.GetComponent<Player>().Heal();
 
-                GameObject.Find("Triton Innkeeper").GetComponent<InnkeeperBehaviour>().FillShop();
+                innBehaviour.FillShop();
                 break;
 
-            case GameState.GAME:
+            case ApplicationManager.GameState.GAME:
                 died = false;
 
                 levelGenerator.takenPos = new List<Vector2>();
@@ -132,7 +122,7 @@ public class GameController : MonoBehaviour
                 SetupGame();
                 break;
 
-            case GameState.LOBBY:
+            case ApplicationManager.GameState.LOBBY:
                 inTavern = false;
                 m_RunSouls = 0;
 
@@ -172,15 +162,12 @@ public class GameController : MonoBehaviour
                 SaveManager.Save();
                 break;
 
-            case GameState.ARENA:
+            case ApplicationManager.GameState.ARENA:
                 currentRoom = GameObject.Find("Arena");
 
                 SetupGame();
 
                 godMode = true;
-                break;
-
-            default:
                 break;
         }
     }
@@ -225,80 +212,6 @@ public class GameController : MonoBehaviour
         casualCounter += Time.deltaTime;
     }
 
-    #region SceneManagment Functions
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        LoadScene();
-    }
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    public void ChangeScene(string sceneName)
-    {
-        switch (sceneName.ToUpper())
-        {
-            case "LOBBY":
-                scene = GameState.LOBBY;
-                break;
-
-            case "LOADSCENE":
-                scene = GameState.LOADSCENE;
-                break;
-
-            case "GAME":
-                scene = GameState.GAME;
-                break;
-
-            case "TABERN":
-                scene = GameState.TABERN;
-                break;
-
-            case "MAINMENU":
-                scene = GameState.MAIN_MENU;
-                break;
-
-            default:
-                Debug.LogError("A scene named " + sceneName + " was not found.");
-                return;
-        }
-
-        StartCoroutine(LoadSceneAsync(sceneName));
-    }
-
-    private IEnumerator LoadSceneAsync(string sceneName)
-    {
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
-
-        // Instantiate the loading screen on the canvas.
-        Instantiate(loadingScreen, GameObject.Find("Canvas").transform);
-        var loadingBar = GameObject.Find("Loading Bar").GetComponent<Image>();
-
-
-        while (!operation.isDone)
-        {
-            float progress = Mathf.Clamp01(operation.progress / .9f);
-            loadingBar.fillAmount = progress;
-
-            Debug.Log("Loading" + progress + "%");
-            yield return null;
-        }
-    }
-
-    public void QuitApplication()
-    {
-        Application.Quit();
-    }
-
-    #endregion
 
     #region Spawn Functions
 

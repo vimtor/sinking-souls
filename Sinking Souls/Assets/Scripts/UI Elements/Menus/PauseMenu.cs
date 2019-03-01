@@ -56,11 +56,11 @@ public class PauseMenu : MonoBehaviour
 
     public void Exit()
     {
-        GameController.instance.QuitApplication();
+        ApplicationManager.Instance.QuitApplication();
     }
 
     public void ExitMenu()
     {
-        GameController.instance.ChangeScene("MainMenu");
+        ApplicationManager.Instance.ChangeScene(ApplicationManager.GameState.MAIN_MENU);
     }
 }

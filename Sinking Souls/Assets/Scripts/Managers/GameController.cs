@@ -8,29 +8,38 @@ using UnityEngine.EventSystems;
 
 public class GameController : MonoBehaviour
 {
-    public enum GameState { LOBBY, GAME, ARENA, LOADSCENE, TABERN, MAIN_MENU };
+    public enum GameState
+    {
+        LOBBY,
+        GAME,
+        ARENA,
+        LOADSCENE,
+        TABERN,
+        MAIN_MENU
+    };
+
     public GameState scene = GameState.LOBBY;
     public GameObject mainEnemy;
     public GameObject casualEnemy;
     public float nextCasualTime;
     public float casualCounter = 0;
 
-    [Header("Prefabs")]
-    public GameObject playerPrefab;
+    [Header("Prefabs")] public GameObject playerPrefab;
     public GameObject blueprint;
     public GameObject loadingScreen;
 
     #region Crew Members
-    [Header("Crew Members")]
-    public bool m_RescuedBlacksmith = false;
+
+    [Header("Crew Members")] public bool m_RescuedBlacksmith = false;
     public bool m_RescuedAlchemist = false;
 
     private GameObject m_BlacksmithObject;
     private GameObject m_AlchemistObject;
+
     #endregion
 
-    [Header("Items")]
-    [SerializeField] private int m_LobbySouls;
+    [Header("Items")] [SerializeField] private int m_LobbySouls;
+
     public int LobbySouls
     {
         get { return m_LobbySouls; }
@@ -38,6 +47,7 @@ public class GameController : MonoBehaviour
     }
 
     private int m_RunSouls;
+
     public int RunSouls
     {
         get { return m_RunSouls; }
@@ -50,7 +60,7 @@ public class GameController : MonoBehaviour
     public Enhancer[] enhancers;
     public GameObject innKeeperShop;
     public List<GameObject> roomEnemies;
-    
+
     [HideInInspector] public bool died;
     [HideInInspector] public bool inTavern;
     [HideInInspector] public static GameController instance;
@@ -61,14 +71,16 @@ public class GameController : MonoBehaviour
     [HideInInspector] public Text lobbySoulsHUD;
 
     private LevelGenerator levelGenerator;
+
     public LevelGenerator LevelGenerator
     {
-        get { return levelGenerator;  }
+        get { return levelGenerator; }
     }
 
     private void Awake()
     {
         #region SINGLETON
+
         if (instance == null)
         {
             instance = this;
@@ -80,6 +92,7 @@ public class GameController : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
+
         #endregion
 
         Cursor.visible = false;
@@ -111,7 +124,7 @@ public class GameController : MonoBehaviour
 
             case GameState.GAME:
                 died = false;
-                
+
                 levelGenerator.takenPos = new List<Vector2>();
                 currentRoom = SpawnLevel();
                 currentRoom.GetComponent<SpawnController>().alreadySpawned = true;
@@ -143,6 +156,7 @@ public class GameController : MonoBehaviour
                 Array.ForEach(modifiers, modifier => modifier.picked = false);
 
                 #region Crew Members
+
                 m_BlacksmithObject = GameObject.Find("Galen");
                 m_AlchemistObject = GameObject.Find("Ailin");
 
@@ -151,6 +165,7 @@ public class GameController : MonoBehaviour
 
                 if (m_RescuedBlacksmith) m_BlacksmithObject.GetComponent<BlacksmithBehaviour>().FillShop();
                 if (m_RescuedAlchemist) m_AlchemistObject.GetComponent<AlchemistBehaviour>().FillShop();
+
                 #endregion
 
                 levelGenerator.tabernaSpawned = false;
@@ -190,38 +205,39 @@ public class GameController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F3))
         {
-            player.transform.position = GetComponent<LevelGenerator>().lastRoom.GetComponent<DoorBehaviour>().nextDoor.transform.position;
+            player.transform.position = GetComponent<LevelGenerator>().lastRoom.GetComponent<DoorBehaviour>().nextDoor
+                .transform.position;
         }
 
-        if (player.GetComponent<Player>().lockedEnemy != null && player.GetComponent<Player>().lockedEnemy != mainEnemy) mainEnemy = player.GetComponent<Player>().lockedEnemy;
-        else if(mainEnemy == null) mainEnemy = roomEnemies[UnityEngine.Random.Range(0, roomEnemies.Count)];
+        if (player.GetComponent<Player>().lockedEnemy != null && player.GetComponent<Player>().lockedEnemy != mainEnemy)
+            mainEnemy = player.GetComponent<Player>().lockedEnemy;
+        else if (mainEnemy == null) mainEnemy = roomEnemies[UnityEngine.Random.Range(0, roomEnemies.Count)];
 
 
         //Time for attack for causal enemies
-        if(nextCasualTime < casualCounter)
+        if (nextCasualTime < casualCounter)
         {
             casualCounter = 0;
             nextCasualTime = UnityEngine.Random.Range(4, 6);
             casualEnemy = roomEnemies[UnityEngine.Random.Range(0, roomEnemies.Count)];
         }
+
         casualCounter += Time.deltaTime;
-
-        
-
     }
 
     #region SceneManagment Functions
-    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         LoadScene();
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
@@ -246,16 +262,19 @@ public class GameController : MonoBehaviour
                 scene = GameState.TABERN;
                 break;
 
+            case "MAINMENU":
+                scene = GameState.MAIN_MENU;
+                break;
+
             default:
                 Debug.LogError("A scene named " + sceneName + " was not found.");
                 return;
         }
 
         StartCoroutine(LoadSceneAsync(sceneName));
-        // SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
     }
 
-    IEnumerator LoadSceneAsync(string sceneName)
+    private IEnumerator LoadSceneAsync(string sceneName)
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
 
@@ -274,43 +293,15 @@ public class GameController : MonoBehaviour
         }
     }
 
-    // TODO: Erase this because deprecated.
-    public void ChangeScene(GameState newScene)
-    {
-        scene = newScene;
-        switch (scene)
-        {
-            case GameState.LOBBY:
-                SceneManager.LoadScene("Lobby", LoadSceneMode.Single);
-                break;
-
-            case GameState.GAME:
-                SceneManager.LoadScene("Game", LoadSceneMode.Single);
-                break;
-
-            case GameState.LOADSCENE:
-                SceneManager.LoadScene("LoadScene", LoadSceneMode.Single);
-                break;
-
-            case GameState.TABERN:
-                break;
-            case GameState.MAIN_MENU:
-                SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
-                break;
-            default:
-                break;
-        }
-
-        
-    }
-
     public void QuitApplication()
     {
         Application.Quit();
     }
+
     #endregion
 
     #region Spawn Functions
+
     private GameObject SpawnLevel()
     {
         return levelGenerator.Spawn();
@@ -333,9 +324,11 @@ public class GameController : MonoBehaviour
         newBlueprint.transform.position = position + new Vector3(0, 1, 0);
         newBlueprint.GetComponent<BlueprintBehaviour>().modifier = spawnedModifier;
     }
+
     #endregion
 
     #region Setup Functions
+
     private void SetupGame()
     {
         SpawnPlayer();
@@ -367,6 +360,7 @@ public class GameController : MonoBehaviour
         room.transform.Find("NavMesh").gameObject.SetActive(true);
         room.GetComponent<SpawnController>().Spawn(player);
     }
+
     #endregion
 
     public bool CanBuy(int price)
@@ -384,5 +378,4 @@ public class GameController : MonoBehaviour
         m_RescuedAlchemist = save.alchemist;
         m_RescuedBlacksmith = save.blacksmith;
     }
-
 }

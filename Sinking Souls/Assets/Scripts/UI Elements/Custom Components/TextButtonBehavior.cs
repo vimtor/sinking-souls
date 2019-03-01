@@ -8,13 +8,13 @@ public class TextButtonBehavior : MonoBehaviour, ISelectHandler, IDeselectHandle
 {
     public TextMeshProUGUI textMesh;
 
-    private Button button;
-    private string textBackup;
+    private Button _button;
+    private string _textBackup;
 
     private void Awake()
     {
-        textBackup = textMesh.text;
-        button = GetComponent<Button>();
+        _textBackup = textMesh.text;
+        _button = GetComponent<Button>();
     }
 
     public void OnSelect(BaseEventData eventData)
@@ -35,12 +35,12 @@ public class TextButtonBehavior : MonoBehaviour, ISelectHandler, IDeselectHandle
     private void SelectButton()
     {
         AudioManager.Instance.PlayEffect(Random.value < 0.5f ? "MenuButton_1" : "MenuButton_2");
-        textMesh.text = "~ " + textBackup + " ~";
+        textMesh.text = "~ " + _textBackup + " ~";
     }
 
     private void DeselectButton()
     {
-        textMesh.text = textBackup;
+        textMesh.text = _textBackup;
     }
 
     private void SubmitButton()

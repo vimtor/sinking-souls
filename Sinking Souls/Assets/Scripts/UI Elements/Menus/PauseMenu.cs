@@ -1,20 +1,16 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseContent;
     public GameObject resumeButton;
 
-    public EventSystem eventSystem;
-
-    private bool isPaused;
+    private bool _isPaused;
 
     private void Start()
     {
-        isPaused = false;
+        _isPaused = false;
     }
 
     private void Update()
@@ -23,7 +19,7 @@ public class PauseMenu : MonoBehaviour
         {
             InputManager.ButtonStart = false;
 
-            if (!isPaused)
+            if (!_isPaused)
             {
                 Pause();
             }
@@ -33,7 +29,7 @@ public class PauseMenu : MonoBehaviour
             }
         }
 
-        if (isPaused)
+        if (_isPaused)
         {
             if (InputManager.ButtonB)
             {
@@ -45,24 +41,26 @@ public class PauseMenu : MonoBehaviour
 
     private void Pause()
     {
-        isPaused = true;
+        _isPaused = true;
         pauseContent.SetActive(true);
-        StartCoroutine(SelectButton());
+        EventSystemWrapper.Instance.SelectFirst(resumeButton);
         Time.timeScale = 0.0f;
     }
 
     public void Resume()
     {
-        isPaused = false;
+        _isPaused = false;
         pauseContent.SetActive(false);
         Time.timeScale = 1.0f;
     }
 
-    // Needed to highlight the button when selecting it.
-    private IEnumerator SelectButton()
+    public void Exit()
     {
-        eventSystem.SetSelectedGameObject(null);
-        yield return new WaitForEndOfFrame();
-        eventSystem.SetSelectedGameObject(resumeButton);
+        GameController.instance.QuitApplication();
+    }
+
+    public void ExitMenu()
+    {
+        GameController.instance.ChangeScene("MainMenu");
     }
 }

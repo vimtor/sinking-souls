@@ -1719,6 +1719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0deb56eea70d3419a7627cdb4a0cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMesh: {fileID: 114172883234065426}
 --- !u!114 &114168560980185814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1730,6 +1731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0deb56eea70d3419a7627cdb4a0cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMesh: {fileID: 114282313458386202}
 --- !u!114 &114172883234065426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1944,7 +1946,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -2113,7 +2115,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -2439,7 +2441,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -2545,9 +2547,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c38b5f81d857abb4996adfc3525f7411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PauseContent: {fileID: 1524448175193026}
-  m_ResumeButton: {fileID: 1707627812862378}
-  m_EventSystem: {fileID: 0}
+  pauseContent: {fileID: 1524448175193026}
+  resumeButton: {fileID: 1707627812862378}
+  eventSystem: {fileID: 0}
 --- !u!114 &114363521664805478
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2719,7 +2721,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -2772,8 +2774,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114337623052856484, guid: 258b637205f84f34c91c424fca3067e4,
-          type: 2}
+      - m_Target: {fileID: 0}
         m_MethodName: QuitApplication
         m_Mode: 1
         m_Arguments:
@@ -2886,7 +2887,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -3000,7 +3001,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -3282,7 +3283,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -3529,6 +3530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0deb56eea70d3419a7627cdb4a0cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMesh: {fileID: 0}
 --- !u!114 &114625905704884910
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3762,6 +3764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff0deb56eea70d3419a7627cdb4a0cd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textMesh: {fileID: 114148403089071538}
 --- !u!114 &114686480230169686
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4485,7 +4488,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -4927,7 +4930,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -5058,7 +5061,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -5172,7 +5175,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:

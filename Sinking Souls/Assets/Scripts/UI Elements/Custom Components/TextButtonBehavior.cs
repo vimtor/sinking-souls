@@ -4,49 +4,47 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class TextButtonBehavior : MonoBehaviour,
-                                  IPointerEnterHandler, IPointerExitHandler,
-                                  ISelectHandler, IDeselectHandler,
-                                  ISubmitHandler, IPointerClickHandler
+public class TextButtonBehavior : MonoBehaviour, ISelectHandler, IDeselectHandler, ISubmitHandler
 {
-    private TextMeshProUGUI m_TextMesh;
-    private Button m_Button;
+    public TextMeshProUGUI textMesh;
 
-    private string m_TextBackup;
+    private Button button;
+    private string textBackup;
 
-	void Start ()
+    private void Awake()
     {
-        m_TextMesh = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
-        m_TextBackup = m_TextMesh.text;
+        textBackup = textMesh.text;
+        button = GetComponent<Button>();
+    }
 
-        m_Button = GetComponent<Button>();
-	}
+    public void OnSelect(BaseEventData eventData)
+    {
+        SelectButton();
+    }
 
-    public void OnPointerEnter(PointerEventData eventData) { SelectButton(); }
-    public void OnPointerExit(PointerEventData eventData) { DeselectButton(); }
+    public void OnDeselect(BaseEventData eventData)
+    {
+        DeselectButton();
+    }
 
-    public void OnSelect(BaseEventData eventData) { SelectButton(); }
-    public void OnDeselect(BaseEventData eventData) { DeselectButton(); }
-
-    public void OnPointerClick(PointerEventData eventData) { SubmitButton(); }
-    public void OnSubmit(BaseEventData eventData) { SubmitButton(); }
+    public void OnSubmit(BaseEventData eventData)
+    {
+        SubmitButton();
+    }
 
     private void SelectButton()
     {
-        if (Random.value < 0.5f) AudioManager.Instance.PlayEffect("MenuButton_1");
-        else AudioManager.Instance.PlayEffect("MenuButton_2");
-
-        m_TextMesh.text = "~ " + m_TextBackup + " ~";
+        AudioManager.Instance.PlayEffect(Random.value < 0.5f ? "MenuButton_1" : "MenuButton_2");
+        textMesh.text = "~ " + textBackup + " ~";
     }
 
     private void DeselectButton()
     {
-        m_TextMesh.text = m_TextBackup;
+        textMesh.text = textBackup;
     }
 
     private void SubmitButton()
     {
         AudioManager.Instance.PlayEffect("MenuButton_Click");
     }
-
 }

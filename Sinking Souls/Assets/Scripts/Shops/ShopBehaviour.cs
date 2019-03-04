@@ -2,40 +2,65 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
+using System.Collections;
 using System.Linq;
 using TMPro;
 
 public abstract class ShopBehaviour<T> : MonoBehaviour
 {
-    [Header("Configuration")]
-    public EventSystem m_EventSystem;
-    public int m_InteractRange;
+    [Header("Shop Interface")] public GameObject shopPanel;
+    public GameObject shopTitle;
+    public GameObject shopItem;
 
-    protected Vector3 m_DistancePlayer;
-    protected GameObject m_OldSelection;
-    protected GameObject m_SelectedItem;
+    [Space(10)] public TextMeshProUGUI price;
+    public TextMeshProUGUI remainingSouls;
 
-    [Header("Shop Interface")]
-    public GameObject m_ShopPanel;
-    public GameObject m_Item;
+    [Header("Configuration")] public int interactRange;
+    public float cursorHideTime = 1f;
 
-    [Space(10)]
-
-    public Text m_Price;
-    public Text m_RemainingSouls;
+    [Header("Camera")] public GameObject shopCamera;
 
 
-    protected void Update()
+    private Vector3 _minimumDistance;
+    private GameObject _oldSelection;
+    private bool _hiding = false;
+
+
+    protected GameObject SetupItem(T commodity)
     {
-        m_DistancePlayer = GameController.instance.player.GetComponent<Player>().transform.position - transform.position;
+        return Configure(Instantiate(shopItem), commodity);
+    }
 
-        if (!m_ShopPanel.activeSelf)
+    private void UpdateShop()
+    {
+        GameObject selectedItem = EventSystemWrapper.Instance.CurrentSelected();
+
+        Debug.Log(selectedItem.GetComponent<ShopItem>() == null);
+
+        price.text = selectedItem.transform.Find("Price").GetComponent<TextMeshProUGUI>().text;
+
+        int priceDifference = GameController.instance.LobbySouls - selectedItem.GetComponent<ShopItem>().price;
+        remainingSouls.text = priceDifference.ToString();
+
+        _oldSelection = EventSystemWrapper.Instance.CurrentSelected();
+    }
+
+
+    private void Update()
+    {
+        _minimumDistance = GameController.instance.player.GetComponent<Player>().transform.position -
+                           transform.position;
+
+        if (!shopPanel.activeSelf)
         {
             // Open the store.
-            if (InputManager.GetButtonA() && (m_DistancePlayer.magnitude < m_InteractRange))
+            if (InputManager.GetButtonA() && (_minimumDistance.magnitude < interactRange))
             {
-                m_ShopPanel.SetActive(true);
+                shopPanel.SetActive(true);
+                shopTitle.SetActive(true);
                 UpdateShop();
+
+                shopCamera.SetActive(true);
 
                 // Stop the player.
                 GameController.instance.player.GetComponent<Player>().Stop();
@@ -48,43 +73,44 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
             if (InputManager.GetButtonB())
             {
                 InputManager.ButtonB = false;
+                shopPanel.SetActive(false);
+                shopTitle.SetActive(false);
 
-                m_ShopPanel.SetActive(false);
+                Cursor.visible = false;
+                shopCamera.SetActive(false);
+
                 GameController.instance.player.GetComponent<Player>().Resume();
             }
 
-
-            // Check if selected item was updated.
-            if (m_EventSystem.currentSelectedGameObject != m_OldSelection)
+            if (EventSystemWrapper.Instance.CurrentSelected() != _oldSelection)
             {
                 UpdateShop();
             }
 
-            m_OldSelection = m_EventSystem.currentSelectedGameObject;
+            if (Math.Abs(InputManager.Mouse.magnitude) > 0.0f)
+            {
+                _hiding = false;
+                Cursor.visible = true;
+            }
+            else if (!_hiding)
+            {
+                _hiding = true;
+                StartCoroutine(HideMouse(cursorHideTime));
+            }
+
+            _oldSelection = EventSystemWrapper.Instance.CurrentSelected();
         }
     }
 
-
-    protected GameObject SetupItem(T commodity)
+    //Hide cursor if not use it for certain time
+    private IEnumerator HideMouse(float time)
     {
-        return Configure(Instantiate(m_Item), commodity);
-    }
-
-    protected virtual void UpdateShop()
-    {
-        m_SelectedItem = m_EventSystem.currentSelectedGameObject;
-
-       // m_Price.text = m_SelectedItem.transform.Find("Price").GetComponent<TextMeshProUGUI>().text;
-
-        int remainingSouls = GameController.instance.LobbySouls - m_SelectedItem.GetComponent<ShopItem>().price;
-        //m_RemainingSouls.text = remainingSouls.ToString();
-
-        m_OldSelection = m_EventSystem.currentSelectedGameObject;
+        yield return new WaitForSeconds(time);
+        if (_hiding) Cursor.visible = false;
     }
 
 
     protected abstract GameObject Configure(GameObject item, T commodity);
 
     public abstract void FillShop();
-
 }

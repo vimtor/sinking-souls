@@ -6,144 +6,32 @@ using System.Linq;
 using TMPro;
 using System.Collections;
 
-public class BlacksmithBehaviour : MonoBehaviour
+public class BlacksmithBehaviour : ShopBehaviour<Modifier>
 {
-    [Header("Shop Interface")]
-    public GameObject m_ShopPanel;
-    public GameObject m_ShopTitle;
-    public GameObject m_Item;
-
-    [Space(10)]
-
-    public Text m_Price;
-    public Text m_RemainingSouls;
-
-    [Header("Configuration")]
-    public EventSystem m_EventSystem;
-    public int m_InteractRange;
-    public float cursorHideTime = 1f;
-
-    [Header("Camera")]
-    public GameObject m_Camera;
-
-
-    private Vector3 m_DistancePlayer;
-    private GameObject m_OldSelection;
-
-
-    protected GameObject SetupItem(Modifier modifier)
+    protected override GameObject Configure(GameObject item, Modifier modifier)
     {
-        return Configure(Instantiate(m_Item), modifier);
-    }
-
-    protected GameObject Configure(GameObject item, Modifier modifier)
-    {
-        // Configure the ui item.
+        // Configure the UI item.
         item.transform.Find("Icon").GetComponent<Image>().sprite = modifier.sprite;
         item.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = modifier.name;
         item.transform.Find("Description").GetComponent<TextMeshProUGUI>().text = modifier.description;
         item.transform.Find("Price").GetComponent<TextMeshProUGUI>().text = modifier.price.ToString();
-        item.transform.SetParent(m_ShopPanel.transform.GetChild(0), false);
+        item.transform.SetParent(shopPanel.transform.GetChild(0), false);
 
-        // Store values in the ShopItem component for easier acces later on.
+        // Store values in the ShopItem component for easier access later on.
         item.GetComponent<ShopItem>().price = modifier.price;
         item.GetComponent<ShopItem>().modifier = modifier;
 
         return item;
     }
 
-    public void FillShop()
+    public override void FillShop()
     {
-        Modifier[] modifiers = Array.FindAll(GameController.instance.modifiers, modifier => modifier.owned);
+        var modifiers = Array.FindAll(GameController.instance.modifiers, modifier => modifier.owned);
 
         // Select first selected game object.
-        m_EventSystem.SetSelectedGameObject(SetupItem(modifiers[0]));
+        EventSystemWrapper.Instance.Select(SetupItem(modifiers[0]));
 
         // Instantiate the rest of the items unless the first one.
         Array.ForEach(modifiers.Skip(1).ToArray(), modifier => SetupItem(modifier));
     }
-
-    public void UpdateShop()
-    {
-        GameObject selectedItem = m_EventSystem.currentSelectedGameObject;
-
-        m_Price.text = selectedItem.transform.Find("Price").GetComponent<TextMeshProUGUI>().text;
-
-        int remainingSouls = GameController.instance.LobbySouls - selectedItem.GetComponent<ShopItem>().price;
-        m_RemainingSouls.text = remainingSouls.ToString();
-
-        m_OldSelection = m_EventSystem.currentSelectedGameObject;
-    }
-
-    private bool hiding = false;
-    private bool storeOpen = false;
-
-    private void Update()
-    {
-        m_DistancePlayer = GameController.instance.player.GetComponent<Player>().transform.position - transform.position;
-
-        if (!m_ShopPanel.activeSelf)
-        {
-            // Open the store.
-            if (InputManager.GetButtonA() && (m_DistancePlayer.magnitude < m_InteractRange))
-            {
-                m_ShopPanel.SetActive(true);
-                m_ShopTitle.SetActive(true);
-                UpdateShop();
-                storeOpen = true;
-                m_Camera.SetActive(true);
-
-                // Stop the player.
-                GameController.instance.player.GetComponent<Player>().Stop();
-                GetComponent<Animator>().SetTrigger("Talk");
-            }
-        }
-        else
-        {
-            // Close the store.
-            if (InputManager.GetButtonB())
-            {
-                InputManager.ButtonB = false;
-                m_ShopPanel.SetActive(false);
-                m_ShopTitle.SetActive(false);
-
-                storeOpen = false;
-                Cursor.visible = false;
-                m_Camera.SetActive(false);
-
-                GameController.instance.player.GetComponent<Player>().Resume();
-            }
-
-            if (m_EventSystem.currentSelectedGameObject != m_OldSelection)
-            {
-                UpdateShop();
-            }
-
-            m_OldSelection = m_EventSystem.currentSelectedGameObject;
-        }
-
-        //Show cursor if moving it
-        if (storeOpen)
-        {
-            if(InputManager.Mouse.magnitude != 0)
-            {
-                hiding = false;
-                Cursor.visible = true;
-            }
-            else if (!hiding)
-            {
-                hiding = true;
-                StartCoroutine(HideMouse(cursorHideTime));
-            }
-        }
-
-    }
-
-    //Hide cursor if not use it for certain time
-    IEnumerator HideMouse(float time)
-    {
-        yield return new WaitForSeconds(time);
-        if (hiding) Cursor.visible = false;
-    }
-
 }

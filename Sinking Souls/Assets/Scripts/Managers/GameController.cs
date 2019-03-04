@@ -103,8 +103,7 @@ public class GameController : MonoBehaviour
                 var innBehaviour = GameObject.Find("Triton Innkeeper").GetComponent<InnkeeperBehaviour>();
                 var shopPanel = Instantiate(innKeeperShop, GameObject.Find("Canvas").transform, false);
 
-                innBehaviour.m_ShopPanel = shopPanel;
-                innBehaviour.m_EventSystem = EventSystem.current;
+                innBehaviour.shopPanel = shopPanel;
 
                 SetupGame();
                 player.GetComponent<Player>().Heal();

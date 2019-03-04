@@ -8,7 +8,7 @@ using TMPro;
 
 public class InnkeeperBehaviour : ShopBehaviour<Enhancer>
 {
-    public Text m_BaseStat;
+    /*public Text m_BaseStat;
     public Text m_UpgradedStat;
 
     protected override GameObject Configure(GameObject item, Enhancer enhancer)
@@ -20,7 +20,7 @@ public class InnkeeperBehaviour : ShopBehaviour<Enhancer>
 
         item.GetComponent<ShopItem>().enhancer = enhancer;
 
-        item.transform.SetParent(m_ShopPanel.transform.GetChild(0), false);
+        item.transform.SetParent(shopPanel.transform.GetChild(0), false);
 
         return item;
     }
@@ -58,5 +58,15 @@ public class InnkeeperBehaviour : ShopBehaviour<Enhancer>
             int upgradedStat = (int)(playerDamage * enhancer.enhancerMultiplier);
             m_UpgradedStat.text = upgradedStat.ToString();
         }
+    }*/
+
+    protected override GameObject Configure(GameObject item, Enhancer commodity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void FillShop()
+    {
+        throw new NotImplementedException();
     }
 }

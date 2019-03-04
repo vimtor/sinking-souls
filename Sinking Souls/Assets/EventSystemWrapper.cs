@@ -26,4 +26,14 @@ public class EventSystemWrapper : MonoBehaviour
         yield return new WaitForEndOfFrame();
         _eventSystem.SetSelectedGameObject(selectable);
     }
+
+    public GameObject CurrentSelected()
+    {
+        return _eventSystem.currentSelectedGameObject;
+    }
+
+    public void Select(GameObject selectable)
+    {
+        _eventSystem.SetSelectedGameObject(selectable);
+    }
 }

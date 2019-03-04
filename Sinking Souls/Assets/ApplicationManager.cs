@@ -97,25 +97,34 @@ public class ApplicationManager : MonoBehaviour
         StartCoroutine(LoadSceneAsync(sceneName));
     }
 
-    private IEnumerator LoadSceneAsync(string sceneName)
+    private IEnumerator LoadSceneAsync(string sceneName, float minLoadTime = 2.5f)
     {
+        // Load scene and disable scene change until minLoadTime.
         var operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
+        operation.allowSceneActivation = false;
 
         // Instantiate the loading screen on the canvas.
         Instantiate(loadingScreen, GameObject.Find("Canvas").transform);
         var loadingBar = GameObject.Find("Loading Bar").GetComponent<Image>();
 
-
+        // Update the loading screen until isDone and minLoadTime.
+        float timer = 0.0f;
         while (!operation.isDone)
         {
             var progress = Mathf.Clamp01(operation.progress / .9f);
             loadingBar.fillAmount = progress;
 
+            timer += Time.deltaTime;
+            if (timer > minLoadTime)
+            {
+                operation.allowSceneActivation = true;
+            }
+
             yield return null;
         }
     }
 
-    public void QuitApplication()
+    public static void QuitApplication()
     {
         Application.Quit();
     }

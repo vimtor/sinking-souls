@@ -1306,15 +1306,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b9352d952b18b478d388657e25b4bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ShopPanel: {fileID: 0}
-  m_ShopTitle: {fileID: 0}
-  m_Item: {fileID: 1308820731434558, guid: 7817153f6ae06a94eb3234cb39640f66, type: 2}
-  m_Price: {fileID: 0}
-  m_RemainingSouls: {fileID: 0}
-  m_EventSystem: {fileID: 0}
-  m_InteractRange: 4
+  shopPanel: {fileID: 0}
+  shopTitle: {fileID: 0}
+  shopItem: {fileID: 1308820731434558, guid: 7817153f6ae06a94eb3234cb39640f66, type: 2}
+  price: {fileID: 0}
+  remainingSouls: {fileID: 0}
+  interactRange: 3
   cursorHideTime: 1
-  m_Camera: {fileID: 0}
+  shopCamera: {fileID: 0}
 --- !u!136 &136244169435685834
 CapsuleCollider:
   m_ObjectHideFlags: 1

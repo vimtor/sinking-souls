@@ -25,6 +25,14 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
     private GameObject _oldSelection;
     private bool _hiding = false;
 
+    private Animator _animator;
+    private static readonly int kTalkParam = Animator.StringToHash("Talk");
+
+
+    private void Start()
+    {
+        _animator = GetComponent<Animator>();
+    }
 
     protected GameObject SetupItem(T commodity)
     {
@@ -33,14 +41,12 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
 
     private void UpdateShop()
     {
-        GameObject selectedItem = EventSystemWrapper.Instance.CurrentSelected();
-
-        Debug.Log(selectedItem.GetComponent<ShopItem>() == null);
+        var selectedItem = EventSystemWrapper.Instance.CurrentSelected();
 
         price.text = selectedItem.transform.Find("Price").GetComponent<TextMeshProUGUI>().text;
 
-        int priceDifference = GameController.instance.LobbySouls - selectedItem.GetComponent<ShopItem>().price;
-        remainingSouls.text = priceDifference.ToString();
+        int priceDiff = GameController.instance.LobbySouls - selectedItem.GetComponent<ShopItem>().price;
+        remainingSouls.text = priceDiff.ToString();
 
         _oldSelection = EventSystemWrapper.Instance.CurrentSelected();
     }
@@ -64,7 +70,7 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
 
                 // Stop the player.
                 GameController.instance.player.GetComponent<Player>().Stop();
-                GetComponent<Animator>().SetTrigger("Talk");
+                _animator.SetTrigger(kTalkParam);
             }
         }
         else
@@ -80,6 +86,7 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
                 shopCamera.SetActive(false);
 
                 GameController.instance.player.GetComponent<Player>().Resume();
+                _animator.SetTrigger(kTalkParam);
             }
 
             if (EventSystemWrapper.Instance.CurrentSelected() != _oldSelection)

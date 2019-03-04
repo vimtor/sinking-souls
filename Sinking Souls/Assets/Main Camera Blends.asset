@@ -12,13 +12,18 @@ MonoBehaviour:
   m_Name: Main Camera Blends
   m_EditorClassIdentifier: 
   m_CustomBlends:
-  - m_From: CM Virtual 1
+  - m_From: Game Camera
     m_To: Galen Camera
     m_Blend:
       m_Style: 1
       m_Time: 2
+  - m_From: Game Camera
+    m_To: Ailin Camera
+    m_Blend:
+      m_Style: 1
+      m_Time: 2
   - m_From: '**ANY CAMERA**'
-    m_To: CM Virtual 1
+    m_To: Game Camera
     m_Blend:
       m_Style: 2
       m_Time: 1

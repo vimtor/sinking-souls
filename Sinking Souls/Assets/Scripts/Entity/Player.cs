@@ -788,6 +788,7 @@ public class Player : Entity
         GameController.instance.died = true;
         GameController.instance.roomEnemies = new List<GameObject>();
         ApplicationManager.Instance.ChangeScene(ApplicationManager.GameState.LOBBY);
+        Debug.Log("Generating");
     }
 
     public void Resume()

@@ -4079,14 +4079,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16cb9ef9a0ca9543a6ac5808b938067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_EventSystem: {fileID: 0}
-  m_InteractRange: 5
-  m_ShopPanel: {fileID: 0}
-  m_Item: {fileID: 1296242310029840, guid: 6f3cbd245529c7444809643638b9f56c, type: 2}
-  m_Price: {fileID: 0}
-  m_RemainingSouls: {fileID: 0}
-  m_BaseStat: {fileID: 0}
-  m_UpgradedStat: {fileID: 0}
+  shopPanel: {fileID: 0}
+  shopTitle: {fileID: 0}
+  shopItem: {fileID: 0}
+  price: {fileID: 0}
+  remainingSouls: {fileID: 0}
+  interactRange: 0
+  cursorHideTime: 1
+  shopCamera: {fileID: 0}
 --- !u!114 &114904787911791552
 MonoBehaviour:
   m_ObjectHideFlags: 1

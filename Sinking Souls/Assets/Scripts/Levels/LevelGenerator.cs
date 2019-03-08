@@ -404,9 +404,8 @@ public class LevelGenerator : MonoBehaviour
     private GameObject SpawnRoom(Room room, float roomSize, int roomCount) {
         Vector3 realPosition = new Vector3(room.gridPos.x, 0, room.gridPos.y);
         realPosition *= roomSize;
-        room.prefab.transform.position = transform.position + realPosition;
-
         GameObject instantiatedRoom = Instantiate(room.prefab, room.prefab.transform, true);
+        instantiatedRoom.transform.position = realPosition - (new Vector3(15,0,15) * roomSize);
         instantiatedRoom.name = "Room_" + roomCount;
         instantiatedRoom.transform.parent = levelWrapper.transform;
 

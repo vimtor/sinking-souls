@@ -45,7 +45,7 @@ public class IdleAction : Action
         }
         else if(!seen)
         {
-            if (Vector3.Distance(controller.transform.position, controller.player.transform.position) >= distance) elapsed = true;
+            if (Vector3.Distance(controller.transform.position, controller.player.transform.position) <= distance) elapsed = true;
             else elapsed = false;
         }
         else

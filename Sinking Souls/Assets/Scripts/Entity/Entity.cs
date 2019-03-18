@@ -275,7 +275,7 @@ public class Entity : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (m_Hitted || dead) return;
-
+        Debug.Log(gameObject.tag + ", " + other.GetComponent<AbilityHolder>().holder.target);
         switch (other.tag)
         {
             case "Weapon":
@@ -296,8 +296,10 @@ public class Entity : MonoBehaviour
                 break;
 
             case "Ability":
+            Debug.Log(gameObject.tag + ", " + other.GetComponent<AbilityHolder>().holder.target);
                 if (gameObject.tag == other.GetComponent<AbilityHolder>().holder.target)
                 {
+                    Debug.Log("La bocateria");
                     React(other.GetComponent<AbilityHolder>().owner.transform.position);
                     ApplyDamage(other.GetComponent<AbilityHolder>().holder.damage);
                     ApplyModifier(other.gameObject.GetComponent<AbilityHolder>().holder.modifier);

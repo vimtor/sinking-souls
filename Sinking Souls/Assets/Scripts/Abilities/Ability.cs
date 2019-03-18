@@ -52,10 +52,10 @@ public abstract class Ability : ScriptableObject
     public int m_UpgradeNumber = 0;
     #endregion
 
-    [HideInInspector] public string target;
-    [HideInInspector] public Entity entity;
+     public string target;
+     public Entity entity;
 
-    protected GameObject parent;
+     public GameObject parent;
 
 
     public void Use(GameObject newParent)

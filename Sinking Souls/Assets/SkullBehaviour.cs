@@ -9,15 +9,18 @@ public class SkullBehaviour : MonoBehaviour {
     public float particlesLife;
     // Use this for initialization
     void Start () {
-		
-	}
+        transform.position = GetComponent<AbilityHolder>().owner.GetComponent<Enemy>().WeaponHand.transform.position;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
         GetComponent<Rigidbody>().velocity = Vector3.Lerp(GetComponent<Rigidbody>().velocity, (((GameController.instance.player.transform.position + (Vector3.up)*1.5f) - transform.position).normalized * speed) + new Vector3(0, (Mathf.Sin(Time.time * 5) * 6f), 0), lerp);
     }
 
-    private void OnCollisionEnter(Collision collision) {
+    private void OnTriggerEnter(Collider collision) {
+
+        if(collision.gameObject == GetComponent<AbilityHolder>().owner) return;
         Destroy(gameObject);
         GameObject part = Instantiate(particles);
         part.transform.position = transform.position;

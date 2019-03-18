@@ -34,21 +34,24 @@ public class LevelGenerator : MonoBehaviour
 
     #region Rooms Setup
     [Header("Rooms Setup")]
-    public List<ListWrapper> RoomsA = new List<ListWrapper>();
-    public List<ListWrapper> RoomsB = new List<ListWrapper>();
-    public List<ListWrapper> RoomsC = new List<ListWrapper>();
-    public List<ListWrapper> RoomsD = new List<ListWrapper>();
-    public List<ListWrapper> RoomsE = new List<ListWrapper>();
 
-    public List<ListWrapper> RoomsEliteA = new List<ListWrapper>();
-    public List<ListWrapper> RoomsEliteB = new List<ListWrapper>();
-    public List<ListWrapper> RoomsEliteC = new List<ListWrapper>();
-    public List<ListWrapper> RoomsEliteD = new List<ListWrapper>();
-    public List<ListWrapper> RoomsEliteE = new List<ListWrapper>();
+    public LevelGeneratiorConfiguration level;
 
-    public List<GameObject> RoomsBoss = new List<GameObject>();
-    public List<GameObject> NextLevelRoom = new List<GameObject>();
-    public List<GameObject> Taberns = new List<GameObject>();
+    private List<ListWrapper> RoomsA = new List<ListWrapper>();
+    private List<ListWrapper> RoomsB = new List<ListWrapper>();
+    private List<ListWrapper> RoomsC = new List<ListWrapper>();
+    private List<ListWrapper> RoomsD = new List<ListWrapper>();
+    private List<ListWrapper> RoomsE = new List<ListWrapper>();
+
+    private List<ListWrapper> RoomsEliteA = new List<ListWrapper>();
+    private List<ListWrapper> RoomsEliteB = new List<ListWrapper>();
+    private List<ListWrapper> RoomsEliteC = new List<ListWrapper>();
+    private List<ListWrapper> RoomsEliteD = new List<ListWrapper>();
+    private List<ListWrapper> RoomsEliteE = new List<ListWrapper>();
+
+    private List<GameObject> RoomsBoss = new List<GameObject>();
+    private List<GameObject> NextLevelRoom = new List<GameObject>();
+    private List<GameObject> Taberns = new List<GameObject>();
 
     public List<SpawnerConfiguration> Crew = new List<SpawnerConfiguration>();
 
@@ -68,6 +71,23 @@ public class LevelGenerator : MonoBehaviour
     }
 
     public GameObject Spawn() {
+
+        RoomsA = level.RoomsA;
+        RoomsB = level.RoomsB;
+        RoomsC = level.RoomsC;
+        RoomsD = level.RoomsD;
+        RoomsE = level.RoomsE;
+
+        RoomsEliteA = level.RoomsEliteA;
+        RoomsEliteB = level.RoomsEliteB;
+        RoomsEliteC = level.RoomsEliteC;
+        RoomsEliteD = level.RoomsEliteD;
+        RoomsEliteE = level.RoomsEliteE;
+
+        RoomsBoss = level.RoomsBoss;
+        NextLevelRoom = level.NextLevelRoom;
+        Taberns = level.Taberns;
+
         levelWrapper = Instantiate(new GameObject());
         levelWrapper.name = "Level Wrapper";
         if (currentLevel == 2 && !tabernaSpawned)

@@ -8,6 +8,8 @@ public class LobbyDoor : MonoBehaviour
 {
     public ApplicationManager.GameState sceneToLoad;
     private Vector3 _startPosition;
+    public GameObject level1controller;
+    public GameObject level2controller;
 
     private void Start()
     {

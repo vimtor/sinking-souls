@@ -275,7 +275,6 @@ public class Entity : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (m_Hitted || dead) return;
-        Debug.Log(gameObject.tag + ", " + other.GetComponent<AbilityHolder>().holder.target);
         switch (other.tag)
         {
             case "Weapon":

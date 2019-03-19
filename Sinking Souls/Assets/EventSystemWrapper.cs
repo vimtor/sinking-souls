@@ -36,4 +36,9 @@ public class EventSystemWrapper : MonoBehaviour
     {
         _eventSystem.SetSelectedGameObject(selectable);
     }
+
+    public bool IsSelected(GameObject selectable)
+    {
+        return selectable == CurrentSelected();
+    }
 }

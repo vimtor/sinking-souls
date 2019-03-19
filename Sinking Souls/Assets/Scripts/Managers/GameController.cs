@@ -195,6 +195,8 @@ public class GameController : MonoBehaviour
                 .transform.position;
         }
 
+        if (ApplicationManager.Instance.state == ApplicationManager.GameState.MAIN_MENU) return;
+
         if (player.GetComponent<Player>().lockedEnemy != null && player.GetComponent<Player>().lockedEnemy != mainEnemy)
             mainEnemy = player.GetComponent<Player>().lockedEnemy;
         else if (mainEnemy == null) mainEnemy = roomEnemies[UnityEngine.Random.Range(0, roomEnemies.Count)];

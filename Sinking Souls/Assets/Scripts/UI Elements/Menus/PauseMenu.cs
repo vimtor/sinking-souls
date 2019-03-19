@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseContent;
     public GameObject resumeButton;
+    public Image backgroundImage;
 
-    private bool _isPaused;
+    private bool isPaused;
 
     private void Start()
     {
-        _isPaused = false;
+        isPaused = false;
     }
 
     private void Update()
@@ -19,7 +21,7 @@ public class PauseMenu : MonoBehaviour
         {
             InputManager.ButtonStart = false;
 
-            if (!_isPaused)
+            if (!isPaused)
             {
                 Pause();
             }
@@ -29,7 +31,7 @@ public class PauseMenu : MonoBehaviour
             }
         }
 
-        if (_isPaused)
+        if (isPaused)
         {
             if (InputManager.ButtonB)
             {
@@ -41,15 +43,26 @@ public class PauseMenu : MonoBehaviour
 
     private void Pause()
     {
-        _isPaused = true;
+        isPaused = true;
+
         pauseContent.SetActive(true);
-        EventSystemWrapper.Instance.SelectFirst(resumeButton);
+
+        var newColor = backgroundImage.color;
+        newColor.a = 1.0f;
+        backgroundImage.color = newColor;
+
+        EventSystemWrapper.Instance.Select(resumeButton);
         Time.timeScale = 0.0f;
     }
 
     public void Resume()
     {
-        _isPaused = false;
+        isPaused = false;
+
+        var newColor = backgroundImage.color;
+        newColor.a = 0.0f;
+        backgroundImage.color = newColor;
+
         pauseContent.SetActive(false);
         Time.timeScale = 1.0f;
     }

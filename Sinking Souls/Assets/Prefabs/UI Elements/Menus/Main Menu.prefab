@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 222173781393108224}
   - component: {fileID: 114531396851508828}
   - component: {fileID: 114459246390341628}
+  - component: {fileID: 114704501964404204}
   m_Layer: 5
   m_Name: Graphics Dropdown
   m_TagString: UI
@@ -244,6 +245,7 @@ GameObject:
   - component: {fileID: 222270358344366438}
   - component: {fileID: 114737621493980166}
   - component: {fileID: 114372197019085906}
+  - component: {fileID: 114798539408147140}
   m_Layer: 5
   m_Name: Scrollbar
   m_TagString: Untagged
@@ -275,6 +277,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224890672991961354}
   - component: {fileID: 114975422671654348}
+  - component: {fileID: 114997520967489824}
   m_Layer: 5
   m_Name: Master Slider
   m_TagString: Untagged
@@ -476,6 +479,7 @@ GameObject:
   - component: {fileID: 222080220406447424}
   - component: {fileID: 114603493386219788}
   - component: {fileID: 114358385927057636}
+  - component: {fileID: 114971893363839370}
   m_Layer: 5
   m_Name: Resolution Dropdown
   m_TagString: UI
@@ -578,6 +582,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224490243643796422}
   - component: {fileID: 114553678122298552}
+  - component: {fileID: 114610155306733378}
   m_Layer: 5
   m_Name: Music Slider
   m_TagString: Untagged
@@ -643,6 +648,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224594507012538110}
   - component: {fileID: 114782750073477636}
+  - component: {fileID: 114144604923376012}
   m_Layer: 5
   m_Name: Effects Slider
   m_TagString: Untagged
@@ -1442,6 +1448,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114144604923376012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1499340118584214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59bf2ce54c013ed4ca2350262f68bd18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fillArea: {fileID: 114999980276567632}
+  normalColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+  highlightedColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &114154430470621506
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2009,7 +2029,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 0}
-        m_MethodName: SetSelectedGameObject
+        m_MethodName: Select
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1591471519453002}
@@ -2280,7 +2300,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 1, g: 0, b: 0, a: 1}
+    m_HighlightedColor: {r: 0.47222227, g: 0.8679245, b: 0.25792095, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -2913,10 +2933,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NormalColor:
     serializedVersion: 2
-    rgba: 4279243007
+    rgba: 4294967295
   m_HighlightedColor:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4291611852
 --- !u!114 &114415144223113498
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3847,7 +3867,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NormalColor:
     serializedVersion: 2
-    rgba: 4279243007
+    rgba: 4291611852
   m_HighlightedColor:
     serializedVersion: 2
     rgba: 4294967295
@@ -3905,6 +3925,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114610155306733378
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1472751480651372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59bf2ce54c013ed4ca2350262f68bd18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fillArea: {fileID: 114603583408999822}
+  normalColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+  highlightedColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &114679824526037058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3949,6 +3983,21 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114704501964404204
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1042042008919744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 031c52b8839980e448bc5634f23b8c1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label: {fileID: 114428343195502982}
+  dropdown: {fileID: 0}
+  highlightedColor: {r: 1, g: 1, b: 1, a: 1}
+  defaultColor: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
 --- !u!114 &114717373073369656
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4406,6 +4455,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114798539408147140
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1243771747691638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6612c049e976175488286dfc30acc358, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollbar: {fileID: 114372197019085906}
+  increment: 0.005
 --- !u!114 &114804352716952750
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4609,7 +4671,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 0}
-        m_MethodName: SetSelectedGameObject
+        m_MethodName: Select
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 1567341584587128}
@@ -4812,6 +4874,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textMesh: {fileID: 114965434653161252}
+--- !u!114 &114971893363839370
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1392967875658110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 031c52b8839980e448bc5634f23b8c1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  label: {fileID: 114282491114471988}
+  dropdown: {fileID: 0}
+  highlightedColor: {r: 1, g: 1, b: 1, a: 1}
+  defaultColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
 --- !u!114 &114975422671654348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4831,8 +4908,8 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_NormalColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -5037,6 +5114,20 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114997520967489824
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1262729484464430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59bf2ce54c013ed4ca2350262f68bd18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fillArea: {fileID: 114779225185058608}
+  normalColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
+  highlightedColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &114999980276567632
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6536,7 +6627,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 2}
-  m_SizeDelta: {x: 0, y: 150}
+  m_SizeDelta: {x: 0, y: 500}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!224 &224830765968737300
 RectTransform:

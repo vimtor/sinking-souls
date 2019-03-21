@@ -10,16 +10,16 @@ public class FireModifier : Modifier {
     private GameObject particlesObject;
 
     public override void Apply(GameObject go) {
-        if (go.tag == "Enemy" && go.GetComponent<Enemy>().CurrentModifierState[Entity.ModifierState.FIRE]<4) {
+        if (go.GetComponent<Entity>().CurrentModifierState[Entity.ModifierState.FIRE]<4) {
             GameController.instance.StartCoroutine(ApplyFire(duration, go));
             InstantiateParticles(go);
-            go.GetComponent<Enemy>().CurrentModifierState[Entity.ModifierState.FIRE] += 1;
+            go.GetComponent<Entity>().CurrentModifierState[Entity.ModifierState.FIRE] += 1;
 
         }
     }
 
     private void InstantiateParticles(GameObject go) {
-        if (go.GetComponent<Enemy>().CurrentModifierState[Entity.ModifierState.FIRE] == 0) {
+        if (go.GetComponent<Entity>().CurrentModifierState[Entity.ModifierState.FIRE] == 0) {
             particlesObject = Instantiate(particlesPrefab);
             particlesObject.transform.position = go.transform.position + new Vector3(0,1,0);
             particlesObject.transform.parent = go.transform;
@@ -31,15 +31,15 @@ public class FireModifier : Modifier {
 
         try
         {
-            go.GetComponent<Enemy>().ApplyDamage(damage);
+            go.GetComponent<Entity>().ApplyDamage(damage);
             particlesObject.GetComponent<ParticleSystem>().Play();
 
             if (time > 0) GameController.instance.StartCoroutine(ApplyFire(time - hitTime, go));
             else {
-                if (go.GetComponent<Enemy>().CurrentModifierState[Entity.ModifierState.FIRE] == 1) {
+                if (go.GetComponent<Entity>().CurrentModifierState[Entity.ModifierState.FIRE] == 1) {
                     Destroy(particlesObject.gameObject);
                 }
-                go.GetComponent<Enemy>().CurrentModifierState[Entity.ModifierState.FIRE] -= 1;
+                go.GetComponent<Entity>().CurrentModifierState[Entity.ModifierState.FIRE] -= 1;
             }
         }
         catch(Exception)

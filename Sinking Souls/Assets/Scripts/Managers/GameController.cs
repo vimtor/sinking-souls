@@ -90,6 +90,7 @@ public class GameController : MonoBehaviour
     // TODO: Move this to OnLoadScene to be more clear.
     public void SetupScene(ApplicationManager.GameState scene)
     {
+        Debug.Log(scene);
         switch (scene)
         {
             case ApplicationManager.GameState.MAIN_MENU:
@@ -196,6 +197,7 @@ public class GameController : MonoBehaviour
         }
 
         if (ApplicationManager.Instance.state == ApplicationManager.GameState.MAIN_MENU) return;
+        if (ApplicationManager.Instance.state == ApplicationManager.GameState.LOBBY) return;
 
         if (player.GetComponent<Player>().lockedEnemy != null && player.GetComponent<Player>().lockedEnemy != mainEnemy)
             mainEnemy = player.GetComponent<Player>().lockedEnemy;

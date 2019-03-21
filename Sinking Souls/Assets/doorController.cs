@@ -26,7 +26,6 @@ public class doorController : MonoBehaviour {
 
     void closeDoor()
     {
-        Debug.Log("Close");
         for (int i = 0; i < closedDoor.Count; i++)// GameObject door in closedDoor)
         {
             if(closedDoor[i].transform.localPosition.y < closedPosition)
@@ -39,7 +38,6 @@ public class doorController : MonoBehaviour {
 
     void openDoor()
     {
-        Debug.Log("Open");
         foreach (GameObject door in closedDoor)
         {
             if (door.transform.localPosition.y  > openPosition)

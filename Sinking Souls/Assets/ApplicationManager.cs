@@ -60,6 +60,29 @@ public class ApplicationManager : MonoBehaviour
 
     public void ChangeScene(string sceneName)
     {
+        switch (sceneName)
+        {
+            case "Lobby":
+                state = GameState.LOBBY;
+                break;
+
+            case "Game":
+                state = GameState.GAME;
+                break;
+
+            case "Tavern":
+                state = GameState.TABERN;
+                break;
+
+            case "MainMenu":
+                state = GameState.MAIN_MENU;
+                break;
+
+            default:
+                Debug.LogError("Doesn't exist a scene with name: " + sceneName);
+                return;
+        }
+
         StartCoroutine(LoadSceneAsync(sceneName));
     }
 

@@ -90,7 +90,6 @@ public class GameController : MonoBehaviour
     // TODO: Move this to OnLoadScene to be more clear.
     public void SetupScene(ApplicationManager.GameState scene)
     {
-        Debug.Log(scene);
         switch (scene)
         {
             case ApplicationManager.GameState.MAIN_MENU:

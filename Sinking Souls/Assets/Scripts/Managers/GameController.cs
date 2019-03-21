@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 using UnityEngine.EventSystems;
 
 public class GameController : MonoBehaviour
@@ -26,21 +27,10 @@ public class GameController : MonoBehaviour
 
     #endregion
 
-    [Header("Items")] [SerializeField] private int m_LobbySouls;
+    [Header("Items")]
+    public int lobbySouls;
 
-    public int LobbySouls
-    {
-        get { return m_LobbySouls; }
-        set { m_LobbySouls = value; }
-    }
-
-    private int m_RunSouls;
-
-    public int RunSouls
-    {
-        get { return m_RunSouls; }
-        set { m_RunSouls = value; }
-    }
+    public int runSouls;
 
     public Modifier[] modifiers;
     public Ability[] abilities;
@@ -87,7 +77,6 @@ public class GameController : MonoBehaviour
         levelGenerator = GetComponent<LevelGenerator>();
     }
 
-    // TODO: Move this to OnLoadScene to be more clear.
     public void SetupScene(ApplicationManager.GameState scene)
     {
         switch (scene)
@@ -123,7 +112,7 @@ public class GameController : MonoBehaviour
 
             case ApplicationManager.GameState.LOBBY:
                 inTavern = false;
-                m_RunSouls = 0;
+                runSouls = 0;
 
                 levelGenerator.currentLevel = -1;
                 currentRoom = GameObject.Find("PlayerSpawn");
@@ -132,11 +121,11 @@ public class GameController : MonoBehaviour
 
                 if (died)
                 {
-                    m_RunSouls = 0;
+                    runSouls = 0;
                 }
                 else
                 {
-                    m_LobbySouls += m_RunSouls;
+                    lobbySouls += runSouls;
 
                     var pickedModifiers = Array.FindAll(modifiers, modifier => modifier.picked);
                     Array.ForEach(pickedModifiers, modifier => modifier.owned = true);
@@ -198,20 +187,23 @@ public class GameController : MonoBehaviour
         if (ApplicationManager.Instance.state == ApplicationManager.GameState.MAIN_MENU) return;
         if (ApplicationManager.Instance.state == ApplicationManager.GameState.LOBBY) return;
 
-        if (player.GetComponent<Player>().lockedEnemy != null && player.GetComponent<Player>().lockedEnemy != mainEnemy)
-            mainEnemy = player.GetComponent<Player>().lockedEnemy;
-        else if (mainEnemy == null) mainEnemy = roomEnemies[UnityEngine.Random.Range(0, roomEnemies.Count)];
-
-
-        //Time for attack for causal enemies
-        if (nextCasualTime < casualCounter)
+        if (roomEnemies.Any())
         {
-            casualCounter = 0;
-            nextCasualTime = UnityEngine.Random.Range(4, 6);
-            casualEnemy = roomEnemies[UnityEngine.Random.Range(0, roomEnemies.Count)];
-        }
+            if (player.GetComponent<Player>().lockedEnemy != null && player.GetComponent<Player>().lockedEnemy != mainEnemy)
+                mainEnemy = player.GetComponent<Player>().lockedEnemy;
+            else if (mainEnemy == null) mainEnemy = roomEnemies[UnityEngine.Random.Range(0, roomEnemies.Count)];
 
-        casualCounter += Time.deltaTime;
+
+            // Time for attack for causal enemies.
+            if (nextCasualTime < casualCounter)
+            {
+                casualCounter = 0;
+                nextCasualTime = UnityEngine.Random.Range(4, 6);
+                casualEnemy = roomEnemies[UnityEngine.Random.Range(0, roomEnemies.Count)];
+            }
+
+            casualCounter += Time.deltaTime;
+        }
     }
 
 
@@ -280,7 +272,7 @@ public class GameController : MonoBehaviour
 
     public bool CanBuy(int price)
     {
-        return (m_LobbySouls - price) >= 0;
+        return (lobbySouls - price) >= 0;
     }
 
     public void LoadGame()
@@ -288,8 +280,8 @@ public class GameController : MonoBehaviour
         var save = SaveManager.Load();
         if (save == null) return;
 
-        m_LobbySouls = save.souls;
-        m_RunSouls = save.runSouls;
+        lobbySouls = save.souls;
+        runSouls = save.runSouls;
         m_RescuedAlchemist = save.alchemist;
         m_RescuedBlacksmith = save.blacksmith;
     }

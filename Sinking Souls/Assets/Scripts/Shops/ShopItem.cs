@@ -22,7 +22,7 @@ public class ShopItem : MonoBehaviour
         if (GameController.instance.CanBuy(price))
         {
             GameController.instance.player.GetComponent<Player>().EquipModifier(modifier);
-            GameController.instance.LobbySouls -= price;
+            GameController.instance.lobbySouls -= price;
             AudioManager.Instance.PlayEffect("Forge");
         }
     }
@@ -33,7 +33,7 @@ public class ShopItem : MonoBehaviour
         {
             ability.UpgradeAbility();
             m_PriceText.text = ability.price.ToString();
-            GameController.instance.LobbySouls -= price;
+            GameController.instance.lobbySouls -= price;
         }
     }
 
@@ -43,7 +43,7 @@ public class ShopItem : MonoBehaviour
         {
             enhancer.Use();
             m_PriceText.text = enhancer.basePrice.ToString();
-            GameController.instance.LobbySouls -= price;
+            GameController.instance.lobbySouls -= price;
         }
     }
 }

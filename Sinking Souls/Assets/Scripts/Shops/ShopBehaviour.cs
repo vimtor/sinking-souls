@@ -45,7 +45,7 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
 
         price.text = selectedItem.transform.Find("Price").GetComponent<TextMeshProUGUI>().text;
 
-        int priceDiff = GameController.instance.LobbySouls - selectedItem.GetComponent<ShopItem>().price;
+        int priceDiff = GameController.instance.lobbySouls - selectedItem.GetComponent<ShopItem>().price;
         remainingSouls.text = priceDiff.ToString();
 
         _oldSelection = EventSystemWrapper.Instance.CurrentSelected();

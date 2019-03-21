@@ -408,7 +408,6 @@ public class LevelGenerator : MonoBehaviour
 
             if (room.type == Room.RoomType.INITIAL) {
                 initialRoom = currentRoom;
-                Debug.Log(currentRoom.name);
             }
 
             #endregion
@@ -466,8 +465,9 @@ public class LevelGenerator : MonoBehaviour
             case Room.RoomType.NEXT_FLOOR:
                 for (int i = 0; i < instantiatedRoom.transform.childCount; i++)
                 {
-                    if (instantiatedRoom.transform.GetChild(i).name == "Door") { lastRoom = instantiatedRoom.transform.GetChild(i).gameObject;
-                    Debug.Log("LastRoom asigned");
+                    if (instantiatedRoom.transform.GetChild(i).name == "Door")
+                    {
+                        lastRoom = instantiatedRoom.transform.GetChild(i).gameObject;
                     }
                 }
                 roomIcon.GetComponent<MeshRenderer>().material = nextFloorRoomIcon;

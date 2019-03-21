@@ -50,7 +50,7 @@ public class Enemy : Entity {
             dead = true;
             GetComponent<AIController>().aiActive = false;
             //GetComponent<CapsuleCollider>().enabled = false;
-            GameController.instance.RunSouls += m_Souls;
+            GameController.instance.runSouls += m_Souls;
             if (allie != null) {
                 GameObject all = Instantiate(allie);
                 all.GetComponent<AIController>().SetupAI();

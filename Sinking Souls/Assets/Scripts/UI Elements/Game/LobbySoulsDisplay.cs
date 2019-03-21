@@ -7,6 +7,6 @@ public class LobbySoulsDisplay : MonoBehaviour
 
 	void Update ()
     {
-        m_SoulsNumber.text = GameController.instance.LobbySouls.ToString();
+        m_SoulsNumber.text = GameController.instance.lobbySouls.ToString();
     }
 }

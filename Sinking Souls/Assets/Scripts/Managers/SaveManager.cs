@@ -56,8 +56,8 @@ public class SaveData
 
     public SaveData()
     {
-        souls = GameController.instance.LobbySouls;
-        runSouls = GameController.instance.RunSouls;
+        souls = GameController.instance.lobbySouls;
+        runSouls = GameController.instance.runSouls;
         blacksmith = GameController.instance.m_RescuedBlacksmith;
         alchemist = GameController.instance.m_RescuedAlchemist;
 

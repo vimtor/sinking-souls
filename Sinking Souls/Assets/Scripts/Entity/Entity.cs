@@ -285,9 +285,9 @@ public class Entity : MonoBehaviour
                     ApplyModifier(other.GetComponent<WeaponHolder>().holder.modifier);
 
                     GameObject hitParticles = Instantiate(m_HitParticles);
-                    hitParticles.transform.position = other.transform.position;
+                    hitParticles.transform.position = other.transform.position + Vector3.Normalize((transform.position + Vector3.up) - (other.transform.position )) *2 ;
                     Destroy(hitParticles, 1);
-
+                    
                     if (gameObject.tag == "Player") gameObject.GetComponent<Player>().Dodge = Player.DodgeType.NONE;
 
                     if (other.GetComponent<WeaponHolder>().owner.tag == "Player") other.GetComponent<WeaponHolder>().owner.GetComponent<Entity>().lockedEnemy = gameObject;
@@ -297,7 +297,6 @@ public class Entity : MonoBehaviour
             case "Ability":
                 if (gameObject.tag == other.GetComponent<AbilityHolder>().holder.target)
                 {
-                    Debug.Log("La bocateria");
                     React(other.transform.position);
                     ApplyDamage(other.GetComponent<AbilityHolder>().holder.damage);
                     ApplyModifier(other.gameObject.GetComponent<AbilityHolder>().holder.modifier);

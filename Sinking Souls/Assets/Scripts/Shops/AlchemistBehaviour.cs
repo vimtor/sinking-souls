@@ -26,11 +26,6 @@ public class AlchemistBehaviour : ShopBehaviour<Ability>
     public override void FillShop()
     {
         var abilities = Array.FindAll(GameController.instance.abilities, ability => ability.CanUpgrade());
-
-        // Select first selected game object.
-        EventSystemWrapper.Instance.Select(SetupItem(abilities[0]));
-
-        // Instantiate the rest of the items unless the first one.
-        Array.ForEach(abilities.Skip(1).ToArray(), ability => SetupItem(ability));
+        Array.ForEach(abilities, ability => SetupItem(ability));
     }
 }

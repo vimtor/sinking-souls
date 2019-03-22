@@ -34,6 +34,7 @@ public class EventSystemWrapper : MonoBehaviour
 
     public void Select(GameObject selectable)
     {
+        Debug.Log(selectable);
         _eventSystem.SetSelectedGameObject(selectable);
     }
 

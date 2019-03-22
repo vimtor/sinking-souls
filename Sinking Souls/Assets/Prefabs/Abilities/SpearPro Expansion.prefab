@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4997614968306760}
   - component: {fileID: 33050949400960008}
   - component: {fileID: 23435316785371808}
+  - component: {fileID: 65035812623291992}
   m_Layer: 16
   m_Name: Cube (1)
   m_TagString: Ability
@@ -40,6 +41,7 @@ GameObject:
   - component: {fileID: 23298828935782688}
   - component: {fileID: 65975752098601952}
   - component: {fileID: 114138311469629486}
+  - component: {fileID: 54391170002773784}
   m_Layer: 16
   m_Name: SpearPro Expansion
   m_TagString: Ability
@@ -54,7 +56,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1432736041001048}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.1461549, y: 0.064919904, z: 4.629723}
+  m_LocalPosition: {x: 1.5828762, y: 0.064919904, z: -4.083491}
   m_LocalScale: {x: 0.046795588, y: 0.039473858, z: 0.73385}
   m_Children:
   - {fileID: 4997614968306760}
@@ -158,6 +160,33 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1432736041001048}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54391170002773784
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1432736041001048}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.5
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!65 &65035812623291992
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1212920669030260}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.9999999, y: 0.99999994, z: 1}
+  m_Center: {x: 0, y: -0.000000029802322, z: 0}
 --- !u!65 &65975752098601952
 BoxCollider:
   m_ObjectHideFlags: 1

@@ -71,7 +71,7 @@ public class LevelGenerator : MonoBehaviour
     }
 
     public GameObject Spawn() {
-
+        Debug.Log(level.name);
         RoomsA = level.RoomsA;
         RoomsB = level.RoomsB;
         RoomsC = level.RoomsC;
@@ -112,6 +112,7 @@ public class LevelGenerator : MonoBehaviour
             else PlaceNextLevelRoom();
             return CreateMap();
         }
+
     }
 
 

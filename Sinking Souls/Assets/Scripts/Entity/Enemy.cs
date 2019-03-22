@@ -63,7 +63,6 @@ public class Enemy : Entity {
     IEnumerator WaitToDie(float time)
     {
         yield return new WaitForSeconds(time);
-        Debug.Log("Destroy");
 
         for(int i = 0; i< GameController.instance.roomEnemies.Count; i++) 
         {
@@ -72,7 +71,6 @@ public class Enemy : Entity {
                 GameController.instance.roomEnemies.Remove(GameController.instance.roomEnemies[i]);
             }
         }
-        Debug.Log("Destroy 2");
         Destroy(gameObject);
     }
 }

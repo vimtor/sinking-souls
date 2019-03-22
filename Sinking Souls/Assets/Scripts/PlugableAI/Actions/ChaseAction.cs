@@ -9,7 +9,6 @@ public class ChaseAction : Action
     {
         controller.navMeshAgent.enabled = true;
         float speed = Vector3.Magnitude(controller.navMeshAgent.velocity);
-
         controller.Animator.SetFloat("Speed", speed);
         controller.navMeshAgent.SetDestination(controller.player.transform.position);
     }

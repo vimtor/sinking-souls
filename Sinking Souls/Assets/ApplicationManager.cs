@@ -14,7 +14,8 @@ public class ApplicationManager : MonoBehaviour
         ARENA,
         LOADSCENE,
         TABERN,
-        MAIN_MENU
+        MAIN_MENU,
+        TUTORIAL
     };
 
     public GameState state;
@@ -77,6 +78,9 @@ public class ApplicationManager : MonoBehaviour
             case "MainMenu":
                 state = GameState.MAIN_MENU;
                 break;
+            case "Tutorial":
+                state = GameState.TUTORIAL;
+                break;
 
             default:
                 Debug.LogError("Doesn't exist a scene with name: " + sceneName);
@@ -115,6 +119,9 @@ public class ApplicationManager : MonoBehaviour
 
             case GameState.MAIN_MENU:
                 sceneName = "MainMenu";
+                break;
+            case GameState.TUTORIAL:
+                sceneName = "Tutorial";
                 break;
         }
 

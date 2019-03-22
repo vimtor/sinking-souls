@@ -280,9 +280,7 @@ public class Entity : MonoBehaviour
             case "Weapon":
                 if (other.GetComponent<WeaponHolder>().owner.tag != tag)
                 {
-                    React(other.GetComponent<WeaponHolder>().owner.transform.position);
                     ApplyDamage(other.GetComponent<WeaponHolder>().holder.damage);
-                    ApplyModifier(other.GetComponent<WeaponHolder>().holder.modifier);
 
                     GameObject hitParticles = Instantiate(m_HitParticles);
                     hitParticles.transform.position = other.transform.position + Vector3.Normalize((transform.position + Vector3.up) - (other.transform.position )) *2 ;
@@ -291,6 +289,8 @@ public class Entity : MonoBehaviour
                     if (gameObject.tag == "Player") gameObject.GetComponent<Player>().Dodge = Player.DodgeType.NONE;
 
                     if (other.GetComponent<WeaponHolder>().owner.tag == "Player") other.GetComponent<WeaponHolder>().owner.GetComponent<Entity>().lockedEnemy = gameObject;
+                    React(other.GetComponent<WeaponHolder>().owner.transform.position);
+                    ApplyModifier(other.GetComponent<WeaponHolder>().holder.modifier);
                 }
                 break;
 

@@ -109,7 +109,14 @@ public class GameController : MonoBehaviour
 
                 SetupGame();
                 break;
+            case ApplicationManager.GameState.TUTORIAL:
+                inTavern = false;
+                runSouls = 0;
 
+                levelGenerator.currentLevel = -1;
+                currentRoom = GameObject.Find("PlayerSpawn");
+                SetupGame();
+            break;
             case ApplicationManager.GameState.LOBBY:
                 inTavern = false;
                 runSouls = 0;

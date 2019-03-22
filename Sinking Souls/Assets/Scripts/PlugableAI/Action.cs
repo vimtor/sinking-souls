@@ -5,7 +5,6 @@ using UnityEngine;
 public abstract class Action : ScriptableObject
 {
     [HideInInspector] public bool elapsed = true;
-
     // Is only executed once until the state checks transitions.
     public virtual void StartAction(AIController controller) { }
 

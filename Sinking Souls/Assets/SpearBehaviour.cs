@@ -19,6 +19,9 @@ public class SpearBehaviour : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        transform.GetChild(0).gameObject.AddComponent<AbilityHolder>();
+        transform.GetChild(0).gameObject.GetComponent<AbilityHolder>().owner = gameObject.GetComponent<AbilityHolder>().owner;
+        transform.GetChild(0).gameObject.GetComponent<AbilityHolder>().holder = gameObject.GetComponent<AbilityHolder>().holder;
         transform.position += Vector3.up;
 
         Target = GameController.instance.player.gameObject.transform;
@@ -47,12 +50,27 @@ public class SpearBehaviour : MonoBehaviour
         elapse_time += Time.deltaTime;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
+    //private void OnTriggerEnter(Collider other)
+    //{
         
-        if (other.tag != "Enemy")
+    //    if (other.tag != "Enemy")
+    //    {
+    //        if (other.tag != "Player")
+    //        {
+    //            GameObject aux = Instantiate(fire);
+    //            aux.transform.position = transform.position;
+    //            Destroy(aux, fireDuration);
+    //        }
+
+    //        Destroy(gameObject);
+    //    }
+    //}
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if(other.collider.gameObject.tag != "Enemy")
         {
-            if (other.tag != "Player")
+            if (other.collider.gameObject.tag != "Player")
             {
                 GameObject aux = Instantiate(fire);
                 aux.transform.position = transform.position;

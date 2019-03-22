@@ -20,18 +20,17 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
 
     [Header("Camera")] public GameObject shopCamera;
 
+    private bool isOpen;
+    private GameObject oldSelection;
+    private bool hiding;
 
-    private Vector3 _minimumDistance;
-    private GameObject _oldSelection;
-    private bool _hiding = false;
-
-    private Animator _animator;
+    private Animator animator;
     private static readonly int kTalkParam = Animator.StringToHash("Talk");
 
 
     private void Start()
     {
-        _animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     protected GameObject SetupItem(T commodity)
@@ -48,29 +47,24 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
         int priceDiff = GameController.instance.lobbySouls - selectedItem.GetComponent<ShopItem>().price;
         remainingSouls.text = priceDiff.ToString();
 
-        _oldSelection = EventSystemWrapper.Instance.CurrentSelected();
+        oldSelection = EventSystemWrapper.Instance.CurrentSelected();
     }
 
 
     private void Update()
     {
-        _minimumDistance = GameController.instance.player.GetComponent<Player>().transform.position -
-                           transform.position;
-
-        if (!shopPanel.activeSelf)
+        if (!isOpen)
         {
             // Open the store.
-            if (InputManager.GetButtonA() && (_minimumDistance.magnitude < interactRange))
+            if (InputManager.GetButtonA())
             {
-                shopPanel.SetActive(true);
-                shopTitle.SetActive(true);
-                UpdateShop();
+                if (isOpen) return;
+                InputManager.ButtonA = false;
 
-                shopCamera.SetActive(true);
+                var minimumDistance = GameController.instance.player.GetComponent<Player>().transform.position - transform.position;
+                if (minimumDistance.magnitude > interactRange) return;
 
-                // Stop the player.
-                GameController.instance.player.GetComponent<Player>().Stop();
-                _animator.SetTrigger(kTalkParam);
+                OpenShop();
             }
         }
         else
@@ -79,41 +73,72 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
             if (InputManager.GetButtonB())
             {
                 InputManager.ButtonB = false;
-                shopPanel.SetActive(false);
-                shopTitle.SetActive(false);
-
-                Cursor.visible = false;
-                shopCamera.SetActive(false);
-
-                GameController.instance.player.GetComponent<Player>().Resume();
-                _animator.SetTrigger(kTalkParam);
+                CloseShop();
             }
 
-            if (EventSystemWrapper.Instance.CurrentSelected() != _oldSelection)
+            if (EventSystemWrapper.Instance.CurrentSelected() != oldSelection)
             {
                 UpdateShop();
             }
 
-            if (Math.Abs(InputManager.Mouse.magnitude) > 0.0f)
-            {
-                _hiding = false;
-                Cursor.visible = true;
-            }
-            else if (!_hiding)
-            {
-                _hiding = true;
-                StartCoroutine(HideMouse(cursorHideTime));
-            }
+            UpdateMouse();
 
-            _oldSelection = EventSystemWrapper.Instance.CurrentSelected();
+            oldSelection = EventSystemWrapper.Instance.CurrentSelected();
         }
+    }
+
+    private void CloseShop()
+    {
+        shopPanel.SetActive(false);
+        shopTitle.SetActive(false);
+        shopCamera.SetActive(false);
+
+        Cursor.visible = false;
+  
+        GameController.instance.player.GetComponent<Player>().Resume();
+        animator.SetTrigger(kTalkParam);
+
+        isOpen = false;
+    }
+
+    private void OpenShop()
+    {
+        shopPanel.SetActive(true);
+        shopTitle.SetActive(true);
+        shopCamera.SetActive(true);
+
+        var content = shopPanel.transform.Find("Content");
+        var firstItem = content.transform.GetChild(0).gameObject;
+        EventSystemWrapper.Instance.Select(firstItem);
+
+        UpdateShop();
+
+        // Stop the player.
+        GameController.instance.player.GetComponent<Player>().Stop();
+        animator.SetTrigger(kTalkParam);
+
+        isOpen = true;
     }
 
     //Hide cursor if not use it for certain time
     private IEnumerator HideMouse(float time)
     {
         yield return new WaitForSeconds(time);
-        if (_hiding) Cursor.visible = false;
+        if (hiding) Cursor.visible = false;
+    }
+
+    private void UpdateMouse()
+    {
+        if (Math.Abs(InputManager.Mouse.magnitude) > 0.0f)
+        {
+            hiding = false;
+            Cursor.visible = true;
+        }
+        else if (!hiding)
+        {
+            hiding = true;
+            StartCoroutine(HideMouse(cursorHideTime));
+        }
     }
 
 

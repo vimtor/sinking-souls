@@ -27,11 +27,6 @@ public class BlacksmithBehaviour : ShopBehaviour<Modifier>
     public override void FillShop()
     {
         var modifiers = Array.FindAll(GameController.instance.modifiers, modifier => modifier.owned);
-
-        // Select first selected game object.
-        EventSystemWrapper.Instance.Select(SetupItem(modifiers[0]));
-
-        // Instantiate the rest of the items unless the first one.
-        Array.ForEach(modifiers.Skip(1).ToArray(), modifier => SetupItem(modifier));
+        Array.ForEach(modifiers, modifier => SetupItem(modifier));
     }
 }

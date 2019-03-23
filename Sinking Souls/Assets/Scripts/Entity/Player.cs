@@ -287,6 +287,10 @@ public class Player : Entity
 
             case PlayerState.MOVING:
 
+                if (m_Rigidbody.velocity.magnitude > 2.0f) AudioManager.Instance.PlayEffect("Walk");
+                if (m_Rigidbody.velocity.magnitude < 2.0f) AudioManager.Instance.Stop("Walk");
+
+
                 if (InputManager.ButtonY) gameObject.GetComponent<Hook>().Throw();
 
                 if (lockedEnemy != null)

@@ -118,6 +118,8 @@ public class GameController : MonoBehaviour
                 SetupGame();
             break;
             case ApplicationManager.GameState.LOBBY:
+                AudioManager.Instance.PlayMusic("Waves");
+
                 inTavern = false;
                 runSouls = 0;
 

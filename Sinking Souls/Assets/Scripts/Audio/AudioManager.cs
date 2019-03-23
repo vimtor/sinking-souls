@@ -93,7 +93,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        soundToPlay.source.Play();
+        if (!soundToPlay.source.isPlaying) soundToPlay.source.Play();
     }
 
     public void PlayMusic(string name)

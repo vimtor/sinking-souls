@@ -4,17 +4,32 @@ using UnityEngine;
 
 public class KlausBossAI : MonoBehaviour {
 
+    
+    [Header ("GENERAL:")]
+    public bool attack = false;
+
+    [Header("Prefabs")]
     GameObject[] swords;
     public GameObject swordPrefab;
-    public GameObject[] restPositions;
 
+    [Header ("Rest")]
+    public GameObject[] restPositions;
     public float restHoverSpeed;
     public float restHoverAmount;
     private float[] restHoverOffset;
 
+
+    [Header("ATTACKS:")]
+    
+    [Header("Orbit attack")]
+    ///Orbit attack
+    //Swords position
     public float swordOrbitDistance;
     public float swordOrbitHeight;
+    public float rotationSpeed = 1;
 
+    //Swords rotation
+    private float rotationOffset = 0;
     public float flyingSpeed;
 
     private void Start() {
@@ -33,21 +48,21 @@ public class KlausBossAI : MonoBehaviour {
 
         Vector3 originalDirecion = (GameController.instance.player.transform.position + GameController.instance.player.transform.forward * swordOrbitDistance + Vector3.up * swordOrbitHeight) - GameController.instance.player.transform.position;
 
-        for (int i = 0; i< 6; i++) {
-            Vector3 targget = (GameController.instance.player.transform.position + Quaternion.Euler(new Vector3(0, (360 / 6) * i, 0)) * originalDirecion);
+        for (int i = 0; i < 6; i++)
+        {
+            Vector3 targget = (GameController.instance.player.transform.position + Quaternion.Euler(new Vector3(0, (360 / 6) * i + rotationOffset, 0)) * originalDirecion);
             swords[i].GetComponent<Rigidbody>().velocity =
-                (targget - transform.position).normalized * flyingSpeed *
-                Mathf.Clamp01((targget - transform.position).magnitude);
+                (targget - swords[i].transform.position).normalized *
+                flyingSpeed * Mathf.Clamp01((targget - transform.position).magnitude);
 
             swords[i].GetComponent<SwordBehaviour>().lookPlayer();
-            Debug.Log(i);
         }
+
+        rotationOffset = ((rotationOffset + rotationSpeed * Time.deltaTime ));
 
     }
 
-    public bool attack = false;
     private void Update() {
-        //rest();
         if (attack) orbitAttack();
         else rest();
     }

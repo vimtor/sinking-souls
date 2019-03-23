@@ -291,6 +291,8 @@ public class Entity : MonoBehaviour
                     if (other.GetComponent<WeaponHolder>().owner.tag == "Player") other.GetComponent<WeaponHolder>().owner.GetComponent<Entity>().lockedEnemy = gameObject;
                     React(other.GetComponent<WeaponHolder>().owner.transform.position);
                     ApplyModifier(other.GetComponent<WeaponHolder>().holder.modifier);
+
+                    if (other.GetComponent<WeaponHolder>().owner.tag == "Player") AudioManager.Instance.PlayEffect("Splash");
                 }
                 break;
 

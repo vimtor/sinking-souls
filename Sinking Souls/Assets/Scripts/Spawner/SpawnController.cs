@@ -41,11 +41,12 @@ public class SpawnController : MonoBehaviour {
         if (!alreadySpawned) {
             foreach (GameObject entity in configuration.entities) {
                 GameObject enemy = Instantiate(entity);
-                GameController.instance.roomEnemies.Add(enemy);
+                if(enemy.tag == "Enemy")GameController.instance.roomEnemies.Add(enemy);
                 int index = Random.Range(0, spawnPoints.Count - 1);
                 enemy.transform.position = spawnPoints[index].transform.position;
+                enemy.transform.rotation = spawnPoints[index].transform.rotation;
                 spawnPoints.RemoveAt(index);
-                enemy.GetComponent<AIController>().SetupAI();
+               if(enemy.GetComponent<AIController>()) enemy.GetComponent<AIController>().SetupAI();
             }
 
             //spawnPoints.Clear();

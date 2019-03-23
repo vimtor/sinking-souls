@@ -93,8 +93,9 @@ GameObject:
   - component: {fileID: 195474965251734676}
   - component: {fileID: 114845827844297928}
   - component: {fileID: 65619992303838604}
+  - component: {fileID: 114053378546317338}
   m_Layer: 11
-  m_Name: Dummy
+  m_Name: DummyStrong
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -176,7 +177,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1934652393617584}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.19156075, y: -0.001, z: -7.61}
+  m_LocalPosition: {x: 4.240045, y: 0, z: -7.6730413}
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children:
   - {fileID: 4740377296732796}
@@ -215,7 +216,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 6783c89d99c8216418f5b61282a44ffe, type: 2}
+  - {fileID: 2100000, guid: 4e76c19f973a39043b57b5be518054c8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -250,7 +251,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 7060a8ae00ed559449ff139d22ebec0a, type: 2}
+  - {fileID: 2100000, guid: 4e76c19f973a39043b57b5be518054c8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -285,7 +286,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 7060a8ae00ed559449ff139d22ebec0a, type: 2}
+  - {fileID: 2100000, guid: 4e76c19f973a39043b57b5be518054c8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -320,7 +321,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 7060a8ae00ed559449ff139d22ebec0a, type: 2}
+  - {fileID: 2100000, guid: 4e76c19f973a39043b57b5be518054c8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -355,7 +356,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 7060a8ae00ed559449ff139d22ebec0a, type: 2}
+  - {fileID: 2100000, guid: 4e76c19f973a39043b57b5be518054c8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -417,7 +418,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1934652393617584}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 100
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -435,8 +436,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.031441357, y: 0.05342922, z: 0.01}
-  m_Center: {x: 0.0026608962, y: 0.025, z: 0}
+  m_Size: {x: 0.05144136, y: 0.05342922, z: 0.01}
+  m_Center: {x: 0.001660896, y: 0.025, z: 0}
 --- !u!95 &95508374391670454
 Animator:
   serializedVersion: 3
@@ -455,13 +456,25 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114224021275079350
+--- !u!114 &114053378546317338
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1934652393617584}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f585d84b2dec9934f9a8343d3e8975c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  times: 0
+--- !u!114 &114224021275079350
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1934652393617584}
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f987ef2646a3b6f4bb1cdba92e0ebfe1, type: 3}
   m_Name: 
@@ -481,7 +494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eecd7ff4b5aca041b30e1fe1e2bcf66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Health: 60
+  m_Health: 1e+9
   m_MaxHealth: 300
   m_HittedRecovery: 2
   m_Weapon: {fileID: 11400000, guid: b7cf60aea94f0194498f03320e8fa5fd, type: 2}

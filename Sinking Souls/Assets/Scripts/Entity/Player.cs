@@ -141,7 +141,7 @@ public class Player : Entity
 
     #endregion
 
-
+    public bool lockedDashed = false;
     public void SetupPlayer()
     {
         transform.GetChild(1).GetComponent<Renderer>().material.SetFloat("_duration", effectDuration);
@@ -761,6 +761,7 @@ public class Player : Entity
         }
 
         Dodge = DodgeType.NONE;
+        lockedDashed = true;
     }
 
     private void Spell()

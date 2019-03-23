@@ -9,7 +9,7 @@ public class DistanceLongerDecision : Decision {
     public float distance = 0;
 
     public override bool Decide(AIController controller) {
-        
+        Debug.Log((controller.transform.position - controller.player.transform.position).magnitude);
         return (distance >= (controller.transform.position - controller.player.transform.position).magnitude);
     }
 

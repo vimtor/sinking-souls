@@ -297,8 +297,9 @@ public class Entity : MonoBehaviour
             case "Ability":
                 if (gameObject.tag == other.GetComponent<AbilityHolder>().holder.target)
                 {
-                    React(other.transform.position);
+                   
                     ApplyDamage(other.GetComponent<AbilityHolder>().holder.damage);
+                    React(other.transform.position);
                     ApplyModifier(other.gameObject.GetComponent<AbilityHolder>().holder.modifier);
                 }
                 break;

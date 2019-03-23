@@ -1600,6 +1600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52c05136a2246d64481d5a7a7a32477f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attack: 0
   swordPrefab: {fileID: 1819814510900840, guid: a7a10f893959c1c4481f307ac830ca06,
     type: 2}
   restPositions:
@@ -1613,9 +1614,12 @@ MonoBehaviour:
   restHoverAmount: 0.08
   swordOrbitDistance: 4
   swordOrbitHeight: 4
-  rotationSpeed: 100
-  flyingSpeed: 6
-  attack: 0
+  rotationSpeed: 30
+  relationAtenuation: 2
+  initialWait: 1
+  cadency: {x: 2, y: 3}
+  backOffset: 2
+  flyingSpeed: 2
 --- !u!114 &114072935166105412
 MonoBehaviour:
   m_ObjectHideFlags: 1

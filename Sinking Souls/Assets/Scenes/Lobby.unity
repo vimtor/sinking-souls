@@ -91,7 +91,7 @@ LightmapSettings:
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 112000002, guid: 8c7627b0eb295b249bc3238daf8c3a14,
     type: 2}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -711,7 +711,7 @@ Transform:
   m_LocalScale: {x: 2.2546, y: 1, z: 13.662}
   m_Children: []
   m_Father: {fileID: 1125023673}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &437834451
 BoxCollider:
@@ -1084,11 +1084,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 523868382}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.67, y: 7.71, z: -17.03}
+  m_LocalPosition: {x: -0.25, y: 7.71, z: -17.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1273406509}
-  m_RootOrder: 5
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &523868384
 Light:
@@ -1100,7 +1100,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 15
   m_Range: 6.98
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -2192,8 +2192,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1778786016}
   - {fileID: 437834450}
+  - {fileID: 1778786016}
   - {fileID: 1590488438}
   - {fileID: 275622615}
   m_Father: {fileID: 0}
@@ -3258,11 +3258,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1588344007}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.81, y: 6.54, z: 4.45}
+  m_LocalPosition: {x: -0.39, y: 9.9, z: 8.88}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1273406509}
-  m_RootOrder: 4
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!108 &1588344009
 Light:
@@ -3274,7 +3274,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 15
   m_Range: 8.2
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -4104,7 +4104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sharedProfile: {fileID: 11400000, guid: de0a74613a2b15a40a42b51ca02078fe, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 59be078836d1b7a43a04b9687eca63c7, type: 2}
   isGlobal: 1
   blendDistance: 0
   weight: 1

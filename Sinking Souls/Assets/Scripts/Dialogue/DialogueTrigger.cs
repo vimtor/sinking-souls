@@ -1,17 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DialogueTrigger : MonoBehaviour
 {
     public bool cinematic;
     public Dialogue[] dialogues;
 
-    public DialogueManager manager;
-
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Dialogue triggered");
-        manager.StartConversation(dialogues, cinematic);
+        if (!other.CompareTag("Player")) return;
+
+        DialogueManager.Instance.StartConversation(dialogues, cinematic);
+        Destroy(gameObject);
     }
 }

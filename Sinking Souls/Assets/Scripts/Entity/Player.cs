@@ -805,6 +805,7 @@ public class Player : Entity
     {
         m_CanMove = false;
         m_Animator.SetFloat(m_SpeedParam, 0);
+        AudioManager.Instance.Stop("Walk");
     }
 
     public void EquipModifier(Modifier modifier)

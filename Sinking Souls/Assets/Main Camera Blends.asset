@@ -27,3 +27,18 @@ MonoBehaviour:
     m_Blend:
       m_Style: 2
       m_Time: 1
+  - m_From: Game Camera
+    m_To: Cutscene Camera
+    m_Blend:
+      m_Style: 0
+      m_Time: 2
+  - m_From: Cutscene Camera
+    m_To: Game Camera
+    m_Blend:
+      m_Style: 3
+      m_Time: 2
+  - m_From: Cutscene Camera
+    m_To: Cutscene Camera 2
+    m_Blend:
+      m_Style: 0
+      m_Time: 2

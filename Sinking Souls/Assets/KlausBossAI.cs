@@ -27,12 +27,21 @@ public class KlausBossAI : MonoBehaviour {
     public float swordOrbitDistance;
     public float swordOrbitHeight;
     public float rotationSpeed = 1;
+    public float relationAtenuation;
+    public float initialWait;
+    public Vector2 cadency;
+    public float backOffset;
 
     //Swords rotation
     private float rotationOffset = 0;
     public float flyingSpeed;
 
+    private float randomVal;
+
     private void Start() {
+
+        randomVal = Random.Range(cadency.x, cadency.y);
+
         swords = new GameObject[6];
         restHoverOffset = new float[6];
         for(int i = 0; i<6; i++) {
@@ -44,22 +53,62 @@ public class KlausBossAI : MonoBehaviour {
         }
     }
 
+
+    private float initialCounter = 0;
+    private float cadencyCounter = 0;
+    private float backCounter = 0;
+    private int attacker = -1;
+    private List<int> selecteds = new List<int>();
+    private Vector3[] targget = new Vector3[6];
+
     void orbitAttack() {
+        Vector3 originalDirecion = (GameController.instance.player.transform.position + Vector3.forward * swordOrbitDistance + Vector3.up * swordOrbitHeight) - GameController.instance.player.transform.position;
+        originalDirecion = Quaternion.Euler(new Vector3(0, rotationOffset, 0)) * originalDirecion;
 
-        Vector3 originalDirecion = (GameController.instance.player.transform.position + GameController.instance.player.transform.forward * swordOrbitDistance + Vector3.up * swordOrbitHeight) - GameController.instance.player.transform.position;
+        for (int i = 0; i < 6; i++) {
+            if (!selecteds.Contains(i)) {
+                targget[i] = GameController.instance.player.transform.position + Quaternion.Euler(new Vector3(0, (360 / 6) * i, 0)) * originalDirecion;
+                swords[i].GetComponent<Rigidbody>().velocity =
+                        (targget[i] - swords[i].transform.position).normalized *
+                        flyingSpeed * ((swords[i].transform.position - targget[i]).magnitude / relationAtenuation);
 
-        for (int i = 0; i < 6; i++)
-        {
-            Vector3 targget = (GameController.instance.player.transform.position + Quaternion.Euler(new Vector3(0, (360 / 6) * i + rotationOffset, 0)) * originalDirecion);
-            swords[i].GetComponent<Rigidbody>().velocity =
-                (targget - swords[i].transform.position).normalized *
-                flyingSpeed * Mathf.Clamp01((targget - transform.position).magnitude);
+                swords[i].GetComponent<SwordBehaviour>().lookPlayer();
+            }
+            
+        }
+        rotationOffset = ((rotationOffset + rotationSpeed * Time.deltaTime) % 360);
 
-            swords[i].GetComponent<SwordBehaviour>().lookPlayer();
+        if (initialCounter > initialWait && selecteds.Count < 6) {
+            //select a new one;
+            if (cadencyCounter > cadency.x) {
+                int index;
+                do {
+                    index = Random.Range(0, 6);
+                } while (selecteds.Contains(index));
+                if (selecteds.Count == 0) selecteds.Add(index);
+
+                if (swords[selecteds[selecteds.Count - 1]].GetComponent<SwordBehaviour>().inactive) selecteds.Add(index);
+
+                cadencyCounter = 0;
+
+            }
+
+            //launch
+            if (selecteds.Count != 0) {
+                swords[selecteds[selecteds.Count - 1]].GetComponent<SwordBehaviour>().launch();
+
+            }
+            cadencyCounter += Time.deltaTime;
         }
 
-        rotationOffset = ((rotationOffset + rotationSpeed * Time.deltaTime ));
 
+        initialCounter += Time.deltaTime;
+
+        if (selecteds.Count >= 6) {
+            selecteds = new List<int>();
+            attack = false;
+        }
+        
     }
 
     private void Update() {

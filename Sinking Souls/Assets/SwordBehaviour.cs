@@ -9,6 +9,8 @@ public class SwordBehaviour : MonoBehaviour {
     private float life;
     public float maxLife;
     public bool dead;
+    public bool inactive;
+    public float backSpeed;
 
 	// Use this for initialization
 	void Start () {
@@ -30,6 +32,13 @@ public class SwordBehaviour : MonoBehaviour {
         if(other.tag == "Weapon") {
             life -= other.GetComponent<WeaponHolder>().holder.damage;
         }
+    }
+
+    public void launch() {
+        //make update call all the functions and use this one as activation
+        transform.position -= transform.forward ;
+        Debug.Log("Sword Launched");
+        inactive = true;
     }
 
     public void lookPlayer() {

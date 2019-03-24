@@ -65,15 +65,22 @@ public class KlausBossAI : MonoBehaviour {
 
     private float initialArrowCounter = 0;
     void arrowAttack() {
+       
+        ///1- Position in formation
         if(initialArrowCounter < arrowInitialWait) {
-            Vector3 forward = (GameController.instance.player.transform.position - gameObject.transform.position).normalized;
-            
-            int aux = 1;
+            //Set place
+            Vector3 forward = (GameController.instance.player.transform.position - gameObject.transform.position).normalized;           
+            int forwardOffset = 1;
+            float lateralOffset = forwardOffset /2f ;
+
             for(int i =0; i<6; i+=2) {
-                targget[i] = (gameObject.transform.position + Vector3.up) + (forward * maxForward / aux) + Vector3.Cross(forward, Vector3.up) * aux/2;//dreta -forward * i
-                targget[i+1] = (gameObject.transform.position + Vector3.up) + (forward * maxForward / aux) + Vector3.Cross(Vector3.up, forward) * aux/2;
-                aux++;
+                targget[i] = (gameObject.transform.position + Vector3.up) + (forward * maxForward / 3 * (4 - forwardOffset)) + Vector3.Cross(forward, Vector3.up) * (lateralOffset / 2f);
+                targget[i+1] = (gameObject.transform.position + Vector3.up) + (forward * maxForward / 3 * (4 - forwardOffset)) + Vector3.Cross(Vector3.up, forward) * (lateralOffset / 2f);
+                forwardOffset++;
+                lateralOffset = forwardOffset;
             }
+
+            //Move
             for (int i = 0; i< 6; i++) {
                 swords[i].GetComponent<Rigidbody>().velocity =
                             (targget[i] - swords[i].transform.position).normalized *
@@ -86,6 +93,8 @@ public class KlausBossAI : MonoBehaviour {
                 }
             }
         }
+
+        ///2- 
     }
 
 

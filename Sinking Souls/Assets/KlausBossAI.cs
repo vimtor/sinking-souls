@@ -31,6 +31,7 @@ public class KlausBossAI : MonoBehaviour {
     public float initialWait;
     public Vector2 cadency;
     public float backOffset;
+    public float endDelay;
 
     //Swords rotation
     private float rotationOffset = 0;
@@ -60,20 +61,25 @@ public class KlausBossAI : MonoBehaviour {
     private int attacker = -1;
     private List<int> selecteds = new List<int>();
     private Vector3[] targget = new Vector3[6];
+    private float endCounter = 0;
 
     void orbitAttack() {
         Vector3 originalDirecion = (GameController.instance.player.transform.position + Vector3.forward * swordOrbitDistance + Vector3.up * swordOrbitHeight) - GameController.instance.player.transform.position;
         originalDirecion = Quaternion.Euler(new Vector3(0, rotationOffset, 0)) * originalDirecion;
 
         for (int i = 0; i < 6; i++) {
-            if (!selecteds.Contains(i)) {
-                targget[i] = GameController.instance.player.transform.position + Quaternion.Euler(new Vector3(0, (360 / 6) * i, 0)) * originalDirecion;
-                swords[i].GetComponent<Rigidbody>().velocity =
-                        (targget[i] - swords[i].transform.position).normalized *
-                        flyingSpeed * ((swords[i].transform.position - targget[i]).magnitude / relationAtenuation);
+            if (!swords[i].GetComponent<SwordBehaviour>().dead) {
+                if (!selecteds.Contains(i) && !swords[i].GetComponent<SwordBehaviour>().stopLooking) {
+                    targget[i] = GameController.instance.player.transform.position + Quaternion.Euler(new Vector3(0, (360 / 6) * i, 0)) * originalDirecion;
+                    swords[i].GetComponent<Rigidbody>().velocity =
+                            (targget[i] - swords[i].transform.position).normalized *
+                            flyingSpeed * ((swords[i].transform.position - targget[i]).magnitude / relationAtenuation);
 
-                swords[i].GetComponent<SwordBehaviour>().lookPlayer();
+                    swords[i].GetComponent<SwordBehaviour>().lookPlayer();
+                }
             }
+            else if (!selecteds.Contains(i)) selecteds.Add(i);
+            
             
         }
         rotationOffset = ((rotationOffset + rotationSpeed * Time.deltaTime) % 360);
@@ -85,11 +91,17 @@ public class KlausBossAI : MonoBehaviour {
                 do {
                     index = Random.Range(0, 6);
                 } while (selecteds.Contains(index));
-                if (selecteds.Count == 0) selecteds.Add(index);
+                if (selecteds.Count == 0) {
+                    selecteds.Add(index);
+                    cadencyCounter = 0;
+                }
 
-                if (swords[selecteds[selecteds.Count - 1]].GetComponent<SwordBehaviour>().inactive) selecteds.Add(index);
+                if (swords[selecteds[selecteds.Count - 1]].GetComponent<SwordBehaviour>().inactive) {
+                    selecteds.Add(index);
+                    cadencyCounter = 0;
+                }
 
-                cadencyCounter = 0;
+
 
             }
 
@@ -105,8 +117,26 @@ public class KlausBossAI : MonoBehaviour {
         initialCounter += Time.deltaTime;
 
         if (selecteds.Count >= 6) {
-            selecteds = new List<int>();
-            attack = false;
+            if(swords[selecteds[selecteds.Count - 1]].GetComponent<SwordBehaviour>().inactive) {
+
+                if(endCounter >= endDelay) {
+                    selecteds = new List<int>();
+                    attack = false;
+                    for (int i = 0; i < 6; i++) {
+                        if(!swords[i].GetComponent<SwordBehaviour>().dead) swords[i].GetComponent<SwordBehaviour>().resetSword();
+                    }
+                    initialCounter = 0;
+                    cadencyCounter = 0;
+                    backCounter = 0;
+                    attacker = -1;
+                    endCounter = 0;
+                }
+
+                endCounter += Time.deltaTime;
+
+                
+            }
+
         }
         
     }
@@ -114,12 +144,37 @@ public class KlausBossAI : MonoBehaviour {
     private void Update() {
         if (attack) orbitAttack();
         else rest();
+
+        if(!attack)reviveAllDead();
+
     }
 
+    void reviveAllDead() {
+        for (int i = 0; i < 6; i++) {
+            if (!swords[i].GetComponent<SwordBehaviour>().dead) {
+                return;
+            }
+        }
+        for (int i = 0; i < 6; i++) {
+            swords[i].GetComponent<SwordBehaviour>().resetSword();
+            swords[i].GetComponent<SwordBehaviour>().revive();
+        }
+    }
     void rest() {
         for (int i = 0; i < 6; i++) {
-            swords[i].transform.position = restPositions[i].transform.position + Vector3.up * Mathf.Sin(Time.time * restHoverSpeed * restHoverOffset[i]) * restHoverAmount ;
-            swords[i].transform.rotation = restPositions[i].transform.rotation; //Quaternion.LookRotation( restPositions[i].transform.forward + new Vector3(0,0,Mathf.Sin(Time.deltaTime * restHoverSpeed)* restHoverAmount));
+            if (!swords[i].GetComponent<SwordBehaviour>().dead) {
+                targget[i] = restPositions[i].transform.position + Vector3.up * Mathf.Sin(Time.time * restHoverSpeed * restHoverOffset[i]) * restHoverAmount;
+
+                swords[i].GetComponent<Rigidbody>().velocity =
+                            (targget[i] - swords[i].transform.position).normalized *
+                            flyingSpeed * ((swords[i].transform.position - targget[i]).magnitude / relationAtenuation);
+                swords[i].transform.forward = targget[i] - swords[i].transform.position;
+                if((targget[i] - swords[i].transform.position).magnitude < 1) {
+                    swords[i].transform.forward = ((swords[i].transform.forward * (targget[i] - swords[i].transform.position).magnitude) + (restPositions[i].transform.forward * (1 - (targget[i] - swords[i].transform.position).magnitude)));
+                }
+               // swords[i].transform.forward = restPositions[i].transform.forward; //Quaternion.LookRotation( restPositions[i].transform.forward + new Vector3(0,0,Mathf.Sin(Time.deltaTime * restHoverSpeed)* restHoverAmount));
+
+            }
         }
     }
 }

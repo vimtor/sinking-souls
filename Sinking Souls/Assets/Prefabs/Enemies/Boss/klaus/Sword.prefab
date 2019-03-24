@@ -90,7 +90,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100002, guid: e42a2265cdc85e34ca7225a55766140a, type: 3}
+  - {fileID: 2100000, guid: a55ac120c5b6d0e439d17a1977ae8641, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -154,8 +154,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.21, y: 0.59349656, z: 2.8333821}
-  m_Center: {x: 0, y: 0.028205037, z: 1.136307}
+  m_Size: {x: 0.21, y: 0.9897344, z: 3.720261}
+  m_Center: {x: 0, y: 0.22632396, z: 0.6928675}
 --- !u!114 &114755396220058194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -181,5 +181,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attack: 0
-  maxLife: 0
+  maxLife: 200
   dead: 0
+  inactive: 0
+  backSpeed: 3
+  forwardSpeed: 30
+  orbitAttack: 0
+  stopLooking: 0
+  inactivePosition: {x: 0, y: 0, z: 0}
+  material: {fileID: 0}
+  hitColorSpeed: 2
+  orbitAttackCounter: 0
+  initialTime: 0.4
+  forwardDistLaunch: 9

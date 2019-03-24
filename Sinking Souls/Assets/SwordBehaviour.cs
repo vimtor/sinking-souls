@@ -11,19 +11,36 @@ public class SwordBehaviour : MonoBehaviour {
     public bool dead;
     public bool inactive;
     public float backSpeed;
+    public float forwardSpeed;
 
-	// Use this for initialization
-	void Start () {
+    public bool orbitAttack = false;
+    public bool stopLooking = false;
+
+    public Vector3 inactivePosition;
+    public Material material;
+    private float hitCounter = 0;
+    public float hitColorSpeed;
+    // Use this for initialization
+    void Start () {
         AttackObject = transform.GetChild(0).gameObject;
         stopAttack();
         life = maxLife;
+        material = GetComponent<Renderer>().material;
 	}
 	
 	void Update () {
+        material.SetFloat("_Darken", Mathf.Clamp01(hitCounter));
         if (attack) activateAttack();
         else stopAttack();
 
-        if (life <= 0) dead = true;
+        if (life <= 0) dead = inactive = true;
+
+        if (orbitAttack) orbitAttackLogic();
+
+        if (inactive) transform.position = inactivePosition;
+
+        if(dead) material.SetFloat("_Darken", 2);
+        hitCounter -= Time.deltaTime * hitColorSpeed;
        
 	}
 
@@ -31,14 +48,42 @@ public class SwordBehaviour : MonoBehaviour {
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Weapon") {
             life -= other.GetComponent<WeaponHolder>().holder.damage;
+            hitCounter = 1;
+            Debug.Log("Hit");
+        }
+        if (orbitAttack) {
+            if(other.tag == "Ground" || other.tag == "Obstacle") {
+                stopAttack();
+                inactive = true;
+                inactivePosition = transform.position + transform.forward * 0.7f;
+            }
         }
     }
 
+    [HideInInspector]public float orbitAttackCounter = 0;
+    public float initialTime;
+
     public void launch() {
-        //make update call all the functions and use this one as activation
-        transform.position -= transform.forward ;
-        Debug.Log("Sword Launched");
-        inactive = true;
+        orbitAttack = true;
+    }
+    Vector3 playerDir;
+    public float forwardDistLaunch;
+    public void orbitAttackLogic() {
+        if (!inactive) {
+            if (orbitAttackCounter < initialTime) {
+                transform.position -= transform.forward * Time.deltaTime * backSpeed;
+                playerDir = ((GameController.instance.player.transform.position + Vector3.up +(GameController.instance.player.GetComponent<Rigidbody>().velocity * Time.deltaTime * forwardDistLaunch)) - transform.position).normalized;
+            }
+            else {
+                transform.forward = playerDir;
+                GetComponent<Rigidbody>().velocity = Vector3.zero;
+                stopLooking = true;
+                activateAttack();
+                transform.position += playerDir * Time.deltaTime * forwardSpeed;
+            }
+
+            orbitAttackCounter += Time.deltaTime;
+        }
     }
 
     public void lookPlayer() {
@@ -47,6 +92,7 @@ public class SwordBehaviour : MonoBehaviour {
 
     public void revive() {
         life = maxLife;
+        dead = inactive = false;
     }
 
     public void activateAttack() {
@@ -55,5 +101,12 @@ public class SwordBehaviour : MonoBehaviour {
     public void stopAttack() {
         AttackObject.SetActive(false);
 
+    }
+    public void resetSword() {
+
+        inactive = false;
+        orbitAttack = false;
+        stopLooking = false;
+        orbitAttackCounter = 0;
     }
 }

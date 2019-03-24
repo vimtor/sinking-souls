@@ -22,6 +22,7 @@ public class KlausBossAI : MonoBehaviour {
     [Header("ATTACKS:")]
     [Header("Big attack")]
     public Vector2 startingPos;
+    public int maxAttacks;
 
     [Header("Arrow attack")]
     public float arrowInitialWait;
@@ -67,8 +68,9 @@ public class KlausBossAI : MonoBehaviour {
     int selected = -1;
     float startingCounter;
     float activeSwords = 0;
-
-    void bigAttack() {
+    int timesAttaked;
+    float otherTimesCounter = 1;
+    void bigAttack() {///not call if only 1 sword;
         if (selected == -1) {
             for(int i = 0; i < 6; i++) {
                 if (!swords[i].GetComponent<SwordBehaviour>().inactive) {
@@ -79,32 +81,31 @@ public class KlausBossAI : MonoBehaviour {
             }
         }
         else {
+            if (startingCounter < 1) {///get to starting position + size
+                for (int i = 0; i < 6; i++) {
+                    if (!swords[i].GetComponent<SwordBehaviour>().dead) {
+                        targget[i] = gameObject.transform.position + ((GameController.instance.player.transform.position - gameObject.transform.position).normalized * startingPos.x) + Vector3.up * startingPos.y;
 
-            for (int i = 0; i < 6; i++) {
-                if (!swords[i].GetComponent<SwordBehaviour>().dead) {
-                    targget[i] = gameObject.transform.position + ((GameController.instance.player.transform.position - gameObject.transform.position).normalized * startingPos.x) + Vector3.up * startingPos.y;
+                        float speed = flyingSpeed;
 
-                    float speed = flyingSpeed;
+                        if ((targget[i] - swords[i].transform.position).magnitude < 1) {
+                            speed = flyingSpeed * 5;
+                        }
 
-                    if ((targget[i] - swords[i].transform.position).magnitude < 1) {
-                        speed = flyingSpeed * 5;
-                    }
+                        swords[i].GetComponent<Rigidbody>().velocity =
+                                    (targget[i] - swords[i].transform.position).normalized *
+                                    speed * ((swords[i].transform.position - targget[i]).magnitude / relationAtenuation);
 
-                    swords[i].GetComponent<Rigidbody>().velocity =
-                                (targget[i] - swords[i].transform.position).normalized *
-                                speed * ((swords[i].transform.position - targget[i]).magnitude / relationAtenuation);
+                        swords[i].transform.forward = targget[i] - swords[i].transform.position;
 
-                    swords[i].transform.forward = targget[i] - swords[i].transform.position;
-
-                    if ((targget[i] - swords[i].transform.position).magnitude < 1) {
-                        swords[i].transform.forward = new Vector3((GameController.instance.player.transform.position - swords[i].transform.position).x,0, (GameController.instance.player.transform.position - swords[i].transform.position).z);//up
-                        swords[i].transform.Rotate(new Vector3(1, 0, 0), -90);
+                        if ((targget[i] - swords[i].transform.position).magnitude < 1) {
+                            swords[i].transform.forward = new Vector3((GameController.instance.player.transform.position - swords[i].transform.position).x, 0, (GameController.instance.player.transform.position - swords[i].transform.position).z);//up
+                            swords[i].transform.Rotate(new Vector3(1, 0, 0), -90);
+                        }
                     }
                 }
-            }
 
-
-            if (startingCounter < 1) {
+            
                 for (int i = 0; i < 6; i++) {
                     
                     if(i == selected) {
@@ -113,8 +114,62 @@ public class KlausBossAI : MonoBehaviour {
                     }
                 }
             }
+            else {///falling
+                swords[selected].GetComponent<Rigidbody>().velocity = Vector3.zero;
+                for (int i = 0; i < 6; i++) {
+                    if (i != selected && !swords[i].GetComponent<SwordBehaviour>().dead) {
+                        swords[i].transform.position = swords[selected].transform.position;
+                        swords[i].transform.rotation = swords[selected].transform.rotation;
+                    }
+                    else {
+                        swords[selected].GetComponent<SwordBehaviour>().giantAttack(true);
+                    }
+                }
+                
+            }
         }
+        if (swords[selected].GetComponent<SwordBehaviour>().inactive) {///goingUp
+
+            if (!swords[selected].GetComponent<SwordBehaviour>().dead) swords[selected].transform.Rotate(new Vector3(1, 0, 0), -Time.deltaTime * swords[selected].GetComponent<SwordBehaviour>().rotationSpeed / 3);
+
+            if (swords[selected].transform.localScale.x > 1) {
+
+                swords[selected].transform.localScale -= new Vector3(Time.deltaTime, Time.deltaTime, Time.deltaTime) * activeSwords;
+            }
+
+            if(swords[selected].transform.localScale.x <= 1) {
+                if (swords[selected].GetComponent<SwordBehaviour>().dead) {
+                    attack = false;
+                    for (int i = 0; i < 6; i++) {
+                        if (!swords[i].GetComponent<SwordBehaviour>().dead) swords[i].GetComponent<SwordBehaviour>().resetSword();
+                        else swords[i].GetComponent<SwordBehaviour>().bigAttack = false;
+                    }
+                    startingCounter = 0;
+                    swords[selected].transform.localScale = new Vector3(1, 1, 1);
+
+                    activeSwords = 0;
+                    giveGravity(selected);
+                    selected = -1;
+
+                }
+            }else if ((swords[selected].transform.forward - Vector3.up).magnitude <= 0.05f) {///gotten to the upper part
+                {///finish attack
+                    attack = false;
+                    for (int i = 0; i < 6; i++) if (!swords[i].GetComponent<SwordBehaviour>().dead) swords[i].GetComponent<SwordBehaviour>().resetSword();
+                    startingCounter = 0;
+                    swords[selected].transform.localScale = new Vector3(1,1,1);
+                    selected = -1;
+                    activeSwords = 0;
+                }
+
+            }
+        }
+
+
+
+
         startingCounter += Time.deltaTime;
+        otherTimesCounter += Time.deltaTime;
     }
 
     private float initialArrowCounter = 0;
@@ -263,21 +318,10 @@ public class KlausBossAI : MonoBehaviour {
     }
 
 
-    public int attackNum;
+
     private void Update() {
-        if (attack) {
-            switch (attackNum) {
-                case 0 :
-                orbitAttack();
-                    break;
-                case 1:
-                arrowAttack();
-                break;
-                case 2:
-                bigAttack();
-                break;
-            }
-        }
+        if (attack) bigAttack();
+        
         else rest();
 
         if(!attack)reviveAllDead();
@@ -328,5 +372,28 @@ public class KlausBossAI : MonoBehaviour {
 
             }
         }
+    }
+
+    void giveGravity(int i) {
+        swords[i].GetComponent<Rigidbody>().freezeRotation = false;
+        swords[i].GetComponent<Rigidbody>().useGravity = true;
+
+
+        StartCoroutine(stopGravity(1, i));
+        StartCoroutine(rotateAtFall(1, i));
+
+    }
+
+    IEnumerator rotateAtFall(float t, int i) {
+        yield return new WaitForEndOfFrame();
+        t -= Time.deltaTime;
+        swords[i].transform.Rotate(new Vector3(1,0,0),Time.deltaTime * 50);
+        if(t > 0) StartCoroutine(rotateAtFall(t, i));
+    }
+
+    IEnumerator stopGravity(float t, int i) {
+        yield return new WaitForSeconds(t);
+        swords[i].GetComponent<Rigidbody>().freezeRotation = true;
+        swords[i].GetComponent<Rigidbody>().useGravity = false;
     }
 }

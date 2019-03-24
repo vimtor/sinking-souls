@@ -12,6 +12,6 @@ public class DialogueTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Dialogue triggered");
-        manager.StartConversation(dialogues);
+        manager.StartConversation(dialogues, cinematic);
     }
 }

@@ -5,54 +5,45 @@ using System;
 
 public class DialogueManager : MonoBehaviour
 {
-    public bool displayNext = false;
     private Queue<Dialogue> conversation;
 
-    public void StartConversation(Dialogue[] dialogues)
+
+    public void StartConversation(Dialogue[] dialogues, bool cinematic)
     {
         Debug.Log("Conversation started");
 
         conversation = new Queue<Dialogue>(dialogues);
-        displayNext = true;
+        StartCoroutine(DisplayDialogue());
     }
 
     private void EndConversation()
     {
         Debug.Log("Ended conversation.");
 
-        displayNext = false;
+        conversation.Clear();
     }
 
-    private IEnumerator DisplayDialogue(Dialogue dialogue)
+    private IEnumerator DisplayDialogue()
     {
-        displayNext = false;
+        // displayNext = false;
+        if (conversation.Count == 0)
+        {
+            EndConversation();
+            yield break;
+        }
 
+        var dialogue = conversation.Dequeue();
         Debug.Log(dialogue.text);
-        
+
         if (dialogue.automatic)
         {
             yield return new WaitForSecondsRealtime(2.0f);
 
-            displayNext = true;
+            StartCoroutine(DisplayDialogue());
             yield break;
         }
 
         yield return new WaitUntil(() => Input.GetKey(KeyCode.Space));
-        displayNext = true;
+        StartCoroutine(DisplayDialogue());
     }
-
-    private void Update()
-    {
-        if (!displayNext) return;
-
-        if (conversation.Count == 0)
-        {
-            EndConversation();
-            return;
-        }
-
-        var nextDialogue = conversation.Dequeue();
-        StartCoroutine(DisplayDialogue(nextDialogue));
-    }
-
 }

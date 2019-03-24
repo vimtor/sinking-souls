@@ -20,10 +20,15 @@ public class SwordBehaviour : MonoBehaviour {
     public bool stopLooking = false;
 
     public Vector3 inactivePosition;
+    public Vector3 bigInactivePosition = Vector3.zero;
+    public Quaternion bigInactiveRotation = Quaternion.identity;
     public Material material;
     private float hitCounter = 0;
     public float hitColorSpeed;
     private float forwardTime=0;
+
+
+    public float rotationSpeed;
     // Use this for initialization
     void Start () {
         AttackObject = transform.GetChild(0).gameObject;
@@ -45,7 +50,10 @@ public class SwordBehaviour : MonoBehaviour {
             orbitAttackLogic();
             if (inactive) transform.position = inactivePosition;
         }
-
+        if (dead && bigInactivePosition != new Vector3(0, 0, 0)) {
+            transform.position = bigInactivePosition;
+            transform.rotation = bigInactiveRotation;
+        }
         if (arrowAttack) arrowAttackLogic(forwardTime);
 
         if (bigAttack) bigAttackLogic();
@@ -59,18 +67,36 @@ public class SwordBehaviour : MonoBehaviour {
        
 	}
 
-
+    private bool stopRotation = false;
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Weapon") {
             life -= other.GetComponent<WeaponHolder>().holder.damage;
             hitCounter = 1;
             Debug.Log("Hit");
         }
+
+        
+
         if (orbitAttack) {
             if(other.tag == "Ground" || other.tag == "Obstacle") {
                 stopAttack();
                 inactive = true;
                 inactivePosition = transform.position + transform.forward * 0.7f;
+            }
+        }else 
+        if (bigAttack) {
+            if (other.tag == "Ground") {
+                stopAttack();
+                stopRotation = true;
+                Debug.Log("Hitted floor");
+
+            }
+        }else {
+            if (other.tag == "Ground" && dead) {
+                bigInactivePosition = transform.position + Vector3.down * 0.4f;
+                bigInactiveRotation = transform.rotation;
+                Debug.Log("Got One");
+
             }
         }
     }
@@ -80,9 +106,19 @@ public class SwordBehaviour : MonoBehaviour {
         bigAttack = true;
         selected = me;
     }
-
+    private float stopedCounter = 0;
     private void bigAttackLogic() {
+        if (selected && !stopRotation) {
+            transform.Rotate(new Vector3(1, 0, 0), Time.deltaTime * rotationSpeed);
+            activateAttack();
+        }
+        else {
+            if(stopedCounter > 2) {
+                inactive = true;
 
+            }
+            stopedCounter += Time.deltaTime;
+        }
     }
 
     [HideInInspector]public float orbitAttackCounter = 0;
@@ -160,9 +196,13 @@ public class SwordBehaviour : MonoBehaviour {
 
         inactive = false;
         orbitAttack = false;
+        bigAttack = false;
         arrowAttack = false;
         stopLooking = false;
         orbitAttackCounter = 0;
         forwardLaunchCounter = 0;
+        stopedCounter = 0;
+        stopRotation = false;
+        bigInactivePosition = Vector3.zero;
     }
 }

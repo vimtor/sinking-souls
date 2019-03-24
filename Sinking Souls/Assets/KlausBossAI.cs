@@ -20,7 +20,11 @@ public class KlausBossAI : MonoBehaviour {
 
 
     [Header("ATTACKS:")]
-    
+
+    [Header("Arrow attack")]
+    public float arrowInitialWait;
+    public float maxForward;
+
     [Header("Orbit attack")]
     ///Orbit attack
     //Swords position
@@ -36,6 +40,7 @@ public class KlausBossAI : MonoBehaviour {
     //Swords rotation
     private float rotationOffset = 0;
     public float flyingSpeed;
+
 
     private float randomVal;
 
@@ -55,6 +60,35 @@ public class KlausBossAI : MonoBehaviour {
     }
 
 
+
+
+
+    private float initialArrowCounter = 0;
+    void arrowAttack() {
+        if(initialArrowCounter < arrowInitialWait) {
+            Vector3 forward = (GameController.instance.player.transform.position - gameObject.transform.position).normalized;
+            
+            int aux = 1;
+            for(int i =0; i<6; i+=2) {
+                targget[i] = (gameObject.transform.position + Vector3.up) + (forward * maxForward / aux) + Vector3.Cross(forward, Vector3.up) * aux/2;//dreta -forward * i
+                targget[i+1] = (gameObject.transform.position + Vector3.up) + (forward * maxForward / aux) + Vector3.Cross(Vector3.up, forward) * aux/2;
+                aux++;
+            }
+            for (int i = 0; i< 6; i++) {
+                swords[i].GetComponent<Rigidbody>().velocity =
+                            (targget[i] - swords[i].transform.position).normalized *
+                            flyingSpeed * ((swords[i].transform.position - targget[i]).magnitude / relationAtenuation);
+                swords[i].transform.forward = targget[i] - swords[i].transform.position;
+
+
+                if ((targget[i] - swords[i].transform.position).magnitude < 1) {
+                    swords[i].transform.forward = ((swords[i].transform.forward * (targget[i] - swords[i].transform.position).magnitude) + (forward * (1 - (targget[i] - swords[i].transform.position).magnitude)));
+                }
+            }
+        }
+    }
+
+
     private float initialCounter = 0;
     private float cadencyCounter = 0;
     private float backCounter = 0;
@@ -62,6 +96,8 @@ public class KlausBossAI : MonoBehaviour {
     private List<int> selecteds = new List<int>();
     private Vector3[] targget = new Vector3[6];
     private float endCounter = 0;
+
+
 
     void orbitAttack() {
         Vector3 originalDirecion = (GameController.instance.player.transform.position + Vector3.forward * swordOrbitDistance + Vector3.up * swordOrbitHeight) - GameController.instance.player.transform.position;
@@ -141,8 +177,10 @@ public class KlausBossAI : MonoBehaviour {
         
     }
 
+
+
     private void Update() {
-        if (attack) orbitAttack();
+        if (attack) arrowAttack();
         else rest();
 
         if(!attack)reviveAllDead();

@@ -20,9 +20,13 @@ public class KlausBossAI : MonoBehaviour {
 
 
     [Header("ATTACKS:")]
+    [Header("Swept attack")]
+    public float firstDistance;
+    public float swordOffset;
+    public float sweptRotationSpeed;
+
     [Header("Big attack")]
     public Vector2 startingPos;
-    public int maxAttacks;
 
     [Header("Arrow attack")]
     public float arrowInitialWait;
@@ -61,6 +65,42 @@ public class KlausBossAI : MonoBehaviour {
             swords[i].transform.rotation = restPositions[i].transform.rotation;
             swords[i].transform.GetChild(0).GetComponent<WeaponHolder>().owner = gameObject;
             restHoverOffset[i] = Random.Range(0.7f, 1.3f);
+        }
+    }
+
+    private float acumulatedRotation = 0;
+    void swept() {
+        ///get in place
+        ////contador per comehn;ar a rotar (recordar activar el damage )
+        for(int i=0; i<6; i++) {
+            Vector3 forward = Vector3.Cross(transform.forward, Vector3.up);
+            targget[i] = gameObject.transform.position + Vector3.up + (firstDistance * forward.normalized) + forward.normalized * swordOffset * i;
+
+            float speed = flyingSpeed;
+
+            if ((targget[i] - swords[i].transform.position).magnitude < 1) {
+                speed = flyingSpeed * 5;
+            }
+
+            swords[i].GetComponent<Rigidbody>().velocity =
+                        (targget[i] - swords[i].transform.position).normalized *
+                        speed * ((swords[i].transform.position - targget[i]).magnitude / relationAtenuation);
+
+            swords[i].transform.forward = targget[i] - swords[i].transform.position;
+
+
+            if (acumulatedRotation < 90) {
+                acumulatedRotation += sweptRotationSpeed * Time.deltaTime;                
+            }
+            swords[i].transform.Rotate(new Vector3(0, 0, 1), acumulatedRotation);
+
+            if ((targget[i] - swords[i].transform.position).magnitude < 1) {
+                swords[i].transform.forward = ((swords[i].transform.forward * (targget[i] - swords[i].transform.position).magnitude) + (forward * (1 - (targget[i] - swords[i].transform.position).magnitude)));
+                swords[i].transform.Rotate(new Vector3(0, 0, 1), acumulatedRotation);
+            }
+
+
+
         }
     }
 
@@ -105,14 +145,9 @@ public class KlausBossAI : MonoBehaviour {
                     }
                 }
 
-            
-                for (int i = 0; i < 6; i++) {
-                    
-                    if(i == selected) {
+                swords[selected].transform.localScale += new Vector3(Time.deltaTime, Time.deltaTime, Time.deltaTime) * activeSwords;
+                swords[selected].GetComponent<SwordBehaviour>().AttackObject.GetComponent<WeaponHolder>().holder.damage = swords[selected].GetComponent<SwordBehaviour>().originalDamage * 1 + activeSwords / 10;
 
-                        swords[i].transform.localScale += new Vector3(Time.deltaTime, Time.deltaTime, Time.deltaTime) * activeSwords;
-                    }
-                }
             }
             else {///falling
                 swords[selected].GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -320,7 +355,7 @@ public class KlausBossAI : MonoBehaviour {
 
 
     private void Update() {
-        if (attack) bigAttack();
+        if (attack) swept();
         
         else rest();
 

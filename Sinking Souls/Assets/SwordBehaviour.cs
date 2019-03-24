@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SwordBehaviour : MonoBehaviour {
 
-    GameObject AttackObject;
+    public GameObject AttackObject;
     public bool attack;
     private float life;
     public float maxLife;
@@ -18,6 +18,7 @@ public class SwordBehaviour : MonoBehaviour {
     public bool bigAttack = false;
 
     public bool stopLooking = false;
+    public float originalDamage;
 
     public Vector3 inactivePosition;
     public Vector3 bigInactivePosition = Vector3.zero;
@@ -35,6 +36,7 @@ public class SwordBehaviour : MonoBehaviour {
         stopAttack();
         life = maxLife;
         material = GetComponent<Renderer>().material;
+        originalDamage = AttackObject.GetComponent<WeaponHolder>().holder.damage;
 	}
 	
 	void Update () {
@@ -204,5 +206,6 @@ public class SwordBehaviour : MonoBehaviour {
         stopedCounter = 0;
         stopRotation = false;
         bigInactivePosition = Vector3.zero;
+        AttackObject.GetComponent<WeaponHolder>().holder.damage = originalDamage;
     }
 }

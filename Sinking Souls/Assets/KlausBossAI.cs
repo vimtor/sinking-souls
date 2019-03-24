@@ -20,10 +20,14 @@ public class KlausBossAI : MonoBehaviour {
 
 
     [Header("ATTACKS:")]
+    [Header("Big attack")]
+    public Vector2 startingPos;
 
     [Header("Arrow attack")]
     public float arrowInitialWait;
     public float maxForward;
+    public float speedMultiplier;
+    private float forwardTime;
 
     [Header("Orbit attack")]
     ///Orbit attack
@@ -60,41 +64,113 @@ public class KlausBossAI : MonoBehaviour {
     }
 
 
+    int selected = -1;
+    float startingCounter;
+    float activeSwords = 0;
 
+    void bigAttack() {
+        if (selected == -1) {
+            for(int i = 0; i < 6; i++) {
+                if (!swords[i].GetComponent<SwordBehaviour>().inactive) {
+                    selected = i;
+                    activeSwords++;
+                }
+                
+            }
+        }
+        else {
 
+            for (int i = 0; i < 6; i++) {
+                if (!swords[i].GetComponent<SwordBehaviour>().dead) {
+                    targget[i] = gameObject.transform.position + ((GameController.instance.player.transform.position - gameObject.transform.position).normalized * startingPos.x) + Vector3.up * startingPos.y;
 
-    private float initialArrowCounter = 0;
-    void arrowAttack() {
-       
-        ///1- Position in formation
-        if(initialArrowCounter < arrowInitialWait) {
-            //Set place
-            Vector3 forward = (GameController.instance.player.transform.position - gameObject.transform.position).normalized;           
-            int forwardOffset = 1;
-            float lateralOffset = forwardOffset /2f ;
+                    float speed = flyingSpeed;
 
-            for(int i =0; i<6; i+=2) {
-                targget[i] = (gameObject.transform.position + Vector3.up) + (forward * maxForward / 3 * (4 - forwardOffset)) + Vector3.Cross(forward, Vector3.up) * (lateralOffset / 2f);
-                targget[i+1] = (gameObject.transform.position + Vector3.up) + (forward * maxForward / 3 * (4 - forwardOffset)) + Vector3.Cross(Vector3.up, forward) * (lateralOffset / 2f);
-                forwardOffset++;
-                lateralOffset = forwardOffset;
+                    if ((targget[i] - swords[i].transform.position).magnitude < 1) {
+                        speed = flyingSpeed * 5;
+                    }
+
+                    swords[i].GetComponent<Rigidbody>().velocity =
+                                (targget[i] - swords[i].transform.position).normalized *
+                                speed * ((swords[i].transform.position - targget[i]).magnitude / relationAtenuation);
+
+                    swords[i].transform.forward = targget[i] - swords[i].transform.position;
+
+                    if ((targget[i] - swords[i].transform.position).magnitude < 1) {
+                        swords[i].transform.forward = new Vector3((GameController.instance.player.transform.position - swords[i].transform.position).x,0, (GameController.instance.player.transform.position - swords[i].transform.position).z);//up
+                        swords[i].transform.Rotate(new Vector3(1, 0, 0), -90);
+                    }
+                }
             }
 
-            //Move
-            for (int i = 0; i< 6; i++) {
-                swords[i].GetComponent<Rigidbody>().velocity =
-                            (targget[i] - swords[i].transform.position).normalized *
-                            flyingSpeed * ((swords[i].transform.position - targget[i]).magnitude / relationAtenuation);
-                swords[i].transform.forward = targget[i] - swords[i].transform.position;
 
+            if (startingCounter < 1) {
+                for (int i = 0; i < 6; i++) {
+                    
+                    if(i == selected) {
 
-                if ((targget[i] - swords[i].transform.position).magnitude < 1) {
-                    swords[i].transform.forward = ((swords[i].transform.forward * (targget[i] - swords[i].transform.position).magnitude) + (forward * (1 - (targget[i] - swords[i].transform.position).magnitude)));
+                        swords[i].transform.localScale += new Vector3(Time.deltaTime, Time.deltaTime, Time.deltaTime) * activeSwords;
+                    }
                 }
             }
         }
+        startingCounter += Time.deltaTime;
+    }
 
+    private float initialArrowCounter = 0;
+    void arrowAttack() {
+
+        ///1- Position in formation
+        if (initialArrowCounter < arrowInitialWait) {
+            //Set place
+            Vector3 forward = (GameController.instance.player.transform.position - gameObject.transform.position).normalized;
+            int forwardOffset = 1;
+            float lateralOffset = forwardOffset / 2f;
+
+            for (int i = 0; i < 6; i += 2) {
+                if (!swords[i].GetComponent<SwordBehaviour>().dead) {
+                    targget[i] = (gameObject.transform.position + Vector3.up) + (forward * maxForward / 3 * (4 - forwardOffset)) + Vector3.Cross(Vector3.up, forward) * (lateralOffset / 2f);
+                    targget[i + 1] = (gameObject.transform.position + Vector3.up) + (forward * maxForward / 3 * (4 - forwardOffset)) + Vector3.Cross(forward, Vector3.up) * (lateralOffset / 2f);
+                    forwardOffset++;
+                    lateralOffset = forwardOffset;
+                }
+            }
+
+            //Move
+            for (int i = 0; i < 6; i++) {
+                if (!swords[i].GetComponent<SwordBehaviour>().dead) {
+                    swords[i].transform.forward = targget[i] - swords[i].transform.position;
+                    float speed = flyingSpeed;
+
+                    if ((targget[i] - swords[i].transform.position).magnitude < 1) {
+                        swords[i].transform.forward = ((swords[i].transform.forward * (targget[i] - swords[i].transform.position).magnitude) + (forward * (1 - (targget[i] - swords[i].transform.position).magnitude)));
+                        speed = flyingSpeed * 5;
+                    }
+
+                    swords[i].GetComponent<Rigidbody>().velocity =
+                                (targget[i] - swords[i].transform.position).normalized *
+                                speed * ((swords[i].transform.position - targget[i]).magnitude / relationAtenuation);
+                }
+            }
+            forwardTime = ((GameController.instance.player.transform.position + (GameController.instance.player.transform.position - transform.position).normalized) - transform.position ).magnitude * 1.5f / (swords[0].GetComponent<SwordBehaviour>().forwardSpeed * speedMultiplier);
+
+        }
         ///2- 
+        else {
+            for (int i = 0; i < 6; i++) if (!swords[i].GetComponent<SwordBehaviour>().dead) swords[i].GetComponent<SwordBehaviour>().forwadLaunch(forwardTime, speedMultiplier);
+            if (AllInactive()) {
+                attack = false;
+                for (int i = 0; i < 6; i++) {
+                    if (!swords[i].GetComponent<SwordBehaviour>().dead) swords[i].GetComponent<SwordBehaviour>().resetSword();
+                }
+                initialArrowCounter = 0;
+            }
+
+        }
+
+
+
+        initialArrowCounter += Time.deltaTime;
     }
 
 
@@ -187,13 +263,34 @@ public class KlausBossAI : MonoBehaviour {
     }
 
 
-
+    public int attackNum;
     private void Update() {
-        if (attack) arrowAttack();
+        if (attack) {
+            switch (attackNum) {
+                case 0 :
+                orbitAttack();
+                    break;
+                case 1:
+                arrowAttack();
+                break;
+                case 2:
+                bigAttack();
+                break;
+            }
+        }
         else rest();
 
         if(!attack)reviveAllDead();
 
+    }
+
+    bool AllInactive() {
+        for (int i = 0; i < 6; i++) {
+            if (!swords[i].GetComponent<SwordBehaviour>().inactive) {
+                return false;
+            }
+        }
+        return true;
     }
 
     void reviveAllDead() {
@@ -212,10 +309,18 @@ public class KlausBossAI : MonoBehaviour {
             if (!swords[i].GetComponent<SwordBehaviour>().dead) {
                 targget[i] = restPositions[i].transform.position + Vector3.up * Mathf.Sin(Time.time * restHoverSpeed * restHoverOffset[i]) * restHoverAmount;
 
+                float speed = flyingSpeed;
+
+                if ((targget[i] - swords[i].transform.position).magnitude < 1) {
+                    speed = flyingSpeed * 5;
+                }
+
                 swords[i].GetComponent<Rigidbody>().velocity =
                             (targget[i] - swords[i].transform.position).normalized *
-                            flyingSpeed * ((swords[i].transform.position - targget[i]).magnitude / relationAtenuation);
+                            speed * ((swords[i].transform.position - targget[i]).magnitude / relationAtenuation);
+
                 swords[i].transform.forward = targget[i] - swords[i].transform.position;
+
                 if((targget[i] - swords[i].transform.position).magnitude < 1) {
                     swords[i].transform.forward = ((swords[i].transform.forward * (targget[i] - swords[i].transform.position).magnitude) + (restPositions[i].transform.forward * (1 - (targget[i] - swords[i].transform.position).magnitude)));
                 }

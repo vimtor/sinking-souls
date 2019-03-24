@@ -1612,8 +1612,10 @@ MonoBehaviour:
   - {fileID: 1407932248585668}
   restHoverSpeed: 2
   restHoverAmount: 0.08
+  startingPos: {x: 1, y: 2}
   arrowInitialWait: 2
   maxForward: 2
+  speedMultiplier: 2
   swordOrbitDistance: 4
   swordOrbitHeight: 4
   rotationSpeed: 30
@@ -1623,6 +1625,7 @@ MonoBehaviour:
   backOffset: 2
   endDelay: 5
   flyingSpeed: 10
+  attackNum: 0
 --- !u!114 &114072935166105412
 MonoBehaviour:
   m_ObjectHideFlags: 1

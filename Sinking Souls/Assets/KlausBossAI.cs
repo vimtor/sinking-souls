@@ -24,6 +24,9 @@ public class KlausBossAI : MonoBehaviour {
     public float firstDistance;
     public float swordOffset;
     public float sweptRotationSpeed;
+    public float sweptInitialWait;
+    public float swepingSpeed;
+    public float rotationTime;
 
     [Header("Big attack")]
     public Vector2 startingPos;
@@ -69,39 +72,69 @@ public class KlausBossAI : MonoBehaviour {
     }
 
     private float acumulatedRotation = 0;
+    Vector3 forward = Vector3.up;
+    private float sweptInitialCounter;
     void swept() {
-        ///get in place
-        ////contador per comehn;ar a rotar (recordar activar el damage )
-        for(int i=0; i<6; i++) {
-            Vector3 forward = Vector3.Cross(transform.forward, Vector3.up);
-            targget[i] = gameObject.transform.position + Vector3.up + (firstDistance * forward.normalized) + forward.normalized * swordOffset * i;
 
+
+        for (int i = 0; i < 6; i++) {
+            swords[i].GetComponent<SwordBehaviour>().attack = true;
+            if (sweptInitialCounter < sweptInitialWait) {        ///get in place
+                if (forward == Vector3.up) forward = Vector3.Cross(transform.forward, Vector3.up);
+                    targget[i] = gameObject.transform.position + Vector3.up + (firstDistance * forward.normalized) + forward.normalized * swordOffset * i;
+            }
+            else { ///rotate the stick
+                forward = Quaternion.Euler(new Vector3(0, swepingSpeed * Time.deltaTime, 0)) * forward;
+                targget[i] = gameObject.transform.position + Vector3.up + (firstDistance * forward.normalized) + forward.normalized * swordOffset * i;
+            }
+            ////move acording to targget///////////////////
             float speed = flyingSpeed;
 
             if ((targget[i] - swords[i].transform.position).magnitude < 1) {
                 speed = flyingSpeed * 5;
             }
 
-            swords[i].GetComponent<Rigidbody>().velocity =
+            swords[i].GetComponent<Rigidbody>().velocity =//do not reuse, edited
                         (targget[i] - swords[i].transform.position).normalized *
-                        speed * ((swords[i].transform.position - targget[i]).magnitude / relationAtenuation);
+                        (speed + firstDistance + swordOffset * i) *//(speed * i * (1 + (i/100))
+                        ((swords[i].transform.position - targget[i]).magnitude / relationAtenuation);
 
             swords[i].transform.forward = targget[i] - swords[i].transform.position;
 
 
             if (acumulatedRotation < 90) {
-                acumulatedRotation += sweptRotationSpeed * Time.deltaTime;                
+                acumulatedRotation += sweptRotationSpeed * Time.deltaTime;
             }
             swords[i].transform.Rotate(new Vector3(0, 0, 1), acumulatedRotation);
 
-            if ((targget[i] - swords[i].transform.position).magnitude < 1) {
-                swords[i].transform.forward = ((swords[i].transform.forward * (targget[i] - swords[i].transform.position).magnitude) + (forward * (1 - (targget[i] - swords[i].transform.position).magnitude)));
-                swords[i].transform.Rotate(new Vector3(0, 0, 1), acumulatedRotation);
+            if (sweptInitialCounter < sweptInitialWait) {////calculate forwards depending on fase 
+                if ((targget[i] - swords[i].transform.position).magnitude < 1) {///fase 1
+                    swords[i].transform.forward = ((swords[i].transform.forward * (targget[i] - swords[i].transform.position).magnitude) + (forward * (1 - (targget[i] - swords[i].transform.position).magnitude)));
+                    swords[i].transform.Rotate(new Vector3(0, 0, 1), acumulatedRotation);
+                }
             }
+            else {///fase 2
+                swords[i].transform.forward = forward;
+                swords[i].transform.Rotate(new Vector3(0, 0, 1), acumulatedRotation);
 
-
-
+            }
+            ////////////////////////////////////////////////
         }
+
+        ///end attack
+        if(sweptInitialCounter >= rotationTime + sweptInitialWait) {
+            acumulatedRotation = 0;
+            forward = Vector3.up;
+            sweptInitialCounter = 0;
+            for (int i = 0; i < 6; i++) {
+                if (!swords[i].GetComponent<SwordBehaviour>().dead) swords[i].GetComponent<SwordBehaviour>().resetSword();
+                else swords[i].GetComponent<SwordBehaviour>().attack = false;
+
+            }
+            attack = false;
+        }
+
+        sweptInitialCounter += Time.deltaTime;    
     }
 
 

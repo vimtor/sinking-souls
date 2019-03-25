@@ -443,8 +443,8 @@ public class Player : Entity
         // m_Rigidbody.MovePosition(transform.position + transform.forward * m_MovementSpeed * m_Direction.magnitude * Time.fixedDeltaTime);
         Vector3 velocity = m_Rigidbody.velocity;
         velocity.y = 0;
-
-        m_Rigidbody.velocity = transform.forward.normalized * InputManager.LeftJoystick.magnitude * m_MovementSpeed;
+        Vector3 aux = transform.forward.normalized * InputManager.LeftJoystick.magnitude * m_MovementSpeed;
+        m_Rigidbody.velocity = new Vector3(aux.x,-2,aux.z);
     }
 
     private void CombatMove()

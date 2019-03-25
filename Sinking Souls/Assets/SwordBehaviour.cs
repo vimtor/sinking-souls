@@ -188,11 +188,9 @@ public class SwordBehaviour : MonoBehaviour {
     }
 
     public void activateAttack() {
-        Debug.Log("activate");
         AttackObject.SetActive(true);
     }
     public void stopAttack() {
-        Debug.Log("deactivate");
 
         AttackObject.SetActive(false);
 

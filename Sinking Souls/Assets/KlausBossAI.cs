@@ -128,7 +128,7 @@ public class KlausBossAI : MonoBehaviour {
             sweptInitialCounter = 0;
             for (int i = 0; i < 6; i++) {
                 if (!swords[i].GetComponent<SwordBehaviour>().dead) swords[i].GetComponent<SwordBehaviour>().resetSword();
-                else swords[i].GetComponent<SwordBehaviour>().attack = false;
+                swords[i].GetComponent<SwordBehaviour>().attack = false;
 
             }
             attack = false;
@@ -385,15 +385,137 @@ public class KlausBossAI : MonoBehaviour {
         
     }
 
-
-
+     
+    public enum attacks { ORBIT, ARROW, SWEPT, BIG}
+    public attacks currentAttack;
+    private float betwinAttackCounter = 0;
     private void Update() {
-        if (attack) swept();
-        
-        else rest();
 
-        if(!attack)reviveAllDead();
 
+        if (attack) {
+            switch (currentAttack) {
+                case attacks.ORBIT:
+                orbitAttack();
+                break;
+                case attacks.ARROW:
+                arrowAttack();
+                break;
+                case attacks.SWEPT:
+                swept();
+                break;
+                case attacks.BIG:
+                bigAttack();
+                break;
+            }
+            betwinAttackCounter = 0;
+        }
+        else {///when not attacking 
+            rest();
+            reviveAllDead();///if all dead revive them 
+            if (betwinAttackCounter >= 2) {///wait X seconds and choos new attack and attack
+
+                currentAttack = chooseNewAttack();
+
+                //currentAttack = (attacks)(((int)currentAttack + 1)%4 );
+                attack = true;
+            }
+                betwinAttackCounter += Time.deltaTime;
+
+        }
+    }
+
+    float lastSoldAttack;
+    public float maxSoldInterval = 3;
+    public int alive;
+    public float distance;
+    public float provability;
+
+    attacks chooseNewAttack() {
+        alive = AliveSwords();
+        distance = distanceToPlayer();
+        attacks returnAttack = attacks.ORBIT;
+        provability = Random.Range(0f, 1f);
+
+        if (lastSoldAttack >= maxSoldInterval) {                                        ///Last sold 
+            if (alive > 1) {
+                if (distance > alive * 2.6f || distance < 2f) returnAttack = attacks.ORBIT;  /// im far so ORBIT
+                else {
+
+                    if (provability <= 0.5 + GameController.instance.player.GetComponent<Player>().map(distance, 2, alive * 2.6f, 0.4f, 0)) returnAttack = attacks.BIG;
+                    else returnAttack = attacks.ORBIT;
+                }
+
+            }
+            else {
+                returnAttack = attacks.ORBIT;
+
+            }
+            lastSoldAttack = 0;
+        }
+        else {                                                                          ///normal
+            lastSoldAttack++;
+            returnAttack = attacks.ARROW;
+            if (alive > 1) {
+                if (distance > 20) {/// too far for swept
+                                    ///only arrow or orbit 
+                    if (provability <= 0.7f) returnAttack = attacks.ARROW;
+                    else {
+                        returnAttack = attacks.ORBIT;
+                        lastSoldAttack = 0;
+                    }
+                        
+                }
+                else if (distance > alive * 2.6f) {/// to far for big
+                    if (provability <= 0.40f) returnAttack = attacks.ARROW;
+                    else if (provability <= 0.800f) returnAttack = attacks.SWEPT;
+                    else{
+                        returnAttack = attacks.ORBIT;
+                        lastSoldAttack = 0;
+                    }
+                }
+                else if (distance > 2) {/// big
+                    if(provability <= 0.22f){
+                        returnAttack = attacks.BIG;
+                        lastSoldAttack = 0;
+                    }
+                    else if(provability <= 0.30f) {
+                        returnAttack = attacks.ORBIT;
+                        lastSoldAttack = 0;
+                    }
+                    else if(provability <= 0.65f) returnAttack = attacks.SWEPT;
+                    else returnAttack = attacks.ARROW;
+                }
+                else {///to close 
+                    if (provability <= 0.7f) returnAttack = attacks.SWEPT;
+                    else {
+                        returnAttack = attacks.ORBIT;
+                        lastSoldAttack = 0;
+                    }
+                }
+
+            }
+            else {///1 alive so orbit or arrow
+                if (provability < 0.5f){
+                    returnAttack = attacks.ORBIT;
+                    lastSoldAttack = 0;
+                }
+                else returnAttack = attacks.ARROW;
+
+            }
+        }
+        return returnAttack;
+    }
+    
+    float distanceToPlayer() {
+        return (GameController.instance.player.transform.position - transform.position).magnitude;
+    }
+
+    int AliveSwords() {
+        int counter = 0;
+        for(int i = 0; i < 6; i++){
+            if (!swords[i].GetComponent<SwordBehaviour>().dead) counter++;
+        }
+        return counter;
     }
 
     bool AllInactive() {
@@ -416,6 +538,7 @@ public class KlausBossAI : MonoBehaviour {
             swords[i].GetComponent<SwordBehaviour>().revive();
         }
     }
+
     void rest() {
         for (int i = 0; i < 6; i++) {
             if (!swords[i].GetComponent<SwordBehaviour>().dead) {

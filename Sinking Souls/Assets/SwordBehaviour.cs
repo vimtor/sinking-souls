@@ -85,7 +85,8 @@ public class SwordBehaviour : MonoBehaviour {
                 inactive = true;
                 inactivePosition = transform.position + transform.forward * 0.7f;
             }
-        }else 
+        }
+        else 
         if (bigAttack) {
             if (other.tag == "Ground") {
                 stopAttack();

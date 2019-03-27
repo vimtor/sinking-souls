@@ -1,50 +1,19 @@
 fileFormatVersion: 2
-guid: dfaf9c8a251651f47a5cd496bbbcc2a4
+guid: b9192295b942440498354be859bf58d4
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: Captain_Room
-    100002: Door
-    100004: Door_2
-    100006: Plank
-    100008: Rudder
-    100010: //RootNode
-    100012: Ship_Lower
-    100014: Ship_Top
-    400000: Captain_Room
-    400002: Door
-    400004: Door_2
-    400006: Plank
-    400008: Rudder
-    400010: //RootNode
-    400012: Ship_Lower
-    400014: Ship_Top
-    2100000: default
-    2100002: No Name
-    2300000: Captain_Room
-    2300002: Door
-    2300004: Door_2
-    2300006: Plank
-    2300008: Rudder
-    2300010: Ship_Lower
-    2300012: Ship_Top
-    3300000: Captain_Room
-    3300002: Door
-    3300004: Door_2
-    3300006: Plank
-    3300008: Rudder
-    3300010: Ship_Lower
-    3300012: Ship_Top
-    4300000: Rudder
-    4300002: Ship_Top
-    4300004: Ship_Lower
-    4300006: Plank
-    4300008: Captain_Room
-    4300010: Door
-    4300012: Door_2
+    100000: //RootNode
+    100002: RoomA_Terrain
+    400000: //RootNode
+    400002: RoomA_Terrain
+    2100000: RoomA_TerrainMat
+    2300000: RoomA_Terrain
+    3300000: RoomA_Terrain
+    4300000: RoomA_Terrain
   externalObjects: {}
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -76,12 +45,12 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
-    importVisibility: 0
+    importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
+    importCameras: 1
+    importLights: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
@@ -96,11 +65,11 @@ ModelImporter:
     previousCalculatedGlobalScale: 1
     hasPreviousCalculatedGlobalScale: 0
   tangentSpace:
-    normalSmoothAngle: 45
+    normalSmoothAngle: 60
     normalImportMode: 1
     tangentImportMode: 2
     normalCalculationMode: 3
-  importAnimation: 0
+  importAnimation: 1
   copyAvatar: 0
   humanDescription:
     serializedVersion: 2

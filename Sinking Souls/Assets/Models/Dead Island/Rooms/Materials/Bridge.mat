@@ -6,9 +6,9 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: ShipDoor Material
+  m_Name: Bridge
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ShaderKeywords: _NORMALMAP _PARALLAXMAP
+  m_ShaderKeywords: _NORMALMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -19,7 +19,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 2dfde3e454f4d0a4885b899c4be1d951, type: 3}
+        m_Texture: {fileID: 2800000, guid: 76c544b9eccd35e42a454332a3575bb5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -39,7 +39,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 6e3d8027dcbffd942b42bd91c1a3d3df, type: 3}
+        m_Texture: {fileID: 2800000, guid: c104cedf31f273b42b194ae088229b35, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -51,7 +51,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
-        m_Texture: {fileID: 2800000, guid: f504de331657b78459b2d69030c54f00, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -68,15 +68,11 @@ Material:
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0
-    - _GlossinessSource: 0
     - _GlossyReflections: 1
     - _Metallic: 0
-    - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Shininess: 0.5
     - _SmoothnessTextureChannel: 0
-    - _SpecSource: 1
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
@@ -86,4 +82,4 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

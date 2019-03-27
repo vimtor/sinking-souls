@@ -44,7 +44,11 @@ public class SwordBehaviour : MonoBehaviour {
         if (attack) activateAttack();
         else stopAttack();
 
-        if (life <= 0) dead = inactive = true;
+        if (life <= 0 && !dead)
+        {
+            diedNow = true;
+            dead = inactive = true;
+        }
 
 
 
@@ -179,6 +183,18 @@ public class SwordBehaviour : MonoBehaviour {
         forwardLaunchCounter += Time.deltaTime;
     }
 
+    private bool diedNow = false;
+
+    public bool justDied()
+    {
+        if (diedNow)
+        {
+            diedNow = false;
+            return true;
+        }
+        else return false;
+    }
+
     public void lookPlayer() {
         transform.forward = ((GameController.instance.player.transform.position + Vector3.up) - transform.position).normalized;
     }
@@ -186,6 +202,7 @@ public class SwordBehaviour : MonoBehaviour {
     public void revive() {
         life = maxLife;
         dead = inactive = false;
+        diedNow = false;
     }
 
     public void activateAttack() {

@@ -226,7 +226,8 @@ public class GameController : MonoBehaviour
     private void SpawnPlayer()
     {
         player = Instantiate(playerPrefab);
-        player.transform.position = currentRoom.transform.position;
+        if (!currentRoom.GetComponent<SpawnController>()) player.transform.position = currentRoom.transform.position;
+        else player.transform.position = currentRoom.GetComponent<SpawnController>().spawnHolder.transform.GetChild(0).gameObject.transform.position;  
     }
 
     public void SpawnBlueprint(Vector3 position)

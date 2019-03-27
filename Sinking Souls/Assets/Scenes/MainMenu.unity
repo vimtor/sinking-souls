@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1273174, g: 0.13414761, b: 0.12107885, a: 1}
+  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -90,7 +90,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -875,6 +875,16 @@ Prefab:
         type: 2}
       propertyPath: m_RescuedAlchemist
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114646670468762960, guid: 258b637205f84f34c91c424fca3067e4,
+        type: 2}
+      propertyPath: roomSizeLv2
+      value: 97.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114646670468762960, guid: 258b637205f84f34c91c424fca3067e4,
+        type: 2}
+      propertyPath: roomSizeLv1
+      value: 39.46
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 258b637205f84f34c91c424fca3067e4, type: 2}

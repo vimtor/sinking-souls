@@ -26,6 +26,8 @@ public class LevelGenerator : MonoBehaviour
     [Tooltip("Rate at which elites spawn.")]
     public float eliteRate;
     public float roomSize;
+    public float roomSizeLv1;
+    public float roomSizeLv2;
 
     [Tooltip("By default the seed will generate randomly if not specified. " +
              "The inputted seed can be any combination of numbers and character.")]
@@ -68,9 +70,14 @@ public class LevelGenerator : MonoBehaviour
         if(numberRooms <= 0) {
             Debug.LogError("The number of rooms specified is not valid.");
         }
+        
     }
 
     public GameObject Spawn() {
+
+        if (level.name == "DeathIsland") roomSize = roomSizeLv2;
+        else roomSize = roomSizeLv1;
+
         Debug.Log(level.name);
         RoomsA = level.RoomsA;
         RoomsB = level.RoomsB;

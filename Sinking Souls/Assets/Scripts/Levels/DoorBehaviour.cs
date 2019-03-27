@@ -17,7 +17,7 @@ public class DoorBehaviour : MonoBehaviour {
     }
 
     void SetNext() {
-        int layerMask = 1 << 13;
+        int layerMask = 1 << 13 | 1<<18;
 
         if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layerMask)) {
             nextDoor = hit.transform.gameObject;

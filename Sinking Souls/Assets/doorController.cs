@@ -7,14 +7,15 @@ public class doorController : MonoBehaviour {
     public List<GameObject> closedDoor;
     private float closedPosition;
     private float openPosition;
-    private float speed;
+    public float speed = 2.25f;
+    public float offset = 4.5f;
 
 
     private void Start()
     {
-        openPosition = -103;
-        closedPosition = 92;
-        speed = 90;
+        if (speed == 0) speed = 2.25f;
+        openPosition = closedDoor[0].transform.position.y;
+        closedPosition = closedDoor[0].transform.position.y + offset;
     }
 
     // Update is called once per frame
@@ -26,16 +27,27 @@ public class doorController : MonoBehaviour {
 
     void closeDoor()
     {
+
         // AudioManager.Instance.PlayEffect("Wall");
 
-        for (int i = 0; i < closedDoor.Count; i++)// GameObject door in closedDoor)
-        {
-            if(closedDoor[i].transform.localPosition.y < closedPosition)
+        if(checkDistance())
+            for (int i = 0; i < closedDoor.Count; i++)// GameObject door in closedDoor
             {
-                closedDoor[i].transform.localPosition += Vector3.up * Time.deltaTime * speed;
+                if (closedDoor[i].transform.position.y < closedPosition)
+                {
+                    closedDoor[i].transform.position += Vector3.up * Time.deltaTime * speed;
+                    Debug.Log("Cerrando");
+                }
+                else closedDoor[i].transform.position = new Vector3(closedDoor[i].transform.position.x, closedPosition, closedDoor[i].transform.position.z);
             }
-            else closedDoor[i].transform.localPosition = new Vector3(closedDoor[i].transform.localPosition.x, closedPosition, closedDoor[i].transform.localPosition.z);
-        }
+        
+    }
+
+    bool checkDistance()
+    {
+
+        return Vector3.Distance(transform.position, GameController.instance.player.transform.position) < 20; //Por que 38? porque lo digo yo
+
     }
 
     void openDoor()
@@ -44,11 +56,12 @@ public class doorController : MonoBehaviour {
 
         foreach (GameObject door in closedDoor)
         {
-            if (door.transform.localPosition.y  > openPosition)
+            if (door.transform.position.y  > openPosition)
             {
-                door.transform.localPosition -= Vector3.up * Time.deltaTime * speed;
+                door.transform.position -= Vector3.up * Time.deltaTime * speed;
+                Debug.Log("Abriendo");
             }
-            else door.transform.localPosition = new Vector3(door.transform.localPosition.x, openPosition, door.transform.localPosition.z);
+            else door.transform.position = new Vector3(door.transform.position.x, openPosition, door.transform.position.z);
         }
     }
 }

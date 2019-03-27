@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Tree
-  m_Shader: {fileID: 4800000, guid: 6e35b10f6d773884daa841d1795fcbfe, type: 3}
+  m_Name: Bridge
+  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
   m_ShaderKeywords: _NORMALMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -18,20 +18,8 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_9A91EAA:
-        m_Texture: {fileID: 2800000, guid: fa51c551f064d44409fdb6c7cbd6b9b8, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture2D_9E0FD785:
-        m_Texture: {fileID: 2800000, guid: e29768df17785df43bdcba4a346bec38, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - Texture2D_F44A4239:
-        m_Texture: {fileID: 2800000, guid: c4d5aed015bc1e74f8c8f6329edb4fbb, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: e29768df17785df43bdcba4a346bec38, type: 3}
+        m_Texture: {fileID: 2800000, guid: 76c544b9eccd35e42a454332a3575bb5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -51,7 +39,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: fa51c551f064d44409fdb6c7cbd6b9b8, type: 3}
+        m_Texture: {fileID: 2800000, guid: c104cedf31f273b42b194ae088229b35, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -64,10 +52,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_5D8C58CB_Texture:
-        m_Texture: {fileID: 2800000, guid: 570097c89ee5ae1429454254fcf5fbfe, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -83,7 +67,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1
-    - _Glossiness: 1
+    - _Glossiness: 0
     - _GlossyReflections: 1
     - _Metallic: 0
     - _OcclusionStrength: 1
@@ -95,13 +79,7 @@ Material:
     - _UVSec: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _limit: 0
     m_Colors:
-    - Color_5AB3B327: {r: 0, g: 0, b: 0, a: 0}
-    - Color_B92600CE: {r: 1, g: 1, b: 1, a: 0}
-    - Vector2_815392EB: {r: 1, g: 1, b: 0, a: 0}
-    - _Camera: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _PlayerPosition: {r: 0, g: 5, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}

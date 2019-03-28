@@ -183,6 +183,7 @@ GameObject:
   - component: {fileID: 64911044768478158}
   - component: {fileID: 65836080216282746}
   - component: {fileID: 65356954018081748}
+  - component: {fileID: 114175172654124326}
   m_Layer: 0
   m_Name: Bridge_Left
   m_TagString: Ground
@@ -535,6 +536,7 @@ GameObject:
   - component: {fileID: 64202578725323612}
   - component: {fileID: 65959578991878038}
   - component: {fileID: 65465943198053696}
+  - component: {fileID: 114838854912041330}
   m_Layer: 0
   m_Name: Bridge_Left
   m_TagString: Ground
@@ -1432,6 +1434,7 @@ GameObject:
   - component: {fileID: 64364333358969422}
   - component: {fileID: 65597972237227866}
   - component: {fileID: 65948945175235860}
+  - component: {fileID: 114472346169181202}
   m_Layer: 0
   m_Name: Bridge_Left
   m_TagString: Ground
@@ -1753,6 +1756,7 @@ GameObject:
   - component: {fileID: 64831650793681680}
   - component: {fileID: 65546503913057864}
   - component: {fileID: 65924159309838866}
+  - component: {fileID: 114628962010581734}
   m_Layer: 0
   m_Name: Bridge_Left
   m_TagString: Ground
@@ -4030,7 +4034,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1709127690023634}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 90.21, y: -5.1, z: -17.81807}
+  m_LocalPosition: {x: 9603.888, y: 20243.986, z: 2115.7803}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4143277975414318}
@@ -9120,6 +9124,21 @@ MonoBehaviour:
   - {fileID: 1509446016714438}
   - {fileID: 1150698038387306}
   - {fileID: 1136440949968882}
+--- !u!114 &114175172654124326
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1068023959121668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!114 &114343651192845230
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9159,6 +9178,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 0
   nextDoor: {fileID: 0}
+--- !u!114 &114472346169181202
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1540743849910370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!114 &114490167894946962
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9186,7 +9220,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: aed306574619a9e4ea3b3d16de07d852, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 3b64a248e45ee4e4a999b15143260cec, type: 2}
 --- !u!114 &114584968067154910
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9221,6 +9255,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 84a97d93a7f145d409e229a3bf7736b8, type: 2}
   alreadySpawned: 0
   spawnPoints: []
+--- !u!114 &114628962010581734
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1640613146065006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!114 &114638498947999150
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -9234,3 +9283,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locked: 0
   nextDoor: {fileID: 0}
+--- !u!114 &114838854912041330
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1198814382251520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

@@ -2842,6 +2842,7 @@ GameObject:
   - component: {fileID: 65055553426889048}
   - component: {fileID: 65701025580574964}
   - component: {fileID: 64499316105967990}
+  - component: {fileID: 114972892729994174}
   m_Layer: 0
   m_Name: Bridge_Left
   m_TagString: Ground
@@ -3833,7 +3834,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1314581017972054}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.7300005, z: 0}
+  m_LocalPosition: {x: 0, y: -0.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4600641872534630}
@@ -4416,7 +4417,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1470925704001530}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 139.09497, y: 21.216337, z: 37.962337}
+  m_LocalPosition: {x: -812.5014, y: 1129.5834, z: -640.611}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4406815112179616}
@@ -4927,7 +4928,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1909923115430976}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: -0.14, z: -0.26}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4074104840575850}
@@ -10958,7 +10959,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: d1b4322176b6de24487ddf8558576248, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: ceacda360ad1e0045b51264d542a2b8f, type: 2}
 --- !u!114 &114297776069759836
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -11029,3 +11030,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 84a97d93a7f145d409e229a3bf7736b8, type: 2}
   alreadySpawned: 0
   spawnPoints: []
+--- !u!114 &114972892729994174
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1909923115430976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e3fdca004f2d45fe8abbed571a8abd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

@@ -35,7 +35,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1479414305495846}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -60,9 +60,10 @@ MonoBehaviour:
   playerPrefab: {fileID: 1374338400793274, guid: 44389e0974990014b85d7b72e8893276,
     type: 2}
   blueprint: {fileID: 1656587315307008, guid: 1a7131efd18afaf4cb4d1edaea296ef7, type: 2}
-  m_RescuedBlacksmith: 1
-  m_RescuedAlchemist: 1
-  m_LobbySouls: 100
+  m_RescuedBlacksmith: 0
+  m_RescuedAlchemist: 0
+  lobbySouls: 0
+  runSouls: 0
   modifiers:
   - {fileID: 11400000, guid: 2b9b733efd55e0f40901ad0d69cc3b6d, type: 2}
   - {fileID: 11400000, guid: bf9941d22fbf0c7479a59603d39716c2, type: 2}
@@ -81,6 +82,10 @@ MonoBehaviour:
   innKeeperShop: {fileID: 1783315880503980, guid: 39c87975063fd194483a38147f6b1293,
     type: 2}
   roomEnemies: []
+  postProcesingProfileLevel1: {fileID: 11400000, guid: 597ee8a88a343034589a943ece5b5c34,
+    type: 2}
+  postProcesingProfileLevel2: {fileID: 11400000, guid: 93072f2240c0c9841bb2c69d3250b20b,
+    type: 2}
   died: 0
   inTavern: 0
   debugMode: 0
@@ -113,6 +118,8 @@ MonoBehaviour:
   lastRoom: {fileID: 0}
   eliteRate: 1
   roomSize: 39.46
+  roomSizeLv1: 39.46
+  roomSizeLv2: 97.4
   seed: 
   level: {fileID: 11400000, guid: 5a1017c812d763441994ee36bb354230, type: 2}
   Crew:

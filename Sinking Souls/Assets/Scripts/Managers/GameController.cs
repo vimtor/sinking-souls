@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System;
 using System.Linq;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering.PostProcessing;
 
 public class GameController : MonoBehaviour
 {
@@ -38,6 +39,9 @@ public class GameController : MonoBehaviour
     public Enhancer[] enhancers;
     public GameObject innKeeperShop;
     public List<GameObject> roomEnemies;
+
+    public PostProcessProfile postProcesingProfileLevel1;
+    public PostProcessProfile postProcesingProfileLevel2;
 
     [HideInInspector] public bool died;
     [HideInInspector] public bool inTavern;
@@ -108,6 +112,12 @@ public class GameController : MonoBehaviour
                 currentRoom.GetComponent<SpawnController>().alreadySpawned = true;
 
                 SetupGame();
+                GameObject.Find("Post Processing").gameObject.GetComponent<PostProcessVolume>().profile = postProcesingProfileLevel2;
+
+                if (GetComponent<LevelGenerator>().level.name != "DeathIsland") {
+                    player.transform.Find("DeathIsland").gameObject.SetActive(false);
+                    GameObject.Find("Post Processing").gameObject.GetComponent<PostProcessVolume>().profile = postProcesingProfileLevel1;
+                }
                 break;
             case ApplicationManager.GameState.TUTORIAL:
                 inTavern = false;
@@ -116,6 +126,9 @@ public class GameController : MonoBehaviour
                 levelGenerator.currentLevel = -1;
                 currentRoom = GameObject.Find("PlayerSpawn");
                 SetupGame();
+                player.transform.Find("DeathIsland").gameObject.SetActive(false);
+                GameObject.Find("Post Processing").gameObject.GetComponent<PostProcessVolume>().profile = postProcesingProfileLevel1;
+
             break;
             case ApplicationManager.GameState.LOBBY:
                 AudioManager.Instance.PlayMusic("Waves");
@@ -127,6 +140,7 @@ public class GameController : MonoBehaviour
                 currentRoom = GameObject.Find("PlayerSpawn");
 
                 SetupGame();
+                player.transform.Find("DeathIsland").gameObject.SetActive(false);
 
                 if (died)
                 {

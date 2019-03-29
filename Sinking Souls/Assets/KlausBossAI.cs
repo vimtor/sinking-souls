@@ -169,9 +169,10 @@ public class KlausBossAI : MonoBehaviour {
             if (startingCounter < 1) {///get to starting position + size
                 for (int i = 0; i < 6; i++) {
                     if (!swords[i].GetComponent<SwordBehaviour>().dead) {
-                        targget[i] = gameObject.transform.position + (((GameController.instance.player.transform.position + GameController.instance.player.transform.forward* bigVelocityOffset) - gameObject.transform.position).normalized * startingPos.x) + Vector3.up * startingPos.y;
-
-                        float speed = flyingSpeed;
+                        if(GameController.instance.player.GetComponent<Rigidbody>().velocity.magnitude >= 0.1f) targget[i] = gameObject.transform.position + (((GameController.instance.player.transform.position + GameController.instance.player.transform.forward * bigVelocityOffset) - gameObject.transform.position).normalized * startingPos.x) + Vector3.up * startingPos.y;
+                        else targget[i] = gameObject.transform.position + (((GameController.instance.player.transform.position) - gameObject.transform.position).normalized * startingPos.x) + Vector3.up * startingPos.y;
+                        
+                            float speed = flyingSpeed;
 
                         if ((targget[i] - swords[i].transform.position).magnitude < 1) {
                             speed = flyingSpeed * 5;
@@ -184,7 +185,8 @@ public class KlausBossAI : MonoBehaviour {
                         swords[i].transform.forward = targget[i] - swords[i].transform.position;
 
                         if ((targget[i] - swords[i].transform.position).magnitude < 1) {
-                            swords[i].transform.forward = new Vector3(((GameController.instance.player.transform.position + GameController.instance.player.transform.forward * bigVelocityOffset) - swords[i].transform.position).x, 0, ((GameController.instance.player.transform.position + GameController.instance.player.transform.forward * bigVelocityOffset) - swords[i].transform.position).z);//up
+                            if (GameController.instance.player.GetComponent<Rigidbody>().velocity.magnitude >= 0.1f) swords[i].transform.forward = new Vector3(((GameController.instance.player.transform.position + GameController.instance.player.transform.forward * bigVelocityOffset) - swords[i].transform.position).x, 0, ((GameController.instance.player.transform.position + GameController.instance.player.transform.forward * bigVelocityOffset) - swords[i].transform.position).z);//up
+                            else swords[i].transform.forward = new Vector3(((GameController.instance.player.transform.position) - swords[i].transform.position).x, 0, ((GameController.instance.player.transform.position) - swords[i].transform.position).z);//up
                             swords[i].transform.Rotate(new Vector3(1, 0, 0), -90);
                         }
                     }
@@ -244,9 +246,6 @@ public class KlausBossAI : MonoBehaviour {
 
             }
         }
-
-
-
 
         startingCounter += Time.deltaTime;
         otherTimesCounter += Time.deltaTime;

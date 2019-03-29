@@ -238,8 +238,17 @@ public class Entity : MonoBehaviour
         m_Animator.SetFloat("HitX", hitPosition.x);
         m_Animator.SetFloat("HitY", hitPosition.z);
         m_Animator.SetTrigger("React");
-
+        if (gameObject.tag == "Player") Time.timeScale = 0.1f;
+        Debug.Log("Reacted");
+        StartCoroutine(ContiuneGame(0.03f));
         StartCoroutine(ReactCoroutine());
+    }
+
+    private IEnumerator ContiuneGame(float t) {
+        yield return new WaitForSecondsRealtime(t);
+        Time.timeScale = 1f;
+
+
     }
 
     private IEnumerator ReactCoroutine()
@@ -287,9 +296,9 @@ public class Entity : MonoBehaviour
                     Destroy(hitParticles, 1);
                     
                     if (gameObject.tag == "Player") gameObject.GetComponent<Player>().Dodge = Player.DodgeType.NONE;
-
+                    
                     if (other.GetComponent<WeaponHolder>().owner.tag == "Player") other.GetComponent<WeaponHolder>().owner.GetComponent<Entity>().lockedEnemy = gameObject;
-                    React(other.GetComponent<WeaponHolder>().owner.transform.position);
+                    React( other.ClosestPointOnBounds(gameObject.transform.position));
                     ApplyModifier(other.GetComponent<WeaponHolder>().holder.modifier);
 
                     if (other.GetComponent<WeaponHolder>().owner.tag == "Player") AudioManager.Instance.PlayEffect("Splash");

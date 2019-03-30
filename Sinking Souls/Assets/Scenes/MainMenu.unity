@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.1273174, g: 0.13414761, b: 0.12107885, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -90,7 +90,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -408,6 +408,7 @@ GameObject:
   - component: {fileID: 288739611}
   - component: {fileID: 288739610}
   - component: {fileID: 288739609}
+  - component: {fileID: 288739612}
   m_Layer: 5
   m_Name: Main Menu
   m_TagString: Untagged
@@ -484,6 +485,19 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 288739608}
   m_CullTransparentMesh: 0
+--- !u!114 &288739612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 288739608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6e4a302cc3549344a2ca31ac2e1eefb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settingsMenu: {fileID: 1711497624}
+  mainMenuContent: {fileID: 884807068}
 --- !u!21 &432940833
 Material:
   serializedVersion: 6
@@ -657,12 +671,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &614984509 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114952167781030384, guid: f23334ac8dd6c8b4d8aad3eacd8f308f,
-    type: 2}
-  m_PrefabInternal: {fileID: 240185642}
-  m_Script: {fileID: 11500000, guid: cfef35ff7f3e36547837c97d350a39d0, type: 3}
 --- !u!1 &704416647
 GameObject:
   m_ObjectHideFlags: 0
@@ -784,6 +792,17 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -962,8 +981,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 842874932}
-        m_MethodName: QuitApplication
+      - m_Target: {fileID: 288739612}
+        m_MethodName: Exit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1011,12 +1030,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 799378128}
   m_CullTransparentMesh: 0
---- !u!114 &842874932 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114337623052856484, guid: 258b637205f84f34c91c424fca3067e4,
-    type: 2}
-  m_PrefabInternal: {fileID: 747175379}
-  m_Script: {fileID: 11500000, guid: 0b1a216b87f73454bae7a4562d14bff5, type: 3}
 --- !u!1001 &856091623
 Prefab:
   m_ObjectHideFlags: 0
@@ -1400,31 +1413,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 842874932}
-        m_MethodName: LoadGame
+      - m_Target: {fileID: 288739612}
+        m_MethodName: Play
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Lobby
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1612481710}
-        m_MethodName: PlayMusic
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Soundtrack
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 614984509}
-        m_MethodName: ChangeScene
-        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1964,12 +1955,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c6a1732380a6f049b686d79c4620cb7, type: 2}
   m_IsPrefabAsset: 0
---- !u!114 &1612481710 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114744234794421420, guid: 7c28def7a29c4684b8c6fa6e3eaa25d5,
-    type: 2}
-  m_PrefabInternal: {fileID: 1534222849}
-  m_Script: {fileID: 11500000, guid: e9e1c174035a3a8489facddf829feba3, type: 3}
 --- !u!1001 &1711497620
 Prefab:
   m_ObjectHideFlags: 0
@@ -2092,6 +2077,11 @@ Prefab:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 432940833}
+    - target: {fileID: 114278336699623980, guid: 9ebe54a8a41368e4bb28ebb11fef5d43,
+        type: 2}
+      propertyPath: button
+      value: 
+      objectReference: {fileID: 974725008}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ebe54a8a41368e4bb28ebb11fef5d43, type: 2}
   m_IsPrefabAsset: 0

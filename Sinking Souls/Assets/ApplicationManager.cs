@@ -126,6 +126,7 @@ public class ApplicationManager : MonoBehaviour
                 break;
         }
 
+        Debug.Log(state);
         StartCoroutine(LoadSceneAsync(sceneName));
     }
 

@@ -34,8 +34,18 @@ public class EventSystemWrapper : MonoBehaviour
 
     public void Select(GameObject selectable)
     {
-        Debug.Log(selectable);
         _eventSystem.SetSelectedGameObject(selectable);
+    }
+
+    public void Select(GameObject selectable, float time)
+    {
+        StartCoroutine(SelectTime(selectable, time));
+    }
+
+    private IEnumerator SelectTime(GameObject selectable, float time)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        Select(selectable);
     }
 
     public bool IsSelected(GameObject selectable)

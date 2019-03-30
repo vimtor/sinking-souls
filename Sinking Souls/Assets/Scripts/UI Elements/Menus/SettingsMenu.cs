@@ -11,6 +11,9 @@ using TMPro;
 /// </summary>
 public class SettingsMenu : MonoBehaviour
 {
+    public GameObject button;
+
+    [Header("Settings")]
     public TMP_Dropdown m_ResolutionsDropdown;
     public TMP_Dropdown m_GraphicsDropdown;
     public Toggle m_FullscreenToggle;
@@ -53,6 +56,16 @@ public class SettingsMenu : MonoBehaviour
         m_MasterSlider.value = SettingsManager.Instance.MasterVolume;
         m_EffectsSlider.value = SettingsManager.Instance.EffectsVolume;
         m_MusicSlider.value = SettingsManager.Instance.MusicVolume;
+    }
+
+    void Update()
+    {
+        if (InputManager.ButtonB)
+        {
+            InputManager.ButtonB = false;
+            EventSystemWrapper.Instance.Select(button, 0.1f);
+            gameObject.SetActive(false);
+        }
     }
 
     #region Graphics API

@@ -11,7 +11,10 @@ public class DialogueManager : MonoBehaviour
     public Image characterFace;
     public TextMeshProUGUI characterName;
     public TextMeshProUGUI messageContent;
+
+    [Header("Extras")]
     public GameObject blackFrames;
+    public GameObject inGameUI;
     
     private GameObject lastCamera;
     private Queue<Dialogue> conversation;
@@ -41,6 +44,7 @@ public class DialogueManager : MonoBehaviour
     public void StartConversation(Dialogue[] dialogues, bool cinematic)
     {
         genericDialogue.SetActive(true);
+        inGameUI.SetActive(false);
 
         if (cinematic)
         {
@@ -59,6 +63,7 @@ public class DialogueManager : MonoBehaviour
         genericDialogue.SetActive(false);
         lastCamera.SetActive(false);
         blackFrames.SetActive(false);
+        inGameUI.SetActive(true);
 
         GameController.instance.player.GetComponent<Player>().Resume();
 

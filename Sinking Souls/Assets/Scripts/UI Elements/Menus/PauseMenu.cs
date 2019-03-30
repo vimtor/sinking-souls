@@ -6,9 +6,12 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseContent;
     public GameObject resumeButton;
+    public GameObject settingsMenu;
     public Image backgroundImage;
 
+
     private bool isPaused;
+    private bool inSettings;
 
     private void Start()
     {
@@ -31,8 +34,12 @@ public class PauseMenu : MonoBehaviour
             }
         }
 
-        if (isPaused)
+        if (!isPaused) return;
+
+        if (!settingsMenu.activeSelf)
         {
+            pauseContent.SetActive(true);
+
             if (InputManager.ButtonB)
             {
                 InputManager.ButtonB = false;

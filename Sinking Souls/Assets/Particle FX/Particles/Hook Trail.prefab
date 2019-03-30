@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4859097260429418}
   m_Layer: 0
-  m_Name: Trail
+  m_Name: Hook Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1281,33 +1281,33 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 0.9607843, g: 0.3166893, b: 0.03921567, a: 1}
-        key1: {r: 1, g: 0.8057231, b: 0, a: 1}
-        key2: {r: 0.6509804, g: 0.17294878, b: 0.015686264, a: 0}
-        key3: {r: 0, g: 0, b: 0, a: 0}
+        key0: {r: 0.8301887, g: 0.7236081, b: 0.246707, a: 0}
+        key1: {r: 0.735849, g: 0.25267443, b: 0.23255605, a: 1}
+        key2: {r: 0.55245537, g: 0.24887869, b: 0.17383726, a: 1}
+        key3: {r: 0.31132078, g: 0.2206578, b: 0.19824672, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
-        ctime0: 4626
-        ctime1: 21974
-        ctime2: 65535
-        ctime3: 0
+        ctime0: 0
+        ctime1: 6361
+        ctime2: 20817
+        ctime3: 65535
         ctime4: 0
         ctime5: 0
         ctime6: 0
         ctime7: 0
         atime0: 0
-        atime1: 41827
-        atime2: 65535
-        atime3: 0
+        atime1: 5397
+        atime2: 54548
+        atime3: 65535
         atime4: 0
         atime5: 0
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_NumColorKeys: 3
-        m_NumAlphaKeys: 3
+        m_NumColorKeys: 4
+        m_NumAlphaKeys: 4
       minGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -2538,11 +2538,11 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
   NoiseModule:
-    enabled: 0
+    enabled: 1
     strength:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.34
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -2699,7 +2699,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     separateAxes: 0
-    frequency: 0.5
+    frequency: 0.63
     damping: 1
     octaves: 1
     octaveMultiplier: 0.5
@@ -3027,7 +3027,7 @@ ParticleSystem:
     sizeAmount:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 0.21
       minScalar: 0
       maxCurve:
         serializedVersion: 2

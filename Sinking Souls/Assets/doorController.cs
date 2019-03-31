@@ -11,6 +11,7 @@ public class doorController : MonoBehaviour {
     public float offset = 4.5f;
 
 
+
     private void Start()
     {
         if (speed == 0) speed = 2.25f;
@@ -20,8 +21,10 @@ public class doorController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+
         if (GameController.instance.roomEnemies.Count > 0) closeDoor();
         else openDoor();
+
 	}
 
 

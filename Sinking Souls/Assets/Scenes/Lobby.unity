@@ -91,7 +91,7 @@ LightmapSettings:
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 112000002, guid: 8c7627b0eb295b249bc3238daf8c3a14,
     type: 2}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -2630,7 +2630,8 @@ Prefab:
       propertyPath: virtualCamera
       value: 
       objectReference: {fileID: 864551028}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114690391365850534, guid: 4a2822d798356a3448064efc3ce63bca, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 4a2822d798356a3448064efc3ce63bca, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &1208867265

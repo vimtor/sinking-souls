@@ -43,8 +43,14 @@ public class Enemy : Entity {
     {
         if (!dead)
         {
-            Animator.SetTrigger("Die");
+
             StartCoroutine(WaitToDie(deathDuration));
+            if (Animator != null) Animator.SetTrigger("Die");
+            else {
+                StartCoroutine(fallToDie(1));
+                GetComponent<BoxCollider>().isTrigger = true;
+                GetComponent<Rigidbody>().useGravity = false;
+            }
             GameController.instance.player.GetComponent<Player>().lockedEnemy = null;
             GameController.instance.player.GetComponent<Player>().ResetMovement();
             dead = true;
@@ -58,6 +64,15 @@ public class Enemy : Entity {
             }
         }
 
+    }
+
+    IEnumerator fallToDie(float time) {
+        Debug.Log("Hola?");
+        yield return new WaitForEndOfFrame();
+        transform.Rotate(Vector3.left, 90 * Time.deltaTime, Space.Self);
+        if(time -Time.deltaTime > 0) {
+            StartCoroutine(fallToDie(time - Time.deltaTime));
+        }
     }
 
     IEnumerator WaitToDie(float time)

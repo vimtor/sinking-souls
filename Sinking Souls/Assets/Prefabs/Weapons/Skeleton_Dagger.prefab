@@ -21,9 +21,10 @@ GameObject:
   - component: {fileID: 4768215637287482}
   - component: {fileID: 33388390519591876}
   - component: {fileID: 23710906120548428}
-  m_Layer: 0
+  - component: {fileID: 65504900994668214}
+  m_Layer: 12
   m_Name: Skeleton_Dagger
-  m_TagString: Untagged
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -35,8 +36,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1256828436389522}
   m_LocalRotation: {x: 0.000000011403656, y: 0.7071069, z: 0.7071067, w: 0}
-  m_LocalPosition: {x: -2.716, y: 1.327, z: -7.315}
-  m_LocalScale: {x: 1.525097, y: 1.525097, z: 0.94374}
+  m_LocalPosition: {x: 10.299763, y: 50.054, z: 1.529}
+  m_LocalScale: {x: 2.5045142, y: 2.5045142, z: 1.5498098}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -83,3 +84,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1256828436389522}
   m_Mesh: {fileID: 4300000, guid: da8d044878a480f4586a9d511e36f1ec, type: 3}
+--- !u!65 &65504900994668214
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1256828436389522}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.12, y: 0.43, z: 0.07}
+  m_Center: {x: 0, y: -0.06, z: 0}

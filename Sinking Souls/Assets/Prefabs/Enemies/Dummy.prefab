@@ -87,7 +87,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4702601669094458}
-  - component: {fileID: 95508374391670454}
   - component: {fileID: 114224021275079350}
   - component: {fileID: 54450682381647450}
   - component: {fileID: 195474965251734676}
@@ -176,7 +175,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1934652393617584}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.19156075, y: -0.001, z: -7.61}
+  m_LocalPosition: {x: -0.082530975, y: 0, z: -5.683151}
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children:
   - {fileID: 4740377296732796}
@@ -437,24 +436,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.031441357, y: 0.05342922, z: 0.01}
   m_Center: {x: 0.0026608962, y: 0.025, z: 0}
---- !u!95 &95508374391670454
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1934652393617584}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 8aef4faba74b0ac41acc9a5fbea07b92, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114224021275079350
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -496,7 +477,7 @@ MonoBehaviour:
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0
   m_Souls: 10
-  deathDuration: 0
+  deathDuration: 1
   abilities: []
   allie: {fileID: 0}
 --- !u!195 &195474965251734676

@@ -11,7 +11,6 @@ public class Dialogue
 
     [TextArea]
     public string message;
-    public GameObject camera;
 
     [Tooltip("If true the following dialogue will play when this has finished.")]
     public bool automatic;

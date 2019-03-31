@@ -81,6 +81,7 @@ public class PauseMenu : MonoBehaviour
 
     public void ExitMenu()
     {
+        Resume();
         ApplicationManager.Instance.ChangeScene(ApplicationManager.GameState.MAIN_MENU);
     }
 }

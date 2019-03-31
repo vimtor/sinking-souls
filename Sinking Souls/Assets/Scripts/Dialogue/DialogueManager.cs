@@ -76,7 +76,9 @@ public class DialogueManager : MonoBehaviour
         var dialogue = conversation.Dequeue();
         characterFace.sprite = dialogue.face;
         characterName.text = dialogue.name;
-        messageContent.text = dialogue.message;
+
+        StopCoroutine("TypeSentence");
+        StartCoroutine(TypeSentence(dialogue.message));
 
         // Display the next dialogue if automatic.
         if (dialogue.automatic)
@@ -90,5 +92,33 @@ public class DialogueManager : MonoBehaviour
         // Or wait unity the continue button is pressed.
         yield return new WaitUntil(() => InputManager.ButtonA);
         StartCoroutine(DisplayDialogue());
+    }
+
+    public void DisplayDialogue(Dialogue dialogue)
+    {
+        genericDialogue.SetActive(true);
+
+        characterFace.sprite = dialogue.face;
+        characterName.text = dialogue.name;
+
+        StopCoroutine("TypeSentence");
+        StartCoroutine(TypeSentence(dialogue.message));
+    }
+
+    public void HideDialogue()
+    {
+        genericDialogue.SetActive(false);
+    }
+
+    private IEnumerator TypeSentence(string sentence)
+    {
+        messageContent.text = "";
+        foreach (char letter in sentence.ToCharArray())
+        {
+            messageContent.text += letter;
+
+            yield return null;
+            yield return null;
+        }
     }
 }

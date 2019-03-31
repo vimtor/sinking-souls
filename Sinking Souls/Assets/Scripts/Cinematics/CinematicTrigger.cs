@@ -11,7 +11,7 @@ public class CinematicTrigger : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
-        CinematicManager.Instance.StartCinematic(timeline);
+        CinematicManager.Instance.Play(timeline);
         Destroy(gameObject);
     }
 }

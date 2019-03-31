@@ -16,7 +16,6 @@ public class DialogueManager : MonoBehaviour
     public GameObject blackFrames;
     public GameObject inGameUI;
     
-    private GameObject lastCamera;
     private Queue<Dialogue> conversation;
 
 
@@ -41,15 +40,10 @@ public class DialogueManager : MonoBehaviour
     }
     #endregion
 
-    public void StartConversation(Dialogue[] dialogues, bool cinematic)
+    public void StartConversation(Dialogue[] dialogues)
     {
         genericDialogue.SetActive(true);
         inGameUI.SetActive(false);
-
-        if (cinematic)
-        {
-            blackFrames.SetActive(true);
-        }
 
         conversation = new Queue<Dialogue>(dialogues);
 
@@ -61,7 +55,6 @@ public class DialogueManager : MonoBehaviour
     private void EndConversation()
     {
         genericDialogue.SetActive(false);
-        lastCamera.SetActive(false);
         blackFrames.SetActive(false);
         inGameUI.SetActive(true);
 
@@ -83,17 +76,9 @@ public class DialogueManager : MonoBehaviour
         var dialogue = conversation.Dequeue();
         characterFace.sprite = dialogue.face;
         characterName.text = dialogue.name;
-        messageContent.text = dialogue.message;
 
-        // Update the camera if needed.
-        if (dialogue.camera != null)
-        {
-            dialogue.camera.SetActive(true);
-
-            // To avoid accumulating active cameras.
-            if (lastCamera != null) lastCamera.SetActive(false); 
-            lastCamera = dialogue.camera;
-        }
+        StopCoroutine("TypeSentence");
+        StartCoroutine(TypeSentence(dialogue.message));
 
         // Display the next dialogue if automatic.
         if (dialogue.automatic)
@@ -107,5 +92,33 @@ public class DialogueManager : MonoBehaviour
         // Or wait unity the continue button is pressed.
         yield return new WaitUntil(() => InputManager.ButtonA);
         StartCoroutine(DisplayDialogue());
+    }
+
+    public void DisplayDialogue(Dialogue dialogue)
+    {
+        genericDialogue.SetActive(true);
+
+        characterFace.sprite = dialogue.face;
+        characterName.text = dialogue.name;
+
+        StopCoroutine("TypeSentence");
+        StartCoroutine(TypeSentence(dialogue.message));
+    }
+
+    public void HideDialogue()
+    {
+        genericDialogue.SetActive(false);
+    }
+
+    private IEnumerator TypeSentence(string sentence)
+    {
+        messageContent.text = "";
+        foreach (char letter in sentence.ToCharArray())
+        {
+            messageContent.text += letter;
+
+            yield return null;
+            yield return null;
+        }
     }
 }

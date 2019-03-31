@@ -5,19 +5,25 @@ using UnityEngine.Timeline;
 public class DialoguePlayableBehaviour : PlayableBehaviour
 {
     public Dialogue dialogue;
-    public PlayableDirector director;
     public TimelineAsset timeline;
 
     private bool canPlayNext;
+    private bool firstTime = true;
 
     
     public override void ProcessFrame(Playable playable, FrameData info, object playerData)
     {
-        Debug.Log(dialogue.name);
+        if (firstTime)
+        {
+            firstTime = false;
+            DialogueManager.Instance.DisplayDialogue(dialogue);
+        }
 
         if (Input.GetKey(KeyCode.K))
         {
-            director.Play(timeline);
+            canPlayNext = false;
+            DialogueManager.Instance.HideDialogue();
+            CinematicManager.Instance.Play(timeline);
         }
     }
 
@@ -30,6 +36,13 @@ public class DialoguePlayableBehaviour : PlayableBehaviour
     public override void OnPlayableDestroy(Playable playable)
     {
         base.OnPlayableDestroy(playable);
-        if (canPlayNext) director.Play(timeline);
+
+        if (canPlayNext) NextCinematic();
+    }
+
+    private void NextCinematic()
+    {
+        DialogueManager.Instance.HideDialogue();
+        CinematicManager.Instance.Play(timeline);
     }
 }

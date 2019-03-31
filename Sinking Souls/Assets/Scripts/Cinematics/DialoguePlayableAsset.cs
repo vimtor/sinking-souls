@@ -15,7 +15,6 @@ public class DialoguePlayableAsset : PlayableAsset
         var dialogueBehaviour = playable.GetBehaviour();
         dialogueBehaviour.dialogue = dialogue;
         dialogueBehaviour.timeline = timeline;
-        dialogueBehaviour.director = owner.GetComponent<PlayableDirector>();
 
         return playable;
     }

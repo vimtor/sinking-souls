@@ -93,23 +93,13 @@ public class GameController : MonoBehaviour
 
             case ApplicationManager.GameState.TABERN:
                 inTavern = true;
-                levelGenerator.takenPos = new List<Vector2>();
-                currentRoom = GameObject.Find("SpawnPoint");///////change to find current
-
-                var innBehaviour = GameObject.Find("Triton Innkeeper").GetComponent<InnkeeperBehaviour>();
-                var shopPanel = Instantiate(innKeeperShop, GameObject.Find("Canvas").transform, false);
-
-                innBehaviour.shopPanel = shopPanel;
+                currentRoom = GameObject.Find("SpawnPoint");
 
                 SetupGame();
                 player.GetComponent<Player>().Heal();
-
-                innBehaviour.FillShop();
                 break;
 
             case ApplicationManager.GameState.GAME:
-                if (m_RescuedBlacksmith) GetComponent<LevelGenerator>().level = level1;
-                if (m_RescuedAlchemist) GetComponent<LevelGenerator>().level = level2;
                 died = false;
 
                 levelGenerator.takenPos = new List<Vector2>();
@@ -136,10 +126,8 @@ public class GameController : MonoBehaviour
                 GameObject.Find("Post Processing").gameObject.GetComponent<PostProcessVolume>().profile = postProcesingProfileLevel1;
 
             break;
-            case ApplicationManager.GameState.LOBBY:
 
-                if (m_RescuedBlacksmith) GetComponent<LevelGenerator>().level = level1;
-                if (m_RescuedAlchemist) GetComponent<LevelGenerator>().level = level2;
+            case ApplicationManager.GameState.LOBBY:
                 AudioManager.Instance.PlayMusic("Waves");
 
                 inTavern = false;
@@ -194,22 +182,26 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            godMode = false;
+            debugMode = !debugMode;
+
+            string status = debugMode ? "activated" : "deactivated";
+            Debug.Log("Debug mode " + status);
         }
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            godMode = true;
+            godMode = !godMode;
+
+            string status = godMode ? "activated" : "deactivated";
+            Debug.Log("God mode " + status);
         }
 
         if (Input.GetKeyDown(KeyCode.F3))
         {
             player.transform.position = GetComponent<LevelGenerator>().lastRoom.GetComponent<DoorBehaviour>().nextDoor
                 .transform.position;
-            roomEnemies = new List<GameObject>();
         }
 
         if (Input.GetKeyDown(KeyCode.F4)) {
@@ -321,4 +313,3 @@ public class GameController : MonoBehaviour
         m_RescuedBlacksmith = save.blacksmith;
     }
 }
-

@@ -262,7 +262,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: cb3b719d829c5314495351fca4e48a38, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -514,13 +514,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef786883e1f545748bbd73bf612afc4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayMinimap: 1
   healthbar: {fileID: 114593965743305874}
   soulsAmount: {fileID: 114800296840974350}
   abilityIcon: {fileID: 114212705340022248}
   abilityOverlay: {fileID: 114645654029880188}
   abilityCooldown: {fileID: 114442387343548714}
   minimap: {fileID: 1681882135232694}
-  minimapCamera: {fileID: 0}
+  minimapCamera: {fileID: 1718008149349716}
   minimapHeight: 100
 --- !u!114 &114593965743305874
 MonoBehaviour:
@@ -876,8 +877,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -12.12, y: -0.46886}
-  m_SizeDelta: {x: 87.9, y: 87.866}
+  m_AnchoredPosition: {x: -12.12, y: -0.0000036955}
+  m_SizeDelta: {x: 66.8, y: 82.1}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!224 &224125424166907764
 RectTransform:
@@ -1010,7 +1011,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224989022574926748

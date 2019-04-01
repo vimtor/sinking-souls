@@ -67,7 +67,6 @@ public class Enemy : Entity {
     }
 
     IEnumerator fallToDie(float time) {
-        Debug.Log("Hola?");
         yield return new WaitForEndOfFrame();
         transform.Rotate(Vector3.left, 90 * Time.deltaTime, Space.Self);
         if(time -Time.deltaTime > 0) {
@@ -77,15 +76,12 @@ public class Enemy : Entity {
 
     IEnumerator WaitToDie(float time)
     {
-        yield return new WaitForSeconds(time);
-
-        for(int i = 0; i< GameController.instance.roomEnemies.Count; i++) 
-        {
-            if (GameController.instance.roomEnemies[i] == gameObject)
-            {
+        for (int i = 0; i < GameController.instance.roomEnemies.Count; i++) {
+            if (GameController.instance.roomEnemies[i] == gameObject) {
                 GameController.instance.roomEnemies.Remove(GameController.instance.roomEnemies[i]);
             }
         }
+        yield return new WaitForSeconds(time);
         Destroy(gameObject);
     }
 }

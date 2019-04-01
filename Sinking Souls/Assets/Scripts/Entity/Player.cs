@@ -639,6 +639,7 @@ public class Player : Entity
 
     private void LockDash()
     {
+        lockedDashed = true;
         switch (Dodge)
         {
             case DodgeType.NONE:
@@ -765,7 +766,6 @@ public class Player : Entity
         }
 
         Dodge = DodgeType.NONE;
-        lockedDashed = true;
     }
 
     private void Spell()
@@ -792,7 +792,8 @@ public class Player : Entity
 
         GameController.instance.died = true;
         GameController.instance.roomEnemies = new List<GameObject>();
-        ApplicationManager.Instance.ChangeScene(ApplicationManager.GameState.LOBBY);
+        if (ApplicationManager.Instance.state == ApplicationManager.GameState.TUTORIAL) ApplicationManager.Instance.ChangeScene(ApplicationManager.GameState.TUTORIAL);
+        else ApplicationManager.Instance.ChangeScene(ApplicationManager.GameState.LOBBY);
         Debug.Log("Generating");
     }
 

@@ -39,6 +39,7 @@ public class LobbyDoor : MonoBehaviour
                     if (GameController.instance.LevelGenerator.currentLevel == 2 &&
                         !GameController.instance.LevelGenerator.tabernaSpawned) {
                         // TODO: CHANGE THIS TO UNIQUE TAVERN SCENE.
+                        GameController.instance.LevelGenerator.tabernaSpawned = true;
                         ApplicationManager.Instance.ChangeScene(ApplicationManager.GameState.TABERN);
                         return;
                     }

@@ -53,7 +53,6 @@ public class IdleAction : Action
             RaycastHit hit;
            
             Physics.Raycast(controller.transform.position + new Vector3(0,1,0), (controller.player.transform.position - controller.transform.position), out hit, Mathf.Infinity, layerMask);
-            Debug.Log("Hit content = " + hit.transform.gameObject.name);
             elapsed = (hit.transform.tag != "Player");
         }
 

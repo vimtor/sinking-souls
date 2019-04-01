@@ -52,6 +52,9 @@ public class GameController : MonoBehaviour
     [HideInInspector] public GameObject player;
     [HideInInspector] public Text lobbySoulsHUD;
 
+    public LevelGeneratiorConfiguration level1;
+    public LevelGeneratiorConfiguration level2;
+
     private LevelGenerator levelGenerator;
 
     public LevelGenerator LevelGenerator
@@ -91,7 +94,7 @@ public class GameController : MonoBehaviour
             case ApplicationManager.GameState.TABERN:
                 inTavern = true;
                 levelGenerator.takenPos = new List<Vector2>();
-                currentRoom = SpawnLevel();
+                currentRoom = GameObject.Find("SpawnPoint");///////change to find current
 
                 var innBehaviour = GameObject.Find("Triton Innkeeper").GetComponent<InnkeeperBehaviour>();
                 var shopPanel = Instantiate(innKeeperShop, GameObject.Find("Canvas").transform, false);
@@ -105,6 +108,8 @@ public class GameController : MonoBehaviour
                 break;
 
             case ApplicationManager.GameState.GAME:
+                if (m_RescuedBlacksmith) GetComponent<LevelGenerator>().level = level1;
+                if (m_RescuedAlchemist) GetComponent<LevelGenerator>().level = level2;
                 died = false;
 
                 levelGenerator.takenPos = new List<Vector2>();
@@ -119,6 +124,7 @@ public class GameController : MonoBehaviour
                     GameObject.Find("Post Processing").gameObject.GetComponent<PostProcessVolume>().profile = postProcesingProfileLevel1;
                 }
                 break;
+
             case ApplicationManager.GameState.TUTORIAL:
                 inTavern = false;
                 runSouls = 0;
@@ -131,6 +137,9 @@ public class GameController : MonoBehaviour
 
             break;
             case ApplicationManager.GameState.LOBBY:
+
+                if (m_RescuedBlacksmith) GetComponent<LevelGenerator>().level = level1;
+                if (m_RescuedAlchemist) GetComponent<LevelGenerator>().level = level2;
                 AudioManager.Instance.PlayMusic("Waves");
 
                 inTavern = false;
@@ -185,26 +194,28 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            debugMode = !debugMode;
-
-            string status = debugMode ? "activated" : "deactivated";
-            Debug.Log("Debug mode " + status);
+            godMode = false;
         }
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            godMode = !godMode;
-
-            string status = godMode ? "activated" : "deactivated";
-            Debug.Log("God mode " + status);
+            godMode = true;
         }
 
         if (Input.GetKeyDown(KeyCode.F3))
         {
             player.transform.position = GetComponent<LevelGenerator>().lastRoom.GetComponent<DoorBehaviour>().nextDoor
                 .transform.position;
+            roomEnemies = new List<GameObject>();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F4)) {
+            m_RescuedAlchemist = true;
+            m_RescuedBlacksmith = true;
+            GetComponent<LevelGenerator>().level = level2;
         }
 
         if (ApplicationManager.Instance.state == ApplicationManager.GameState.MAIN_MENU) return;
@@ -310,3 +321,4 @@ public class GameController : MonoBehaviour
         m_RescuedBlacksmith = save.blacksmith;
     }
 }
+

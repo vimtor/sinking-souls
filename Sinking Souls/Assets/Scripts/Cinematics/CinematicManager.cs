@@ -43,7 +43,8 @@ public class CinematicManager : MonoBehaviour
     public void Play(TimelineAsset playable)
     {
         director.Play(playable);
-	}
+        GameController.instance.player.SetActive(false);
+    }
 
     private void OnCinematicPlay(PlayableDirector playable)
     {
@@ -56,6 +57,7 @@ public class CinematicManager : MonoBehaviour
     {
         inGameInterface.SetActive(true);
         blackFrames.SetActive(false);
+        GameController.instance.player.SetActive(true);
         GameController.instance.player.GetComponent<Player>().Resume();
     }
 }

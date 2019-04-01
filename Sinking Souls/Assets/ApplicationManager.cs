@@ -115,7 +115,7 @@ public class ApplicationManager : MonoBehaviour
                 break;
 
             case GameState.TABERN:
-                sceneName = "Game";
+                sceneName = "Tavern";
                 break;
 
             case GameState.MAIN_MENU:

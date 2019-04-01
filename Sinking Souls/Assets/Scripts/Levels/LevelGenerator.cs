@@ -73,8 +73,8 @@ public class LevelGenerator : MonoBehaviour
         
     }
 
-    public GameObject Spawn() {
-
+    public GameObject Spawn()
+    {
         if (level.name == "DeathIsland") roomSize = roomSizeLv2;
         else roomSize = roomSizeLv1;
 
@@ -97,16 +97,7 @@ public class LevelGenerator : MonoBehaviour
 
         levelWrapper = Instantiate(new GameObject());
         levelWrapper.name = "Level Wrapper";
-        if (currentLevel == 2 && !tabernaSpawned)
-        {
-            Debug.Log("Should have spawned a taberna");
-            Room room = new Room( new Vector2(0,0), Room.RoomType.INITIAL);
-            room.prefab = Taberns[0];
-            tabernaSpawned = true;
-            return SpawnRoom(room, roomSize, -1);
 
-        }
-        else { 
 
             SetSeed();
 
@@ -118,7 +109,6 @@ public class LevelGenerator : MonoBehaviour
             if (currentLevel == 3) PlaceBossRoom();
             else PlaceNextLevelRoom();
             return CreateMap();
-        }
 
     }
 

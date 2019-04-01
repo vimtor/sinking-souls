@@ -17,7 +17,10 @@ public class MainMenu : MonoBehaviour
     {
         GameController.instance.LoadGame();
         AudioManager.Instance.PlayMusic("Soundtrack");
-        ApplicationManager.Instance.ChangeScene(ApplicationManager.GameState.LOBBY);
+
+        ApplicationManager.Instance.ChangeScene(!GameController.instance.m_RescuedBlacksmith
+            ? ApplicationManager.GameState.TUTORIAL
+            : ApplicationManager.GameState.LOBBY);
     }
 
     public void Exit()

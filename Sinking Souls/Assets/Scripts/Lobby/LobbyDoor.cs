@@ -29,23 +29,20 @@ public class LobbyDoor : MonoBehaviour
         switch (sceneToLoad)
         {
             case ApplicationManager.GameState.GAME:
-                if (GameController.instance.m_RescuedBlacksmith) {
-                    if (ApplicationManager.Instance.state == ApplicationManager.GameState.TABERN) {
-                        GameController.instance.LevelGenerator.currentLevel--;
-                    }
-
-
-                    GameController.instance.LevelGenerator.currentLevel++;
-                    if (GameController.instance.LevelGenerator.currentLevel == 2 &&
-                        !GameController.instance.LevelGenerator.tabernaSpawned) {
-                        // TODO: CHANGE THIS TO UNIQUE TAVERN SCENE.
-                        GameController.instance.LevelGenerator.tabernaSpawned = true;
-                        ApplicationManager.Instance.ChangeScene(ApplicationManager.GameState.TABERN);
-                        return;
-                    }
+                if (ApplicationManager.Instance.state == ApplicationManager.GameState.TABERN)
+                {
+                    GameController.instance.LevelGenerator.currentLevel--;
                 }
-                else {
-                    sceneToLoad = ApplicationManager.GameState.TUTORIAL;
+
+
+                GameController.instance.LevelGenerator.currentLevel++;
+                if (GameController.instance.LevelGenerator.currentLevel == 2 &&
+                    !GameController.instance.LevelGenerator.tabernaSpawned)
+                {
+                    // TODO: CHANGE THIS TO UNIQUE TAVERN SCENE.
+                    GameController.instance.LevelGenerator.tabernaSpawned = true;
+                    ApplicationManager.Instance.ChangeScene(ApplicationManager.GameState.TABERN);
+                    return;
                 }
                 break;
         }

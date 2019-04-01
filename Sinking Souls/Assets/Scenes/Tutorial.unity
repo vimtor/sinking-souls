@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.21015456, g: 0.585691, b: 1.2468483, a: 1}
+  m_IndirectSpecularColor: {r: 0.21016635, g: 0.5856949, b: 1.2468494, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -90,7 +90,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -15553,8 +15553,8 @@ RectTransform:
   - {fileID: 1906061744}
   - {fileID: 339356865}
   - {fileID: 793391773}
-  - {fileID: 1264603361}
   - {fileID: 1532983503}
+  - {fileID: 1264603361}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -23634,6 +23634,16 @@ Prefab:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114579683819998640, guid: 3134fe93882ae4e44a32710fe5b07bb2,
+        type: 2}
+      propertyPath: minimap
+      value: 
+      objectReference: {fileID: 1283449293}
+    - target: {fileID: 114579683819998640, guid: 3134fe93882ae4e44a32710fe5b07bb2,
+        type: 2}
+      propertyPath: displayMinimap
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3134fe93882ae4e44a32710fe5b07bb2, type: 2}
   m_IsPrefabAsset: 0
@@ -24415,6 +24425,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 224174820966985122, guid: af60f115de5c4e04c8cc6e926b2271b2,
     type: 2}
   m_PrefabInternal: {fileID: 2107883336}
+--- !u!1 &1283449293 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1718008149349716, guid: 3134fe93882ae4e44a32710fe5b07bb2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1190182364}
 --- !u!1 &1285156797
 GameObject:
   m_ObjectHideFlags: 0
@@ -31105,7 +31120,7 @@ RectTransform:
   - {fileID: 1203533773}
   - {fileID: 2054491122}
   m_Father: {fileID: 778005857}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -38643,7 +38658,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 45.179813
+    FieldOfView: 46
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -39328,7 +39343,7 @@ Prefab:
     - target: {fileID: 224174820966985122, guid: af60f115de5c4e04c8cc6e926b2271b2,
         type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 224174820966985122, guid: af60f115de5c4e04c8cc6e926b2271b2,
         type: 2}

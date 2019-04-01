@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4723478117460254}
   - component: {fileID: 33551772210662284}
   - component: {fileID: 23334406998444664}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Cylinder002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4282224291027130}
   - component: {fileID: 33825014087322432}
   - component: {fileID: 23475006255048502}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Cylinder001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,9 +53,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4377658835733650}
-  m_Layer: 0
+  - component: {fileID: 135242283728506848}
+  - component: {fileID: 114101705461386444}
+  - component: {fileID: 54786483505839570}
+  m_Layer: 16
   m_Name: Skeleton_Sorcerer_Weapon
-  m_TagString: Untagged
+  m_TagString: Ability
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -70,7 +73,7 @@ GameObject:
   - component: {fileID: 4534105515071650}
   - component: {fileID: 33229585654489056}
   - component: {fileID: 23852480257641392}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: polySurface002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,8 +100,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1616734266609236}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.00000058114523}
-  m_LocalPosition: {x: 0.291, y: 0.954, z: -6.9735}
-  m_LocalScale: {x: 1.6795171, y: 1.6795171, z: 1.6795171}
+  m_LocalPosition: {x: -3.502, y: 52.79, z: -1.307}
+  m_LocalScale: {x: 2.2337222, y: 2.2337222, z: 2.2337222}
   m_Children:
   - {fileID: 4282224291027130}
   - {fileID: 4723478117460254}
@@ -258,3 +261,46 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1398042499967798}
   m_Mesh: {fileID: 4300000, guid: 89096b73a309ef749991aef9ab3080fd, type: 3}
+--- !u!54 &54786483505839570
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1616734266609236}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &114101705461386444
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1616734266609236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95d9df61a9a0b5e4f9ced158e1ce9ebd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 3
+  lerp: 0.02
+  particles: {fileID: 1727639718188492, guid: 88027768983f2a049b1091777791464e, type: 2}
+  particlesLife: 0.6
+  force: 3
+--- !u!135 &135242283728506848
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1616734266609236}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.1
+  m_Center: {x: 0, y: 0.08, z: 0}

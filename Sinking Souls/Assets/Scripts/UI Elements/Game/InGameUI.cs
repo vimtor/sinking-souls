@@ -4,6 +4,9 @@ using TMPro;
 
 public class InGameUI : MonoBehaviour
 {
+    [Header("Configuration")] public bool displayMinimap;
+
+    [Header("Healthbar Information")]
     public Image healthbar;
     public TextMeshProUGUI soulsAmount;
 
@@ -23,6 +26,8 @@ public class InGameUI : MonoBehaviour
     {
         playerRef = GameController.instance.player.GetComponent<Player>();
         abilityIcon.sprite = playerRef.Abilities[0].sprite;
+
+        if (!displayMinimap) minimap.SetActive(false);
     }
 
     private void Update()
@@ -31,10 +36,11 @@ public class InGameUI : MonoBehaviour
         soulsAmount.text = GameController.instance.runSouls.ToString();
 
         UpdateAbility();
-        UpdateMinimap();
+        if (displayMinimap) UpdateMinimap();
     }
 
-    private void UpdateAbility() {
+    private void UpdateAbility()
+    {
         int cooldown = (int)playerRef.AbilityCooldown;
 
         if (cooldown > 0) {

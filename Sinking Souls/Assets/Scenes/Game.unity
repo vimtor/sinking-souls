@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.21015456, g: 0.585691, b: 1.2468483, a: 1}
+  m_IndirectSpecularColor: {r: 0.21016635, g: 0.5856949, b: 1.2468494, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -658,6 +658,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1372806718 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1718008149349716, guid: 3134fe93882ae4e44a32710fe5b07bb2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1964341279}
 --- !u!1001 &1726504807
 Prefab:
   m_ObjectHideFlags: 0
@@ -909,6 +914,11 @@ Prefab:
       propertyPath: virtualCamera
       value: 
       objectReference: {fileID: 390650428}
+    - target: {fileID: 20265562701598112, guid: 4a2822d798356a3448064efc3ce63bca,
+        type: 2}
+      propertyPath: field of view
+      value: 17
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114690391365850534, guid: 4a2822d798356a3448064efc3ce63bca, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: 4a2822d798356a3448064efc3ce63bca, type: 2}
@@ -1038,21 +1048,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114579683819998640, guid: 3134fe93882ae4e44a32710fe5b07bb2,
-        type: 2}
-      propertyPath: minimapCamera
-      value: 
-      objectReference: {fileID: 1056282665}
-    - target: {fileID: 114800296840974350, guid: 3134fe93882ae4e44a32710fe5b07bb2,
-        type: 2}
-      propertyPath: m_havePropertiesChanged
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114800296840974350, guid: 3134fe93882ae4e44a32710fe5b07bb2,
-        type: 2}
-      propertyPath: m_isInputParsingRequired
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 114442387343548714, guid: 3134fe93882ae4e44a32710fe5b07bb2,
         type: 2}
       propertyPath: m_havePropertiesChanged
@@ -1063,32 +1058,31 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114123635652426202, guid: 3134fe93882ae4e44a32710fe5b07bb2,
+    - target: {fileID: 114800296840974350, guid: 3134fe93882ae4e44a32710fe5b07bb2,
         type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: cb3b719d829c5314495351fca4e48a38,
-        type: 3}
-    - target: {fileID: 224086913405347822, guid: 3134fe93882ae4e44a32710fe5b07bb2,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.0000036955
+      propertyPath: m_havePropertiesChanged
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 224086913405347822, guid: 3134fe93882ae4e44a32710fe5b07bb2,
+    - target: {fileID: 114800296840974350, guid: 3134fe93882ae4e44a32710fe5b07bb2,
         type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 82.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224086913405347822, guid: 3134fe93882ae4e44a32710fe5b07bb2,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 66.8
+      propertyPath: m_isInputParsingRequired
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 224665654106953424, guid: 3134fe93882ae4e44a32710fe5b07bb2,
         type: 2}
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114579683819998640, guid: 3134fe93882ae4e44a32710fe5b07bb2,
+        type: 2}
+      propertyPath: minimap
+      value: 
+      objectReference: {fileID: 1372806718}
+    - target: {fileID: 114579683819998640, guid: 3134fe93882ae4e44a32710fe5b07bb2,
+        type: 2}
+      propertyPath: minimapCamera
+      value: 
+      objectReference: {fileID: 1056282665}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3134fe93882ae4e44a32710fe5b07bb2, type: 2}
   m_IsPrefabAsset: 0

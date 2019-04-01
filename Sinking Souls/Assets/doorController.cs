@@ -48,9 +48,9 @@ public class doorController : MonoBehaviour {
 
     bool checkDistance()
     {
-
+        if(GameController.instance.m_RescuedAlchemist)
         return Vector3.Distance(transform.position, GameController.instance.player.transform.position) < 20; //Por que 38? porque lo digo yo
-
+        else return Vector3.Distance(transform.position, GameController.instance.player.transform.position) < 11;
     }
 
     void openDoor()

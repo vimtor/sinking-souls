@@ -302,6 +302,11 @@ public class Entity : MonoBehaviour
                     ApplyModifier(other.GetComponent<WeaponHolder>().holder.modifier);
 
                     if (other.GetComponent<WeaponHolder>().owner.tag == "Player") AudioManager.Instance.PlayEffect("Splash");
+
+                if (other.name.Contains("Dagger")) {
+                    gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
+                    StartCoroutine(UnfreezePosition(0.1f));
+                    }
                 }
                 break;
 
@@ -319,4 +324,11 @@ public class Entity : MonoBehaviour
        
     }
     
+    IEnumerator UnfreezePosition(float t) {
+        yield return new WaitForSeconds(t);
+        gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+
+    }
+
 }

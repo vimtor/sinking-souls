@@ -7,17 +7,21 @@ public class combatCamera : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		//per asegurar
 	}
     public float speed;
 	// Update is called once per frame
 	void Update () {
-		if(GameController.instance.roomEnemies.Count == 0) {
-            zoomOut();
+        if(ApplicationManager.Instance.state == ApplicationManager.GameState.GAME) {
+            if (GameController.instance.roomEnemies.Count == 0) {
+                zoomOut();
+            }
+            else {
+                zoomIn();
+            }
         }
         else {
-            zoomIn();
-
+            GetComponent<CinemachineVirtualCamera>().m_Lens.FieldOfView = 17;
         }
     }
 

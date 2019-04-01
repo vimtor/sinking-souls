@@ -135,6 +135,8 @@ public class GameController : MonoBehaviour
 
             break;
             case ApplicationManager.GameState.LOBBY:
+                if (m_RescuedBlacksmith) GetComponent<LevelGenerator>().level = level1;
+                if (m_RescuedAlchemist) GetComponent<LevelGenerator>().level = level2;
                 AudioManager.Instance.PlayMusic("Waves");
 
                 inTavern = false;
@@ -189,6 +191,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.F1))
         {
             debugMode = !debugMode;

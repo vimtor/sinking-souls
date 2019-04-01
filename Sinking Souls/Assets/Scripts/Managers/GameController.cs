@@ -10,12 +10,15 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class GameController : MonoBehaviour
 {
+    [Header("Enemies")]
     public GameObject mainEnemy;
     public GameObject casualEnemy;
     public float nextCasualTime;
     public float casualCounter = 0;
+    public List<GameObject> roomEnemies;
 
-    [Header("Prefabs")] public GameObject playerPrefab;
+    [Header("Prefabs")]
+    public GameObject playerPrefab;
     public GameObject blueprint;
 
     #region Crew Members
@@ -30,18 +33,18 @@ public class GameController : MonoBehaviour
 
     [Header("Items")]
     public int lobbySouls;
-
     public int runSouls;
 
     public Modifier[] modifiers;
     public Ability[] abilities;
-    public Weapon[] weapons;
     public Enhancer[] enhancers;
-    public GameObject innKeeperShop;
-    public List<GameObject> roomEnemies;
-
+  
+    [Header("Levels")]
     public PostProcessProfile postProcesingProfileLevel1;
     public PostProcessProfile postProcesingProfileLevel2;
+
+    public LevelGeneratiorConfiguration level1;
+    public LevelGeneratiorConfiguration level2;
 
     [HideInInspector] public bool died;
     [HideInInspector] public bool inTavern;
@@ -52,8 +55,6 @@ public class GameController : MonoBehaviour
     [HideInInspector] public GameObject player;
     [HideInInspector] public Text lobbySoulsHUD;
 
-    public LevelGeneratiorConfiguration level1;
-    public LevelGeneratiorConfiguration level2;
 
     private LevelGenerator levelGenerator;
 
@@ -100,6 +101,9 @@ public class GameController : MonoBehaviour
                 break;
 
             case ApplicationManager.GameState.GAME:
+                if (m_RescuedBlacksmith) levelGenerator.level = level1;
+                if (m_RescuedAlchemist) levelGenerator.level = level2;
+
                 died = false;
 
                 levelGenerator.takenPos = new List<Vector2>();

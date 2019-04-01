@@ -122,6 +122,7 @@ public class GameController : MonoBehaviour
                     GameObject.Find("Post Processing").gameObject.GetComponent<PostProcessVolume>().profile = postProcesingProfileLevel1;
                 }
                 break;
+
             case ApplicationManager.GameState.TUTORIAL:
                 inTavern = false;
                 runSouls = 0;

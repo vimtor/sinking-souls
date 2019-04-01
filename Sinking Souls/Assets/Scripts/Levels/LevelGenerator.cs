@@ -73,8 +73,8 @@ public class LevelGenerator : MonoBehaviour
         
     }
 
-    public GameObject Spawn() {
-
+    public GameObject Spawn()
+    {
         if (level.name == "DeathIsland") roomSize = roomSizeLv2;
         else roomSize = roomSizeLv1;
 

@@ -101,6 +101,8 @@ public class GameController : MonoBehaviour
                 break;
 
             case ApplicationManager.GameState.GAME:
+                if (m_RescuedBlacksmith) levelGenerator.level = level1;
+                if (m_RescuedAlchemist) levelGenerator.level = level2;
                 died = false;
 
                 levelGenerator.takenPos = new List<Vector2>();
@@ -311,6 +313,4 @@ public class GameController : MonoBehaviour
         m_RescuedBlacksmith = save.blacksmith;
     }
 }
-            case ApplicationManager.GameState.GAME:
-                if (m_RescuedBlacksmith) levelGenerator.level = level1;
-                if (m_RescuedAlchemist) levelGenerator.level = level2;
+

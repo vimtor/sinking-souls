@@ -16,7 +16,10 @@ public class RotativeAttack : Action {
         // Play the attack animation (which hits via AnimationEvents).
         controller.Animator.SetInteger("AttackType", 0);
         controller.Animator.SetTrigger("Attack");
-        direction = controller.player.transform.position - controller.gameObject.transform.position;
+        Vector3 endpoint = (controller.player.transform.position + controller.player.transform.forward * controller.player.GetComponent<Rigidbody>().velocity.magnitude);
+        Vector3 toEndpoint = (controller.player.transform.position + controller.player.transform.forward * controller.player.GetComponent<Rigidbody>().velocity.magnitude) - controller.gameObject.transform.position;
+        float timeToEndpoint = toEndpoint.magnitude / speed;
+        direction = (controller.player.transform.position + controller.player.transform.forward * controller.player.GetComponent<Rigidbody>().velocity.magnitude * timeToEndpoint) - controller.gameObject.transform.position;
 
     }
 

@@ -52,6 +52,9 @@ public class GameController : MonoBehaviour
     [HideInInspector] public GameObject player;
     [HideInInspector] public Text lobbySoulsHUD;
 
+    public LevelGeneratiorConfiguration level1;
+    public LevelGeneratiorConfiguration level2;
+
     private LevelGenerator levelGenerator;
 
     public LevelGenerator LevelGenerator
@@ -205,6 +208,12 @@ public class GameController : MonoBehaviour
         {
             player.transform.position = GetComponent<LevelGenerator>().lastRoom.GetComponent<DoorBehaviour>().nextDoor
                 .transform.position;
+        }
+
+        if (Input.GetKeyDown(KeyCode.F4)) {
+            m_RescuedAlchemist = true;
+            m_RescuedBlacksmith = true;
+            GetComponent<LevelGenerator>().level = level2;
         }
 
         if (ApplicationManager.Instance.state == ApplicationManager.GameState.MAIN_MENU) return;

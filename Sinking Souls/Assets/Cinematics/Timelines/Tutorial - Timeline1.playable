@@ -1687,9 +1687,9 @@ MonoBehaviour:
   m_Name: DialoguePlayableAsset
   m_EditorClassIdentifier: 
   dialogue:
-    name: Klauss
-    face: {fileID: 21300000, guid: cb718a5f0f98b134c9a464f9c7b451db, type: 3}
-    message: Hola nil cambia el timeline para playear el siguiente.
+    name: ???
+    face: {fileID: 0}
+    message: Well that was quick...
     automatic: 0
   timeline: {fileID: 11400000, guid: 65333f1cb3ccd3445861163aa160cd86, type: 2}
 --- !u!114 &114204915976184680
@@ -2172,10 +2172,43 @@ MonoBehaviour:
   m_Parent: {fileID: 11400000}
   m_Children: []
   m_Clips:
-  - m_Start: 8.066666666666665
+  - m_Start: 7.066666666666666
     m_ClipIn: 0
     m_Asset: {fileID: 114195766940592120}
-    m_Duration: 5
+    m_Duration: 5.999999999999998
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 114475670341414696}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: Klauss
+    m_Version: 1
+  - m_Start: 0
+    m_ClipIn: 0
+    m_Asset: {fileID: 114766324213965842}
+    m_Duration: 4.0166666666666675
     m_TimeScale: 1
     m_ParentTrack: {fileID: 114475670341414696}
     m_EaseInDuration: 0
@@ -2208,25 +2241,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     m_MixOutCurve:
       serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
+      m_Curve: []
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -2239,7 +2254,58 @@ MonoBehaviour:
     m_PreExtrapolationMode: 0
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: Klauss
+    m_DisplayName: DialoguePlayableAsset
+    m_Version: 1
+  - m_Start: 4.0166666666666675
+    m_ClipIn: 0
+    m_Asset: {fileID: 114577932363142682}
+    m_Duration: 3.0499999999999994
+    m_TimeScale: 1
+    m_ParentTrack: {fileID: 114475670341414696}
+    m_EaseInDuration: 0
+    m_EaseOutDuration: 0
+    m_BlendInDuration: -1
+    m_BlendOutDuration: -1
+    m_MixInCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_MixOutCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_BlendInCurveMode: 0
+    m_BlendOutCurveMode: 0
+    m_ExposedParameterNames: []
+    m_AnimationCurves: {fileID: 0}
+    m_Recordable: 0
+    m_PostExtrapolationMode: 0
+    m_PreExtrapolationMode: 0
+    m_PostExtrapolationTime: 0
+    m_PreExtrapolationTime: 0
+    m_DisplayName: DialoguePlayableAsset
     m_Version: 1
   m_Version: 1
 --- !u!114 &114488282379053834
@@ -2367,6 +2433,23 @@ MonoBehaviour:
   - {fileID: 114003014781658660}
   m_Clips: []
   m_Version: 1
+--- !u!114 &114577932363142682
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d22eba4521144844bf9094fcb61ee0e, type: 3}
+  m_Name: DialoguePlayableAsset
+  m_EditorClassIdentifier: 
+  dialogue:
+    name: ???
+    face: {fileID: 0}
+    message: Wake up already!
+    automatic: 0
+  timeline: {fileID: 0}
 --- !u!114 &114605245696210058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2405,6 +2488,23 @@ MonoBehaviour:
   m_Children: []
   m_Clips: []
   m_Version: 1
+--- !u!114 &114766324213965842
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d22eba4521144844bf9094fcb61ee0e, type: 3}
+  m_Name: DialoguePlayableAsset
+  m_EditorClassIdentifier: 
+  dialogue:
+    name: ???
+    face: {fileID: 0}
+    message: Hey! Kid!!
+    automatic: 0
+  timeline: {fileID: 0}
 --- !u!114 &114779125128869710
 MonoBehaviour:
   m_ObjectHideFlags: 1

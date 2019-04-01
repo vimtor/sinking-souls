@@ -209,6 +209,7 @@ public class GameController : MonoBehaviour
         {
             player.transform.position = GetComponent<LevelGenerator>().lastRoom.GetComponent<DoorBehaviour>().nextDoor
                 .transform.position;
+            roomEnemies = new List<GameObject>();
         }
 
         if (Input.GetKeyDown(KeyCode.F4)) {

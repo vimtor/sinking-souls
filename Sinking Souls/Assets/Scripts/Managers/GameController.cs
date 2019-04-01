@@ -94,7 +94,7 @@ public class GameController : MonoBehaviour
             case ApplicationManager.GameState.TABERN:
                 inTavern = true;
                 levelGenerator.takenPos = new List<Vector2>();
-                currentRoom = SpawnLevel();
+                currentRoom = GameObject.Find("SpawnPoint");///////change to find current
 
                 var innBehaviour = GameObject.Find("Triton Innkeeper").GetComponent<InnkeeperBehaviour>();
                 var shopPanel = Instantiate(innKeeperShop, GameObject.Find("Canvas").transform, false);
@@ -135,6 +135,7 @@ public class GameController : MonoBehaviour
 
             break;
             case ApplicationManager.GameState.LOBBY:
+
                 if (m_RescuedBlacksmith) GetComponent<LevelGenerator>().level = level1;
                 if (m_RescuedAlchemist) GetComponent<LevelGenerator>().level = level2;
                 AudioManager.Instance.PlayMusic("Waves");

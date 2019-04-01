@@ -100,6 +100,10 @@ public class GameController : MonoBehaviour
                 break;
 
             case ApplicationManager.GameState.GAME:
+
+                if (m_RescuedBlacksmith) GetComponent<LevelGenerator>().level = level1;
+                if (m_RescuedAlchemist) GetComponent<LevelGenerator>().level = level2;
+
                 died = false;
 
                 levelGenerator.takenPos = new List<Vector2>();
@@ -128,6 +132,8 @@ public class GameController : MonoBehaviour
             break;
 
             case ApplicationManager.GameState.LOBBY:
+                if (m_RescuedBlacksmith) GetComponent<LevelGenerator>().level = level1;
+                if (m_RescuedAlchemist) GetComponent<LevelGenerator>().level = level2;
                 AudioManager.Instance.PlayMusic("Waves");
 
                 inTavern = false;
@@ -184,24 +190,19 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            debugMode = !debugMode;
-
-            string status = debugMode ? "activated" : "deactivated";
-            Debug.Log("Debug mode " + status);
+            godMode = false;
         }
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            godMode = !godMode;
-
-            string status = godMode ? "activated" : "deactivated";
-            Debug.Log("God mode " + status);
+            godMode = true;
         }
 
         if (Input.GetKeyDown(KeyCode.F3))
         {
             player.transform.position = GetComponent<LevelGenerator>().lastRoom.GetComponent<DoorBehaviour>().nextDoor
                 .transform.position;
+            roomEnemies = new List<GameObject>();
         }
 
         if (Input.GetKeyDown(KeyCode.F4)) {

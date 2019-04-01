@@ -108,6 +108,8 @@ public class GameController : MonoBehaviour
                 break;
 
             case ApplicationManager.GameState.GAME:
+                if (m_RescuedBlacksmith) GetComponent<LevelGenerator>().level = level1;
+                if (m_RescuedAlchemist) GetComponent<LevelGenerator>().level = level2;
                 died = false;
 
                 levelGenerator.takenPos = new List<Vector2>();
@@ -195,18 +197,12 @@ public class GameController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            debugMode = !debugMode;
-
-            string status = debugMode ? "activated" : "deactivated";
-            Debug.Log("Debug mode " + status);
+            godMode = false;
         }
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
-            godMode = !godMode;
-
-            string status = godMode ? "activated" : "deactivated";
-            Debug.Log("God mode " + status);
+            godMode = true;
         }
 
         if (Input.GetKeyDown(KeyCode.F3))
@@ -324,3 +320,4 @@ public class GameController : MonoBehaviour
         m_RescuedBlacksmith = save.blacksmith;
     }
 }
+

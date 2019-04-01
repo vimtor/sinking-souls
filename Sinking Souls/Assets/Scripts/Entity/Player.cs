@@ -639,6 +639,7 @@ public class Player : Entity
 
     private void LockDash()
     {
+        lockedDashed = true;
         switch (Dodge)
         {
             case DodgeType.NONE:
@@ -765,7 +766,6 @@ public class Player : Entity
         }
 
         Dodge = DodgeType.NONE;
-        lockedDashed = true;
     }
 
     private void Spell()

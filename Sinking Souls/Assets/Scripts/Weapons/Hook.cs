@@ -65,7 +65,6 @@ public class Hook : MonoBehaviour {
             float minDist = range;
             Vector2 direction2 = new Vector2(direction.x, direction.z);
             
-
             foreach (GameObject target in GameController.instance.roomEnemies) {
 
                 Vector3 enemyProjection = Vector3.Project(new Vector3(target.transform.position.x, 0, target.transform.position.z) - new Vector3(transform.position.x, 0, transform.position.z), new Vector3(direction.x, 0, direction.z).normalized);
@@ -88,7 +87,7 @@ public class Hook : MonoBehaviour {
     public void Update() {
         if (move) {
             GetComponent<Player>().m_PlayerState = Player.PlayerState.PULLING;
-            if (Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(tpTo.transform.position.x, tpTo.transform.position.z)) > distanceOffset){
+            if (tpTo != null && Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(tpTo.transform.position.x, tpTo.transform.position.z)) > distanceOffset){
                 Debug.Log("Moving");
                 float step = pullingSpeed * Time.deltaTime;
                 transform.position = Vector3.MoveTowards(transform.position, tpTo.transform.position, step);
@@ -100,8 +99,6 @@ public class Hook : MonoBehaviour {
                 move = false;
                 if(currentHook != null) Destroy(currentHook);
             }
-
         }
-
     }
 }

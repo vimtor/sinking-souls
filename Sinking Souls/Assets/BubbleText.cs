@@ -40,7 +40,7 @@ public class BubbleText : MonoBehaviour {
 
         //Adjust transparency
         float transparency = GameController.instance.player.GetComponent<Player>().map(Vector3.Distance(GameController.instance.player.transform.position, gameObject.GetComponent<RectTransform>().position), activationDistance, fadeDistance, 1, 0);
-
+        if (transform.parent.gameObject.GetComponent<BlacksmithBehaviour>().isOpen) transparency = 0;
         //Change Text       
         if (transparency <= 0) {
             //Select new valid text

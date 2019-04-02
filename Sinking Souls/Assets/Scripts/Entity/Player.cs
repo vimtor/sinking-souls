@@ -341,7 +341,7 @@ public class Player : Entity
                     Rotate(); // Rotate with attacking rotation damping.
                 if (lockedEnemy != null)
                 {
-                    if (InputManager.ButtonY) gameObject.GetComponent<Hook>().Throw();
+                    
                     if (InputManager.ButtonB)
                     {
                         ChangeState(LockDash, m_LockDashLength, PlayerState.DASHING, PlayerState.MOVING, false);
@@ -353,15 +353,9 @@ public class Player : Entity
                         ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
                 }
 
-                if (InputManager.ButtonY)
-                {
-                    if (m_AbilityCooldown <= 0.0f)
-                    {
-                        ChangeState(Spell, m_SpellLength, PlayerState.SPELLING, PlayerState.MOVING);
-                    }
-                }
+                if (InputManager.ButtonY) gameObject.GetComponent<Hook>().Throw();
 
-                break;
+            break;
 
             case PlayerState.SPELLING:
                 if (lockedEnemy != null)

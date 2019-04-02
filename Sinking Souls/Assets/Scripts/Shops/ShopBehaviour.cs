@@ -20,7 +20,7 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
 
     [Header("Camera")] public GameObject shopCamera;
 
-    private bool isOpen;
+    public bool isOpen;
     private GameObject oldSelection;
     private bool hiding;
 

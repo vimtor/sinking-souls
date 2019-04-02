@@ -89,7 +89,7 @@ public class InputManager : MonoBehaviour {
         if (Input.GetButtonDown("BUTTON_Y") || Input.GetKeyDown(KeyCode.P)) m_ButtonY = true;
         if (Input.GetButtonDown("BUTTON_RIGHTJOYSTICK") || Input.GetKeyDown(KeyCode.L)) m_ButtonRJ = true;
 
-        if (Input.GetAxis("BUTTON_RT") >= 0.5) m_ButtonRT = true;
+        if (Input.GetAxis("BUTTON_RT") >= 0.5 || Input.GetKeyDown(KeyCode.K)) m_ButtonRT = true;
 
         if (Input.GetButtonDown("START") || Input.GetKeyDown(KeyCode.Escape)) m_ButtonStart = true;
 

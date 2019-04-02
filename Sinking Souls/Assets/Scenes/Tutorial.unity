@@ -8292,6 +8292,108 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ebe54a8a41368e4bb28ebb11fef5d43, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1001 &399557691
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
+        type: 2}
+      propertyPath: dialogues.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4160132298080036, guid: 60ce027ddd7738b449fc3b0c60325451, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.2619524
+      objectReference: {fileID: 0}
+    - target: {fileID: 4160132298080036, guid: 60ce027ddd7738b449fc3b0c60325451, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 4160132298080036, guid: 60ce027ddd7738b449fc3b0c60325451, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -67.58
+      objectReference: {fileID: 0}
+    - target: {fileID: 4160132298080036, guid: 60ce027ddd7738b449fc3b0c60325451, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4160132298080036, guid: 60ce027ddd7738b449fc3b0c60325451, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4160132298080036, guid: 60ce027ddd7738b449fc3b0c60325451, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4160132298080036, guid: 60ce027ddd7738b449fc3b0c60325451, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4160132298080036, guid: 60ce027ddd7738b449fc3b0c60325451, type: 2}
+      propertyPath: m_RootOrder
+      value: 29
+      objectReference: {fileID: 0}
+    - target: {fileID: 1087993778512138, guid: 60ce027ddd7738b449fc3b0c60325451, type: 2}
+      propertyPath: m_Name
+      value: Dialogue Trigger (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4160132298080036, guid: 60ce027ddd7738b449fc3b0c60325451, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 22.534742
+      objectReference: {fileID: 0}
+    - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
+        type: 2}
+      propertyPath: dialogues.Array.data[1].automatic
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
+        type: 2}
+      propertyPath: dialogues.Array.data[0].name
+      value: Klaus
+      objectReference: {fileID: 0}
+    - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
+        type: 2}
+      propertyPath: dialogues.Array.data[1].name
+      value: Klaus
+      objectReference: {fileID: 0}
+    - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
+        type: 2}
+      propertyPath: dialogues.Array.data[1].face
+      value: 
+      objectReference: {fileID: 21300000, guid: cb718a5f0f98b134c9a464f9c7b451db,
+        type: 3}
+    - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
+        type: 2}
+      propertyPath: dialogues.Array.data[1].message
+      value: Try pressing RT to use your ability, i've given you a gift
+      objectReference: {fileID: 0}
+    - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
+        type: 2}
+      propertyPath: dialogues.Array.data[2].name
+      value: Klaus
+      objectReference: {fileID: 0}
+    - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
+        type: 2}
+      propertyPath: dialogues.Array.data[2].face
+      value: 
+      objectReference: {fileID: 21300000, guid: cb718a5f0f98b134c9a464f9c7b451db,
+        type: 3}
+    - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
+        type: 2}
+      propertyPath: dialogues.Array.data[2].message
+      value: Use the scarecrows to train
+      objectReference: {fileID: 0}
+    - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
+        type: 2}
+      propertyPath: dialogues.Array.data[0].message
+      value: Carefull, there are a bunch of enemies
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 60ce027ddd7738b449fc3b0c60325451, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &404814691
 GameObject:
   m_ObjectHideFlags: 0
@@ -33457,7 +33559,7 @@ Prefab:
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
       propertyPath: dialogues.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4160132298080036, guid: 60ce027ddd7738b449fc3b0c60325451, type: 2}
       propertyPath: m_LocalPosition.x
@@ -33523,7 +33625,7 @@ Prefab:
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
       propertyPath: dialogues.Array.data[1].message
-      value: The first thing you need to know is that you can hit enemies with X
+      value: Also you should know that you can direct the hook with the left joystick
       objectReference: {fileID: 0}
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
@@ -33544,7 +33646,7 @@ Prefab:
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
       propertyPath: dialogues.Array.data[0].message
-      value: Nice, now press Y to pounce on the nearest enemy
+      value: See? faster than walking
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60ce027ddd7738b449fc3b0c60325451, type: 2}

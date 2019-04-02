@@ -93,7 +93,7 @@ public class InputManager : MonoBehaviour {
         if (Input.GetButtonDown("BUTTON_Y") || Input.GetKeyDown(KeyCode.P)) m_ButtonY = true;
         if (Input.GetButtonDown("BUTTON_RIGHTJOYSTICK") || Input.GetKeyDown(KeyCode.L)) m_ButtonRJ = true;
 
-        if (Input.GetAxis("BUTTON_RT") >= 0.5 || Input.GetKeyDown(KeyCode.K)) m_ButtonRT = true;
+        if (Input.GetAxis("BUTTON_RT") >= 0.5 || Input.GetKeyDown(KeyCode.F)) m_ButtonRT = true;
 
         if (Input.GetButtonDown("START") || Input.GetKeyDown(KeyCode.Escape)) m_ButtonStart = true;
 
@@ -105,7 +105,6 @@ public class InputManager : MonoBehaviour {
 
         string[] names = Input.GetJoystickNames();
         for (int x = 0; x < names.Length; x++) {
-            print(names[x].Length);
             if (names[x].Length == 19) {
                 PS4_Controller = 1;
                 Xbox_One_Controller = 0;

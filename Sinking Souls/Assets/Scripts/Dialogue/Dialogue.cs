@@ -14,4 +14,7 @@ public class Dialogue
 
     [Tooltip("If true the following dialogue will play when this has finished.")]
     public bool automatic;
+
+    [Tooltip("If null the camera will not move.")]
+    public GameObject camera;
 }

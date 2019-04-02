@@ -746,7 +746,7 @@ Transform:
   m_LocalScale: {x: 2.2546, y: 1, z: 13.662}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &437834451
 BoxCollider:
@@ -1345,7 +1345,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4049728750304462, guid: 258b637205f84f34c91c424fca3067e4, type: 2}
       propertyPath: m_RootOrder
-      value: 20
+      value: 19
       objectReference: {fileID: 0}
     - target: {fileID: 114337623052856484, guid: 258b637205f84f34c91c424fca3067e4,
         type: 2}
@@ -1355,19 +1355,8 @@ Prefab:
         type: 2}
     - target: {fileID: 114337623052856484, guid: 258b637205f84f34c91c424fca3067e4,
         type: 2}
-      propertyPath: innKeeperShop
-      value: 
-      objectReference: {fileID: 1458196188024978, guid: 5b2bee06d4c4ac740accf24b1963f8d0,
-        type: 2}
-    - target: {fileID: 114337623052856484, guid: 258b637205f84f34c91c424fca3067e4,
-        type: 2}
       propertyPath: m_RescuedBlacksmith
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114337623052856484, guid: 258b637205f84f34c91c424fca3067e4,
-        type: 2}
-      propertyPath: m_RescuedAlchemist
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 258b637205f84f34c91c424fca3067e4, type: 2}
@@ -1560,7 +1549,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &863069523
 GameObject:
@@ -2137,7 +2126,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1153111005
 GameObject:
@@ -2606,7 +2595,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4506887166364586, guid: 4a2822d798356a3448064efc3ce63bca, type: 2}
       propertyPath: m_RootOrder
-      value: 15
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 114833664502671330, guid: 4a2822d798356a3448064efc3ce63bca,
         type: 2}
@@ -3193,7 +3182,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 22b3d7b835e0db8459a09ea2e6040813, type: 2}
+  - {fileID: 2100000, guid: f3e64eae8567b2b4f9b21a9e99a5a322, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3242,26 +3231,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 717500935}
     m_Modifications:
-    - target: {fileID: 114285075888441140, guid: afb9193b3aa68c24f82f888455100fc3,
-        type: 2}
-      propertyPath: texts.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114285075888441140, guid: afb9193b3aa68c24f82f888455100fc3,
-        type: 2}
-      propertyPath: ps4Texts.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114285075888441140, guid: afb9193b3aa68c24f82f888455100fc3,
-        type: 2}
-      propertyPath: xboxTexts.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114285075888441140, guid: afb9193b3aa68c24f82f888455100fc3,
-        type: 2}
-      propertyPath: keyboardTexts.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 224675317195105200, guid: afb9193b3aa68c24f82f888455100fc3,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -3361,46 +3330,6 @@ Prefab:
         type: 2}
       propertyPath: m_isInputParsingRequired
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114285075888441140, guid: afb9193b3aa68c24f82f888455100fc3,
-        type: 2}
-      propertyPath: xboxTexts.Array.data[0]
-      value: Use left Joystic on your Xbox to move
-      objectReference: {fileID: 0}
-    - target: {fileID: 114285075888441140, guid: afb9193b3aa68c24f82f888455100fc3,
-        type: 2}
-      propertyPath: ps4Texts.Array.data[0]
-      value: Use left Joystic on your Ps4 to move
-      objectReference: {fileID: 0}
-    - target: {fileID: 114285075888441140, guid: afb9193b3aa68c24f82f888455100fc3,
-        type: 2}
-      propertyPath: keyboardTexts.Array.data[0]
-      value: Use left WASD on your Keyboard to move
-      objectReference: {fileID: 0}
-    - target: {fileID: 114285075888441140, guid: afb9193b3aa68c24f82f888455100fc3,
-        type: 2}
-      propertyPath: texts.Array.data[0]
-      value: Sup' boy?
-      objectReference: {fileID: 0}
-    - target: {fileID: 114285075888441140, guid: afb9193b3aa68c24f82f888455100fc3,
-        type: 2}
-      propertyPath: texts.Array.data[1]
-      value: Hello There
-      objectReference: {fileID: 0}
-    - target: {fileID: 114285075888441140, guid: afb9193b3aa68c24f82f888455100fc3,
-        type: 2}
-      propertyPath: texts.Array.data[2]
-      value: Hy Jack
-      objectReference: {fileID: 0}
-    - target: {fileID: 114285075888441140, guid: afb9193b3aa68c24f82f888455100fc3,
-        type: 2}
-      propertyPath: texts.Array.data[3]
-      value: Lets go and resque Ailin
-      objectReference: {fileID: 0}
-    - target: {fileID: 114285075888441140, guid: afb9193b3aa68c24f82f888455100fc3,
-        type: 2}
-      propertyPath: texts.Array.data[4]
-      value: Does this sword really talk?
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afb9193b3aa68c24f82f888455100fc3, type: 2}
@@ -3864,7 +3793,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1706187844
 GameObject:
@@ -4170,7 +4099,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4950126296518272, guid: f8da733cf7ebb044fa490f475da4e363, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114765404419204954, guid: f8da733cf7ebb044fa490f475da4e363,
         type: 2}
@@ -4361,7 +4290,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4859097260429418, guid: 47f6222255e0adf44ac32c359f451a6a, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47f6222255e0adf44ac32c359f451a6a, type: 2}
@@ -4595,7 +4524,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2131628692
 Prefab:
@@ -4634,7 +4563,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4704227197360220, guid: c62a942364bb0fd48b144df53529a38f, type: 2}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 114558834441481906, guid: c62a942364bb0fd48b144df53529a38f,
         type: 2}

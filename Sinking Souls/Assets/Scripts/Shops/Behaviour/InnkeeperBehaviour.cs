@@ -8,9 +8,6 @@ using TMPro;
 
 public class InnkeeperBehaviour : ShopBehaviour<Enhancer>
 {
-    public Text m_BaseStat;
-    public Text m_UpgradedStat;
-
     protected override GameObject Configure(GameObject item, Enhancer enhancer)
     {
         item.transform.Find("Icon").GetComponent<Image>().sprite = enhancer.sprite;

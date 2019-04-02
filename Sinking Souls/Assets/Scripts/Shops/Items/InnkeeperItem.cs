@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InnkeeperItem : ShopItem
 {
-    public Enhancer enhancer;
+    private Enhancer enhancer;
 
     public void Setup(Enhancer item)
     {

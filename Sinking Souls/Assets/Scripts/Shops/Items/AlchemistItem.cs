@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AlchemistItem : ShopItem
 {
-    public Ability ability;
+    private Ability ability;
 
     public void Setup(Ability item)
     {

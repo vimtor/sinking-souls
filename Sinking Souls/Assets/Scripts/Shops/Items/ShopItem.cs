@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 
-public abstract class ShopItem
+public abstract class ShopItem : MonoBehaviour
 {
     public TextMeshProUGUI priceText;
     public int price;

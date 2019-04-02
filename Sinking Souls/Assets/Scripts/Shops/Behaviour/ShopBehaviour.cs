@@ -41,6 +41,7 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
     private void UpdateShop()
     {
         var selectedItem = EventSystemWrapper.Instance.CurrentSelected();
+        if (selectedItem == null) return;
 
         price.text = selectedItem.transform.Find("Price").GetComponent<TextMeshProUGUI>().text;
 

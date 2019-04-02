@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ModifierItem : ShopItem
 {
-    public Modifier modifier;
+    private Modifier modifier;
 
     public void Setup(Modifier item)
     {

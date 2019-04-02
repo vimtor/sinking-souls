@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 114253140019908682}
   - component: {fileID: 114243099513471980}
   - component: {fileID: 114576226819190206}
-  - component: {fileID: 114638048983448606}
+  - component: {fileID: 114423087783714808}
   m_Layer: 5
   m_Name: Alchemist Item
   m_TagString: Untagged
@@ -138,8 +138,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114638048983448606}
-        m_MethodName: UpgradeAbility
+      - m_Target: {fileID: 114423087783714808}
+        m_MethodName: Buy
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -292,6 +292,19 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &114423087783714808
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1297394885501062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ece4a0b6db620c42b46b8bd044c1afe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  priceText: {fileID: 114456280603133720}
+  price: 0
 --- !u!114 &114445519116851150
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -452,27 +465,6 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &114638048983448606
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1297394885501062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5636154eb7493694189814f2e5a49744, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PriceText: {fileID: 114456280603133720}
-  price: 0
-  baseEnhancer: 0
-  enhancerMultiplier: 0
-  priceMultiplier: 0
-  life: 0
-  damage: 0
-  modifier: {fileID: 0}
-  ability: {fileID: 0}
-  enhancer: {fileID: 0}
 --- !u!114 &114663997184426982
 MonoBehaviour:
   m_ObjectHideFlags: 1

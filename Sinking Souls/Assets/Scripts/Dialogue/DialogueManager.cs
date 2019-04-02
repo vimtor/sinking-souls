@@ -113,7 +113,7 @@ public class DialogueManager : MonoBehaviour
         characterFace.sprite = dialogue.face;
         characterName.text = dialogue.name;
 
-        StopCoroutine("TypeSentence");
+        StopAllCoroutines();
         StartCoroutine(TypeSentence(dialogue.message));
     }
 

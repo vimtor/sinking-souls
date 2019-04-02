@@ -19,7 +19,7 @@ public class InnkeeperBehaviour : ShopBehaviour<Enhancer>
         item.transform.Find("Description").GetComponent<TextMeshProUGUI>().text = enhancer.description;
         item.transform.SetParent(shopPanel.transform.GetChild(0), false);
 
-        item.GetComponent<ShopItem>().enhancer = enhancer;
+        item.GetComponent<InnkeeperItem>().Setup(enhancer);
 
         return item;
     }

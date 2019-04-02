@@ -16,9 +16,8 @@ public class AlchemistBehaviour : ShopBehaviour<Ability>
         item.transform.Find("Price").GetComponent<TextMeshProUGUI>().text = ability.price.ToString();
         item.transform.SetParent(shopPanel.transform.GetChild(0), false);
 
-        // Store values in the ShopItem component for easier acces later on.
-        item.GetComponent<ShopItem>().price = ability.price;
-        item.GetComponent<ShopItem>().ability = ability;
+        // Store values in the ShopItem component for easier access later on.
+        item.GetComponent<AlchemistItem>().Setup(ability);
 
         return item;
     }

@@ -18,8 +18,7 @@ public class BlacksmithBehaviour : ShopBehaviour<Modifier>
         item.transform.SetParent(shopPanel.transform.GetChild(0), false);
 
         // Store values in the ShopItem component for easier access later on.
-        item.GetComponent<ShopItem>().price = modifier.price;
-        item.GetComponent<ShopItem>().modifier = modifier;
+        item.GetComponent<ModifierItem>().Setup(modifier);
 
         return item;
     }

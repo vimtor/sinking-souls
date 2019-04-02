@@ -103,7 +103,8 @@ public class DialogueManager : MonoBehaviour
         }
 
         // Or wait unity the continue button is pressed.
-        yield return new WaitUntil(() => InputManager.ButtonA);
+        yield return new WaitForSecondsRealtime(0.1f);
+        yield return new WaitUntil(() => InputManager.GetButtonA());
         StartCoroutine(DisplayDialogue());
     }
 
@@ -126,12 +127,30 @@ public class DialogueManager : MonoBehaviour
     private IEnumerator TypeSentence(string sentence)
     {
         messageContent.text = "";
-        foreach (char letter in sentence.ToCharArray())
+        var parsedSentence = ParseSentence(sentence);
+
+        foreach (char letter in parsedSentence)
         {
             messageContent.text += letter;
 
             yield return null;
             yield return null;
         }
+    }
+
+    private string ParseSentence(string sentence)
+    {
+        string[] parseableSymbols = { "(X)", "(Y)" };
+
+        string[] controllerSymbols = {"XD", "YD"};
+        string[] keyboardSymbols = {"XD", "YD"};
+
+        for (int i = 0; i < parseableSymbols.Length; i++)
+        {
+            var symbol = InputManager.Xbox_One_Controller == 1 ? controllerSymbols[i] : keyboardSymbols[i];
+            sentence.Replace(parseableSymbols[i], symbol);
+        }
+
+        return sentence;
     }
 }

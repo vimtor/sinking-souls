@@ -15,7 +15,8 @@ public class DialogueManager : MonoBehaviour
     [Header("Extras")]
     public GameObject blackFrames;
     public GameObject inGameUI;
-    
+
+    private GameObject lastCamera;
     private Queue<Dialogue> conversation;
 
 
@@ -56,6 +57,7 @@ public class DialogueManager : MonoBehaviour
     {
         genericDialogue.SetActive(false);
         blackFrames.SetActive(false);
+        lastCamera.SetActive(false);
         inGameUI.SetActive(true);
 
         GameController.instance.player.GetComponent<Player>().Resume();
@@ -79,6 +81,16 @@ public class DialogueManager : MonoBehaviour
 
         StopCoroutine("TypeSentence");
         StartCoroutine(TypeSentence(dialogue.message));
+
+        // Update the camera if needed.
+        if (dialogue.camera != null)
+        {
+            dialogue.camera.SetActive(true);
+
+            // To avoid accumulating active cameras.
+            if (lastCamera != null) lastCamera.SetActive(false);
+            lastCamera = dialogue.camera;
+        }
 
         // Display the next dialogue if automatic.
         if (dialogue.automatic)

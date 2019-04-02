@@ -8,6 +8,7 @@ public class DialogueTrigger : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
+        other.GetComponent<Rigidbody>().velocity = Vector3.zero;
         DialogueManager.Instance.StartConversation(dialogues);
         Destroy(gameObject);
     }

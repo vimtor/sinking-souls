@@ -96,6 +96,9 @@ public class GameController : MonoBehaviour
                 inTavern = true;
                 currentRoom = GameObject.Find("SpawnPoint");
 
+                var innkeeperBehaviour = FindObjectOfType<InnkeeperBehaviour>();
+                innkeeperBehaviour.FillShop();
+
                 SetupGame();
                 player.GetComponent<Player>().Heal();
                 break;

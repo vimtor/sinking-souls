@@ -11,6 +11,10 @@ public class BubbleText : MonoBehaviour {
     public GameObject image;
     public GameObject text;
     public List<string> texts;
+    public List<string> xboxTexts;
+    public List<string> ps4Texts;
+    public List<string> keyboardTexts;
+    private List<string> possibleTexts;
 
     [Header("Properties:")]
     public float activationDistance;
@@ -31,24 +35,26 @@ public class BubbleText : MonoBehaviour {
         pickedTexts.Enqueue(0);
         index = 0;
     }
-	
+ 
 
-	void Update () {
+    void Update () {
+        setInputTexts();
 
         //Looks at the camera
         gameObject.GetComponent<RectTransform>().forward = -1 * new Vector3((GameObject.Find("Game Camera").transform.position - transform.position).x, (GameObject.Find("Game Camera").transform.position - transform.position).y, (GameObject.Find("Game Camera").transform.position - transform.position).z);
 
         //Adjust transparency
         float transparency = GameController.instance.player.GetComponent<Player>().map(Vector3.Distance(GameController.instance.player.transform.position, gameObject.GetComponent<RectTransform>().position), activationDistance, fadeDistance, 1, 0);
-
+        if (transform.parent.gameObject.GetComponent<BlacksmithBehaviour>()) if(transform.parent.gameObject.GetComponent<BlacksmithBehaviour>().isOpen) transparency = 0;
+        if (transform.parent.gameObject.GetComponent<AlchemistBehaviour>()) if(transform.parent.gameObject.GetComponent<AlchemistBehaviour>().isOpen) transparency = 0;
         //Change Text       
         if (transparency <= 0) {
             //Select new valid text
-            if(pickedTexts.Count < texts.Count)
+            if(pickedTexts.Count < possibleTexts.Count)
                 while (pickedTexts.Contains(index))
                 {
-                    index = Random.Range(0, texts.Count);
-                    displayText = texts[index];
+                    index = Random.Range(0, possibleTexts.Count);
+                    displayText = possibleTexts[index];
                 } 
 
         }
@@ -76,4 +82,13 @@ public class BubbleText : MonoBehaviour {
         text.GetComponent<TextMeshProUGUI>().color = new Color(text.GetComponent<TextMeshProUGUI>().color.r, text.GetComponent<TextMeshProUGUI>().color.g, text.GetComponent<TextMeshProUGUI>().color.b, transparency * 1.1f);
         text.GetComponent<TextMeshProUGUI>().text = displayText;
     }
+
+    void setInputTexts() {
+        possibleTexts = new List<string>();
+        foreach (string s in texts) possibleTexts.Add(s);
+        if (InputManager.PS4_Controller > 0) foreach (string s in ps4Texts) possibleTexts.Add(s);
+        if (InputManager.Xbox_One_Controller > 0) foreach (string s in xboxTexts) possibleTexts.Add(s);
+        else foreach (string s in keyboardTexts) possibleTexts.Add(s);
+    }
+
 }

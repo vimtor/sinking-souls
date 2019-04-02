@@ -57,6 +57,7 @@ MonoBehaviour:
   casualEnemy: {fileID: 0}
   nextCasualTime: 0
   casualCounter: 0
+  roomEnemies: []
   playerPrefab: {fileID: 1374338400793274, guid: 44389e0974990014b85d7b72e8893276,
     type: 2}
   blueprint: {fileID: 1656587315307008, guid: 1a7131efd18afaf4cb4d1edaea296ef7, type: 2}
@@ -73,19 +74,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fddf5f21314ce444ea3a0fee462174df, type: 2}
   - {fileID: 11400000, guid: 1c65a31ad04070446b36237c4329c509, type: 2}
   - {fileID: 11400000, guid: 1ec961ec8962cbb4482e7dff7290c7fa, type: 2}
-  weapons:
-  - {fileID: 11400000, guid: 770641d31570a724f8f8eeb86cdada2f, type: 2}
-  - {fileID: 11400000, guid: 770641d31570a724f8f8eeb86cdada2f, type: 2}
   enhancers:
   - {fileID: 11400000, guid: 7637169d67cb3b942acf653409b02d2e, type: 2}
   - {fileID: 11400000, guid: e414054fa6f953d4997f4f7609e212c0, type: 2}
-  innKeeperShop: {fileID: 1783315880503980, guid: 39c87975063fd194483a38147f6b1293,
-    type: 2}
-  roomEnemies: []
   postProcesingProfileLevel1: {fileID: 11400000, guid: 597ee8a88a343034589a943ece5b5c34,
     type: 2}
   postProcesingProfileLevel2: {fileID: 11400000, guid: 93072f2240c0c9841bb2c69d3250b20b,
     type: 2}
+  level1: {fileID: 11400000, guid: 5a1017c812d763441994ee36bb354230, type: 2}
+  level2: {fileID: 11400000, guid: 9c5544fb1cddc45459aaef94280e956b, type: 2}
   died: 0
   inTavern: 0
   debugMode: 0
@@ -93,8 +90,6 @@ MonoBehaviour:
   currentRoom: {fileID: 0}
   player: {fileID: 0}
   lobbySoulsHUD: {fileID: 0}
-  level1: {fileID: 11400000, guid: 5a1017c812d763441994ee36bb354230, type: 2}
-  level2: {fileID: 11400000, guid: 9c5544fb1cddc45459aaef94280e956b, type: 2}
 --- !u!114 &114646670468762960
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -121,7 +116,7 @@ MonoBehaviour:
   eliteRate: 1
   roomSize: 39.46
   roomSizeLv1: 39.46
-  roomSizeLv2: 88.6
+  roomSizeLv2: 99
   seed: 
   level: {fileID: 11400000, guid: 9c5544fb1cddc45459aaef94280e956b, type: 2}
   Crew:

@@ -42,6 +42,11 @@ public static class SaveManager
         }
     }
 
+    public static bool CheckFile()
+    {
+        return File.Exists(path);
+    }
+
 }
 
 

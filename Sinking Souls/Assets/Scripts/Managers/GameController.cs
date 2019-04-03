@@ -213,6 +213,12 @@ public class GameController : MonoBehaviour
             GetComponent<LevelGenerator>().level = level2;
         }
 
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            lobbySouls += 100;
+        }
+
+        #region ENEMY CONTROLLER
         if (ApplicationManager.Instance.state == ApplicationManager.GameState.MAIN_MENU) return;
         if (ApplicationManager.Instance.state == ApplicationManager.GameState.LOBBY) return;
 
@@ -233,6 +239,8 @@ public class GameController : MonoBehaviour
 
             casualCounter += Time.deltaTime;
         }
+        #endregion
+
     }
 
 
@@ -314,6 +322,7 @@ public class GameController : MonoBehaviour
         runSouls = save.runSouls;
         m_RescuedAlchemist = save.alchemist;
         m_RescuedBlacksmith = save.blacksmith;
+        player.GetComponent<Player>().MaxHealth = save.maxHealth;
     }
 }
 

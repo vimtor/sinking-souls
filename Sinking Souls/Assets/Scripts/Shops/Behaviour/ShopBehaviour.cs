@@ -27,6 +27,11 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
     private Animator animator;
     private static readonly int kTalkParam = Animator.StringToHash("Talk");
 
+    [Header("Dialogue")]
+    public bool dialogable;
+    public GameObject dialogueObject;
+    public GameObject firstOption;
+    private bool dialoguing;
 
     private void Start()
     {
@@ -54,6 +59,18 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
 
     private void Update()
     {
+        if (dialoguing)
+        {
+            if (InputManager.GetButtonB())
+            {
+                InputManager.ButtonB = false;
+                dialoguing = false;
+
+                GameController.instance.player.GetComponent<Player>().Resume();
+                dialogueObject.SetActive(false);
+            }
+        }
+
         if (!isOpen)
         {
             // Open the store.
@@ -65,7 +82,17 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
                 var minimumDistance = GameController.instance.player.GetComponent<Player>().transform.position - transform.position;
                 if (minimumDistance.magnitude > interactRange) return;
 
-                OpenShop();
+                if (dialogable)
+                {
+                    dialogueObject.SetActive(true);
+                    EventSystemWrapper.Instance.SelectFirst(firstOption);
+                    GameController.instance.player.GetComponent<Player>().Stop();
+                    dialoguing = true;
+                }
+                else
+                {
+                    OpenShop();
+                }
             }
         }
         else
@@ -102,11 +129,13 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
         isOpen = false;
     }
 
-    private void OpenShop()
+    public void OpenShop()
     {
         shopPanel.SetActive(true);
         shopTitle.SetActive(true);
         shopCamera.SetActive(true);
+
+        dialogueObject.SetActive(false);
 
         var content = shopPanel.transform.Find("Content");
         var firstItem = content.transform.GetChild(0).gameObject;

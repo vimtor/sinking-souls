@@ -24,7 +24,14 @@ public class AlchemistBehaviour : ShopBehaviour<Ability>
 
     public override void FillShop()
     {
-        var abilities = Array.FindAll(GameController.instance.abilities, ability => ability.CanUpgrade());
-        Array.ForEach(abilities, ability => SetupItem(ability));
+        Array.ForEach(GameController.instance.abilities, ability => SetupItem(ability));
+    }
+
+    public void UpgradeLife()
+    {
+        if (!GameController.instance.CanBuy(100)) return;
+
+        GameController.instance.player.GetComponent<Player>().MaxHealth += 50.0f;
+        SaveManager.Save();
     }
 }

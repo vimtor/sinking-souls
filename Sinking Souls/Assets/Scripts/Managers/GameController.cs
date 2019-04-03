@@ -194,11 +194,13 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F1))
         {
+            Debug.Log("God Mode: FALSE");
             godMode = false;
         }
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
+            Debug.Log("God Mode: TRUE");
             godMode = true;
         }
 

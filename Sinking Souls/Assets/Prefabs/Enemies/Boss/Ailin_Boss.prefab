@@ -1313,7 +1313,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Health: 1000
-  m_MaxHealth: 100
+  m_MaxHealth: 1000
   m_HittedRecovery: 2
   m_Weapon: {fileID: 11400000, guid: 770641d31570a724f8f8eeb86cdada2f, type: 2}
   m_WeaponHand: {fileID: 1423034210816116}
@@ -1357,6 +1357,8 @@ MonoBehaviour:
   rageCounter: 0
   rageDurationCounter: 0
   tpCounter: 0
+  bossHealthbar: {fileID: 1713393005696998, guid: 5d1bdaa5c9d857f4982beb91e20cd6ea,
+    type: 2}
 --- !u!114 &114584638072486642
 MonoBehaviour:
   m_ObjectHideFlags: 1

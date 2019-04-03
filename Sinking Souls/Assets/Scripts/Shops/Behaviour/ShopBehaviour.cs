@@ -135,7 +135,7 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
         shopTitle.SetActive(true);
         shopCamera.SetActive(true);
 
-        dialogueObject.SetActive(false);
+        if (dialogable) dialogueObject.SetActive(false);
 
         var content = shopPanel.transform.Find("Content");
         var firstItem = content.transform.GetChild(0).gameObject;

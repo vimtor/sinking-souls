@@ -46,8 +46,10 @@ public class GameController : MonoBehaviour
     public LevelGeneratiorConfiguration level1;
     public LevelGeneratiorConfiguration level2;
 
+
     [HideInInspector] public bool died;
     [HideInInspector] public bool inTavern;
+    [HideInInspector] public float maxHealth;
     [HideInInspector] public static GameController instance;
     [HideInInspector] public bool debugMode = false;
     [HideInInspector] public bool godMode = false;
@@ -160,7 +162,7 @@ public class GameController : MonoBehaviour
                 }
 
                 Array.ForEach(modifiers, modifier => modifier.picked = false);
-
+                player.GetComponent<Player>().Heal();
                 #region Crew Members
 
                 m_BlacksmithObject = GameObject.Find("Galen");
@@ -322,7 +324,7 @@ public class GameController : MonoBehaviour
         runSouls = save.runSouls;
         m_RescuedAlchemist = save.alchemist;
         m_RescuedBlacksmith = save.blacksmith;
-        player.GetComponent<Player>().MaxHealth = save.maxHealth;
+        maxHealth = save.maxHealth;
     }
 }
 

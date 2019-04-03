@@ -6,6 +6,12 @@ using System.Collections.Generic;
 
 public class DialogueManager : MonoBehaviour
 {
+    [Header("Configuration")]
+    [Range(1, 5)] public int dialogueSpeed = 1;
+    public string[] parseableSymbols;
+    public string[] controllerSymbols;
+    public string[] keyboardSymbols;
+
     [Header("Dialogue Setup")]
     public GameObject genericDialogue;
     public Image characterFace;
@@ -129,26 +135,20 @@ public class DialogueManager : MonoBehaviour
         messageContent.text = "";
         var parsedSentence = ParseSentence(sentence);
 
+        float time = 1 / Mathf.Pow(10, dialogueSpeed);
         foreach (char letter in parsedSentence)
         {
             messageContent.text += letter;
-
-            yield return null;
-            yield return null;
+            yield return new WaitForSecondsRealtime(time);
         }
     }
 
     private string ParseSentence(string sentence)
     {
-        string[] parseableSymbols = { "(X)", "(Y)" };
-
-        string[] controllerSymbols = {"XD", "YD"};
-        string[] keyboardSymbols = {"XD", "YD"};
-
         for (int i = 0; i < parseableSymbols.Length; i++)
-        {
+        { 
             var symbol = InputManager.Xbox_One_Controller == 1 ? controllerSymbols[i] : keyboardSymbols[i];
-            sentence.Replace(parseableSymbols[i], symbol);
+            sentence = sentence.Replace(parseableSymbols[i], symbol);
         }
 
         return sentence;

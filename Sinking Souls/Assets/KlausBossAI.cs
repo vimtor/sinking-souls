@@ -12,6 +12,7 @@ public class KlausBossAI : MonoBehaviour {
     [Header("Prefabs")]
     GameObject[] swords;
     public GameObject swordPrefab;
+    public GameObject bossHealthbar;
 
     [Header ("Rest")]
     public GameObject[] restPositions;
@@ -71,6 +72,9 @@ public class KlausBossAI : MonoBehaviour {
             swords[i].transform.GetChild(0).GetComponent<WeaponHolder>().owner = gameObject;
             restHoverOffset[i] = Random.Range(0.7f, 1.3f);
         }
+
+        var healthbar = Instantiate(bossHealthbar, GameObject.Find("Canvas").transform);
+        healthbar.GetComponent<KlausBossHealthbar>().klaus = this;
     }
 
     private float acumulatedRotation = 0;

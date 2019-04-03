@@ -55,7 +55,7 @@ GameObject:
   - component: {fileID: 224165150501800498}
   - component: {fileID: 222438344779453524}
   - component: {fileID: 114816186152232064}
-  - component: {fileID: 114674081136410422}
+  - component: {fileID: 114472596241103572}
   m_Layer: 5
   m_Name: Klauss Boss Healthbar
   m_TagString: Untagged
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114674081136410422
+--- !u!114 &114472596241103572
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1713393005696998}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ad63e56b9b2f5b47a77181ef11fbeca, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d4019bbe8a1ce948bedc28819fcdd90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   trailingDelay: 1.5
@@ -150,8 +150,7 @@ MonoBehaviour:
   trailingSpeed: 0.1
   healthbar: {fileID: 114230060064033564}
   backHealthbar: {fileID: 114085141816452748}
-  ailin: {fileID: 0}
-  previousHealth: 0
+  klaus: {fileID: 0}
 --- !u!114 &114816186152232064
 MonoBehaviour:
   m_ObjectHideFlags: 1

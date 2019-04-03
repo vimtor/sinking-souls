@@ -33,6 +33,8 @@ public abstract class BossHealthbar : MonoBehaviour
         }
 
         previousHealth = GetCurrentHealth();
+
+        if (previousHealth <= 0) Destroy(gameObject);
     }
 
     private IEnumerator UpdateLife()

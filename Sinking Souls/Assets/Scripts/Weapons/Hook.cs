@@ -15,6 +15,7 @@ public class Hook : MonoBehaviour {
     public bool move = false;
 
     public void LaunchHook() {
+        GetComponent<Animator>().SetTrigger("Hook");
         currentHook = Instantiate(hookObject);
         currentHook.GetComponent<hookBehaviour>().target = tpTo;
         currentHook.GetComponent<hookBehaviour>().player = gameObject;
@@ -25,7 +26,6 @@ public class Hook : MonoBehaviour {
     {
         if(InputManager.LeftJoystick.magnitude == 0) {
             if (GetComponent<Player>().lockedEnemy != null) {
-                Debug.Log("PASO1");
                 float furthest = 0;
                 GameObject aux = null;
                 foreach (GameObject target in GameController.instance.roomEnemies) {
@@ -42,7 +42,6 @@ public class Hook : MonoBehaviour {
                 }
             }
             else {
-                Debug.Log("PASO2");
                 float closest = range;
                 GameObject aux = null;
                 foreach (GameObject target in GameController.instance.roomEnemies) {
@@ -60,7 +59,6 @@ public class Hook : MonoBehaviour {
             }
         }
         else {
-            Debug.Log("Directed");
             Vector3 direction = Camera.main.transform.forward.normalized * InputManager.LeftJoystick.y * -1 + (Quaternion.Euler(new Vector3(0, 90, 0)) * Camera.main.transform.forward.normalized) * InputManager.LeftJoystick.x;
             float minDist = range;
             Vector2 direction2 = new Vector2(direction.x, direction.z);
@@ -97,7 +95,8 @@ public class Hook : MonoBehaviour {
                 GetComponent<Player>().lockedEnemy = tpTo;
                 tpTo = null;
                 move = false;
-                if(currentHook != null) Destroy(currentHook);
+                GetComponent<Animator>().SetTrigger("EndHook");
+                if (currentHook != null) Destroy(currentHook);
             }
         }
     }

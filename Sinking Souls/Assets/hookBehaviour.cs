@@ -18,7 +18,6 @@ public class hookBehaviour : MonoBehaviour {
         if (move) {
             player.GetComponent<Player>().m_PlayerState = Player.PlayerState.PULLING;
             if (target != null && Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(target.transform.position.x, target.transform.position.z)) > 0.2f) {
-                Debug.Log("Moving");
                 float step = movementSpeed * Time.deltaTime;
                 transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
             }

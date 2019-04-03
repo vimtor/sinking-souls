@@ -25,33 +25,6 @@ public abstract class Ability : ScriptableObject
     public GameObject prefab;
     #endregion
 
-    #region Upgrade Variables
-    [System.Serializable]
-    public class Upgrade
-    {
-        [SerializeField] private int m_CooldownReduction;
-        public int CooldownReduction
-        {
-            get { return m_CooldownReduction; }
-        }
-
-        [SerializeField] private float m_DamageMultiplier;
-        public float DamageMultiplier
-        {
-            get { return m_DamageMultiplier; }
-        }
-
-        [SerializeField] private int m_PriceMultiplier;
-        public int PriceMultiplier
-        {
-            get { return m_PriceMultiplier; }
-        }
-    }
-
-    public Upgrade[] m_Upgrades;
-    public int m_UpgradeNumber = 0;
-    #endregion
-
      public string target;
      public Entity entity;
 
@@ -75,24 +48,6 @@ public abstract class Ability : ScriptableObject
 
     // For passive and use ability type.
     public virtual void Activate() { }
-
-    public void UpgradeAbility()
-    {
-        if (CanUpgrade())
-        {
-            damage *= m_Upgrades[m_UpgradeNumber].DamageMultiplier;
-            cooldown -= m_Upgrades[m_UpgradeNumber].CooldownReduction;
-
-            price *= m_Upgrades[m_UpgradeNumber].PriceMultiplier;
-        }
-        
-        m_UpgradeNumber++;
-    }
-
-    public bool CanUpgrade()
-    {
-        return m_Upgrades.Length >= m_UpgradeNumber;
-    }
 
     #region Configure Functions
     protected GameObject SetPrefab(Transform position)

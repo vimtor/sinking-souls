@@ -3,11 +3,16 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using TMPro;
 
 
 public class AlchemistBehaviour : ShopBehaviour<Ability>
 {
+    [Header("Alchemist Upgrades")]
+    public int upgradeCost = 100;
+    public float lifeIncrease = 50.0f;
+
     protected override GameObject Configure(GameObject item, Ability ability)
     {
         // Configure the ui item.
@@ -24,7 +29,15 @@ public class AlchemistBehaviour : ShopBehaviour<Ability>
 
     public override void FillShop()
     {
-        var abilities = Array.FindAll(GameController.instance.abilities, ability => ability.CanUpgrade());
-        Array.ForEach(abilities, ability => SetupItem(ability));
+        Array.ForEach(GameController.instance.abilities, ability => SetupItem(ability));
+    }
+
+    public void UpgradeLife()
+    {
+        if (!GameController.instance.CanBuy(upgradeCost)) return;
+
+        GameController.instance.lobbySouls -= upgradeCost;
+        GameController.instance.player.GetComponent<Player>().MaxHealth += lifeIncrease;
+        SaveManager.Save();
     }
 }

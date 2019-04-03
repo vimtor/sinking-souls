@@ -14,6 +14,6 @@ public class AlchemistItem : ShopItem
 
     protected override void BuyItem()
     {
-        ability.UpgradeAbility();
+        GameController.instance.player.GetComponent<Player>().Abilities[0] = ability;
     }
 }

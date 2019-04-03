@@ -35,7 +35,7 @@ public class TextButtonBehavior : MonoBehaviour, ISelectHandler, IDeselectHandle
     private void SelectButton()
     {
         AudioManager.Instance.PlayEffect(Random.value < 0.5f ? "MenuButton_1" : "MenuButton_2");
-        textMesh.text = "~ " + _textBackup + " ~";
+        textMesh.text = "( " + _textBackup + " )";
     }
 
     private void DeselectButton()

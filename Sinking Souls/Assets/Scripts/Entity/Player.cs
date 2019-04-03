@@ -168,6 +168,10 @@ public class Player : Entity
         m_CanMove = true;
         m_WeaponCollider.enabled = false;
         m_RotationDamping = m_MovementRotationDamping;
+
+        // Set max health.
+        m_MaxHealth = GameController.instance.maxHealth <= 0 ? 200.0f : GameController.instance.maxHealth;
+        m_Health = m_MaxHealth;
     }
 
     //value, start1, end1, new sratr, new end

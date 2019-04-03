@@ -53,6 +53,7 @@ public class SaveData
     public bool blacksmith;
     public bool alchemist;
     public bool inTavern;
+    public float maxHealth;
 
     public SaveData()
     {
@@ -60,6 +61,7 @@ public class SaveData
         runSouls = GameController.instance.runSouls;
         blacksmith = GameController.instance.m_RescuedBlacksmith;
         alchemist = GameController.instance.m_RescuedAlchemist;
+        maxHealth = GameController.instance.player.GetComponent<Player>().MaxHealth;
 
         // TODO: When tavern is a separate scene, change this to read inTavern of GameController.
         inTavern = false;

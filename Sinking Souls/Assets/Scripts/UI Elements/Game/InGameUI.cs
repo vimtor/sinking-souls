@@ -19,6 +19,7 @@ public class InGameUI : MonoBehaviour
     public GameObject minimap;
     public GameObject minimapCamera;
     public float minimapHeight;
+    public float minimapSize = 80.0f;
 
     private Player playerRef;
 
@@ -54,13 +55,13 @@ public class InGameUI : MonoBehaviour
         }
     }
 
-    public void UpdateMinimap() {
+    public void UpdateMinimap()
+    {
         Vector3 newPos = GameController.instance.currentRoom.transform.position;
         newPos.y = minimapHeight;
         minimapCamera.transform.position = newPos;
 
-        GameObject roomIcon = GameController.instance.currentRoom.transform.Find("RoomIcon").gameObject;
-        roomIcon.SetActive(true);
+        minimapCamera.GetComponent<Camera>().orthographicSize = minimapSize;
     }
 
 }

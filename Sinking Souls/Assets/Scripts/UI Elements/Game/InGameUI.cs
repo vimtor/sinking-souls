@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
@@ -37,6 +39,11 @@ public class InGameUI : MonoBehaviour
         else
         {
             icons = GameObject.FindGameObjectsWithTag("Room Icon");
+
+            foreach (var icon in icons)
+            {
+                icon.SetActive(false);
+            }
         }
         
     }
@@ -77,6 +84,21 @@ public class InGameUI : MonoBehaviour
         minimapCamera.transform.position = newPos;
 
         minimapCamera.GetComponent<Camera>().orthographicSize = minimapSize;
+
+        var currentRoom = GameController.instance.currentRoom;
+        currentRoom.GetComponent<doorController>().roomIcon.SetActive(true);
+        currentRoom.GetComponent<doorController>().roomUnknown.SetActive(false);
+
+        var adjacentDoors = currentRoom.GetComponentsInChildren<DoorBehaviour>();
+        var adjacentRooms = adjacentDoors.Select(door => door.nextDoor.transform.parent.gameObject.GetComponent<doorController>()).ToList();
+
+        foreach (var room in adjacentRooms)
+        {
+            if (room.roomIcon.activeSelf == false)
+            {
+                room.roomUnknown.SetActive(true);
+            }
+        }
     }
 
     private void UpdateIcons()

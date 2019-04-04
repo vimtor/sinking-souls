@@ -12,6 +12,8 @@ public class MainMenu : MonoBehaviour
         {
             Destroy(resumeButton);
         }
+
+        AudioManager.Instance.PlayMusic("TitleScreen");
     }
 
     private void Update()

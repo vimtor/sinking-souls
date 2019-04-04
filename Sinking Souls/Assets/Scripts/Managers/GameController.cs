@@ -38,7 +38,7 @@ public class GameController : MonoBehaviour
     public Modifier[] modifiers;
     public Ability[] abilities;
     public Enhancer[] enhancers;
-  
+
     [Header("Levels")]
     public PostProcessProfile postProcesingProfileLevel1;
     public PostProcessProfile postProcesingProfileLevel2;
@@ -117,9 +117,14 @@ public class GameController : MonoBehaviour
                 SetupGame();
                 GameObject.Find("Post Processing").gameObject.GetComponent<PostProcessVolume>().profile = postProcesingProfileLevel2;
 
-                if (GetComponent<LevelGenerator>().level.name != "DeathIsland") {
+                if (GetComponent<LevelGenerator>().level.name != "DeathIsland")
+                {
                     player.transform.Find("DeathIsland").gameObject.SetActive(false);
                     GameObject.Find("Post Processing").gameObject.GetComponent<PostProcessVolume>().profile = postProcesingProfileLevel1;
+                }
+                else
+                {
+                    AudioManager.Instance.PlayEffect("Wind");
                 }
                 break;
 
@@ -133,7 +138,7 @@ public class GameController : MonoBehaviour
                 player.transform.Find("DeathIsland").gameObject.SetActive(false);
                 GameObject.Find("Post Processing").gameObject.GetComponent<PostProcessVolume>().profile = postProcesingProfileLevel1;
 
-            break;
+                break;
 
             case ApplicationManager.GameState.LOBBY:
                 if (m_RescuedBlacksmith) GetComponent<LevelGenerator>().level = level1;
@@ -211,7 +216,8 @@ public class GameController : MonoBehaviour
             roomEnemies = new List<GameObject>();
         }
 
-        if (Input.GetKeyDown(KeyCode.F4)) {
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
             m_RescuedAlchemist = true;
             m_RescuedBlacksmith = true;
             GetComponent<LevelGenerator>().level = level2;
@@ -259,7 +265,7 @@ public class GameController : MonoBehaviour
     {
         player = Instantiate(playerPrefab);
         if (!currentRoom.GetComponent<SpawnController>()) player.transform.position = currentRoom.transform.position;
-        else player.transform.position = currentRoom.GetComponent<SpawnController>().spawnHolder.transform.GetChild(0).gameObject.transform.position;  
+        else player.transform.position = currentRoom.GetComponent<SpawnController>().spawnHolder.transform.GetChild(0).gameObject.transform.position;
     }
 
     public void SpawnBlueprint(Vector3 position)

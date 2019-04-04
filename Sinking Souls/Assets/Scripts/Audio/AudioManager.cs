@@ -134,5 +134,11 @@ public class AudioManager : MonoBehaviour
 
         soundToPlay.source.Stop();
     }
+
+    public void StopAll()
+    {
+        Array.ForEach(m_Effects, sound => sound.source.Stop());
+        Array.ForEach(m_Music, sound => sound.source.Stop());
+    }
     #endregion
 }

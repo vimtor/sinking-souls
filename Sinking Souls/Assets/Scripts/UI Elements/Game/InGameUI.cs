@@ -27,6 +27,7 @@ public class InGameUI : MonoBehaviour
     private Player playerRef;
     private GameObject[] icons;
 
+
     private void Start()
     {
         playerRef = GameController.instance.player.GetComponent<Player>();

@@ -20,15 +20,25 @@ public class InGameUI : MonoBehaviour
     public GameObject minimapCamera;
     public float minimapHeight;
     public float minimapSize = 80.0f;
+    public float iconSize = 15.0f;
 
     private Player playerRef;
+    private GameObject[] icons;
 
     private void Start()
     {
         playerRef = GameController.instance.player.GetComponent<Player>();
         abilityIcon.sprite = playerRef.Abilities[0].sprite;
 
-        if (!displayMinimap) minimap.SetActive(false);
+        if (!displayMinimap)
+        {
+            minimap.SetActive(false);
+        }
+        else
+        {
+            icons = GameObject.FindGameObjectsWithTag("Room Icon");
+        }
+        
     }
 
     private void Update()
@@ -37,7 +47,12 @@ public class InGameUI : MonoBehaviour
         soulsAmount.text = GameController.instance.runSouls.ToString();
 
         UpdateAbility();
-        if (displayMinimap) UpdateMinimap();
+
+        if (displayMinimap)
+        {
+            UpdateMinimap();
+            UpdateIcons();
+        }
     }
 
     private void UpdateAbility()
@@ -64,5 +79,16 @@ public class InGameUI : MonoBehaviour
         minimapCamera.GetComponent<Camera>().orthographicSize = minimapSize;
     }
 
+    private void UpdateIcons()
+    {
+        foreach (var icon in icons)
+        {
+            var scale = icon.transform.localScale;
+            scale.x = iconSize;
+            scale.z = iconSize;
+
+            icon.transform.localScale = scale;
+        }
+    }
 }
     

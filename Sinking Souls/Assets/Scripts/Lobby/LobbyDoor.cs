@@ -26,6 +26,8 @@ public class LobbyDoor : MonoBehaviour
     {
         if (!other.CompareTag("Player")) return;
 
+        AudioManager.Instance.StopAll();
+
         switch (sceneToLoad)
         {
             case ApplicationManager.GameState.GAME:

@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class doorController : MonoBehaviour {
+public class doorController : MonoBehaviour
+{
+    public GameObject roomIcon;
+    public GameObject roomUnknown;
 
     public List<GameObject> closedDoor;
     private float closedPosition;
     private float openPosition;
     public float speed = 2.25f;
     public float offset = 4.5f;
-
 
 
     private void Start()

@@ -22,7 +22,7 @@ public class ApplicationManager : MonoBehaviour
     public GameState state;
 
     public GameObject loadingScreen;
-    private bool currentlyLoading = false;
+    [HideInInspector] public bool currentlyLoading = false;
 
     public static ApplicationManager Instance { get; private set; }
 
@@ -136,9 +136,13 @@ public class ApplicationManager : MonoBehaviour
         if (currentlyLoading) yield break;
 
         currentlyLoading = true;
+
         // Load scene and disable scene change until minLoadTime.
         var operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         operation.allowSceneActivation = false;
+
+        // Disable player movement.
+        GameController.instance.player.GetComponent<Player>().Stop();
 
         // Instantiate the loading screen on the canvas.
         Instantiate(loadingScreen, GameObject.Find("Canvas").transform);

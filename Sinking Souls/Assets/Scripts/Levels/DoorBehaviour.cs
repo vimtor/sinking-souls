@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorBehaviour : MonoBehaviour {
-
+public class DoorBehaviour : MonoBehaviour
+{
     [HideInInspector]
     public bool locked = false;
 

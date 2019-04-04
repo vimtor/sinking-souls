@@ -376,8 +376,7 @@ public class Player : Entity
                 }
 
                 break;
-            case PlayerState.PULLING:
-
+            case PlayerState.PULLING:               
                 break;
 
             default:

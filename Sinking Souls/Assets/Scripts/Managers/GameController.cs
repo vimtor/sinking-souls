@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
     public float nextCasualTime;
     public float casualCounter = 0;
     public List<GameObject> roomEnemies;
+    private float PlayerLifeHolder = 100;
 
     [Header("Prefabs")]
     public GameObject playerPrefab;
@@ -85,6 +86,7 @@ public class GameController : MonoBehaviour
 
         Cursor.visible = false;
         levelGenerator = GetComponent<LevelGenerator>();
+        
     }
 
     public void SetupScene(ApplicationManager.GameState scene)
@@ -103,7 +105,8 @@ public class GameController : MonoBehaviour
 
                 SetupGame();
                 player.GetComponent<Player>().Heal();
-                break;
+                PlayerLifeHolder = player.GetComponent<Player>().Health;
+            break;
 
             case ApplicationManager.GameState.GAME:
                 if (m_RescuedBlacksmith) levelGenerator.level = level1;
@@ -115,6 +118,7 @@ public class GameController : MonoBehaviour
                 currentRoom.GetComponent<SpawnController>().alreadySpawned = true;
 
                 SetupGame();
+                player.GetComponent<Player>().Health = PlayerLifeHolder;
                 GameObject.Find("Post Processing").gameObject.GetComponent<PostProcessVolume>().profile = postProcesingProfileLevel2;
 
                 if (GetComponent<LevelGenerator>().level.name != "DeathIsland")
@@ -150,8 +154,12 @@ public class GameController : MonoBehaviour
 
                 levelGenerator.currentLevel = -1;
                 currentRoom = GameObject.Find("PlayerSpawn");
-
+                
                 SetupGame();
+                //restart life holder to max health an heal player
+                player.GetComponent<Player>().Heal();
+                PlayerLifeHolder = player.GetComponent<Player>().Health;
+
                 player.transform.Find("DeathIsland").gameObject.SetActive(false);
 
                 if (died)
@@ -197,7 +205,6 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        
         if (Input.GetKeyDown(KeyCode.F1))
         {
             Debug.Log("God Mode: FALSE");
@@ -262,6 +269,7 @@ public class GameController : MonoBehaviour
             }
         }
 
+        PlayerLifeHolder = player.GetComponent<Player>().Health;
 
     }
 

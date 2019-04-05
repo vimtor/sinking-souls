@@ -347,11 +347,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d993e32ae03a3a49a5962745929ba16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomIcon: {fileID: 0}
+  roomUnknown: {fileID: 0}
   closedDoor:
   - {fileID: 1188010259}
   - {fileID: 898178185}
   speed: 2.25
   offset: 4.5
+  closing: 0
 --- !u!114 &8238499
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,7 +380,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 8238496}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -39.37}
+  m_LocalPosition: {x: 0, y: 0, z: -39.46}
   m_LocalScale: {x: 0.024000015, y: 0.024, z: 0.024000015}
   m_Children:
   - {fileID: 1181093455}
@@ -8489,11 +8492,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d993e32ae03a3a49a5962745929ba16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomIcon: {fileID: 0}
+  roomUnknown: {fileID: 0}
   closedDoor:
   - {fileID: 357738672}
   - {fileID: 159103903}
   speed: 2.25
   offset: 4.5
+  closing: 0
 --- !u!114 &171495146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8518,9 +8524,9 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 171495143}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: -78.64}
-  m_LocalScale: {x: 0.024, y: 0.024, z: 0.024}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -78.92}
+  m_LocalScale: {x: 0.024000015, y: 0.024, z: 0.024000015}
   m_Children:
   - {fileID: 357738675}
   - {fileID: 159103906}
@@ -9982,7 +9988,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 255273202}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 118.11, y: 0, z: -78.67}
+  m_LocalPosition: {x: 118.38, y: 0, z: -78.92}
   m_LocalScale: {x: 0.02400003, y: 0.024, z: 0.02400003}
   m_Children:
   - {fileID: 1144832874}
@@ -13050,10 +13056,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d993e32ae03a3a49a5962745929ba16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomIcon: {fileID: 0}
+  roomUnknown: {fileID: 0}
   closedDoor:
   - {fileID: 0}
   speed: 2.25
   offset: 4.5
+  closing: 0
 --- !u!114 &463369991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19740,11 +19749,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d993e32ae03a3a49a5962745929ba16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomIcon: {fileID: 0}
+  roomUnknown: {fileID: 0}
   closedDoor:
   - {fileID: 2052895859}
   - {fileID: 355679944}
   speed: 2.25
   offset: 4.5
+  closing: 0
 --- !u!114 &611177398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19770,7 +19782,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 611177395}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 39.32, y: 0, z: -78.64}
+  m_LocalPosition: {x: 39.46, y: 0, z: -78.92}
   m_LocalScale: {x: 0.02400003, y: 0.024, z: 0.02400003}
   m_Children:
   - {fileID: 2052895862}
@@ -46179,7 +46191,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4573673823225800, guid: c0ddc06237eb1554bb51c4a0501e9bf2, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 78.68
+      value: 78.92
       objectReference: {fileID: 0}
     - target: {fileID: 4573673823225800, guid: c0ddc06237eb1554bb51c4a0501e9bf2, type: 2}
       propertyPath: m_LocalPosition.y
@@ -46187,7 +46199,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4573673823225800, guid: c0ddc06237eb1554bb51c4a0501e9bf2, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -78.68
+      value: -78.92
       objectReference: {fileID: 0}
     - target: {fileID: 4573673823225800, guid: c0ddc06237eb1554bb51c4a0501e9bf2, type: 2}
       propertyPath: m_LocalRotation.x
@@ -49437,10 +49449,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d993e32ae03a3a49a5962745929ba16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomIcon: {fileID: 0}
+  roomUnknown: {fileID: 0}
   closedDoor:
   - {fileID: 745877017}
   speed: 2.25
   offset: 4.5
+  closing: 0
 --- !u!114 &1865117998
 MonoBehaviour:
   m_ObjectHideFlags: 0

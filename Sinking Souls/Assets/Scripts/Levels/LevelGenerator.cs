@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
-    #region Minimap Configuration
-    [Header("Minimap Configuration")]
-    public GameObject roomIconPrefab;
-    public float roomIconHeight;
-
-    public Material combatRoomIcon;
-    public Material bossRoomIcon;
-    public Material eliteRoomIcon;
-    public Material initialRoomIcon;
-    public Material nextFloorRoomIcon;
-    #endregion
-
     #region Level Generator Configuration
     [Header("Level Generator Configuration")]
     public bool tabernaSpawned = false;
@@ -78,7 +66,6 @@ public class LevelGenerator : MonoBehaviour
         if (level.name == "DeathIsland") roomSize = roomSizeLv2;
         else roomSize = roomSizeLv1;
 
-        Debug.Log(level.name);
         RoomsA = level.RoomsA;
         RoomsB = level.RoomsB;
         RoomsC = level.RoomsC;
@@ -99,16 +86,17 @@ public class LevelGenerator : MonoBehaviour
         levelWrapper.name = "Level Wrapper";
 
 
-            SetSeed();
+        SetSeed();
+        SetGridSize();
+        CreateRooms();
 
+        if (Random.value < eliteRate) SetEliteRoom();
 
-            SetGridSize();
-            CreateRooms();
-            if (Random.value < eliteRate) SetEliteRoom();
-            SetRoomDoors();
-            if (currentLevel == 3) PlaceBossRoom();
-            else PlaceNextLevelRoom();
-            return CreateMap();
+        SetRoomDoors();
+        if (currentLevel == 3) PlaceBossRoom();
+        else PlaceNextLevelRoom();
+
+        return CreateMap();
 
     }
 
@@ -426,18 +414,8 @@ public class LevelGenerator : MonoBehaviour
         instantiatedRoom.name = "Room_" + roomCount;
         instantiatedRoom.transform.parent = levelWrapper.transform;
 
-        #region Room Minimap
-        GameObject roomIcon = Instantiate(roomIconPrefab, instantiatedRoom.transform);
-        roomIcon.name = "RoomIcon";
-        Vector3 newPos = roomIcon.transform.position;
-        newPos.y += roomIconHeight;
-        roomIcon.transform.position = newPos;
-        roomIcon.SetActive(false);
-        #endregion
-
         switch (room.type){
             case Room.RoomType.COMBAT:
-                roomIcon.GetComponent<MeshRenderer>().material = combatRoomIcon;
                 break;
 
             case Room.RoomType.BOSS:
@@ -446,18 +424,14 @@ public class LevelGenerator : MonoBehaviour
                     if (instantiatedRoom.transform.GetChild(i).name == "Door") lastRoom = instantiatedRoom.transform.GetChild(i).gameObject;
                 }
 
-                roomIcon.GetComponent<MeshRenderer>().material = bossRoomIcon;
-
                 //instantiatedRoom.GetComponent<SpawnController>().possibleConfigurations.Clear();
                 //instantiatedRoom.GetComponent<SpawnController>().possibleConfigurations.Add(Crew[0]); //index depending on wich level you are
                 break;
 
             case Room.RoomType.ELITE:
-                roomIcon.GetComponent<MeshRenderer>().material = eliteRoomIcon;
                 break;
 
             case Room.RoomType.INITIAL:
-                roomIcon.GetComponent<MeshRenderer>().material = initialRoomIcon;
                 break;
 
             case Room.RoomType.NEXT_FLOOR:
@@ -468,10 +442,6 @@ public class LevelGenerator : MonoBehaviour
                         lastRoom = instantiatedRoom.transform.GetChild(i).gameObject;
                     }
                 }
-                roomIcon.GetComponent<MeshRenderer>().material = nextFloorRoomIcon;
-                break;
-
-            default:
                 break;
         }
 

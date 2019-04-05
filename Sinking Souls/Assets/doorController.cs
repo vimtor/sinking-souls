@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class doorController : MonoBehaviour {
+public class doorController : MonoBehaviour
+{
+    public GameObject roomIcon;
+    public GameObject roomUnknown;
 
     public List<GameObject> closedDoor;
     private float closedPosition;

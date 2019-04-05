@@ -13,6 +13,7 @@ public class doorController : MonoBehaviour
     public float speed = 2.25f;
     public float offset = 4.5f;
 
+    private bool closed = false;
 
     private void Start()
     {
@@ -24,7 +25,9 @@ public class doorController : MonoBehaviour
     // Update is called once per frame
     void Update () {
 
-        if (GameController.instance.roomEnemies.Count > 0) closeDoor();
+        if (GameController.instance.roomEnemies.Count > 0) {
+            if (!closed) closeDoor();
+        }
         else openDoor();
 
 	}
@@ -38,12 +41,14 @@ public class doorController : MonoBehaviour
         if(checkDistance())
             for (int i = 0; i < closedDoor.Count; i++)// GameObject door in closedDoor
             {
-                if (closedDoor[i].transform.position.y < closedPosition)
-                {
+                if (closedDoor[i].transform.position.y < closedPosition) {
                     closedDoor[i].transform.position += Vector3.up * Time.deltaTime * speed;
                     Debug.Log("Cerrando");
                 }
-                else closedDoor[i].transform.position = new Vector3(closedDoor[i].transform.position.x, closedPosition, closedDoor[i].transform.position.z);
+                else {
+                    closedDoor[i].transform.position = new Vector3(closedDoor[i].transform.position.x, closedPosition, closedDoor[i].transform.position.z);
+                    closed = true;
+                }
             }
         
     }
@@ -68,5 +73,6 @@ public class doorController : MonoBehaviour
             }
             else door.transform.position = new Vector3(door.transform.position.x, openPosition, door.transform.position.z);
         }
+        closed = false;
     }
 }

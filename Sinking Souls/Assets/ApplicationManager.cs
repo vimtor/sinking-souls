@@ -142,7 +142,10 @@ public class ApplicationManager : MonoBehaviour
         operation.allowSceneActivation = false;
 
         // Disable player movement.
-        GameController.instance.player.GetComponent<Player>().Stop();
+        if (GameController.instance.player != null)
+        {
+            GameController.instance.player.GetComponent<Player>().Stop();
+        }
 
         // Instantiate the loading screen on the canvas.
         Instantiate(loadingScreen, GameObject.Find("Canvas").transform);

@@ -10,6 +10,9 @@ public class Player : Entity
 
     public delegate void StateAction();
 
+    public Vector3 repulsionVector;
+    public float repulsionForce;
+    public float repulsionTime;
     public enum PlayerState
     {
         DASHING,
@@ -18,6 +21,7 @@ public class Player : Entity
         REACTING,
         SPELLING,
         PULLING,
+        REPULSED,
         NONE
     };
 
@@ -141,6 +145,8 @@ public class Player : Entity
 
     #endregion
 
+    private float repulsionCounter = 0;
+
     public bool lockedDashed = false;
     public void SetupPlayer()
     {
@@ -182,6 +188,7 @@ public class Player : Entity
 
     private void FixedUpdate()
     {
+        if (lockedEnemy != null && lockedEnemy.GetComponent<KlausBossAI>()) lockedEnemy = null;
         switch (Dodge) //change color
         {
             case DodgeType.NONE:
@@ -378,6 +385,17 @@ public class Player : Entity
                 break;
             case PlayerState.PULLING:               
                 break;
+
+            case PlayerState.REPULSED:
+            m_Rigidbody.velocity = repulsionVector.normalized * repulsionForce;
+            if (repulsionCounter >= repulsionTime) {
+                m_PlayerState = PlayerState.MOVING;
+                repulsionCounter = 0;
+            }
+            else {
+                repulsionCounter += Time.deltaTime;
+            }
+            break;
 
             default:
                 break;

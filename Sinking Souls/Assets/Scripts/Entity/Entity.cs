@@ -69,7 +69,7 @@ public class Entity : MonoBehaviour
 
     #region Default Components
     protected Rigidbody m_Rigidbody;
-    protected Animator m_Animator;
+    public Animator m_Animator;
     public Animator Animator
     {
         get { return m_Animator; }

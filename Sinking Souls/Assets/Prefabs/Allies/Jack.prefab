@@ -1669,10 +1669,14 @@ MonoBehaviour:
     type: 2}
   m_HealParticles: {fileID: 1565164962391104, guid: 78ac0be5f22ba4840ab23af6fd80e2e1,
     type: 2}
+  m_Animator: {fileID: 0}
   dead: 0
   lockedEnemy: {fileID: 0}
   originalColor: {r: 1, g: 1, b: 1, a: 1}
   gettingDamage: 0
+  repulsionVector: {x: 0, y: 0, z: 0}
+  repulsionForce: 5
+  repulsionTime: 1
   m_PlayerState: 0
   Dodge: 0
   leftOffset: -30

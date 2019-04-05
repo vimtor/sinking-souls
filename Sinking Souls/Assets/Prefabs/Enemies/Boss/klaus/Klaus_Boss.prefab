@@ -599,7 +599,9 @@ GameObject:
   - component: {fileID: 4688530098552432}
   - component: {fileID: 33183970083874282}
   - component: {fileID: 23556585166267490}
-  - component: {fileID: 136783201664904878}
+  - component: {fileID: 135295814382745492}
+  - component: {fileID: 114792670840599158}
+  - component: {fileID: 54901061047903194}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -1507,7 +1509,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1109747682752506}
   m_LocalRotation: {x: -0, y: 0.9986759, z: -0, w: 0.051444456}
-  m_LocalPosition: {x: 9.745385, y: 0.011, z: -31.021889}
+  m_LocalPosition: {x: 1.3563557, y: 51.2, z: 72.833954}
   m_LocalScale: {x: 1.629817, y: 1.629817, z: 1.629817}
   m_Children:
   - {fileID: 4013274579937910}
@@ -1580,7 +1582,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1109747682752506}
   serializedVersion: 2
-  m_Mass: 10
+  m_Mass: 100
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -1588,6 +1590,21 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!54 &54901061047903194
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1724300841387732}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!95 &95102470729632106
 Animator:
   serializedVersion: 3
@@ -1704,8 +1721,7 @@ MonoBehaviour:
   m_WeaponHand: {fileID: 0}
   m_Abilities:
   - {fileID: 11400000, guid: 1c65a31ad04070446b36237c4329c509, type: 2}
-  m_HitParticles: {fileID: 1744851154924106, guid: 83dbb4b59e1254c4bac5e18986484a49,
-    type: 2}
+  m_HitParticles: {fileID: 0}
   m_HealParticles: {fileID: 1565164962391104, guid: 78ac0be5f22ba4840ab23af6fd80e2e1,
     type: 2}
   dead: 0
@@ -1716,8 +1732,20 @@ MonoBehaviour:
   deathDuration: 3
   abilities: []
   allie: {fileID: 0}
---- !u!136 &136783201664904878
-CapsuleCollider:
+--- !u!114 &114792670840599158
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1724300841387732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1d632dc3b017034095e533f4d0c2eed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strength: 10
+--- !u!135 &135295814382745492
+SphereCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -1725,10 +1753,9 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
+  serializedVersion: 2
   m_Radius: 0.50000006
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: -0.00000017881393, y: 0, z: 0.0000019073486}
 --- !u!136 &136850107055130544
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -1899,8 +1926,8 @@ NavMeshAgent:
   m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 1000
+  m_Speed: 7
+  m_Acceleration: 100
   avoidancePriority: 50
   m_AngularSpeed: 360
   m_StoppingDistance: 2

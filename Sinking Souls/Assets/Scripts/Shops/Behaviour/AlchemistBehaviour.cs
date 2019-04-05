@@ -38,6 +38,8 @@ public class AlchemistBehaviour : ShopBehaviour<Ability>
 
         GameController.instance.lobbySouls -= upgradeCost;
         GameController.instance.player.GetComponent<Player>().MaxHealth += lifeIncrease;
+        GameController.instance.PlayerLifeHolder = GameController.instance.player.GetComponent<Player>().MaxHealth;
+        GameController.instance.maxHealth = GameController.instance.player.GetComponent<Player>().MaxHealth;
         SaveManager.Save();
     }
 }

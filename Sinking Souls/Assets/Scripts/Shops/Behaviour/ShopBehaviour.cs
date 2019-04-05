@@ -97,6 +97,7 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
         }
         else
         {
+            UpdateShop();
             // Close the store.
             if (InputManager.GetButtonB())
             {

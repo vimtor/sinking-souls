@@ -16,7 +16,7 @@ public class GameController : MonoBehaviour
     public float nextCasualTime;
     public float casualCounter = 0;
     public List<GameObject> roomEnemies;
-    private float PlayerLifeHolder = 100;
+    public float PlayerLifeHolder = 100;
 
     [Header("Prefabs")]
     public GameObject playerPrefab;
@@ -112,6 +112,10 @@ public class GameController : MonoBehaviour
             break;
 
             case ApplicationManager.GameState.GAME:
+                foreach(Enhancer en in enhancers) {
+                    en.price = en.basePrice;
+                    en.m_BuyNumber = 0;
+                }
                 if(tabbernSoulsHolder != -1) {//if ultra feo por la mierda de sistema
                     runSouls = lobbySouls;
                     lobbySouls = tabbernSoulsHolder;

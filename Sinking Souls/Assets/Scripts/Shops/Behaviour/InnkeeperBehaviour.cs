@@ -11,7 +11,7 @@ public class InnkeeperBehaviour : ShopBehaviour<Enhancer>
     protected override GameObject Configure(GameObject item, Enhancer enhancer)
     {
         item.transform.Find("Icon").GetComponent<Image>().sprite = enhancer.sprite;
-        item.transform.Find("Price").GetComponent<TextMeshProUGUI>().text = enhancer.basePrice.ToString();
+        item.transform.Find("Price").GetComponent<TextMeshProUGUI>().text = enhancer.price.ToString();
         item.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = enhancer.name;
         item.transform.Find("Description").GetComponent<TextMeshProUGUI>().text = enhancer.description;
         item.transform.SetParent(shopPanel.transform.GetChild(0), false);

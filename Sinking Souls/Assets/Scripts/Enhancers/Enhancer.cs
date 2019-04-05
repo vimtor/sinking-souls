@@ -12,7 +12,9 @@ public class Enhancer : ScriptableObject
     public string description;
 
     public int basePrice;
-    public int baseEnhancer;
+    public int price;
+    public float baseEnhancer;
+    public float enhancer;
 
     public float priceMultiplier;
     public float enhancerMultiplier;
@@ -31,15 +33,17 @@ public class Enhancer : ScriptableObject
 
         if (life)
         {
-            float currentHealth = playerRef.MaxHealth;
+            float currentHealth = playerRef.Health;
 
-            playerRef.MaxHealth = currentHealth * baseEnhancer;
-            playerRef.Health = currentHealth * baseEnhancer;
-            playerRef.Heal();
+            //playerRef.MaxHealth = currentHealth * baseEnhancer;
+            playerRef.Health = currentHealth * enhancer;
+            Debug.Log(enhancer);
+            GameController.instance.PlayerLifeHolder = playerRef.Health;
+            //playerRef.Heal();
         }
         else if (damage)
         {
-            playerRef.Weapon.damage *= baseEnhancer;
+            playerRef.Weapon.damage *= enhancer;
         }
         else
         {
@@ -47,13 +51,14 @@ public class Enhancer : ScriptableObject
             return;
         }
 
-        basePrice = (int)(basePrice * priceMultiplier);
-        baseEnhancer = (int)(baseEnhancer * enhancerMultiplier);
         m_BuyNumber++;
+
+        price = (int)(basePrice * priceMultiplier * m_BuyNumber);
+        //enhancer = (int)(baseEnhancer * enhancerMultiplier * m_BuyNumber);
     }
 
     public bool CanUse()
     {
-        return m_MaxBuys >= m_BuyNumber;
+        return true;//m_MaxBuys >= m_BuyNumber;
     }
 }

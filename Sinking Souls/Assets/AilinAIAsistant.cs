@@ -27,11 +27,15 @@ public class AilinAIAsistant : MonoBehaviour {
     [HideInInspector] public float tpCounter = 0;
 
     private float lastLife;
+    public GameObject bossHealthbar;
 
     void Start () {
         controller = GetComponent<AIController>();
         lastLife = controller.gameObject.GetComponent<Entity>().Health;
-	}
+
+        var healthbar = Instantiate(bossHealthbar, GameObject.Find("Canvas").transform);
+        healthbar.GetComponent<AilinBossHealthbar>().ailin = GetComponent<Enemy>();
+    }
 	
 	
 	void Update () {

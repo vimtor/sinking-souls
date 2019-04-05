@@ -12,7 +12,6 @@ public class AilinBoss : AIController {
     [HideInInspector] public bool stateFinished;
 
 
-
     public float TimeToRage;
 
 

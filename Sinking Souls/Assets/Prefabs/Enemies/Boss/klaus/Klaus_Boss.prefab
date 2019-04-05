@@ -602,7 +602,7 @@ GameObject:
   - component: {fileID: 135295814382745492}
   - component: {fileID: 114792670840599158}
   - component: {fileID: 54901061047903194}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1724,6 +1724,7 @@ MonoBehaviour:
   m_HitParticles: {fileID: 0}
   m_HealParticles: {fileID: 1565164962391104, guid: 78ac0be5f22ba4840ab23af6fd80e2e1,
     type: 2}
+  m_Animator: {fileID: 0}
   dead: 0
   lockedEnemy: {fileID: 0}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
@@ -1743,7 +1744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1d632dc3b017034095e533f4d0c2eed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strength: 10
+  strength: 50000
 --- !u!135 &135295814382745492
 SphereCollider:
   m_ObjectHideFlags: 1

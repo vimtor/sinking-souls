@@ -15,7 +15,6 @@ public class ToxicModifier : Modifier {
             go.AddComponent<tryChangeColor>();
 
         }
-        Debug.Log(go.GetComponent<Enemy>().CurrentModifierState[Entity.ModifierState.TOXIC]);
     }
 
     private void InstantiateParticles(GameObject go) {

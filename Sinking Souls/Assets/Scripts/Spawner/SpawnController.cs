@@ -46,8 +46,7 @@ public class SpawnController : MonoBehaviour {
                 enemy.transform.position = spawnPoints[index].transform.position;
                 enemy.transform.rotation = spawnPoints[index].transform.rotation;
                 spawnPoints.RemoveAt(index);
-               if(enemy.GetComponent<AIController>()) enemy.GetComponent<AIController>().SetupAI();
-            }
+            }//not activating ai because we activateit on the gamecontroller when the player is close enough
 
             //spawnPoints.Clear();
             alreadySpawned = true;

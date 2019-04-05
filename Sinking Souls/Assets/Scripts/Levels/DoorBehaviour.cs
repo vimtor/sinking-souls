@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DoorBehaviour : MonoBehaviour
 {
-    [HideInInspector]
     public bool locked = false;
 
     [HideInInspector]
@@ -26,8 +25,10 @@ public class DoorBehaviour : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Player" && !locked) {
-            other.GetComponent<Transform>().position = nextDoor.transform.position - nextDoor.transform.forward*2.1f - new Vector3(0, 2.5f, 0);
+            if(Vector3.Angle(GameController.instance.player.transform.forward, transform.forward) < 90)
+            //other.GetComponent<Transform>().position = nextDoor.transform.position - nextDoor.transform.forward*2.1f - new Vector3(0, 2.5f, 0);
             GameController.instance.ChangeRoom(nextDoor);
+
         }
     }
 }

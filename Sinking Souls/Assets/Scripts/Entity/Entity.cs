@@ -239,7 +239,6 @@ public class Entity : MonoBehaviour
         m_Animator.SetFloat("HitY", hitPosition.z);
         m_Animator.SetTrigger("React");
         if (gameObject.tag == "Player") Time.timeScale = 0.1f;
-        Debug.Log("Reacted");
         StartCoroutine(ContiuneGame(0.03f));
         StartCoroutine(ReactCoroutine());
     }

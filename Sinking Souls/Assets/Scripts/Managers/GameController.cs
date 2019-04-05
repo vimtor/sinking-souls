@@ -53,7 +53,7 @@ public class GameController : MonoBehaviour
     [HideInInspector] public static GameController instance;
     [HideInInspector] public bool debugMode = false;
     [HideInInspector] public bool godMode = false;
-    [HideInInspector] public GameObject currentRoom;
+    public GameObject currentRoom;
     [HideInInspector] public GameObject player;
     [HideInInspector] public Text lobbySoulsHUD;
 
@@ -197,6 +197,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.F1))
         {
             Debug.Log("God Mode: FALSE");
@@ -250,6 +251,18 @@ public class GameController : MonoBehaviour
             casualCounter += Time.deltaTime;
         }
         #endregion
+
+
+        if (currentRoom != null) {
+            Debug.Log(currentRoom.GetComponent<doorController>().closing);
+            Debug.Log(roomEnemies.Count);
+            if (currentRoom.GetComponent<doorController>() && currentRoom.GetComponent<doorController>().closing == true) {
+
+                foreach (GameObject e in roomEnemies) e.GetComponent<AIController>().SetupAI();
+                Debug.Log("Wanted to setup AI");
+            }
+        }
+
 
     }
 
@@ -314,6 +327,8 @@ public class GameController : MonoBehaviour
         currentRoom = room.gameObject;
         room.transform.Find("NavMesh").gameObject.SetActive(true);
         room.GetComponent<SpawnController>().Spawn(player);
+
+        //spawned enemies in update to enshure distance of the player
     }
 
     #endregion

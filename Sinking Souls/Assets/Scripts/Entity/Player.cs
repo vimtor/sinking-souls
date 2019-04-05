@@ -188,6 +188,7 @@ public class Player : Entity
 
     private void FixedUpdate()
     {
+        if (transform.position.y < -20) Health = -10;
         if (lockedEnemy != null && lockedEnemy.GetComponent<KlausBossAI>()) lockedEnemy = null;
         switch (Dodge) //change color
         {

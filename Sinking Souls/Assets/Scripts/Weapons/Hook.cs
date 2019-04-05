@@ -86,7 +86,6 @@ public class Hook : MonoBehaviour {
         if (move) {
             GetComponent<Player>().m_PlayerState = Player.PlayerState.PULLING;
             if (tpTo != null && Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(tpTo.transform.position.x, tpTo.transform.position.z)) > distanceOffset){
-                Debug.Log("Moving");
                 float step = pullingSpeed * Time.deltaTime;
                 transform.position = Vector3.MoveTowards(transform.position, tpTo.transform.position, step);
             }

@@ -48,6 +48,7 @@ public class AIController : MonoBehaviour {
 
     public virtual void SetupAI()
     {
+        
         stateTimeElapsed = 0;
         timeElapsed = count = 0;
         //inRangeTime = 0;

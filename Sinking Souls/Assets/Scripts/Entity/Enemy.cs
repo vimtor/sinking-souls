@@ -26,6 +26,8 @@ public class Enemy : Entity {
 
     private void Update()
     {
+        if (transform.position.y < -20) Health = -10;
+
         if (m_Health <= 0) Die();
 
         if (CurrentModifierState[ModifierState.TOXIC] > 0) transform.GetChild(1).GetComponent<Renderer>().material.SetFloat("_Poison", 1);

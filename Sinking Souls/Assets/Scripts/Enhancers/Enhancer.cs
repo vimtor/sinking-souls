@@ -35,6 +35,7 @@ public class Enhancer : ScriptableObject
 
             playerRef.MaxHealth = currentHealth * baseEnhancer;
             playerRef.Health = currentHealth * baseEnhancer;
+            playerRef.Heal();
         }
         else if (damage)
         {

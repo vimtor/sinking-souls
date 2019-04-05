@@ -35,6 +35,7 @@ public class GameController : MonoBehaviour
     [Header("Items")]
     public int lobbySouls;
     public int runSouls;
+    public int tabbernSoulsHolder = -1;
 
     public Modifier[] modifiers;
     public Ability[] abilities;
@@ -97,6 +98,8 @@ public class GameController : MonoBehaviour
                 break;
 
             case ApplicationManager.GameState.TABERN:
+                tabbernSoulsHolder = lobbySouls;
+                lobbySouls = runSouls;
                 inTavern = true;
                 currentRoom = GameObject.Find("SpawnPoint");
 
@@ -109,6 +112,11 @@ public class GameController : MonoBehaviour
             break;
 
             case ApplicationManager.GameState.GAME:
+                if(tabbernSoulsHolder != -1) {//if ultra feo por la mierda de sistema
+                    runSouls = lobbySouls;
+                    lobbySouls = tabbernSoulsHolder;
+                    tabbernSoulsHolder = -1;
+                }
                 if (m_RescuedBlacksmith) levelGenerator.level = level1;
                 if (m_RescuedAlchemist) levelGenerator.level = level2;
                 died = false;
@@ -145,12 +153,16 @@ public class GameController : MonoBehaviour
                 break;
 
             case ApplicationManager.GameState.LOBBY:
+                if (tabbernSoulsHolder != -1) {//if ultra feo por la mierda de sistema vol 2
+                    runSouls = lobbySouls;
+                    lobbySouls = tabbernSoulsHolder;
+                    tabbernSoulsHolder = -1;
+                }
                 if (m_RescuedBlacksmith) GetComponent<LevelGenerator>().level = level1;
                 if (m_RescuedAlchemist) GetComponent<LevelGenerator>().level = level2;
                 AudioManager.Instance.PlayMusic("Waves");
 
                 inTavern = false;
-                runSouls = 0;
 
                 levelGenerator.currentLevel = -1;
                 currentRoom = GameObject.Find("PlayerSpawn");
@@ -169,10 +181,11 @@ public class GameController : MonoBehaviour
                 else
                 {
                     lobbySouls += runSouls;
-
+                Debug.Log("Did some souls adding");
                     var pickedModifiers = Array.FindAll(modifiers, modifier => modifier.picked);
                     Array.ForEach(pickedModifiers, modifier => modifier.owned = true);
                 }
+                runSouls = 0;
 
                 Array.ForEach(modifiers, modifier => modifier.picked = false);
                 player.GetComponent<Player>().Heal();

@@ -197,7 +197,7 @@ public class KlausBossAI : MonoBehaviour {
                 }
 
                 swords[selected].transform.localScale += new Vector3(Time.deltaTime * 1.2f, Time.deltaTime , Time.deltaTime) * activeSwords;
-                swords[selected].GetComponent<SwordBehaviour>().AttackObject.GetComponent<WeaponHolder>().holder.damage = swords[selected].GetComponent<SwordBehaviour>().originalDamage * 1 + activeSwords / 10;
+                swords[selected].GetComponent<SwordBehaviour>().AttackObject.GetComponent<WeaponHolder>().holder.damage = 40 * (1 + activeSwords / 10);
 
             }
             else {///falling
@@ -475,6 +475,11 @@ public class KlausBossAI : MonoBehaviour {
             if (!allDead())
             {
                 rest();
+
+                for (int i = 0; i < 6; i++) {
+                    if (!swords[i].GetComponent<SwordBehaviour>().dead) swords[i].GetComponent<SwordBehaviour>().resetSword();
+                }
+
                 if (betwinAttackCounter >= 2)
                 {///wait X seconds and choos new attack and attack
 

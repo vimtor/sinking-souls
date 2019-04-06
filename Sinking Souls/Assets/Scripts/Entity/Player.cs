@@ -146,7 +146,6 @@ public class Player : Entity
     #endregion
 
     public float defaultLife = 300.0f;
-
     private float repulsionCounter = 0;
 
     public bool lockedDashed = false;

@@ -56,12 +56,11 @@ public class InGameUI : MonoBehaviour
                 icon.SetActive(false);
             }
         }
-        
     }
 
     private void Update()
     {
-        healthbar.fillAmount = playerRef.Health / playerRef.MaxHealth;
+        healthbar.fillAmount = playerRef.Health / (playerRef.MaxHealth + GameController.instance.extraLife);
         soulsAmount.text = GameController.instance.runSouls.ToString();
 
         UpdateAbility();

@@ -131,6 +131,7 @@ public class ApplicationManager : MonoBehaviour
                 break;
         }
 
+        AudioManager.Instance.StopAll();
         StartCoroutine(LoadSceneAsync(sceneName));
     }
 

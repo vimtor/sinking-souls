@@ -37,7 +37,7 @@ public class Enhancer : ScriptableObject
 
             //playerRef.MaxHealth = currentHealth * baseEnhancer;
             playerRef.Health = currentHealth * enhancer;
-            Debug.Log(enhancer);
+            GameController.instance.extraLife += playerRef.Health - GameController.instance.player.GetComponent<Player>().MaxHealth;
             GameController.instance.PlayerLifeHolder = playerRef.Health;
             //playerRef.Heal();
         }

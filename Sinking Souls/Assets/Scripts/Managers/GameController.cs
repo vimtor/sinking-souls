@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     public float casualCounter = 0;
     public List<GameObject> roomEnemies;
     public float PlayerLifeHolder = 100;
+    public float extraLife = 0;
 
     [Header("Prefabs")]
     public GameObject playerPrefab;
@@ -158,7 +159,7 @@ public class GameController : MonoBehaviour
                 break;
 
             case ApplicationManager.GameState.LOBBY:
-
+                extraLife = 0;
                 if (tabbernSoulsHolder != -1) {//if ultra feo por la mierda de sistema vol 2
                     runSouls = lobbySouls;
                     lobbySouls = tabbernSoulsHolder;

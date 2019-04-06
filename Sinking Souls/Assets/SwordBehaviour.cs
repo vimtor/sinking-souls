@@ -76,6 +76,7 @@ public class SwordBehaviour : MonoBehaviour {
     private bool stopRotation = false;
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Weapon") {
+            if (other.transform.parent.GetComponent<SwordBehaviour>()) return;
             life -= other.GetComponent<WeaponHolder>().holder.damage;
             hitCounter = 1;
             Debug.Log("Hit");
@@ -225,7 +226,7 @@ public class SwordBehaviour : MonoBehaviour {
         stopedCounter = 0;
         stopRotation = false;
         bigInactivePosition = Vector3.zero;
-        AttackObject.GetComponent<WeaponHolder>().holder.damage = originalDamage;
+        AttackObject.GetComponent<WeaponHolder>().holder.damage = 40;//change to original damage
         transform.localScale = new Vector3(1, 1, 1);
 
     }

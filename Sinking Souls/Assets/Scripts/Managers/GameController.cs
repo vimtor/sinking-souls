@@ -110,6 +110,8 @@ public class GameController : MonoBehaviour
                 SetupGame();
                 player.GetComponent<Player>().Heal();
                 PlayerLifeHolder = player.GetComponent<Player>().Health;
+                player.transform.Find("DeathIsland").gameObject.SetActive(false);
+
             break;
 
             case ApplicationManager.GameState.GAME:

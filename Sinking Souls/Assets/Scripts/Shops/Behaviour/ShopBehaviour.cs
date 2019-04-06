@@ -16,7 +16,6 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
     public TextMeshProUGUI remainingSouls;
 
     [Header("Configuration")] public int interactRange;
-    public float cursorHideTime = 1f;
 
     [Header("Camera")] public GameObject shopCamera;
 
@@ -110,8 +109,6 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
                 UpdateShop();
             }
 
-            UpdateMouse();
-
             oldSelection = EventSystemWrapper.Instance.CurrentSelected();
         }
     }
@@ -149,27 +146,6 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
         animator.SetTrigger(kTalkParam);
 
         isOpen = true;
-    }
-
-    //Hide cursor if not use it for certain time
-    private IEnumerator HideMouse(float time)
-    {
-        yield return new WaitForSeconds(time);
-        if (hiding) Cursor.visible = false;
-    }
-
-    private void UpdateMouse()
-    {
-        if (Math.Abs(InputManager.Mouse.magnitude) > 0.0f)
-        {
-            hiding = false;
-            Cursor.visible = true;
-        }
-        else if (!hiding)
-        {
-            hiding = true;
-            StartCoroutine(HideMouse(cursorHideTime));
-        }
     }
 
 

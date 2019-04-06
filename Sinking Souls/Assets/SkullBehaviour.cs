@@ -10,6 +10,8 @@ public class SkullBehaviour : MonoBehaviour {
     public float force;
     private float scale;
     private float timeS;
+    public float deathTime;
+    private float counter = 0;
     // Use this for initialization
     void Start () {
         transform.position = GetComponent<AbilityHolder>().owner.GetComponent<Enemy>().WeaponHand.transform.position;
@@ -29,12 +31,18 @@ public class SkullBehaviour : MonoBehaviour {
         else {
             transform.forward = GameController.instance.player.transform.position + Vector3.up * 2 - transform.position;
         }
-
+        if(counter >= deathTime) {
+            Destroy(gameObject);
+            GameObject part = Instantiate(particles);
+            part.transform.position = transform.position;
+            Destroy(part, 0.6f);
+        }
+        counter += Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider collision) {
 
-        if(collision.gameObject == GetComponent<AbilityHolder>().owner) return;
+        if(collision.gameObject == GetComponent<AbilityHolder>().owner && counter < 1) return;
         Destroy(gameObject);
         GameObject part = Instantiate(particles);
         part.transform.position = transform.position;

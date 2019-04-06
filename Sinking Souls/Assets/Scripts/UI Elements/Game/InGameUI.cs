@@ -17,12 +17,22 @@ public class InGameUI : MonoBehaviour
     public Image abilityOverlay;
     public TextMeshProUGUI abilityCooldown;
     
-    [Header("Minimap Information")]
+    [Header("Minimap")]
     public GameObject minimap;
     public GameObject minimapCamera;
     public float minimapHeight;
-    public float minimapSize = 80.0f;
-    public float iconSize = 15.0f;
+
+    [Header("Minimap Death Island")]
+    public float minimapSizeDead = 80.0f;
+    public float iconSizeDead = 15.0f;
+
+    [Header("Minimap Triton Island")]
+    public float minimapSizeTriton = 80.0f;
+    public float iconSizeTriton = 15.0f;
+
+
+    private float minimapSize;
+    private float iconSize;
 
     private Player playerRef;
     private GameObject[] icons;
@@ -55,6 +65,17 @@ public class InGameUI : MonoBehaviour
         soulsAmount.text = GameController.instance.runSouls.ToString();
 
         UpdateAbility();
+
+        if (GameController.instance.LevelGenerator.level.name == "DeathIsland")
+        {
+            minimapSize = minimapSizeDead;
+            iconSize = iconSizeDead;
+        }
+        else
+        {
+            minimapSize = minimapSizeTriton;
+            iconSize = iconSizeTriton;
+        }
 
         if (displayMinimap)
         {

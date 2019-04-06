@@ -15,6 +15,8 @@ public class ActivateAilin : MonoBehaviour {
                 if (GameController.instance.m_RescuedAlchemist == true) Destroy(gameObject);
                 else {
                     GameController.instance.gameObject.GetComponent<LevelGenerator>().level = nextLevel;
+                    GetComponent<AIController>().SetupAI();
+
                 }
                 GameController.instance.m_RescuedAlchemist = true;
             }
@@ -24,6 +26,7 @@ public class ActivateAilin : MonoBehaviour {
                 if (GameController.instance.m_RescuedBlacksmith == true) Destroy(gameObject);
                 else {
                     GameController.instance.gameObject.GetComponent<LevelGenerator>().level = nextLevel;
+                    GetComponent<AIController>().SetupAI();
                 }
                 GameController.instance.m_RescuedBlacksmith = true;
             }

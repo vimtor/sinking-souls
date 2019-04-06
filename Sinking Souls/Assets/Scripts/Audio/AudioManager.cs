@@ -93,7 +93,14 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        if (!soundToPlay.source.isPlaying) soundToPlay.source.Play();
+        if(soundToPlay.name == "Splash") {
+            if (soundToPlay.source.isPlaying) soundToPlay.source.Stop();
+            soundToPlay.source.Play();
+        }
+        else {
+            if (!soundToPlay.source.isPlaying) soundToPlay.source.Play();
+        }
+
     }
 
     public void PlayMusic(string name)

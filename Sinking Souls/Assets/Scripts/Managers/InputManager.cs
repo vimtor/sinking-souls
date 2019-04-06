@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 // Each Update captures if the button is pressed and gets cleaned when the fixed updates finish.
@@ -84,6 +85,8 @@ public class InputManager : MonoBehaviour {
     public static int Xbox_One_Controller = 0;
     public static int PS4_Controller = 0;
 
+    public float cursorHideTime = 3.0f;
+    private bool hiding;
 
     void Update()
     {
@@ -116,7 +119,7 @@ public class InputManager : MonoBehaviour {
             }
         }
 
-
+        UpdateMouse();
     }
 
     IEnumerator CleanInput()
@@ -130,6 +133,27 @@ public class InputManager : MonoBehaviour {
             m_ButtonY = false;
             m_ButtonRJ = false;
             m_ButtonRT = false;
+        }
+    }
+
+    // Hide cursor if not use it for certain time.
+    private IEnumerator HideMouse(float time)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        if (hiding) Cursor.visible = false;
+    }
+
+    private void UpdateMouse()
+    {
+        if (Mathf.Abs(Mouse.magnitude) > 0.0f)
+        {
+            hiding = false;
+            Cursor.visible = true;
+        }
+        else if (!hiding)
+        {
+            hiding = true;
+            StartCoroutine(HideMouse(cursorHideTime));
         }
     }
 

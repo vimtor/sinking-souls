@@ -58,13 +58,15 @@ MonoBehaviour:
   nextCasualTime: 0
   casualCounter: 0
   roomEnemies: []
+  PlayerLifeHolder: 100
   playerPrefab: {fileID: 1374338400793274, guid: 44389e0974990014b85d7b72e8893276,
     type: 2}
   blueprint: {fileID: 1656587315307008, guid: 1a7131efd18afaf4cb4d1edaea296ef7, type: 2}
   m_RescuedBlacksmith: 1
-  m_RescuedAlchemist: 1
+  m_RescuedAlchemist: 0
   lobbySouls: 0
   runSouls: 0
+  tabbernSoulsHolder: -1
   modifiers:
   - {fileID: 11400000, guid: 2b9b733efd55e0f40901ad0d69cc3b6d, type: 2}
   - {fileID: 11400000, guid: bf9941d22fbf0c7479a59603d39716c2, type: 2}
@@ -101,14 +103,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21b636fba30b848449a06a22c0db38a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomIconPrefab: {fileID: 1490998008912594, guid: 9feb4036d3a84e04f97a168bb3fa6f28,
-    type: 2}
-  roomIconHeight: 40
-  combatRoomIcon: {fileID: 2100000, guid: 66e145f88f061b143b07005aba178c78, type: 2}
-  bossRoomIcon: {fileID: 2100000, guid: 66e145f88f061b143b07005aba178c78, type: 2}
-  eliteRoomIcon: {fileID: 2100000, guid: 66e145f88f061b143b07005aba178c78, type: 2}
-  initialRoomIcon: {fileID: 2100000, guid: 66e145f88f061b143b07005aba178c78, type: 2}
-  nextFloorRoomIcon: {fileID: 2100000, guid: 66e145f88f061b143b07005aba178c78, type: 2}
   tabernaSpawned: 0
   currentLevel: -1
   numberRooms: 15

@@ -306,6 +306,11 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2053258398}
+    - target: {fileID: 114316483470094822, guid: c986af09d0d0ca9408fe2605a5578511,
+        type: 2}
+      propertyPath: m_text
+      value: '   Upgrade l10% of ife for 400 souls'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c986af09d0d0ca9408fe2605a5578511, type: 2}
   m_IsPrefabAsset: 0
@@ -378,6 +383,75 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 70233710}
   m_CullTransparentMesh: 0
+--- !u!1 &77123799 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1971198205022278, guid: 4a2822d798356a3448064efc3ce63bca,
+    type: 2}
+  m_PrefabInternal: {fileID: 1206316723}
+--- !u!114 &77123800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 77123799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 77123804}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 256
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 1
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
+--- !u!4 &77123804 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4506887166364586, guid: 4a2822d798356a3448064efc3ce63bca,
+    type: 2}
+  m_PrefabInternal: {fileID: 1206316723}
 --- !u!1 &147299815
 GameObject:
   m_ObjectHideFlags: 0
@@ -1472,7 +1546,7 @@ Prefab:
     - target: {fileID: 114337623052856484, guid: 258b637205f84f34c91c424fca3067e4,
         type: 2}
       propertyPath: m_RescuedAlchemist
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 258b637205f84f34c91c424fca3067e4, type: 2}
@@ -2693,6 +2767,11 @@ Prefab:
       propertyPath: virtualCamera
       value: 
       objectReference: {fileID: 864551028}
+    - target: {fileID: 20265562701598112, guid: 4a2822d798356a3448064efc3ce63bca,
+        type: 2}
+      propertyPath: field of view
+      value: 25
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a2822d798356a3448064efc3ce63bca, type: 2}
   m_IsPrefabAsset: 0
@@ -4132,7 +4211,7 @@ MonoBehaviour:
   sharedProfile: {fileID: 11400000, guid: 59be078836d1b7a43a04b9687eca63c7, type: 2}
   isGlobal: 1
   blendDistance: 0
-  weight: 1
+  weight: 0.33
   priority: 0
 --- !u!4 &1767649046
 Transform:
@@ -4697,11 +4776,6 @@ Prefab:
       propertyPath: shopCamera
       value: 
       objectReference: {fileID: 1707159653}
-    - target: {fileID: 114558834441481906, guid: c62a942364bb0fd48b144df53529a38f,
-        type: 2}
-      propertyPath: dialogable
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 114558834441481906, guid: c62a942364bb0fd48b144df53529a38f,
         type: 2}
       propertyPath: dialogueObject

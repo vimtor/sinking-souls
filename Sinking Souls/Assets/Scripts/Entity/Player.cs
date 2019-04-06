@@ -287,6 +287,7 @@ public class Player : Entity
                 {
                     Move();
                     Rotate();
+                    
                     if (InputManager.ButtonX)
                         ChangeState(Attack, m_AttackLength, PlayerState.ATTACKING, PlayerState.MOVING);
                 }
@@ -324,7 +325,7 @@ public class Player : Entity
                     m_Animator.SetFloat(m_SpeedParam, m_Direction.magnitude, m_MovementDamping, Time.deltaTime);
                     Rotate();
                     Move();
-                    if (InputManager.ButtonB)
+                    if (InputManager.ButtonB && m_Direction.magnitude!=0)
                         ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
                 }
 

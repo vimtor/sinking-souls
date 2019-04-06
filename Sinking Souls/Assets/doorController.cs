@@ -46,7 +46,7 @@ public class doorController : MonoBehaviour
             if (en.GetComponent<AIController>().aiActive) return false;
         }
         return true;
-    }
+    } 
         // Update is called once per frame
     void Update () {
         if (checkPlayerdistAndEnemies()) {

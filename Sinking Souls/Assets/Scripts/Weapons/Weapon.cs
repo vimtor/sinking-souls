@@ -16,7 +16,7 @@ public class Weapon : ScriptableObject {
     public float baseDamage;
     public float criticDamage;
     public Modifier modifier;
-
+    public float originalDamage;
     [HideInInspector] public float damage;
     [HideInInspector] public GameObject weapon;
 

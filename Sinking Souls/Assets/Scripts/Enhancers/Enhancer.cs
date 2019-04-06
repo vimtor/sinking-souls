@@ -43,7 +43,7 @@ public class Enhancer : ScriptableObject
         }
         else if (damage)
         {
-            playerRef.Weapon.damage *= enhancer;
+            playerRef.Weapon.baseDamage *= enhancer;
         }
         else
         {

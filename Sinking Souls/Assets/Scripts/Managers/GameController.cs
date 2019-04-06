@@ -157,6 +157,7 @@ public class GameController : MonoBehaviour
                 break;
 
             case ApplicationManager.GameState.LOBBY:
+
                 if (tabbernSoulsHolder != -1) {//if ultra feo por la mierda de sistema vol 2
                     runSouls = lobbySouls;
                     lobbySouls = tabbernSoulsHolder;
@@ -175,7 +176,7 @@ public class GameController : MonoBehaviour
                 //restart life holder to max health an heal player
                 player.GetComponent<Player>().Heal();
                 PlayerLifeHolder = player.GetComponent<Player>().Health;
-
+                player.GetComponent<Player>().Weapon.baseDamage = player.GetComponent<Player>().Weapon.originalDamage;
                 player.transform.Find("DeathIsland").gameObject.SetActive(false);
 
                 if (died)
@@ -222,6 +223,8 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        if (lobbySouls < 0) lobbySouls = 0;
+        if (runSouls < 0) runSouls = 0;
         if (Input.GetKeyDown(KeyCode.F1))
         {
             Debug.Log("God Mode: FALSE");

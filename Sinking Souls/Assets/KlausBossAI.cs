@@ -412,6 +412,10 @@ public class KlausBossAI : MonoBehaviour {
     private float BuggedTime;
 
     private void Update() {
+
+        if (Input.GetKeyDown(KeyCode.F10)) life = -200;
+
+
         if (life <= 0)
         {
             GetComponent<Enemy>().Health = 0;
@@ -420,6 +424,7 @@ public class KlausBossAI : MonoBehaviour {
                 swords[i].GetComponent<SwordBehaviour>().dead = true;
                 
             }
+            ApplicationManager.Instance.FinishGame();
         }
         else
         {

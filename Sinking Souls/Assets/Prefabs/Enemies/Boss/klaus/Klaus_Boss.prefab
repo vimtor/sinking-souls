@@ -812,7 +812,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1913143440735876}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.0058848173, y: 0.0021377562, z: 0}
+  m_LocalPosition: {x: -0.0058848173, y: 0.262, z: 0}
   m_LocalScale: {x: 24.399837, y: 24.399837, z: 24.399837}
   m_Children: []
   m_Father: {fileID: 4993230987570476}
@@ -894,7 +894,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1487517004663668}
   m_LocalRotation: {x: -0, y: 0.0028970502, z: -0, w: -0.9999959}
-  m_LocalPosition: {x: 0.06, y: 0.26935542, z: 0.606}
+  m_LocalPosition: {x: 0.06, y: 0.015, z: 0.606}
   m_LocalScale: {x: 0.94305277, y: 0.9430506, z: 0.94305277}
   m_Children:
   - {fileID: 4445316374125436}
@@ -1096,7 +1096,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1834595731189968}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.000008611701, y: 1.1728635, z: -0.03590691}
+  m_LocalPosition: {x: 0.000008611701, y: 1.432, z: -0.03590691}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4505633965779740}
@@ -1330,7 +1330,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1724300841387732}
   m_LocalRotation: {x: -0, y: -0.9986759, z: 0, w: 0.051444456}
-  m_LocalPosition: {x: 0, y: 1.36, z: 0}
+  m_LocalPosition: {x: 0, y: 1.602, z: 0}
   m_LocalScale: {x: 2.8704753, y: 3.172726, z: 2.2691505}
   m_Children: []
   m_Father: {fileID: 4993230987570476}
@@ -1496,7 +1496,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1037435862217538}
   m_LocalRotation: {x: 0.00000005338508, y: 0.7071068, z: 0.7071068, w: -0.00000005338508}
-  m_LocalPosition: {x: -0.0058848173, y: 0.0021377562, z: 0}
+  m_LocalPosition: {x: -0.0058848173, y: 0.262, z: 0}
   m_LocalScale: {x: 24.399837, y: 24.399837, z: 24.399837}
   m_Children: []
   m_Father: {fileID: 4993230987570476}
@@ -1509,7 +1509,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1109747682752506}
   m_LocalRotation: {x: -0, y: 0.9986759, z: -0, w: 0.051444456}
-  m_LocalPosition: {x: 1.3563557, y: 51.2, z: 72.833954}
+  m_LocalPosition: {x: 5.425, y: 49.279, z: 76.555}
   m_LocalScale: {x: 1.629817, y: 1.629817, z: 1.629817}
   m_Children:
   - {fileID: 4013274579937910}
@@ -1619,7 +1619,13 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_WarningMessage: 
+  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
+    are already bound by a Humanoid avatar. These transforms can only be changed by
+    Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
+    'mixamorig:LeftHandIndex1'\n\tTransform 'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform
+    'mixamorig:RightArm'\n\tTransform 'mixamorig:LeftLeg'\n\tTransform 'mixamorig:LeftShoulder'\n\tTransform
+    'mixamorig:RightFoot'\n\tTransform 'mixamorig:Head'\n\tand more ...\n\tFrom animation
+    clip 'mixamo.com'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -1670,6 +1676,8 @@ MonoBehaviour:
   endDelay: 5
   flyingSpeed: 10
   currentAttack: 0
+  checkBuggedTime: 9
+  checkBuggedTimeOrbit: 30
   maxSoldInterval: 3
   alive: 0
   distance: 0

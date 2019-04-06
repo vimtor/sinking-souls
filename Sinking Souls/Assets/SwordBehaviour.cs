@@ -226,5 +226,7 @@ public class SwordBehaviour : MonoBehaviour {
         stopRotation = false;
         bigInactivePosition = Vector3.zero;
         AttackObject.GetComponent<WeaponHolder>().holder.damage = originalDamage;
+        transform.localScale = new Vector3(1, 1, 1);
+
     }
 }

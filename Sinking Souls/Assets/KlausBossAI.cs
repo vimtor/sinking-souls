@@ -90,12 +90,12 @@ public class KlausBossAI : MonoBehaviour {
                 if (sweptInitialCounter < sweptInitialWait)
                 {        ///get in place
                     if (forward == Vector3.up) forward = Vector3.Cross(transform.forward, Vector3.up);
-                    targget[i] = gameObject.transform.position + Vector3.up + (firstDistance * forward.normalized) + forward.normalized * swordOffset * i;
+                    targget[i] = gameObject.transform.position + Vector3.up*1.5f + (firstDistance * forward.normalized) + forward.normalized * swordOffset * i;
                 }
                 else
                 { ///rotate the stick
                     forward = Quaternion.Euler(new Vector3(0, swepingSpeed * Time.deltaTime, 0)) * forward;
-                    targget[i] = gameObject.transform.position + Vector3.up + (firstDistance * forward.normalized) + forward.normalized * swordOffset * i;
+                    targget[i] = gameObject.transform.position + Vector3.up * 1.5f + (firstDistance * forward.normalized) + forward.normalized * swordOffset * i;
                 }
                 ////move acording to targget///////////////////
                 float speed = flyingSpeed;
@@ -405,6 +405,11 @@ public class KlausBossAI : MonoBehaviour {
     public attacks currentAttack;
     private float betwinAttackCounter = 0;
     private bool allDeadDamage = false;
+    private float bugedAttackCounter = 0;
+
+    public float checkBuggedTime = 10;
+    public float checkBuggedTimeOrbit = 20;
+    private float BuggedTime;
 
     private void Update() {
         if (life <= 0)
@@ -440,8 +445,10 @@ public class KlausBossAI : MonoBehaviour {
         }
 
         if (attack) {
+            BuggedTime = checkBuggedTime;
             switch (currentAttack) {
                 case attacks.ORBIT:
+                BuggedTime = checkBuggedTimeOrbit;
                 orbitAttack();
                 break;
                 case attacks.ARROW:
@@ -455,8 +462,16 @@ public class KlausBossAI : MonoBehaviour {
                 break;
             }
             betwinAttackCounter = 0;
+            if (bugedAttackCounter >= BuggedTime) {
+                attack = false;
+                foreach (GameObject sw in swords) sw.GetComponent<SwordBehaviour>().resetSword();
+
+            }
+            bugedAttackCounter += Time.deltaTime;
+           
         }
         else {///when not attacking 
+            bugedAttackCounter = 0;
             if (!allDead())
             {
                 rest();

@@ -2,8 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Timeline;
 using UnityEngine.UI;
 
 public class ApplicationManager : MonoBehaviour
@@ -23,6 +25,9 @@ public class ApplicationManager : MonoBehaviour
 
     public GameObject loadingScreen;
     [HideInInspector] public bool currentlyLoading = false;
+
+
+    public TimelineAsset endGameCinematic;
 
     public static ApplicationManager Instance { get; private set; }
 
@@ -126,7 +131,6 @@ public class ApplicationManager : MonoBehaviour
                 break;
         }
 
-        Debug.Log(state);
         StartCoroutine(LoadSceneAsync(sceneName));
     }
 
@@ -165,5 +169,11 @@ public class ApplicationManager : MonoBehaviour
     public static void QuitApplication()
     {
         Application.Quit();
+    }
+
+    public void FinishGame()
+    {
+        SaveManager.Reset();
+        ChangeScene(GameState.MAIN_MENU);
     }
 }

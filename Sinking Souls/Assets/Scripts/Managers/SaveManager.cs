@@ -47,6 +47,10 @@ public static class SaveManager
         return File.Exists(path);
     }
 
+    public static void Reset()
+    {
+        File.Delete(path);
+    }
 }
 
 
@@ -76,12 +80,25 @@ public class SaveData
 #if UNITY_EDITOR
 public class SaveTool
 {
-    [MenuItem("Window/Save Current")]
+    [MenuItem("Window/Save Manager/Save current")]
     public static void Save()
     {
         try
         {
             SaveManager.Save();
+        }
+        catch (Exception)
+        {
+            Debug.LogError("You cannot save the current state in edit-mode.");
+        }
+    }
+
+    [MenuItem("Window/Save Manager/Delete current")]
+    public static void Delete()
+    {
+        try
+        {
+            SaveManager.Reset();
         }
         catch (Exception)
         {

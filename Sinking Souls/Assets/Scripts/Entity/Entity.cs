@@ -127,7 +127,7 @@ public class Entity : MonoBehaviour
         for (int i = 0; i < 4; i++) m_CurrentModifierState[(ModifierState)i] = 0;
 
         m_Hitted = false;
-        m_HittedRecovery = 0.8f;
+        m_HittedRecovery = 0.3f;
     }
 
 
@@ -229,7 +229,7 @@ public class Entity : MonoBehaviour
 
     public void React(Vector3 hitterPosition)
     {
-        m_WeaponCollider.enabled = false;
+
         m_Hitted = true;
 
         Vector3 hitDirection = hitterPosition - transform.position;
@@ -241,6 +241,7 @@ public class Entity : MonoBehaviour
         if (gameObject.tag == "Player") Time.timeScale = 0.1f;
         StartCoroutine(ContiuneGame(0.03f));
         StartCoroutine(ReactCoroutine());
+        if(m_WeaponCollider!=null) m_WeaponCollider.enabled = false;
     }
 
     private IEnumerator ContiuneGame(float t) {
@@ -300,7 +301,10 @@ public class Entity : MonoBehaviour
                     React( other.ClosestPointOnBounds(gameObject.transform.position));
                     ApplyModifier(other.GetComponent<WeaponHolder>().holder.modifier);
 
-                    if (other.GetComponent<WeaponHolder>().owner.tag == "Player") AudioManager.Instance.PlayEffect("Splash");
+                if (other.GetComponent<WeaponHolder>().owner.tag == "Player") {
+                    AudioManager.Instance.PlayEffect("Splash");
+                    Debug.Log("Fart");
+                }
 
                 if (other.name.Contains("Dagger")) {
                     gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;

@@ -145,6 +145,8 @@ public class Player : Entity
 
     #endregion
 
+    public float defaultLife = 300.0f;
+
     private float repulsionCounter = 0;
 
     public bool lockedDashed = false;
@@ -176,7 +178,7 @@ public class Player : Entity
         m_RotationDamping = m_MovementRotationDamping;
 
         // Set max health.
-        m_MaxHealth = GameController.instance.maxHealth <= 0 ? 200.0f : GameController.instance.maxHealth;
+        m_MaxHealth = GameController.instance.maxHealth <= 0 ? defaultLife : GameController.instance.maxHealth;
         m_Health = m_MaxHealth;
     }
 

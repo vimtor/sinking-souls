@@ -16,11 +16,12 @@ public class RotativeAttack : Action {
         // Play the attack animation (which hits via AnimationEvents).
         controller.Animator.SetInteger("AttackType", 0);
         controller.Animator.SetTrigger("Attack");
+        controller.Animator.SetBool("StopRotation", false);
+
         Vector3 endpoint = (controller.player.transform.position + controller.player.transform.forward * controller.player.GetComponent<Rigidbody>().velocity.magnitude);
         Vector3 toEndpoint = (controller.player.transform.position + controller.player.transform.forward * controller.player.GetComponent<Rigidbody>().velocity.magnitude) - controller.gameObject.transform.position;
         float timeToEndpoint = toEndpoint.magnitude / speed;
         direction = (controller.player.transform.position + controller.player.transform.forward * controller.player.GetComponent<Rigidbody>().velocity.magnitude * timeToEndpoint) - controller.gameObject.transform.position;
-
     }
 
     public override void UpdateAction(AIController controller) {
@@ -31,13 +32,11 @@ public class RotativeAttack : Action {
 
         if (controller.CheckIfCountDownElapsed(duration)) {
             elapsed = true;
-            controller.Animator.SetTrigger("StopRotation");
+            controller.Animator.SetBool("StopRotation", true);
             Debug.Log("OUT");
             controller.navMeshAgent.speed = 3.5f;
-
         }
 
         controller.navMeshAgent.SetDestination(controller.gameObject.transform.position + direction.normalized);
-        //controller.GetComponent<Rigidbody>().velocity = (GameController.instance.player.transform.position - controller.gameObject.transform.position).normalized * speed;
     }
 }

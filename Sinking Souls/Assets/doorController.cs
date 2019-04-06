@@ -41,13 +41,18 @@ public class doorController : MonoBehaviour
         return false;
     }
 
-
-    // Update is called once per frame
+    public bool noActiveAI() {
+        foreach (GameObject en in GameController.instance.roomEnemies) {
+            if (en.GetComponent<AIController>().aiActive) return false;
+        }
+        return true;
+    }
+        // Update is called once per frame
     void Update () {
         if (checkPlayerdistAndEnemies()) {
             if (!closed) closeDoor();
         }
-        else openDoor();
+        if(noActiveAI()) openDoor();
         if (closed) {
             closing = false;
         }

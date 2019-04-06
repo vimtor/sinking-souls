@@ -112,6 +112,7 @@ public class GameController : MonoBehaviour
             break;
 
             case ApplicationManager.GameState.GAME:
+                roomEnemies = new List<GameObject>();
                 foreach(Enhancer en in enhancers) {
                     en.price = en.basePrice;
                     en.m_BuyNumber = 0;

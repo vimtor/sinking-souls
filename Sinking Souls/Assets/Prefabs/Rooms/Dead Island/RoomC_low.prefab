@@ -638,6 +638,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4372957125137076}
+  - component: {fileID: 65204335570219148}
   m_Layer: 0
   m_Name: deadIslBridge_R
   m_TagString: Untagged
@@ -1386,6 +1387,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4436470803635334}
+  - component: {fileID: 65121720703974458}
   m_Layer: 0
   m_Name: deadIslBridge_L
   m_TagString: Untagged
@@ -2495,7 +2497,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1186216591979174}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.3, z: -1.53}
+  m_LocalPosition: {x: -0, y: -0.02, z: -0.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4436470803635334}
@@ -3969,7 +3971,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1340308059039530}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0, y: -0.38, z: 1.58}
+  m_LocalPosition: {x: -0, y: 0.03, z: 0.46}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4372957125137076}
@@ -4193,7 +4195,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1655419590862546}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 63.283897, y: 691.9298, z: 61.88559}
+  m_LocalPosition: {x: -59.548317, y: 138.85721, z: 7.622199}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4520983386533066}
@@ -8017,6 +8019,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65121720703974458
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1622178813041216}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 14.07, y: 1, z: 1.86}
+  m_Center: {x: 0, y: -0.69, z: 24.37}
+--- !u!65 &65204335570219148
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1325278632538302}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 14.07, y: 1, z: 1.86}
+  m_Center: {x: 0, y: -0.68, z: -24.37}
 --- !u!65 &65215947085556318
 BoxCollider:
   m_ObjectHideFlags: 1

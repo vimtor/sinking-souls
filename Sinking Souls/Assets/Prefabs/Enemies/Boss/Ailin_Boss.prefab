@@ -1312,8 +1312,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eecd7ff4b5aca041b30e1fe1e2bcf66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Health: 1000
-  m_MaxHealth: 1000
+  m_Health: 700
+  m_MaxHealth: 700
   m_HittedRecovery: 2
   m_Weapon: {fileID: 11400000, guid: 770641d31570a724f8f8eeb86cdada2f, type: 2}
   m_WeaponHand: {fileID: 1423034210816116}
@@ -1329,11 +1329,12 @@ MonoBehaviour:
     type: 2}
   m_HealParticles: {fileID: 1565164962391104, guid: 78ac0be5f22ba4840ab23af6fd80e2e1,
     type: 2}
+  m_Animator: {fileID: 0}
   dead: 0
   lockedEnemy: {fileID: 0}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0
-  m_Souls: 10
+  m_Souls: 300
   deathDuration: 1
   abilities: []
   allie: {fileID: 1276747255361284, guid: c62a942364bb0fd48b144df53529a38f, type: 2}
@@ -1349,7 +1350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rageTime: 10
-  rageDuration: 40
+  rageDuration: 20
   tpTime: 4
   tpDistance: 5
   rageMode: 0

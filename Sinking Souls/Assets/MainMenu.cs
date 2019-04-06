@@ -1,10 +1,14 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
     public GameObject settingsMenu;
     public GameObject mainMenuContent;
     public GameObject resumeButton;
+
+    private bool hiding;
 
     private void Start()
     {
@@ -21,6 +25,29 @@ public class MainMenu : MonoBehaviour
         if (!settingsMenu.activeSelf)
         {
             mainMenuContent.SetActive(true);
+        }
+
+        UpdateMouse();
+    }
+
+    // Hide cursor if not use it for certain time.
+    private IEnumerator HideMouse(float time)
+    {
+        yield return new WaitForSeconds(time);
+        if (hiding) Cursor.visible = false;
+    }
+
+    private void UpdateMouse()
+    {
+        if (Math.Abs(InputManager.Mouse.magnitude) > 0.0f)
+        {
+            hiding = false;
+            Cursor.visible = true;
+        }
+        else if (!hiding)
+        {
+            hiding = true;
+            StartCoroutine(HideMouse(3.0f));
         }
     }
 

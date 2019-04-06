@@ -30,6 +30,7 @@ public class PauseMenu : MonoBehaviour
             }
             else
             {
+                settingsMenu.SetActive(false);
                 Resume();
             }
         }

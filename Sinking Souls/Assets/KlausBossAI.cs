@@ -424,6 +424,7 @@ public class KlausBossAI : MonoBehaviour {
                 swords[i].GetComponent<SwordBehaviour>().dead = true;
                 
             }
+            ApplicationManager.Instance.FinishGame();
         }
         else
         {

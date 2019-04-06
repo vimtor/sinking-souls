@@ -59,6 +59,7 @@ MonoBehaviour:
   casualCounter: 0
   roomEnemies: []
   PlayerLifeHolder: 100
+  extraLife: 0
   playerPrefab: {fileID: 1374338400793274, guid: 44389e0974990014b85d7b72e8893276,
     type: 2}
   blueprint: {fileID: 1656587315307008, guid: 1a7131efd18afaf4cb4d1edaea296ef7, type: 2}
@@ -86,7 +87,7 @@ MonoBehaviour:
   level2: {fileID: 11400000, guid: 9c5544fb1cddc45459aaef94280e956b, type: 2}
   died: 0
   inTavern: 0
-  maxHealth: 200
+  maxHealth: 300
   debugMode: 0
   godMode: 0
   currentRoom: {fileID: 0}
@@ -127,3 +128,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d35c8842ae1561e49b199e1c23d296f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cursorHideTime: 3

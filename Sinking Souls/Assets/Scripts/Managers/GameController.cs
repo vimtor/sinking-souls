@@ -52,7 +52,7 @@ public class GameController : MonoBehaviour
 
     [HideInInspector] public bool died;
     [HideInInspector] public bool inTavern;
-    [HideInInspector] public float maxHealth = 200.0f;
+     public float maxHealth = 300.0f;
     [HideInInspector] public static GameController instance;
     [HideInInspector] public bool debugMode = false;
     [HideInInspector] public bool godMode = false;
@@ -110,6 +110,8 @@ public class GameController : MonoBehaviour
                 SetupGame();
                 player.GetComponent<Player>().Heal();
                 PlayerLifeHolder = player.GetComponent<Player>().Health;
+                player.transform.Find("DeathIsland").gameObject.SetActive(false);
+
             break;
 
             case ApplicationManager.GameState.GAME:

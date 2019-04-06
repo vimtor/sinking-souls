@@ -9,11 +9,19 @@ public class combatCamera : MonoBehaviour {
 	void Start () {
 		//per asegurar
 	}
+
+    bool checkActiveEnimy() {
+        foreach(GameObject en in GameController.instance.roomEnemies) {
+            if (en.GetComponent<AIController>().aiActive) return true;
+        }
+        return false;
+    }
+
     public float speed;
 	// Update is called once per frame
 	void Update () {
         if(ApplicationManager.Instance.state == ApplicationManager.GameState.GAME) {
-            if (GameController.instance.roomEnemies.Count == 0) {
+            if (!checkActiveEnimy()) {
                 zoomOut();
             }
             else {

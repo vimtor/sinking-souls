@@ -23,7 +23,7 @@ public class doorController : MonoBehaviour
         closedPosition = closedDoor[0].transform.position.y + offset;
     }
 
-    bool checkEnemyDistance(GameObject en) {
+    public bool checkEnemyDistance(GameObject en) {
 
         if (GameController.instance.m_RescuedAlchemist)
             return Vector3.Distance(transform.position, en.transform.position) < 21; //Por que 38? porque lo digo yo
@@ -31,7 +31,7 @@ public class doorController : MonoBehaviour
 
     }
 
-    bool checkPlayerdistAndEnemies() {
+    public bool checkPlayerdistAndEnemies() {
         if (checkDistance()) {
             foreach(GameObject en in GameController.instance.roomEnemies) {
                 if (checkEnemyDistance(en)) return true;
@@ -78,7 +78,7 @@ public class doorController : MonoBehaviour
         
     }
 
-    bool checkDistance()
+   public  bool checkDistance()
     {
         if(GameController.instance.m_RescuedAlchemist)
         return Vector3.Distance(transform.position, GameController.instance.player.transform.position) < 20; //Por que 38? porque lo digo yo

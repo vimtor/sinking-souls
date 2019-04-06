@@ -280,12 +280,9 @@ public class GameController : MonoBehaviour
 
 
         if (currentRoom != null) {
-            Debug.Log(currentRoom.GetComponent<doorController>().closing);
-            Debug.Log(roomEnemies.Count);
             if (currentRoom.GetComponent<doorController>() && currentRoom.GetComponent<doorController>().closing == true) {
 
-                foreach (GameObject e in roomEnemies) e.GetComponent<AIController>().SetupAI();
-                Debug.Log("Wanted to setup AI");
+                checkPlayerdistAndEnemies();
             }
         }
 
@@ -293,6 +290,15 @@ public class GameController : MonoBehaviour
 
     }
 
+    bool checkPlayerdistAndEnemies() {
+        if (currentRoom.GetComponent<doorController>().checkDistance()) {
+            foreach (GameObject en in roomEnemies) {
+                if (currentRoom.GetComponent<doorController>().checkEnemyDistance(en)) en.GetComponent<AIController>().SetupAI();
+            }
+            return false;
+        }
+        return false;
+    }
 
     #region Spawn Functions
 

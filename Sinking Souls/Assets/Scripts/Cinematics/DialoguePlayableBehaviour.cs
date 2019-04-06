@@ -19,7 +19,7 @@ public class DialoguePlayableBehaviour : PlayableBehaviour
             DialogueManager.Instance.DisplayDialogue(dialogue);
         }
 
-        if (Input.GetKey(KeyCode.K))
+        if (InputManager.GetButtonA())
         {
             canPlayNext = false;
             DialogueManager.Instance.HideDialogue();

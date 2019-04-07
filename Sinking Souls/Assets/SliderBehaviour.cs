@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class SliderBehaviour : MonoBehaviour
 {
-    public Image fillArea;
-
+    public Image sliderArea;
+    public Image pointArea;
     public Color normalColor;
     public Color highlightedColor;
 
@@ -30,10 +30,18 @@ public class SliderBehaviour : MonoBehaviour
     {
         //Block default unity slider movement
         gameObject.GetComponent<Slider>().value = barValue;
-
+        if (EventSystemWrapper.Instance.IsSelected(gameObject))
+        {
+            sliderArea.color = highlightedColor;
+        }
+        else
+        {
+            sliderArea.color = normalColor;
+            pointArea.color = normalColor;
+        }
         if (leftInput() && EventSystemWrapper.Instance.IsSelected(gameObject)) moveSlider(-offset);
         else if (rightInput() && EventSystemWrapper.Instance.IsSelected(gameObject)) moveSlider(offset);
-        fillArea.color = EventSystemWrapper.Instance.IsSelected(gameObject) ? highlightedColor : normalColor;
+        //fillArea.color = EventSystemWrapper.Instance.IsSelected(gameObject) ? highlightedColor : normalColor;
         timer += Time.unscaledDeltaTime;
     }
 

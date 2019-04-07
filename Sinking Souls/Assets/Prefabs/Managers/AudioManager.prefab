@@ -70,107 +70,139 @@ MonoBehaviour:
     volume: 0.5
     pitch: 1
     loop: 0
+    interruptible: 0
     source: {fileID: 0}
   - name: MenuButton_2
     clip: {fileID: 8300000, guid: 55908936895c66344b1454582e29d937, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
+    interruptible: 0
     source: {fileID: 0}
   - name: MenuButton_Click
     clip: {fileID: 8300000, guid: 57fba2112bfc45f4f805fc2bc4df1773, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
+    interruptible: 0
     source: {fileID: 0}
   - name: Attack_1
     clip: {fileID: 8300000, guid: 946555c8ed30e1d4a981535b6606db38, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
+    interruptible: 0
     source: {fileID: 0}
   - name: Attack_2
     clip: {fileID: 8300000, guid: db32cd2628adc7d40844b1d5635a18de, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
+    interruptible: 0
     source: {fileID: 0}
   - name: BombExplosion
     clip: {fileID: 8300000, guid: 84d70dbe2694028498c5d8635de1f9d4, type: 3}
     volume: 0.5
     pitch: 1
     loop: 0
+    interruptible: 0
     source: {fileID: 0}
   - name: Forge
     clip: {fileID: 8300000, guid: f04105b43c6aa894ab7efb1d65c3dfcc, type: 3}
     volume: 0.8
     pitch: 1
     loop: 0
+    interruptible: 0
     source: {fileID: 0}
   - name: Walk
     clip: {fileID: 8300000, guid: ae427817bc30982468abd656505059d0, type: 3}
     volume: 0.85
     pitch: 1
     loop: 1
+    interruptible: 0
     source: {fileID: 0}
   - name: Splash
     clip: {fileID: 8300000, guid: 82542f60e0bfd6e4fa0ca31cbab33c2b, type: 3}
     volume: 0.85
     pitch: 1
     loop: 0
+    interruptible: 1
     source: {fileID: 0}
   - name: Wall
     clip: {fileID: 8300000, guid: ebd311a0c9a3bef49802307b6c67ebc6, type: 3}
     volume: 0.85
     pitch: 1
     loop: 0
+    interruptible: 0
     source: {fileID: 0}
   - name: Wind
     clip: {fileID: 8300000, guid: 27d214603d0f87245b1ef41a64650146, type: 3}
     volume: 0.912
     pitch: 1
     loop: 1
+    interruptible: 0
     source: {fileID: 0}
   - name: BowPreparing
     clip: {fileID: 8300000, guid: add197495d5e58248b16a00441251053, type: 3}
     volume: 0.4
     pitch: 1
     loop: 0
+    interruptible: 0
     source: {fileID: 0}
   - name: BowShoot
     clip: {fileID: 8300000, guid: 204ff6ebb195763428a3cdbda43b6e33, type: 3}
     volume: 0.4
     pitch: 1
     loop: 0
+    interruptible: 0
     source: {fileID: 0}
   - name: Lock
     clip: {fileID: 8300000, guid: aaa9b8d0066a2374db4454001c46b93f, type: 3}
-    volume: 0.75
+    volume: 1
     pitch: 1
     loop: 0
+    interruptible: 0
     source: {fileID: 0}
   - name: PlayerHit
     clip: {fileID: 8300000, guid: 0cfa98a6b929ee94a888b0f2aa0fbf70, type: 3}
-    volume: 0.75
+    volume: 0.9
     pitch: 1
     loop: 0
+    interruptible: 1
+    source: {fileID: 0}
+  - name: Teleport
+    clip: {fileID: 8300000, guid: fa37d61caa4803f489aee6bcee4de137, type: 3}
+    volume: 0.7
+    pitch: 1.35
+    loop: 0
+    interruptible: 0
+    source: {fileID: 0}
+  - name: Unlock
+    clip: {fileID: 8300000, guid: 4048ea28bd4b4a64dae501481c542da9, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    interruptible: 0
     source: {fileID: 0}
   m_Music:
   - name: TritonTheme
     clip: {fileID: 8300000, guid: b6bba6103eb11a442899906782fa7859, type: 3}
-    volume: 0.255
+    volume: 0.15
     pitch: 1
     loop: 1
+    interruptible: 0
     source: {fileID: 0}
   - name: Waves
     clip: {fileID: 8300000, guid: 814fb61a015a7e14eaa13a021e3653c8, type: 3}
     volume: 0.9
     pitch: 1
     loop: 1
+    interruptible: 0
     source: {fileID: 0}
   - name: TitleScreen
     clip: {fileID: 8300000, guid: 52f24e3e30b64b941b8d5447f9517b13, type: 3}
     volume: 0.5
     pitch: 1
     loop: 1
+    interruptible: 0
     source: {fileID: 0}

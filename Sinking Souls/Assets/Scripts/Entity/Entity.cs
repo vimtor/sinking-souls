@@ -325,6 +325,11 @@ public class Entity : MonoBehaviour
                     React(other.transform.position);
                     ApplyModifier(other.gameObject.GetComponent<AbilityHolder>().holder.modifier);
                 }
+
+                if (other.GetComponent<WeaponHolder>().owner.tag != "Player")
+                {
+                    AudioManager.Instance.PlayEffect("PlayerHit");
+                }
                 break;
         }
 

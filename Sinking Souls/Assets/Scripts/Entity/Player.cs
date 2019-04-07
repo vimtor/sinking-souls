@@ -414,10 +414,15 @@ public class Player : Entity
                     {
                         dist = Vector3.Distance(target.transform.position, transform.position);
                         lockedEnemy = target;
+                        AudioManager.Instance.PlayEffect("Lock");
                     }
             }
         }
-        else if (lockedEnemy != null && InputManager.ButtonRJ) lockedEnemy = null;
+        else if (lockedEnemy != null && InputManager.ButtonRJ)
+        {
+            lockedEnemy = null;
+            AudioManager.Instance.PlayEffect("Unlock");
+        }
 
         if (m_AbilityCooldown > 0) m_AbilityCooldown -= Time.deltaTime;
         dodgeCounter += Time.deltaTime;
@@ -505,6 +510,8 @@ public class Player : Entity
                     {
                         lockedEnemy = target;
                         closests = angle;
+
+                        AudioManager.Instance.PlayEffect("Lock");
                     }
                 }
             }
@@ -683,6 +690,7 @@ public class Player : Entity
                 StartCoroutine(GetBulnerable(dashTime));
 
                 animate = animateShader.BACKWARDS;
+                AudioManager.Instance.PlayEffect("Teleport");
                 return;
 
 
@@ -704,6 +712,7 @@ public class Player : Entity
             if (Dodge != DodgeType.NONE)
             {
                 animate = animateShader.BACKWARDS;
+                AudioManager.Instance.PlayEffect("Teleport");
                 enemyPosition = lockedEnemy.transform.position;
                 tpPosition = Vector3.zero;
                 gameObject.layer = LayerMask.NameToLayer("Dash");
@@ -738,6 +747,7 @@ public class Player : Entity
 
 
                 animate = animateShader.BACKWARDS;
+                AudioManager.Instance.PlayEffect("Teleport");
                 enemyPosition = lockedEnemy.transform.position;
                 tpPosition = spawnPosition;
 
@@ -755,6 +765,7 @@ public class Player : Entity
                                             spawnDirection.normalized * dashSpawningDistance;
 
                     animate = animateShader.BACKWARDS;
+                    AudioManager.Instance.PlayEffect("Teleport");
                     enemyPosition = lockedEnemy.transform.position;
                     tpPosition = spawnPosition;
 
@@ -773,6 +784,7 @@ public class Player : Entity
                                                 spawnDirection.normalized * dashSpawningDistance;
 
                         animate = animateShader.BACKWARDS;
+                        AudioManager.Instance.PlayEffect("Teleport");
                         enemyPosition = lockedEnemy.transform.position;
                         tpPosition = spawnPosition;
 

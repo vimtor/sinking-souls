@@ -15,6 +15,8 @@ public class doorController : MonoBehaviour
 
     public bool closing = false;
     private bool closed = false;
+    private bool playSound;
+    private bool opened;
 
     private void Start()
     {
@@ -47,22 +49,36 @@ public class doorController : MonoBehaviour
         }
         return true;
     } 
-        // Update is called once per frame
-    void Update () {
+    
+    void Update ()
+    {
         if (checkPlayerdistAndEnemies()) {
             if (!closed) closeDoor();
         }
-        if(noActiveAI()) openDoor();
-        if (closed) {
+
+        if(noActiveAI() && !opened) openDoor();
+
+        if (closed)
+        {
+            playSound = false;
             closing = false;
+        }
+
+        if (opened)
+        {
+            playSound = false;
         }
     }
 
 
     void closeDoor()
     {
-
-        // AudioManager.Instance.PlayEffect("Wall");
+        if (!playSound)
+        {
+            playSound = true;
+            AudioManager.Instance.PlayEffect("Wall");
+        }
+        
 
         if (checkDistance()) {
             for (int i = 0; i < closedDoor.Count; i++)// GameObject door in closedDoor
@@ -80,7 +96,8 @@ public class doorController : MonoBehaviour
                 }
             }
         }
-        
+
+        opened = false;
     }
 
    public  bool checkDistance()
@@ -92,7 +109,11 @@ public class doorController : MonoBehaviour
 
     void openDoor()
     {
-        // AudioManager.Instance.PlayEffect("Wall");
+        if (!playSound)
+        {
+            playSound = true;
+            AudioManager.Instance.PlayEffect("Wall");
+        }
 
         foreach (GameObject door in closedDoor)
         {
@@ -101,8 +122,13 @@ public class doorController : MonoBehaviour
                 door.transform.position -= Vector3.up * Time.deltaTime * speed;
                 Debug.Log("Abriendo");
             }
-            else door.transform.position = new Vector3(door.transform.position.x, openPosition, door.transform.position.z);
+            else
+            {
+                door.transform.position = new Vector3(door.transform.position.x, openPosition, door.transform.position.z);
+                opened = true;
+            }
         }
+
         closed = false;
     }
 }

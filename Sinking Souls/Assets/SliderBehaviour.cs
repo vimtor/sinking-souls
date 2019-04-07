@@ -28,11 +28,13 @@ public class SliderBehaviour : MonoBehaviour
 
     private void Update()
     {
+        //Block default unity slider movement
         gameObject.GetComponent<Slider>().value = barValue;
+
         if (leftInput() && EventSystemWrapper.Instance.IsSelected(gameObject)) moveSlider(-offset);
         else if (rightInput() && EventSystemWrapper.Instance.IsSelected(gameObject)) moveSlider(offset);
         fillArea.color = EventSystemWrapper.Instance.IsSelected(gameObject) ? highlightedColor : normalColor;
-        timer += Time.deltaTime;
+        timer += Time.unscaledDeltaTime;
     }
 
     private void moveSlider(float _value)
@@ -40,7 +42,8 @@ public class SliderBehaviour : MonoBehaviour
         if (timer >= delay)
         {
             timer = 0;
-            barValue += _value;
+            if (Mathf.Abs(InputManager.LeftJoystick.x) < 0.01f) barValue += (_value * Mathf.Abs(InputManager.LeftJoystick.x));
+            else barValue += _value;
         }
     }
 

@@ -33,8 +33,6 @@ public class ExpansiveWaveBehaviour : MonoBehaviour
         effect.transform.position = transform.position;
         effect.Play();
         Destroy(gameObject, range / speed);
-        
-
     }
 
     private void Update()

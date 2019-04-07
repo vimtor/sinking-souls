@@ -146,6 +146,7 @@ public class GameController : MonoBehaviour
                 else
                 {
                     AudioManager.Instance.PlayEffect("Wind");
+                    AudioManager.Instance.PlayMusic("DeathTheme");
                 }
                 break;
 
@@ -199,6 +200,7 @@ public class GameController : MonoBehaviour
 
                 Array.ForEach(modifiers, modifier => modifier.picked = false);
                 player.GetComponent<Player>().Heal();
+
                 #region Crew Members
 
                 m_BlacksmithObject = GameObject.Find("Galen");

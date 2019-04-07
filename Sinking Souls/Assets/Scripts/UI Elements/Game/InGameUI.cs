@@ -51,6 +51,19 @@ public class InGameUI : MonoBehaviour
         {
             icons = GameObject.FindGameObjectsWithTag("Room Icon");
 
+            if (GameController.instance.LevelGenerator.level.name == "DeathIsland")
+            {
+                minimapSize = minimapSizeDead;
+                iconSize = iconSizeDead;
+            }
+            else
+            {
+                minimapSize = minimapSizeTriton;
+                iconSize = iconSizeTriton;
+            }
+
+            ResizeIcons();
+
             foreach (var icon in icons)
             {
                 icon.SetActive(false);
@@ -65,21 +78,10 @@ public class InGameUI : MonoBehaviour
 
         UpdateAbility();
 
-        if (GameController.instance.LevelGenerator.level.name == "DeathIsland")
-        {
-            minimapSize = minimapSizeDead;
-            iconSize = iconSizeDead;
-        }
-        else
-        {
-            minimapSize = minimapSizeTriton;
-            iconSize = iconSizeTriton;
-        }
-
+        
         if (displayMinimap)
         {
             UpdateMinimap();
-            UpdateIcons();
         }
     }
 
@@ -120,7 +122,7 @@ public class InGameUI : MonoBehaviour
         }
     }
 
-    private void UpdateIcons()
+    private void ResizeIcons()
     {
         foreach (var icon in icons)
         {

@@ -131,12 +131,16 @@ public class DialogueManager : MonoBehaviour
         messageContent.text = "";
         var parsedSentence = ParseSentence(sentence);
 
+        AudioManager.Instance.PlayEffect("Dialogue");
+
         float time = 1 / Mathf.Pow(10, dialogueSpeed);
         foreach (char letter in parsedSentence)
         {
             messageContent.text += letter;
             yield return new WaitForSecondsRealtime(time);
         }
+
+        AudioManager.Instance.Stop("Dialogue");
     }
 
     private string ParseSentence(string sentence)

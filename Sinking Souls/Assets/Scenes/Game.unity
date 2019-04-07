@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.21868974, g: 0.5985548, b: 1.2453527, a: 1}
+  m_IndirectSpecularColor: {r: 0.21015456, g: 0.585691, b: 1.2468483, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -90,7 +90,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -367,7 +367,7 @@ Prefab:
     - target: {fileID: 320104933220823010, guid: d02fb44a38a23c34983fe0b4f16238e3,
         type: 2}
       propertyPath: m_SceneBindings.Array.size
-      value: 114
+      value: 117
       objectReference: {fileID: 0}
     - target: {fileID: 320104933220823010, guid: d02fb44a38a23c34983fe0b4f16238e3,
         type: 2}
@@ -442,7 +442,7 @@ Prefab:
     - target: {fileID: 320104933220823010, guid: d02fb44a38a23c34983fe0b4f16238e3,
         type: 2}
       propertyPath: m_InitialState
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 320104933220823010, guid: d02fb44a38a23c34983fe0b4f16238e3,
         type: 2}
@@ -1567,6 +1567,32 @@ Prefab:
       propertyPath: m_SceneBindings.Array.data[113].value
       value: 
       objectReference: {fileID: 894302919}
+    - target: {fileID: 320104933220823010, guid: d02fb44a38a23c34983fe0b4f16238e3,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[114].key
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 320104933220823010, guid: d02fb44a38a23c34983fe0b4f16238e3,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[115].key
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 320104933220823010, guid: d02fb44a38a23c34983fe0b4f16238e3,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[115].value
+      value: 
+      objectReference: {fileID: 1656784405}
+    - target: {fileID: 320104933220823010, guid: d02fb44a38a23c34983fe0b4f16238e3,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[116].key
+      value: 
+      objectReference: {fileID: 114149270988530576, guid: 15923f03e50cb0545bd922b02b43b3eb,
+        type: 2}
+    - target: {fileID: 320104933220823010, guid: d02fb44a38a23c34983fe0b4f16238e3,
+        type: 2}
+      propertyPath: m_SceneBindings.Array.data[116].value
+      value: 
+      objectReference: {fileID: 1656784403}
     m_RemovedComponents:
     - {fileID: 95010682416754232, guid: d02fb44a38a23c34983fe0b4f16238e3, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: d02fb44a38a23c34983fe0b4f16238e3, type: 2}
@@ -13447,7 +13473,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1488964195}
-  m_LocalRotation: {x: 0.007944581, y: -0.6932433, z: 0.0076427665, w: 0.7206194}
+  m_LocalRotation: {x: -0.0003072439, y: -0.70992815, z: -0.00030971112, w: 0.70427406}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -19502,6 +19528,10 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4627022705990374, guid: da8a43ed5c90b114795a8288e7c094f9, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4627022705990374, guid: da8a43ed5c90b114795a8288e7c094f9, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

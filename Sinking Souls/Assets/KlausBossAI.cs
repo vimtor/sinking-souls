@@ -77,6 +77,11 @@ public class KlausBossAI : MonoBehaviour {
         healthbar.GetComponent<KlausBossHealthbar>().klaus = this;
     }
 
+    public void SetupAI()
+    {
+
+    }
+
     private float acumulatedRotation = 0;
     Vector3 forward = Vector3.up;
     private float sweptInitialCounter;

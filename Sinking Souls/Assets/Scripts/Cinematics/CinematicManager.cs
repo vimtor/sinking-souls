@@ -43,6 +43,7 @@ public class CinematicManager : MonoBehaviour
         director.stopped += OnCinematicStop;
 
         cutsceneWrapper = GameObject.FindGameObjectWithTag("CutsceneWrapper");
+        cutsceneWrapper.SetActive(false);
     }
 
     private void Update()

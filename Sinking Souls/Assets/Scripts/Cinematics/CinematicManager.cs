@@ -16,6 +16,8 @@ public class CinematicManager : MonoBehaviour
     private GameObject cutsceneWrapper;
     private bool reactivate;
 
+    [HideInInspector] public bool isPlaying;
+
     #region SINGLETON
     public static CinematicManager Instance { get; private set; }
 
@@ -72,6 +74,7 @@ public class CinematicManager : MonoBehaviour
         inGameInterface.SetActive(false);
         blackFrames.SetActive(true);
         GameController.instance.player.GetComponent<Player>().Stop();
+        isPlaying = true;
     }
 
     private void OnCinematicStop(PlayableDirector playable)
@@ -80,5 +83,6 @@ public class CinematicManager : MonoBehaviour
         blackFrames.SetActive(false);
         GameController.instance.player.SetActive(true);
         GameController.instance.player.GetComponent<Player>().Resume();
+        isPlaying = false;
     }
 }

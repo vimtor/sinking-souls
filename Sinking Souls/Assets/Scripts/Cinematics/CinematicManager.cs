@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -10,6 +11,10 @@ public class CinematicManager : MonoBehaviour
     public GameObject blackFrames;
 
     private PlayableDirector director;
+
+    private double lastTime = -1;
+    private GameObject cutsceneWrapper;
+    private bool reactivate;
 
     #region SINGLETON
     public static CinematicManager Instance { get; private set; }
@@ -38,6 +43,26 @@ public class CinematicManager : MonoBehaviour
 
         director.played += OnCinematicPlay;
         director.stopped += OnCinematicStop;
+
+        cutsceneWrapper = GameObject.FindGameObjectWithTag("CutsceneWrapper");
+    }
+
+    private void Update()
+    {
+        if (reactivate)
+        {
+            reactivate = false;
+            cutsceneWrapper.SetActive(true);
+            Debug.Log("Reactivated");
+        }
+
+        if (director.time == lastTime)
+        {
+            reactivate = true;
+            cutsceneWrapper.SetActive(false);
+        }
+
+        lastTime = director.time;
     }
 
     public void Play(TimelineAsset playable)

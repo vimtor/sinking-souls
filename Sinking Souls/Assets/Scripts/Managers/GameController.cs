@@ -141,6 +141,7 @@ public class GameController : MonoBehaviour
                 {
                     player.transform.Find("DeathIsland").gameObject.SetActive(false);
                     GameObject.Find("Post Processing").gameObject.GetComponent<PostProcessVolume>().profile = postProcesingProfileLevel1;
+                    AudioManager.Instance.PlayMusic("TritonTheme");
                 }
                 else
                 {
@@ -190,7 +191,7 @@ public class GameController : MonoBehaviour
                 else
                 {
                     lobbySouls += runSouls;
-                Debug.Log("Did some souls adding");
+                    Debug.Log("Did some souls adding");
                     var pickedModifiers = Array.FindAll(modifiers, modifier => modifier.picked);
                     Array.ForEach(pickedModifiers, modifier => modifier.owned = true);
                 }

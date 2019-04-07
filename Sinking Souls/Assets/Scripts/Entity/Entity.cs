@@ -294,8 +294,12 @@ public class Entity : MonoBehaviour
                     GameObject hitParticles = Instantiate(m_HitParticles);
                     hitParticles.transform.position = other.transform.position + Vector3.Normalize((transform.position + Vector3.up) - (other.transform.position )) *2 ;
                     Destroy(hitParticles, 1);
-                    
-                    if (gameObject.tag == "Player") gameObject.GetComponent<Player>().Dodge = Player.DodgeType.NONE;
+
+                    if (gameObject.tag == "Player")
+                    {
+                        gameObject.GetComponent<Player>().Dodge = Player.DodgeType.NONE;
+                        AudioManager.Instance.PlayEffect("PlayerHit");
+                    }
                     
                     if (other.GetComponent<WeaponHolder>().owner.tag == "Player") other.GetComponent<WeaponHolder>().owner.GetComponent<Entity>().lockedEnemy = gameObject;
                     React( other.ClosestPointOnBounds(gameObject.transform.position));
@@ -304,10 +308,6 @@ public class Entity : MonoBehaviour
                     if (other.GetComponent<WeaponHolder>().owner.tag == "Player") {
                         AudioManager.Instance.PlayEffect("Splash");
                         Debug.Log("Fart");
-                    }
-                    else
-                    {
-                        AudioManager.Instance.PlayEffect("PlayerHit");
                     }
 
                     if (other.name.Contains("Dagger")) {

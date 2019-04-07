@@ -301,14 +301,18 @@ public class Entity : MonoBehaviour
                     React( other.ClosestPointOnBounds(gameObject.transform.position));
                     ApplyModifier(other.GetComponent<WeaponHolder>().holder.modifier);
 
-                if (other.GetComponent<WeaponHolder>().owner.tag == "Player") {
-                    AudioManager.Instance.PlayEffect("Splash");
-                    Debug.Log("Fart");
-                }
+                    if (other.GetComponent<WeaponHolder>().owner.tag == "Player") {
+                        AudioManager.Instance.PlayEffect("Splash");
+                        Debug.Log("Fart");
+                    }
+                    else
+                    {
+                        AudioManager.Instance.PlayEffect("PlayerHit");
+                    }
 
-                if (other.name.Contains("Dagger")) {
-                    gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
-                    StartCoroutine(UnfreezePosition(0.1f));
+                    if (other.name.Contains("Dagger")) {
+                        gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezePositionY;
+                        StartCoroutine(UnfreezePosition(0.1f));
                     }
                 }
                 break;

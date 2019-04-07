@@ -39,11 +39,24 @@ public class SliderBehaviour : MonoBehaviour
 
     private void moveSlider(float _value)
     {
-        if (timer >= delay)
-        {
-            timer = 0;
-            if (Mathf.Abs(InputManager.LeftJoystick.x) < 0.01f) barValue += (_value * Mathf.Abs(InputManager.LeftJoystick.x));
-            else barValue += _value;
+        //Joystick case
+        if (Mathf.Abs(InputManager.LeftJoystick.x) > 0.01f) {
+            Debug.Log("Joystick");
+            if (timer >= 0.04f)
+            {
+                timer = 0;
+                barValue += ((_value / 4) * (Mathf.Abs(InputManager.LeftJoystick.x)*4));
+            }
+
+        }
+        //Key case
+        else {
+            Debug.Log("Key");
+            if (timer >= delay)
+            {
+                timer = 0;
+                barValue += _value;
+            }
         }
     }
 

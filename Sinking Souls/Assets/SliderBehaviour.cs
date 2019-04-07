@@ -55,7 +55,7 @@ public class SliderBehaviour : MonoBehaviour
             if (timer >= delay)
             {
                 timer = 0;
-                barValue += _value;
+                barValue += _value;               
             }
         }
     }

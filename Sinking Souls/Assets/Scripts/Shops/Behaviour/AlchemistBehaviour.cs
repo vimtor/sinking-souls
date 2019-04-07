@@ -40,6 +40,7 @@ public class AlchemistBehaviour : ShopBehaviour<Ability>
         GameController.instance.player.GetComponent<Player>().MaxHealth *= lifeIncrease;
         GameController.instance.PlayerLifeHolder = GameController.instance.player.GetComponent<Player>().MaxHealth;
         GameController.instance.maxHealth = GameController.instance.player.GetComponent<Player>().MaxHealth;
+        GameController.instance.player.GetComponent<Player>().Heal();
         SaveManager.Save();
     }
 }

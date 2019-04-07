@@ -1597,7 +1597,7 @@ Animator:
   m_GameObject: {fileID: 1072048034807676}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: e11b49daad9d607488a86fa455ef4d22, type: 3}
-  m_Controller: {fileID: 9100000, guid: 27d6db920213eb948a56930ad015703c, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1675,6 +1675,7 @@ MonoBehaviour:
     type: 2}
   m_HealParticles: {fileID: 1565164962391104, guid: 78ac0be5f22ba4840ab23af6fd80e2e1,
     type: 2}
+  m_Animator: {fileID: 0}
   dead: 0
   lockedEnemy: {fileID: 0}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
@@ -1698,6 +1699,7 @@ MonoBehaviour:
   life: 75
   swordPrefab: {fileID: 1819814510900840, guid: a7a10f893959c1c4481f307ac830ca06,
     type: 2}
+  bossHealthbar: {fileID: 0}
   restPositions:
   - {fileID: 1869747986889346}
   - {fileID: 1701448597047810}
@@ -1728,6 +1730,8 @@ MonoBehaviour:
   endDelay: 5
   flyingSpeed: 10
   currentAttack: 0
+  checkBuggedTime: 10
+  checkBuggedTimeOrbit: 20
   maxSoldInterval: 3
   alive: 0
   distance: 0

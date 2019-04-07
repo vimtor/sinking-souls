@@ -75,7 +75,7 @@ public class Enemy : Entity {
             StartCoroutine(fallToDie(time - Time.deltaTime));
         }
     }
-
+    public bool DestroyOnDeath = true;
     IEnumerator WaitToDie(float time)
     {
         for (int i = 0; i < GameController.instance.roomEnemies.Count; i++) {
@@ -83,7 +83,8 @@ public class Enemy : Entity {
                 GameController.instance.roomEnemies.Remove(GameController.instance.roomEnemies[i]);
             }
         }
+        gameObject.layer = 20;
         yield return new WaitForSeconds(time);
-        Destroy(gameObject);
+        if(DestroyOnDeath)Destroy(gameObject);
     }
 }

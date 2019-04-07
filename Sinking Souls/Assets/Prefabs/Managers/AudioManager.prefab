@@ -205,6 +205,13 @@ MonoBehaviour:
     loop: 0
     interruptible: 1
     source: {fileID: 0}
+  - name: MagicBombExplosion
+    clip: {fileID: 8300000, guid: 2049ef7d376e2cf488b544260e39493b, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    interruptible: 1
+    source: {fileID: 0}
   m_Music:
   - name: TritonTheme
     clip: {fileID: 8300000, guid: b6bba6103eb11a442899906782fa7859, type: 3}
@@ -222,6 +229,20 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: TitleScreen
     clip: {fileID: 8300000, guid: 52f24e3e30b64b941b8d5447f9517b13, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 1
+    interruptible: 0
+    source: {fileID: 0}
+  - name: DeathTheme
+    clip: {fileID: 8300000, guid: 26b74a5402dd6214b9370a27e3172d50, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 1
+    interruptible: 0
+    source: {fileID: 0}
+  - name: KlausTheme
+    clip: {fileID: 8300000, guid: b6e29c37efde42940a211b00a8baeff2, type: 3}
     volume: 0.5
     pitch: 1
     loop: 1

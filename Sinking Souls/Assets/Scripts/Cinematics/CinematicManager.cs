@@ -21,8 +21,6 @@ public class CinematicManager : MonoBehaviour
 
     private void Awake()
     {
-
-
         if (Instance == null)
         {
             Instance = this;
@@ -32,8 +30,6 @@ public class CinematicManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        DontDestroyOnLoad(gameObject);
     }
     #endregion
 

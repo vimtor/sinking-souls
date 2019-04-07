@@ -32,8 +32,6 @@ public class DialogueManager : MonoBehaviour
 
     private void Awake()
     {
-        
-
         if (Instance == null)
         {
             Instance = this;
@@ -43,8 +41,6 @@ public class DialogueManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
-        DontDestroyOnLoad(gameObject);
     }
     #endregion
 

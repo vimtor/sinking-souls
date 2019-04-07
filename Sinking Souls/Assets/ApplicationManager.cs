@@ -174,7 +174,6 @@ public class ApplicationManager : MonoBehaviour
 
     public void FinishGame()
     {
-        SaveManager.Reset();
-        ChangeScene(GameState.MAIN_MENU);
+        CinematicManager.Instance.Play(endGameCinematic);
     }
 }

@@ -20,7 +20,10 @@ public class PauseMenu : MonoBehaviour
 
     private void Update()
     {
-        if (CinematicManager.Instance.isPlaying) return;
+        if (CinematicManager.Instance != null)
+        {
+            if (CinematicManager.Instance.isPlaying) return;
+        }
 
         if (InputManager.ButtonStart)
         {

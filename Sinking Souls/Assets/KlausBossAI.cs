@@ -58,28 +58,30 @@ public class KlausBossAI : MonoBehaviour {
 
 
     private float randomVal;
+    public bool started = false;
 
     private void Start() {
+        started = false;
+    }
 
+    public void SetupAI()
+    {
         randomVal = Random.Range(cadency.x, cadency.y);
 
         swords = new GameObject[6];
         restHoverOffset = new float[6];
-        for(int i = 0; i<6; i++) {
+        for (int i = 0; i < 6; i++)
+        {
             swords[i] = Instantiate(swordPrefab);
             swords[i].transform.position = restPositions[i].transform.position;
             swords[i].transform.rotation = restPositions[i].transform.rotation;
             swords[i].transform.GetChild(0).GetComponent<WeaponHolder>().owner = gameObject;
             restHoverOffset[i] = Random.Range(0.7f, 1.3f);
         }
-
+        gameObject.GetComponent<AIController>().SetupAI();
         var healthbar = Instantiate(bossHealthbar, GameObject.Find("Canvas").transform);
         healthbar.GetComponent<KlausBossHealthbar>().klaus = this;
-    }
-
-    public void SetupAI()
-    {
-
+        started = true;
     }
 
     private float acumulatedRotation = 0;
@@ -416,95 +418,103 @@ public class KlausBossAI : MonoBehaviour {
     public float checkBuggedTimeOrbit = 20;
     private float BuggedTime;
 
-    private void Update() {
+    private void Update()
+    {
+        if (started)
+        { 
+            if (Input.GetKeyDown(KeyCode.F10)) life = -200;
 
-        if (Input.GetKeyDown(KeyCode.F10)) life = -200;
 
-
-        if (life <= 0)
-        {
-            GetComponent<Enemy>().Health = 0;
-            for(int i = 0; i < 6; i++)
-            {
-                swords[i].GetComponent<SwordBehaviour>().dead = true;
-                
-            }
-            ApplicationManager.Instance.FinishGame();
-        }
-        else
-        {
-            GetComponent<Enemy>().Health = 1000000000;
-        }
-        ///calculate life;
-        for(int i = 0; i<6; i++)
-        {
-            if (swords[i].GetComponent<SwordBehaviour>().justDied())
-            {
-                life -= 2;
-
-            }
-        }
-        if (allDead() && !allDeadDamage)
-        {
-            life -= 13;
-            allDeadDamage = true;
             if (life <= 0)
             {
-                for (int i = 0; i < 6; i++) giveGravity(i);
-            }
-        }
+                GetComponent<Enemy>().Health = 0;
+                for (int i = 0; i < 6; i++)
+                {
+                    swords[i].GetComponent<SwordBehaviour>().dead = true;
 
-        if (attack) {
-            BuggedTime = checkBuggedTime;
-            switch (currentAttack) {
-                case attacks.ORBIT:
-                BuggedTime = checkBuggedTimeOrbit;
-                orbitAttack();
-                break;
-                case attacks.ARROW:
-                arrowAttack();
-                break;
-                case attacks.SWEPT:
-                swept();
-                break;
-                case attacks.BIG:
-                bigAttack();
-                break;
-            }
-            betwinAttackCounter = 0;
-            if (bugedAttackCounter >= BuggedTime) {
-                attack = false;
-                foreach (GameObject sw in swords) sw.GetComponent<SwordBehaviour>().resetSword();
-
-            }
-            bugedAttackCounter += Time.deltaTime;
-           
-        }
-        else {///when not attacking 
-            bugedAttackCounter = 0;
-            if (!allDead())
-            {
-                rest();
-
-                for (int i = 0; i < 6; i++) {
-                    if (!swords[i].GetComponent<SwordBehaviour>().dead) swords[i].GetComponent<SwordBehaviour>().resetSword();
                 }
-
-                if (betwinAttackCounter >= 2)
-                {///wait X seconds and choos new attack and attack
-
-                    currentAttack = chooseNewAttack();
-
-                    //currentAttack = (attacks)(((int)currentAttack + 1)%4 );
-                    attack = true;
-                }
-                betwinAttackCounter += Time.deltaTime;
+                ApplicationManager.Instance.FinishGame();
             }
             else
             {
-                reviveAllDead(2);///if all dead revive them 
+                GetComponent<Enemy>().Health = 1000000000;
+            }
+            ///calculate life;
+            for (int i = 0; i < 6; i++)
+            {
+                if (swords[i].GetComponent<SwordBehaviour>().justDied())
+                {
+                    life -= 2;
+
+                }
+            }
+            if (allDead() && !allDeadDamage)
+            {
+                life -= 13;
+                allDeadDamage = true;
+                if (life <= 0)
+                {
+                    for (int i = 0; i < 6; i++) giveGravity(i);
+                }
             }
 
+            if (attack)
+            {
+                BuggedTime = checkBuggedTime;
+                switch (currentAttack)
+                {
+                    case attacks.ORBIT:
+                        BuggedTime = checkBuggedTimeOrbit;
+                        orbitAttack();
+                        break;
+                    case attacks.ARROW:
+                        arrowAttack();
+                        break;
+                    case attacks.SWEPT:
+                        swept();
+                        break;
+                    case attacks.BIG:
+                        bigAttack();
+                        break;
+                }
+                betwinAttackCounter = 0;
+                if (bugedAttackCounter >= BuggedTime)
+                {
+                    attack = false;
+                    foreach (GameObject sw in swords) sw.GetComponent<SwordBehaviour>().resetSword();
+
+                }
+                bugedAttackCounter += Time.deltaTime;
+
+            }
+            else
+            {///when not attacking 
+                bugedAttackCounter = 0;
+                if (!allDead())
+                {
+                    rest();
+
+                    for (int i = 0; i < 6; i++)
+                    {
+                        if (!swords[i].GetComponent<SwordBehaviour>().dead) swords[i].GetComponent<SwordBehaviour>().resetSword();
+                    }
+
+                    if (betwinAttackCounter >= 2)
+                    {///wait X seconds and choos new attack and attack
+
+                        currentAttack = chooseNewAttack();
+
+                        //currentAttack = (attacks)(((int)currentAttack + 1)%4 );
+                        attack = true;
+                    }
+                    betwinAttackCounter += Time.deltaTime;
+                }
+                else
+                {
+                    reviveAllDead(2);///if all dead revive them 
+                }
+
+            }
         }
     }
 

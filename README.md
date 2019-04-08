@@ -1,15 +1,10 @@
 # Sinking Souls
-## Prototype
-- Basic character controller
-- PlugableAI
-- Level Generator
-- Basic GameManager, AudioManager and CameraManager
-- Entity, enemy and player system
-- Ability and weapon system
-## Pre-Alpha
-### 1.0.0
-- Cinemachine camera
-- New lighting settings
-- 3 Augmented Triton enemies
-- Tools: ArenaController and AICreator
-- New character animator
+Sinking Souls its a pirate themed rogue-lite in which you will have to rescue your crew to escape the world of the deads.
+
+## Achievements
+- Good code structure and the creation of systems.
+- Improved plugable state machine based on [this](https://unity3d.com/learn/tutorials/topics/navigation/finite-state-ai-delegate-pattern) series.
+
+## Lessons
+- Good communication with clients, team members and yourself, is essential.
+- We need to learn more about git-flow.

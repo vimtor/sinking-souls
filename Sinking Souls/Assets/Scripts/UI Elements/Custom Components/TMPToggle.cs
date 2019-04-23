@@ -24,11 +24,11 @@ public class TMPToggle : MonoBehaviour, ISelectHandler, IDeselectHandler
 
     private void Select()
     {
-        m_TextMesh.faceColor = m_HighlightedColor;
+        //m_TextMesh.faceColor = m_HighlightedColor;
     }
 
     private void Deselect()
     {
-        m_TextMesh.faceColor = m_NormalColor;
+        //m_TextMesh.faceColor = m_NormalColor;
     }
 }

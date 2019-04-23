@@ -22,6 +22,7 @@ public class MainMenu : MonoBehaviour
 
     private void Update()
     {
+
         if (!settingsMenu.activeSelf)
         {
             mainMenuContent.SetActive(true);
@@ -44,7 +45,7 @@ public class MainMenu : MonoBehaviour
             hiding = false;
             Cursor.visible = true;
         }
-        else if (!hiding)
+        else if (!hiding && GetComponent<ButtonsController>().hit.collider == null)
         {
             hiding = true;
             StartCoroutine(HideMouse(3.0f));

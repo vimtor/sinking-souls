@@ -7,7 +7,6 @@ using UnityEngine.EventSystems;
 public class TextButtonBehavior : MonoBehaviour, ISelectHandler, IDeselectHandler, ISubmitHandler
 {
     public TextMeshProUGUI textMesh;
-
     private Button _button;
     private string _textBackup;
 
@@ -17,14 +16,17 @@ public class TextButtonBehavior : MonoBehaviour, ISelectHandler, IDeselectHandle
         _button = GetComponent<Button>();
     }
 
+
     public void OnSelect(BaseEventData eventData)
     {
         SelectButton();
+        //textMesh.color = GetComponentInParent<ButtonsController>().highlitedColor;
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
         DeselectButton();
+        //textMesh.color = GetComponentInParent<ButtonsController>().normalColor;
     }
 
     public void OnSubmit(BaseEventData eventData)

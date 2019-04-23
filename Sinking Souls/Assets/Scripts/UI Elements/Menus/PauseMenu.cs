@@ -10,7 +10,7 @@ public class PauseMenu : MonoBehaviour
     public Image backgroundImage;
 
 
-    private bool isPaused;
+    public bool isPaused;
     private bool inSettings;
 
     private void Start()

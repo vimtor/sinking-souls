@@ -12,6 +12,7 @@ public class InputManager : MonoBehaviour {
     public static Vector2 LeftJoystick;
     public static Vector2 RightJoystick;
     public static Vector2 Mouse;
+    public static Vector2 Dpad;
 
     #region Button Variables
     public static bool m_ButtonX;
@@ -77,6 +78,8 @@ public class InputManager : MonoBehaviour {
         return LeftJoystick == Vector2.zero;
     }
 
+
+
     private void Start()
     {
         StartCoroutine(CleanInput());
@@ -102,6 +105,8 @@ public class InputManager : MonoBehaviour {
 
         LeftJoystick = new Vector2(Input.GetAxis("JOYSTICK_LH"), Input.GetAxis("JOYSTICK_LV"));
         RightJoystick = new Vector2(Input.GetAxis("JOYSTICK_RH"), Input.GetAxis("JOYSTICK_RV"));
+        Dpad = new Vector2(Input.GetAxis("DPAD_H"), Input.GetAxis("DPAD_V"));
+        Debug.Log(Dpad);
         Mouse = new Vector2(Input.GetAxis("MouseX"), Input.GetAxis("MouseY"));
 
         if (LeftJoystickZero()) LeftJoystick = new Vector2(Input.GetAxis("KEY_HORIZONTAL"), Input.GetAxis("KEY_VERTICAL"));
@@ -153,7 +158,7 @@ public class InputManager : MonoBehaviour {
         else if (!hiding)
         {
             hiding = true;
-            StartCoroutine(HideMouse(cursorHideTime));
+            //StartCoroutine(HideMouse(cursorHideTime));
         }
     }
 

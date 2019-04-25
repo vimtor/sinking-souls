@@ -112,15 +112,10 @@ public class InputManager : MonoBehaviour {
         if (LeftJoystickZero()) LeftJoystick = new Vector2(Input.GetAxis("KEY_HORIZONTAL"), Input.GetAxis("KEY_VERTICAL"));
 
         string[] names = Input.GetJoystickNames();
+        
         for (int x = 0; x < names.Length; x++) {
-            if (names[x].Length == 19) {
-                PS4_Controller = 1;
-                Xbox_One_Controller = 0;
-            }
-            if (names[x].Length == 22) {
-                PS4_Controller = 0;
-                Xbox_One_Controller = 1;
-
+            if (!string.IsNullOrEmpty(names[x])) {
+                Xbox_One_Controller++;
             }
         }
 

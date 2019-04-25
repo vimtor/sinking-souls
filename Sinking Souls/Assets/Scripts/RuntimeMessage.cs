@@ -15,5 +15,5 @@ public abstract class MessageCondition : ScriptableObject {
     public bool completed;
     public RuntimeMessage message;
     public abstract bool Check();
-    public abstract void Start();
+    public abstract void reStart(bool deComplete);
 }

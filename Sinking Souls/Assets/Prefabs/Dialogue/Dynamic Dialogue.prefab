@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 224174820966985122}
   - component: {fileID: 222888272090376454}
   - component: {fileID: 114135320632969290}
+  - component: {fileID: 114651265919427884}
   m_Layer: 14
   m_Name: Dynamic Dialogue
   m_TagString: Untagged
@@ -361,6 +362,18 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &114651265919427884
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1256177528611318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30b93a236cda06546aa2e5b27e244611, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
 --- !u!222 &222449571288067542
 CanvasRenderer:
   m_ObjectHideFlags: 1

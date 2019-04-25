@@ -12,7 +12,7 @@ public class MoveCondition : MessageCondition {
         }
         else {
             if (time >= waitTime) {
-                completed = true;
+                //completed = true;
                 return true;
             }
             time += Time.deltaTime;
@@ -20,8 +20,8 @@ public class MoveCondition : MessageCondition {
         return false;
     }
 
-    public override void Start() {
+    public override void reStart(bool deComplete) {
         time = 0;
-        completed = false;
+        if(deComplete)completed = false;
     }
 }

@@ -37,7 +37,7 @@ public class MessageController : MonoBehaviour {
 
         if(currentMessage != null) {
 
-            if (messageTimer >= duration) {
+            if (messageTimer >= duration || Input.GetKey(KeyCode.UpArrow) || InputManager.Dpad.y > 0 || InputManager.ButtonA) {
                 messageTimer = -Time.deltaTime;
                 currentMessage.GetComponent<DynamicMessageBhv>().destroy();
                 currentMessage = null;
@@ -48,14 +48,14 @@ public class MessageController : MonoBehaviour {
         }
 
         if(currentDPad != null) {
-            if(dPadTimer >= dPadDuration) {
+            if(dPadTimer >= dPadDuration ) {
                 dPadTimer = -Time.deltaTime;
                 currentDPad.GetComponent<dPadUI>().destroy();
                 waitingCondition.reStart(false);
                 currentDPad = null;
             }
             else {
-                if (InputManager.Dpad.y > 0) {
+                if (InputManager.Dpad.y < 0 || Input.GetKey(KeyCode.R) || Input.GetKey(KeyCode.DownArrow)) {
                     dPadTimer = -Time.deltaTime;
                     currentDPad.GetComponent<dPadUI>().destroy();
                     currentDPad = null;

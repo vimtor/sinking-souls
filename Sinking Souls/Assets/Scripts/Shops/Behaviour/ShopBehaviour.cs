@@ -8,9 +8,12 @@ using TMPro;
 
 public abstract class ShopBehaviour<T> : MonoBehaviour
 {
-    [Header("Shop Interface")] public GameObject shopPanel;
+    [Header("Shop Interface")]
+    public GameObject shopPanel;
     public GameObject shopTitle;
     public GameObject shopItem;
+    public Color cantPayTextColor;
+    public Color normalTextColor;
 
     [Space(10)] public TextMeshProUGUI price;
     public TextMeshProUGUI remainingSouls;
@@ -50,6 +53,8 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
         price.text = selectedItem.transform.Find("Price").GetComponent<TextMeshProUGUI>().text;
 
         int priceDiff = GameController.instance.lobbySouls - selectedItem.GetComponent<ShopItem>().price;
+        if (priceDiff < 0) remainingSouls.color = cantPayTextColor;             //Too expensive
+        else remainingSouls.color = normalTextColor;                            // Can buy
         remainingSouls.text = priceDiff.ToString();
 
         oldSelection = EventSystemWrapper.Instance.CurrentSelected();
@@ -60,7 +65,7 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
     {
         if (dialoguing)
         {
-            if (InputManager.GetButtonB())
+            if (InputManager.GetButtonB() || Input.GetKeyDown(KeyCode.Escape))
             {
                 InputManager.ButtonB = false;
                 dialoguing = false;
@@ -73,7 +78,7 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
         if (!isOpen)
         {
             // Open the store.
-            if (InputManager.GetButtonA())
+            if (InputManager.GetButtonA() || Input.GetKeyDown(KeyCode.Return))
             {
                 if (isOpen) return;
                 InputManager.ButtonA = false;
@@ -98,7 +103,7 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
         {
             UpdateShop();
             // Close the store.
-            if (InputManager.GetButtonB())
+            if (InputManager.GetButtonB() || Input.GetKeyDown(KeyCode.Escape))
             {
                 InputManager.ButtonB = false;
                 CloseShop();

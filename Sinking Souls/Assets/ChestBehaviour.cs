@@ -15,13 +15,12 @@ public class ChestBehaviour : MonoBehaviour {
         canvas = GameObject.Find("Canvas");
         isOpened = false;
     }
-	
 
     private void OnTriggerEnter(Collider other)
     {
         if(!isOpened) instantiatedButton = Instantiate(Button, canvas.transform, false);
     }
-
+    
     private void OnTriggerStay(Collider other)
     {
         if (!isOpened)
@@ -31,15 +30,15 @@ public class ChestBehaviour : MonoBehaviour {
                 Debug.Log("ENTRA");
                 isOpened = true;
                 Destroy(instantiatedButton);
-                GetComponent<Animation>().clip = Open;
-                GetComponent<Animation>().Play();
+                GetComponent<Animator>().SetTrigger("Open");
+
             }
         }
     }
-
+    
     private void OnTriggerExit(Collider other)
     {
         if(instantiatedButton != null) Destroy(instantiatedButton);
     }
-
+    
 }

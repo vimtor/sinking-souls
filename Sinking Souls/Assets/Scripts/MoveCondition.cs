@@ -4,7 +4,7 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "Message Conditions/ Move Condition")]
 public class MoveCondition : MessageCondition {
-    public float time = 0;
+    [HideInInspector] public float time = 0;
     public float extraDelay;
     public float waitTime;
 

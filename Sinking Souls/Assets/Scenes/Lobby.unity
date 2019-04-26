@@ -2146,6 +2146,8 @@ GameObject:
   - component: {fileID: 725195496}
   - component: {fileID: 725195498}
   - component: {fileID: 725195497}
+  - component: {fileID: 725195499}
+  - component: {fileID: 725195500}
   m_Layer: 5
   m_Name: Alchemist Shop
   m_TagString: Untagged
@@ -2209,6 +2211,64 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 725195495}
   m_CullTransparentMesh: 0
+--- !u!114 &725195499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 725195495}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97f588f0d143bd14bab745a5c7a14a8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 0.3
+  normalTextColor: {r: 0.8679245, g: 0.85564256, b: 0.85564256, a: 1}
+  highlightedTextColor: {r: 1, g: 1, b: 1, a: 1}
+  normalImageColor: {r: 1, g: 1, b: 1, a: 1}
+  highlightedImageColor: {r: 0.9339623, g: 0.58592916, b: 0.58592916, a: 1}
+  normalUnavailableTextColor: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
+  highlightedUnavailableTextColor: {r: 0.8679245, g: 0.85564256, b: 0.85564256, a: 1}
+  normalUnavailableImageColor: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 1}
+  highlightedUnavailableImageColor: {r: 0.5660378, g: 0.20558918, b: 0.20558918, a: 1}
+  time: 0
+  reset: 0
+  itemArr: []
+  selected: 0
+  ButtonEvents:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &725195500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 725195495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f2adfcb3e151f5478c2e99690abaa6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delay: 0.3
+  normalTextColor: {r: 0.8679245, g: 0.85564256, b: 0.85564256, a: 1}
+  highlightedTextColor: {r: 1, g: 1, b: 1, a: 1}
+  normalImageColor: {r: 1, g: 1, b: 1, a: 1}
+  highlightedImageColor: {r: 0.9339623, g: 0.58592916, b: 0.58592916, a: 1}
+  normalUnavailableTextColor: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
+  highlightedUnavailableTextColor: {r: 0.8679245, g: 0.85564256, b: 0.85564256, a: 1}
+  normalUnavailableImageColor: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 1}
+  highlightedUnavailableImageColor: {r: 0.5660378, g: 0.20558918, b: 0.20558918, a: 1}
+  time: 0
+  reset: 0
+  itemArr: []
+  selected: 0
+  ButtonEvents:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &755890215 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1192140004694548, guid: 887739f550831264bbe94afd97a34661,

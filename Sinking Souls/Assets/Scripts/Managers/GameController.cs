@@ -60,6 +60,12 @@ public class GameController : MonoBehaviour
     [HideInInspector] public GameObject player;
     [HideInInspector] public Text lobbySoulsHUD;
 
+    [Header("Chests")]
+    public float spawnProvabilty;
+    public int minimumPerLevel;
+    public int maximumPerLevel;
+     public int activeChests = 0;
+
 
     private LevelGenerator levelGenerator;
 
@@ -115,6 +121,7 @@ public class GameController : MonoBehaviour
             break;
 
             case ApplicationManager.GameState.GAME:
+                activeChests = 0;
                 roomEnemies = new List<GameObject>();
                 foreach(Enhancer en in enhancers) {
                     en.price = en.basePrice;

@@ -25,7 +25,7 @@ public class ChestBehaviour : MonoBehaviour {
     {
         if (!isOpened)
         {
-            if (InputManager.ButtonA || Input.GetKey(KeyCode.Return))
+            if (Input.GetButtonDown("BUTTON_A") || Input.GetKey(KeyCode.Return))
             {
                 Debug.Log("ENTRA");
                 isOpened = true;

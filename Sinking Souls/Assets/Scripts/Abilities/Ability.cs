@@ -8,6 +8,7 @@ public abstract class Ability : ScriptableObject
     public string description;
     public int price;
     public Sprite sprite;
+    public bool owned;
     #endregion
 
     #region Ability Properties
@@ -29,6 +30,7 @@ public abstract class Ability : ScriptableObject
      public Entity entity;
 
      public GameObject parent;
+
 
 
     public void Use(GameObject newParent)

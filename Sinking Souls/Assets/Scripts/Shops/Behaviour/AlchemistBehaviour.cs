@@ -29,7 +29,10 @@ public class AlchemistBehaviour : ShopBehaviour<Ability>
 
     public override void FillShop()
     {
-        Array.ForEach(GameController.instance.abilities, ability => SetupItem(ability));
+        foreach( Ability a in GameController.instance.abilities) {
+            if (a.owned) SetupItem(a);
+        }
+        //Array.ForEach(GameController.instance.abilities, ability => SetupItem(ability));
     }
 
     public void UpgradeLife()

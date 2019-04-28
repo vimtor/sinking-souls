@@ -12,7 +12,7 @@ public class ChestBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        canvas = GameObject.Find("Canvas");
+        canvas = transform.Find("ChestCanvas").gameObject;
         isOpened = false;
     }
 
@@ -27,7 +27,6 @@ public class ChestBehaviour : MonoBehaviour {
         {
             if (Input.GetButtonDown("BUTTON_A") || Input.GetKey(KeyCode.Return))
             {
-                Debug.Log("ENTRA");
                 isOpened = true;
                 Destroy(instantiatedButton);
                 GetComponent<Animator>().SetTrigger("Open");
@@ -38,7 +37,7 @@ public class ChestBehaviour : MonoBehaviour {
     
     private void OnTriggerExit(Collider other)
     {
-        if(instantiatedButton != null) Destroy(instantiatedButton);
+        if(instantiatedButton != null) instantiatedButton.GetComponent<popUpEffect>().destroy();
     }
     
 }

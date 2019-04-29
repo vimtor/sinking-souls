@@ -84,6 +84,7 @@ public class ShopMenuController : MonoBehaviour
                     InputManager.ButtonA = false;
                     ButtonEvents = itemArr[selected].onClick;
                     ButtonEvents.Invoke();
+                    Refresh();
                 }
                 else if (DownInput()) MoveDown();
                 else if (UpInput()) MoveUp();
@@ -150,6 +151,22 @@ public class ShopMenuController : MonoBehaviour
     {
         if (item.gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color == highlightedTextColor) SetItemColor(item, normalTextColor, normalImageColor);
         else SetItemColor(item, normalUnavailableTextColor, normalUnavailableImageColor);
+    }
+
+    void Refresh()
+    {
+        foreach (Button but in itemArr)
+        {
+            //Detect if the player can buy the item or it is too expensive
+            int price = 0;
+            int.TryParse(but.gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text, out price);
+
+            //Actuallice item properties
+            if (GameController.instance.lobbySouls >= price) SetItemColor(but, normalTextColor, normalImageColor);   //Can buy
+            else SetItemColor(but, normalUnavailableTextColor, normalUnavailableImageColor);                        //Can not buy
+
+        }
+        Highlight(itemArr[selected]);
     }
 
     ///Input

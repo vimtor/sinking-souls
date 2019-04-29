@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 114243099513471980}
   - component: {fileID: 114576226819190206}
   - component: {fileID: 114423087783714808}
+  - component: {fileID: 65192050919575594}
   m_Layer: 5
   m_Name: Alchemist Item
   m_TagString: Untagged
@@ -99,6 +100,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!65 &65192050919575594
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1297394885501062}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 624.57, y: 121.77, z: 1}
+  m_Center: {x: 0, y: -64.9, z: 0}
 --- !u!114 &114243099513471980
 MonoBehaviour:
   m_ObjectHideFlags: 1

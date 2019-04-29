@@ -7,6 +7,7 @@ using System;
 using System.Linq;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering.PostProcessing;
+using TMPro;
 
 public class GameController : MonoBehaviour
 {
@@ -64,8 +65,8 @@ public class GameController : MonoBehaviour
     public float spawnProvabilty;
     public int minimumPerLevel;
     public int maximumPerLevel;
-     public int activeChests = 0;
-
+    public int activeChests = 0;
+    public int soulsUISize;
 
     private LevelGenerator levelGenerator;
 
@@ -97,6 +98,46 @@ public class GameController : MonoBehaviour
         Cursor.visible = false;
         levelGenerator = GetComponent<LevelGenerator>();
         
+    }
+    Coroutine waitToStop;
+
+    private bool growing = false;
+
+    public void AddSouls(int ammount) {
+        //runSouls += ammount;
+        int soulsPerTick = 1;
+        int ticks = ammount;
+        if (ticks > 20) {
+            soulsPerTick = ammount / 20;
+            ticks = 20;
+        }
+        StartCoroutine(AddSoulRutine(0.1f, ammount, soulsPerTick));
+    }
+    IEnumerator AddSoulRutine(float t, int count, int soulsPerTick) {
+
+        yield return new WaitForSecondsRealtime(t);
+        growing = true;
+
+        AddSoul(soulsPerTick);
+        if (waitToStop != null)StopCoroutine(waitToStop);
+        if (count > 1) {
+            StartCoroutine(AddSoulRutine(t, count - 1, soulsPerTick));
+        }
+        else waitToStop = StartCoroutine(StopGrowing(1.5f));
+    }
+
+    IEnumerator StopGrowing(float t) {
+        yield return new WaitForSecondsRealtime(t);
+        growing = false;
+    }
+
+    public void AddSoul(int tick) {
+        runSouls += tick;
+        if (GameObject.FindGameObjectWithTag("SoulsUI").transform.localScale.x < 2) {
+            GameObject.FindGameObjectWithTag("SoulsUI").transform.localScale += new Vector3(0.06f, 0.06f, 0.06f); // o.1 of size every soul
+            GameObject.FindGameObjectWithTag("SoulsUI").GetComponent<TextMeshProUGUI>().color -= new Color(0.1f, 0, 0.1f, 0);
+        }
+
     }
 
     public void SetupScene(ApplicationManager.GameState scene)
@@ -241,6 +282,19 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
+        if (!growing) {
+            if (GameObject.FindGameObjectWithTag("SoulsUI").transform.localScale.x > soulsUISize) {
+                GameObject.FindGameObjectWithTag("SoulsUI").transform.localScale -= new Vector3(1, 1, 1) * 0.7f * Time.deltaTime;
+                GameObject.FindGameObjectWithTag("SoulsUI").GetComponent<TextMeshProUGUI>().color += Color.white * 0.1f;
+
+            }
+            else {
+                GameObject.FindGameObjectWithTag("SoulsUI").transform.localScale = new Vector3(1, 1, 1) * soulsUISize;
+                GameObject.FindGameObjectWithTag("SoulsUI").GetComponent<TextMeshProUGUI>().color = Color.white;
+
+            }
+        }
+
         if (lobbySouls < 0) lobbySouls = 0;
         if (runSouls < 0) runSouls = 0;
         if (Input.GetKeyDown(KeyCode.F1))

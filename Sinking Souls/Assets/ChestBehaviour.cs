@@ -12,7 +12,7 @@ public class ChestBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        canvas = GameObject.Find("Canvas");
+        canvas = transform.Find("ChestCanvas").gameObject;
         isOpened = false;
     }
 
@@ -25,12 +25,13 @@ public class ChestBehaviour : MonoBehaviour {
     {
         if (!isOpened)
         {
-            if (InputManager.ButtonA || Input.GetKey(KeyCode.Return))
+            if (Input.GetButtonDown("BUTTON_A") || Input.GetKey(KeyCode.Return))
             {
-                Debug.Log("ENTRA");
                 isOpened = true;
                 Destroy(instantiatedButton);
                 GetComponent<Animator>().SetTrigger("Open");
+
+                GiveContent();
 
             }
         }
@@ -38,7 +39,45 @@ public class ChestBehaviour : MonoBehaviour {
     
     private void OnTriggerExit(Collider other)
     {
-        if(instantiatedButton != null) Destroy(instantiatedButton);
+        if(instantiatedButton != null) instantiatedButton.GetComponent<popUpEffect>().destroy();
     }
     
+    public void GiveContent() {
+        int rand = Random.Range(0, 2);
+
+        if (rand == 0) {// give a modifier
+            foreach (Modifier mod in GameController.instance.modifiers) {
+                if (!mod.owned) {
+                    Debug.Log("You Got: " + mod.name);
+                    mod.owned = true;
+                    return;
+                }
+            }
+        }
+        //give a ability
+        foreach (Ability ab in GameController.instance.abilities) {
+            if (!ab.owned) {
+                Debug.Log("You Got: " + ab.name);
+
+                ab.owned = true;
+                return;
+            }
+        }
+        if(rand == 1) {
+            foreach (Modifier mod in GameController.instance.modifiers) {
+                if (!mod.owned) {
+                    Debug.Log("You Got: " + mod.name);
+
+                    mod.owned = true;
+                    return;
+                }
+            }
+        }
+        //if all unlocked give 50 souls
+        Debug.Log("You Got: 50 souls");
+
+        GameController.instance.runSouls += 50;
+        
+    }
+
 }

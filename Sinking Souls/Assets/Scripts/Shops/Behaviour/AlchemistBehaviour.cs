@@ -11,8 +11,7 @@ public class AlchemistBehaviour : ShopBehaviour<Ability>
 {
     [Header("Alchemist Upgrades")]
     public int upgradeCost = 100;
-    public float upgradeMultiplierPercentatge = 10;
-    public float lifeIncreasePercentage = 5f;
+    public float lifeIncrease = 50.0f;
 
     protected override GameObject Configure(GameObject item, Ability ability)
     {
@@ -30,7 +29,10 @@ public class AlchemistBehaviour : ShopBehaviour<Ability>
 
     public override void FillShop()
     {
-        Array.ForEach(GameController.instance.abilities, ability => SetupItem(ability));
+        foreach( Ability a in GameController.instance.abilities) {
+            if (a.owned) SetupItem(a);
+        }
+        //Array.ForEach(GameController.instance.abilities, ability => SetupItem(ability));
     }
 
     public void UpgradeLife()
@@ -38,11 +40,16 @@ public class AlchemistBehaviour : ShopBehaviour<Ability>
         if (!GameController.instance.CanBuy(upgradeCost)) return;
 
         GameController.instance.lobbySouls -= upgradeCost;
-        GameController.instance.player.GetComponent<Player>().MaxHealth += (GameController.instance.player.GetComponent<Player>().MaxHealth * (lifeIncreasePercentage/100));
+        GameController.instance.player.GetComponent<Player>().MaxHealth *= lifeIncrease;
         GameController.instance.PlayerLifeHolder = GameController.instance.player.GetComponent<Player>().MaxHealth;
         GameController.instance.maxHealth = GameController.instance.player.GetComponent<Player>().MaxHealth;
         GameController.instance.player.GetComponent<Player>().Heal();
-        upgradeCost += (int)(upgradeCost * (upgradeMultiplierPercentatge / 100));
         SaveManager.Save();
     }
 }
+    public float upgradeMultiplier = 1.1f;
+    public float lifeIncrease = 50.0f;
+    public GameObject dialog;
+        upgradeCost = (int)(upgradeCost * upgradeMultiplier);
+        GameController.instance.player.GetComponent<Player>().MaxHealth *= lifeIncrease;
+        dialog.transform.GetChild(4).GetComponentInChildren<TextMeshProUGUI>().text = " Upgrade life for " + upgradeCost + " s";

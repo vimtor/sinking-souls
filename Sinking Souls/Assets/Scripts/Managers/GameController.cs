@@ -74,6 +74,8 @@ public class GameController : MonoBehaviour
         get { return levelGenerator; }
     }
 
+    public int percentageOfKeepedSouls;
+
     private void Awake()
     {
         #region SINGLETON
@@ -194,6 +196,8 @@ public class GameController : MonoBehaviour
 
                 if (died)
                 {
+                    Debug.Log(" Souls added: " + runSouls * (percentageOfKeepedSouls / 100f));
+                    lobbySouls += (int)(runSouls * (percentageOfKeepedSouls / 100f));
                     runSouls = 0;
                 }
                 else

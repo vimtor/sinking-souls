@@ -11,7 +11,8 @@ public class AlchemistBehaviour : ShopBehaviour<Ability>
 {
     [Header("Alchemist Upgrades")]
     public int upgradeCost = 100;
-    public float lifeIncrease = 50.0f;
+    public float upgradeMultiplierPercentatge = 10;
+    public float lifeIncreasePercentage = 5f;
 
     protected override GameObject Configure(GameObject item, Ability ability)
     {
@@ -37,10 +38,11 @@ public class AlchemistBehaviour : ShopBehaviour<Ability>
         if (!GameController.instance.CanBuy(upgradeCost)) return;
 
         GameController.instance.lobbySouls -= upgradeCost;
-        GameController.instance.player.GetComponent<Player>().MaxHealth *= lifeIncrease;
+        GameController.instance.player.GetComponent<Player>().MaxHealth += (GameController.instance.player.GetComponent<Player>().MaxHealth * (lifeIncreasePercentage/100));
         GameController.instance.PlayerLifeHolder = GameController.instance.player.GetComponent<Player>().MaxHealth;
         GameController.instance.maxHealth = GameController.instance.player.GetComponent<Player>().MaxHealth;
         GameController.instance.player.GetComponent<Player>().Heal();
+        upgradeCost += (int)(upgradeCost * (upgradeMultiplierPercentatge / 100));
         SaveManager.Save();
     }
 }

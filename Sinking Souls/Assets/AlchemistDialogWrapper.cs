@@ -43,74 +43,100 @@ public class AlchemistDialogWrapper : MonoBehaviour {
             itemArr = gameObject.GetComponentsInChildren<Button>();
             if (!(itemArr == null || itemArr.Length == 0))
             {
-                itemArr[selected].Select();
+                foreach (Button but in itemArr) Normalize(but);
+                selected = 0;
+                Highlight(itemArr[selected]);
             }
         }
-
-
-        //Shop is closed
-        if (!gameObject.activeSelf)
-        {
-            selected = 0;
-            reset = true;
-            time = 0;
-        }
-        //Shop is open
         else
         {
-            ray.origin = new Vector3(Input.mousePosition.x, Input.mousePosition.y, -100);
-            ray.direction = new Vector3(0, 0, 1);
-
-            //Key Input
-            if (time >= delay)
+            //Shop is closed
+            if (!gameObject.activeSelf)
             {
-                if (InputManager.ButtonA || Input.GetKeyDown(KeyCode.Return) || (Physics.Raycast(ray, out hit) && Cursor.visible && Input.GetMouseButtonDown(0)))
-                {
-                    InputManager.ButtonA = false;
-                    ButtonEvents = itemArr[selected].onClick;
-                    ButtonEvents.Invoke();
-                }
-                else if (DownInput()) MoveDown();
-                else if (UpInput()) MoveUp();
+                selected = 0;
+                reset = true;
+                time = 0;
             }
-            else if (InputManager.ButtonA) InputManager.ButtonA = false;
-
-            //Mouse Input
-            if (Physics.Raycast(ray, out hit) && Cursor.visible)
+            //Shop is open
+            else
             {
-                Debug.Log(hit.transform.gameObject.name);
-                if (hit.transform.gameObject.GetComponent<Button>() != itemArr[selected])
+                ray.origin = new Vector3(Input.mousePosition.x, Input.mousePosition.y, -100);
+                ray.direction = new Vector3(0, 0, 1);
+
+                //Key Input
+                if (time >= delay)
                 {
-                    for (int i = 0; i < itemArr.Length; i++)
+                    if (InputManager.ButtonA || Input.GetKeyDown(KeyCode.Return) || (Physics.Raycast(ray, out hit) && Cursor.visible && Input.GetMouseButtonDown(0)))
                     {
-                        if (hit.transform.gameObject.GetComponent<Button>() == itemArr[i])
+                        InputManager.ButtonA = false;
+                        ButtonEvents = itemArr[selected].onClick;
+                        ButtonEvents.Invoke();
+                        Highlight(itemArr[selected]);
+                    }
+                    else if (DownInput()) MoveDown();
+                    else if (UpInput()) MoveUp();
+                    
+                }
+                else if (InputManager.ButtonA) InputManager.ButtonA = false;
+
+                //Mouse Input
+                if (Physics.Raycast(ray, out hit) && Cursor.visible)
+                {
+                    Debug.Log(hit.transform.gameObject.name);
+                    if (hit.transform.gameObject.GetComponent<Button>() != itemArr[selected])
+                    {
+                        for (int i = 0; i < itemArr.Length; i++)
                         {
-                            selected = i;
-                            itemArr[selected].Select();
+                            if (hit.transform.gameObject.GetComponent<Button>() == itemArr[i])
+                            {
+                                Normalize(itemArr[selected]);
+                                selected = i;
+                                Highlight(itemArr[selected]);
+                            }
                         }
                     }
                 }
+                else if (Cursor.visible) ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+
+                if (reset)
+                {
+                    Normalize(itemArr[selected]);
+                    selected = 0;
+                    Highlight(itemArr[selected]);
+                    reset = false;
+                    time = 0;
+                }
+                Highlight(itemArr[selected]);      //Prevent EventSystem override
+
+                time += Time.unscaledDeltaTime;
             }
-            else if (Cursor.visible) ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
-
-            if (reset)
-            {
-                selected = 0;
-                itemArr[selected].Select();
-                reset = false;
-                time = 0;
-            }
-            itemArr[selected].Select();      //Prevent EventSystem override
-
-
-
-            time += Time.unscaledDeltaTime;
         }
 
     }
 
 
+    void Highlight(Button but)
+    {
+        //If this button have a price, check if the player can pay it
+        if(but == itemArr[1])
+        {
+            if (GameObject.Find("Ailin").GetComponent<AlchemistBehaviour>().upgradeCost > GameController.instance.lobbySouls) but.gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlightedUnavailableTextColor;
+            else but.gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlightedTextColor;
+        }
+        else but.gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlightedTextColor;
+        but.Select();
+    }
 
+    void Normalize(Button but)
+    {
+        //If this button have a price, check if the player can pay it
+        if (but == itemArr[1])
+        {
+            if (GameObject.Find("Ailin").GetComponent<AlchemistBehaviour>().upgradeCost > GameController.instance.lobbySouls) but.gameObject.GetComponentInChildren<TextMeshProUGUI>().color = normalUnavailableTextColor;
+            else but.gameObject.GetComponentInChildren<TextMeshProUGUI>().color = normalTextColor;
+        }
+        else but.gameObject.GetComponentInChildren<TextMeshProUGUI>().color = normalTextColor;
+    }
 
     ///Input
     bool DownInput()
@@ -127,17 +153,19 @@ public class AlchemistDialogWrapper : MonoBehaviour {
     ///Movement
     void MoveDown()
     {
+        Normalize(itemArr[selected]);
         selected = (selected + 1) % itemArr.Length;
-        itemArr[selected].Select();
+        Highlight(itemArr[selected]);
         Cursor.visible = false;
         time = 0;
     }
 
     void MoveUp()
     {
+        Normalize(itemArr[selected]);
         if (selected - 1 >= 0) selected--;
         else selected = itemArr.Length - 1;
-        itemArr[selected].Select();
+        Highlight(itemArr[selected]);
         Cursor.visible = false;
         time = 0;
     }

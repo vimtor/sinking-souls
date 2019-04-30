@@ -114,6 +114,23 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &1261705 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1999887243012340, guid: c986af09d0d0ca9408fe2605a5578511,
+    type: 2}
+  m_PrefabInternal: {fileID: 44479098}
+--- !u!65 &1261711
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1261705}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 399.5, y: 33.8, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &14648133
 GameObject:
   m_ObjectHideFlags: 3
@@ -310,6 +327,26 @@ Prefab:
         type: 2}
       propertyPath: m_text
       value: '   Upgrade llife for 400 s'
+      objectReference: {fileID: 0}
+    - target: {fileID: 114509328815655214, guid: c986af09d0d0ca9408fe2605a5578511,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 35616c6c32ac8d2419d4599d0f173ac2,
+        type: 3}
+    - target: {fileID: 114021932966785924, guid: c986af09d0d0ca9408fe2605a5578511,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1377149188988182, guid: c986af09d0d0ca9408fe2605a5578511, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114858470409304854, guid: c986af09d0d0ca9408fe2605a5578511,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c986af09d0d0ca9408fe2605a5578511, type: 2}
@@ -1918,7 +1955,6 @@ GameObject:
   - component: {fileID: 725195496}
   - component: {fileID: 725195498}
   - component: {fileID: 725195497}
-  - component: {fileID: 725195499}
   - component: {fileID: 725195500}
   m_Layer: 5
   m_Name: Alchemist Shop
@@ -1983,35 +2019,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 725195495}
   m_CullTransparentMesh: 0
---- !u!114 &725195499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 725195495}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97f588f0d143bd14bab745a5c7a14a8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  delay: 0.3
-  normalTextColor: {r: 0.8679245, g: 0.85564256, b: 0.85564256, a: 1}
-  highlightedTextColor: {r: 1, g: 1, b: 1, a: 1}
-  normalImageColor: {r: 1, g: 1, b: 1, a: 1}
-  highlightedImageColor: {r: 0.9339623, g: 0.58592916, b: 0.58592916, a: 1}
-  normalUnavailableTextColor: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
-  highlightedUnavailableTextColor: {r: 0.8679245, g: 0.85564256, b: 0.85564256, a: 1}
-  normalUnavailableImageColor: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 1}
-  highlightedUnavailableImageColor: {r: 0.5660378, g: 0.20558918, b: 0.20558918, a: 1}
-  time: 0
-  reset: 0
-  itemArr: []
-  selected: 0
-  ButtonEvents:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &725195500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5861,11 +5868,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d652a4530daef9b4883d7e19ec5edfdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delay: 0
-  normalTextColor: {r: 0, g: 0, b: 0, a: 0}
-  highlightedTextColor: {r: 0, g: 0, b: 0, a: 0}
-  normalUnavailableTextColor: {r: 0, g: 0, b: 0, a: 0}
-  highlightedUnavailableTextColor: {r: 0, g: 0, b: 0, a: 0}
+  delay: 0.3
+  normalTextColor: {r: 0.745283, g: 0.745283, b: 0.745283, a: 1}
+  highlightedTextColor: {r: 1, g: 1, b: 1, a: 1}
+  normalUnavailableTextColor: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 1}
+  highlightedUnavailableTextColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
   time: 0
   reset: 0
   itemArr: []
@@ -6317,6 +6324,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1021972137531224, guid: c986af09d0d0ca9408fe2605a5578511,
     type: 2}
   m_PrefabInternal: {fileID: 44479098}
+--- !u!65 &1956251876
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1956251875}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 399.5, y: 33.8, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2053258398 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114558834441481906, guid: c62a942364bb0fd48b144df53529a38f,

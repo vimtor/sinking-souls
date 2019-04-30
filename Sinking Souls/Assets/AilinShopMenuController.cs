@@ -24,7 +24,10 @@ public class AilinShopMenuController : MonoBehaviour {
     public float time = 0;
     public bool reset = false;
     public Button[] itemArr;
+    private Scrollbar scroll;
+    public int scrollPos = 0;
     public int selected = 0;
+    public int lastSelected = 0;
     private Ray ray;
     public RaycastHit hit;
     public UnityEvent ButtonEvents;
@@ -35,7 +38,8 @@ public class AilinShopMenuController : MonoBehaviour {
     {
         //Acces to necesary gameObjects
         ESys = GameObject.Find("EventSystem");
-
+        selected = 0;
+        lastSelected = 0;
     }
 
 
@@ -61,69 +65,70 @@ public class AilinShopMenuController : MonoBehaviour {
                 Highlight(itemArr[selected]);
             }
         }
-
-
-        //Shop is closed
-        if (!gameObject.activeSelf)
-        {
-            reset = true;
-            time = 0;
-        }
-        //Shop is open
         else
         {
-            ray.origin = new Vector3(Input.mousePosition.x, Input.mousePosition.y, -100);
-            ray.direction = new Vector3(0, 0, 1);
-
-            //Key Input
-            if (time >= delay)
+            //Shop is closed
+            if (!gameObject.activeSelf)
             {
-                if (InputManager.ButtonA || Input.GetKeyDown(KeyCode.Return) || (Physics.Raycast(ray, out hit) && Cursor.visible && Input.GetMouseButtonDown(0)))
-                {
-                    InputManager.ButtonA = false;
-                    ButtonEvents = itemArr[selected].onClick;
-                    ButtonEvents.Invoke();
-                    Refresh();
-                }
-                else if (DownInput()) MoveDown();
-                else if (UpInput()) MoveUp();
+                reset = true;
+                time = 0;
             }
-            else if (InputManager.ButtonA) InputManager.ButtonA = false;
-
-            //Mouse Input
-            if (Physics.Raycast(ray, out hit) && Cursor.visible)
+            //Shop is open
+            else
             {
-                Debug.Log(hit.transform.gameObject.name);
-                if (hit.transform.gameObject.GetComponent<Button>() != itemArr[selected])
+                ray.origin = new Vector3(Input.mousePosition.x, Input.mousePosition.y, -100);
+                ray.direction = new Vector3(0, 0, 1);
+
+                //Key Input
+                if (time >= delay)
                 {
-                    Normalize(itemArr[selected]);
-                    for (int i = 0; i < itemArr.Length; i++)
+                    if (InputManager.ButtonA || Input.GetKeyDown(KeyCode.Return) || (Physics.Raycast(ray, out hit) && Cursor.visible && Input.GetMouseButtonDown(0)))
                     {
-                        if (hit.transform.gameObject.GetComponent<Button>() == itemArr[i])
+                        InputManager.ButtonA = false;
+                        ButtonEvents = itemArr[selected].onClick;
+                        ButtonEvents.Invoke();
+                        Refresh();
+                    }
+                    else if (DownInput()) MoveDown();
+                    else if (UpInput()) MoveUp();
+                }
+                else if (InputManager.ButtonA) InputManager.ButtonA = false;
+
+                //Mouse Input
+                if (Physics.Raycast(ray, out hit) && Cursor.visible)
+                {
+                    Debug.Log(hit.transform.gameObject.name);
+                    if (hit.transform.gameObject.GetComponent<Button>() != itemArr[selected])
+                    {
+                        Normalize(itemArr[selected]);
+                        for (int i = 0; i < itemArr.Length; i++)
                         {
-                            selected = i;
-                            Highlight(itemArr[selected]);
-                            itemArr[selected].Select();
+                            if (hit.transform.gameObject.GetComponent<Button>() == itemArr[i])
+                            {
+                                selected = i;
+                                Highlight(itemArr[selected]);
+                                itemArr[selected].Select();
+                            }
                         }
                     }
                 }
+                else if (Cursor.visible) ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+
+                if (reset)
+                {
+                    Normalize(itemArr[selected]);
+                    selected = 0;
+                    Highlight(itemArr[selected]);
+                    itemArr[selected].Select();
+                    reset = false;
+                    time = 0;
+                }
+                itemArr[selected].Select();      //Prevent EventSystem override
+
+
+
+                time += Time.unscaledDeltaTime;
             }
-            else if (Cursor.visible) ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
-
-            if (reset)
-            {
-                Normalize(itemArr[selected]);
-                selected = 0;
-                Highlight(itemArr[selected]);
-                itemArr[selected].Select();
-                reset = false;
-                time = 0;
-            }
-            itemArr[selected].Select();      //Prevent EventSystem override
-
-
-
-            time += Time.unscaledDeltaTime;
         }
 
     }
@@ -199,5 +204,29 @@ public class AilinShopMenuController : MonoBehaviour {
         Cursor.visible = false;
         time = 0;
     }
+
+    void SetScroll(int _pos, float _size = 0.2f)
+    {
+        Debug.Log(_pos);
+        scrollPos = _pos;
+        scroll.size = _size;
+        scroll.value = 1 - ((float)scrollPos / (scroll.numberOfSteps - 1));   //1 - Because the scroll goes Bottom - Up
+    }
+
+
+
+    ///Movement
+    void ScrollDown()
+    {
+        if (scrollPos < scroll.numberOfSteps - 1) scrollPos++;
+        scroll.value = 1 - ((float)scrollPos / (scroll.numberOfSteps - 1));   //1 - Because the scroll goes Bottom - Up
+    }
+
+    void ScrollUp()
+    {
+        if (scrollPos > 0) scrollPos--;
+        scroll.value = 1 - ((float)scrollPos / (scroll.numberOfSteps - 1));    //1 - Because the scroll goes Bottom - Up
+    }
+
 
 }

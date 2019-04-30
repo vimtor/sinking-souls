@@ -101,7 +101,7 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
         }
         else
         {
-            UpdateShop();
+            //UpdateShop();
             // Close the store.
             if (InputManager.GetButtonB() || Input.GetKeyDown(KeyCode.Escape))
             {
@@ -109,7 +109,7 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
                 CloseShop();
             }
 
-            if (EventSystemWrapper.Instance.CurrentSelected() != oldSelection)
+            if (shopPanel.transform.Find("Content").childCount > 0 && EventSystemWrapper.Instance.CurrentSelected() != oldSelection)
             {
                 UpdateShop();
             }
@@ -141,10 +141,14 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
         if (dialogable) dialogueObject.SetActive(false);
 
         var content = shopPanel.transform.Find("Content");
-        var firstItem = content.transform.GetChild(0).gameObject;
-        EventSystemWrapper.Instance.Select(firstItem);
+        if(content.transform.childCount > 0)
+        {
+            var firstItem = content.transform.GetChild(0).gameObject;
+            EventSystemWrapper.Instance.Select(firstItem);
 
-        UpdateShop();
+            UpdateShop();
+        }
+       
 
         // Stop the player.
         GameController.instance.player.GetComponent<Player>().Stop();

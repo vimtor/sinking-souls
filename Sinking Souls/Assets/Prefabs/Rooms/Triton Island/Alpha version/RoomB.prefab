@@ -894,6 +894,7 @@ GameObject:
   - component: {fileID: 114986757151281752}
   - component: {fileID: 114154353897324224}
   - component: {fileID: 114240948918073034}
+  - component: {fileID: 114765655542290278}
   m_Layer: 0
   m_Name: RoomB
   m_TagString: Room
@@ -1949,7 +1950,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1840187276252448}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -39.835556, y: 30.017456, z: -36.50149}
+  m_LocalPosition: {x: 997.61115, y: -111.28485, z: -1891.625}
   m_LocalScale: {x: 0.024, y: 0.024, z: 0.024}
   m_Children:
   - {fileID: 4556217960023734}
@@ -4469,6 +4470,18 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!114 &114765655542290278
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1840187276252448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e673caea66c24b9498756580e2805427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  possibleChallenges: 0
 --- !u!114 &114816285719809272
 MonoBehaviour:
   m_ObjectHideFlags: 1

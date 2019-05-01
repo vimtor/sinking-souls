@@ -9,11 +9,13 @@ public class ChallengeManager : MonoBehaviour {
         SomeMore
     }
     public Challenges possibleChallenges;
+    public bool alwaysUpdate;
 	// Use this for initialization
 	void Start () {
         switch (possibleChallenges) {
             case Challenges.Test:
                 gameObject.AddComponent<TestChallenge>();
+                GetComponent<TestChallenge>().updateAlways = alwaysUpdate;
             break;
             case Challenges.SomeMore:
 

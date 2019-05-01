@@ -1,6 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
+
+
 
 public class SwordBehaviour : MonoBehaviour {
 
@@ -73,6 +75,13 @@ public class SwordBehaviour : MonoBehaviour {
        
 	}
 
+
+    IEnumerator restablishShake(float t) {
+        yield return new WaitForSecondsRealtime(t);
+        GameObject.Find("Game Camera").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+
+    }
+
     private bool stopRotation = false;
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Weapon") {
@@ -97,6 +106,10 @@ public class SwordBehaviour : MonoBehaviour {
                 stopAttack();
                 stopRotation = true;
                 Debug.Log("Hitted floor");
+                if (selected) {
+                    GameObject.Find("Game Camera").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 1.2f;
+                    StartCoroutine(restablishShake(0.2f));
+                }
 
             }
         }else {

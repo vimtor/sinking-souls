@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class KlausBossAI : MonoBehaviour {
 
     
@@ -159,6 +160,7 @@ public class KlausBossAI : MonoBehaviour {
 
         sweptInitialCounter += Time.deltaTime;    
     }
+
 
 
     int selected = -1;

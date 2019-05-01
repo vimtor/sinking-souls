@@ -13,9 +13,10 @@ public class DynamicMessageBhv : MonoBehaviour {
     [HideInInspector] public float speed;
     bool apear;
     bool desapear;
+    [HideInInspector] public bool onScreen = true;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         background = GetComponent<Image>();
         picture = transform.GetChild(0).gameObject.GetComponent<Image>();
         nameText = transform.GetChild(1).gameObject.GetComponent<TextMeshProUGUI>();
@@ -52,6 +53,9 @@ public class DynamicMessageBhv : MonoBehaviour {
                 Destroy(gameObject);
             }
         }
+
+        if(onScreen)
+        GameObject.Find("MessageController").GetComponent<MessageController>().messageAlphaHolder = GetComponent<Image>().color.a;
     }
 
     public void display(Sprite face, string name, string message, float _speed) {

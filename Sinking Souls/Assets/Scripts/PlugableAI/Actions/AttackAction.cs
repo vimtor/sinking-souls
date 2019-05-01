@@ -36,6 +36,8 @@ public class AttackAction : Action
         Vector3 direction = target - shooter;
 
         Vector3 newDir = Vector3.RotateTowards(controller.gameObject.transform.forward, direction, m_RotationDamping * Time.deltaTime, 0);
+        newDir = new Vector3(newDir.x, 0, newDir.z);
+
         controller.gameObject.transform.rotation = Quaternion.LookRotation(newDir);
     }
 }

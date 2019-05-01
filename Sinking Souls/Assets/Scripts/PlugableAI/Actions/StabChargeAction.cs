@@ -17,6 +17,7 @@ public class StabChargeAction : Action {
         Vector3 facingDir = playerPos - myPos;
 
         Vector3 newDir = Vector3.RotateTowards(controller.gameObject.transform.forward, facingDir, _speed * Time.deltaTime, 0);
+        newDir = new Vector3(newDir.x, 0, newDir.z);
 
         controller.gameObject.transform.rotation = Quaternion.LookRotation(newDir);
     }

@@ -9,14 +9,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd67c1b2fd6121b458816ae83710b563, type: 3}
-  m_Name: MeleeTriton_ChaseState
+  m_Name: MeleeTriton_LightAttackState
   m_EditorClassIdentifier: 
   actions:
-  - {fileID: 11400000, guid: 8bfd10541ffda5446a761faa6011b517, type: 2}
+  - {fileID: 11400000, guid: e7cea4f88738fe8479b044d702e03308, type: 2}
   transitions:
-  - decision: {fileID: 11400000, guid: fda81dd8976030c46a3a9502e56718f8, type: 2}
-    trueState: {fileID: 11400000, guid: 7be0148978ea7604d8d217ff29664a1c, type: 2}
-    falseState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
+  - decision: {fileID: 11400000, guid: 1c32e375d562a2e4190cbd98de2ebc57, type: 2}
+    trueState: {fileID: 11400000, guid: 0a1d20f012c8eab48acc398c1478efc8, type: 2}
+    falseState: {fileID: 11400000, guid: 0a1d20f012c8eab48acc398c1478efc8, type: 2}
   - decision: {fileID: 11400000, guid: 1caf1d4cb665aaa4ba6476850b3267e2, type: 2}
     trueState: {fileID: 11400000, guid: 549d91b502f474b4d8f72e7807524898, type: 2}
-    falseState: {fileID: 11400000, guid: 12129a5b93426d142807b3c62ebc50bb, type: 2}
+    falseState: {fileID: 11400000, guid: 0a1d20f012c8eab48acc398c1478efc8, type: 2}

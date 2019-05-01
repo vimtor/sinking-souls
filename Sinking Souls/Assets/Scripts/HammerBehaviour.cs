@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class HammerBehaviour : MonoBehaviour {
     private bool strongAttack;
@@ -29,19 +30,30 @@ public class HammerBehaviour : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other) {
         if (!noAttack) {
-            if(other.gameObject.tag == "Player") {
-                if (strongAttack) {
-
+            if (strongAttack) {
+                if (other.gameObject.tag == "Ground") {
+                    GameObject.Find("Game Camera").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 1;
+                    StartCoroutine(restablishShake(0.2f));
                 }
-                else {
+            }
+            else {
+                if (other.gameObject.tag == "Player") {
+
                     other.gameObject.GetComponent<Player>().m_PlayerState = Player.PlayerState.REPULSED;
                     other.gameObject.GetComponent<Player>().repulsionForce = repulsionForce;
                     Vector3 dir = (GameController.instance.player.transform.position - transform.position).normalized;
                     dir.y = 0;
-                    other.gameObject.GetComponent<Player>().repulsionVector =  dir;
+                    other.gameObject.GetComponent<Player>().repulsionVector = dir;
                     other.gameObject.GetComponent<Player>().repulsionTime = repulsionTime;
                 }
             }
+            
         }
+    }
+
+    IEnumerator restablishShake(float t) {
+        yield return new WaitForSecondsRealtime(t);
+        GameObject.Find("Game Camera").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+
     }
 }

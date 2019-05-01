@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
+
 
 
 public class BombBehaviour : MonoBehaviour {
@@ -37,12 +39,20 @@ public class BombBehaviour : MonoBehaviour {
         Instantiate(effect, transform.position, Quaternion.identity).transform.localEulerAngles += new Vector3(90, 0, 0);
         CameraManager.instance.Shake(0.1f, 0.08f);
         AudioManager.Instance.PlayEffect("BombExplosion");
+        GameObject.Find("Game Camera").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0.8f;
+        GameController.instance.StartCoroutine(restablishShake(0.15f));
         StartCoroutine(DestroyBomb());
     }
 
     private IEnumerator DestroyBomb() {
         yield return new WaitForEndOfFrame();
         Destroy(gameObject);
+    }
+
+    IEnumerator restablishShake(float t) {
+        yield return new WaitForSecondsRealtime(t);
+        GameObject.Find("Game Camera").GetComponent<CinemachineVirtualCamera>().GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+
     }
 
     private void OnTriggerEnter(Collider other) {

@@ -111,7 +111,7 @@ public class GameController : MonoBehaviour
             soulsPerTick = ammount / 20;
             ticks = 20;
         }
-        StartCoroutine(AddSoulRutine(0.1f, ammount, soulsPerTick));
+        StartCoroutine(AddSoulRutine(0.1f, ticks, soulsPerTick));
     }
     IEnumerator AddSoulRutine(float t, int count, int soulsPerTick) {
 
@@ -131,7 +131,7 @@ public class GameController : MonoBehaviour
         growing = false;
     }
 
-    public void AddSoul(int tick) {
+    private void AddSoul(int tick) {
         runSouls += tick;
         if (GameObject.FindGameObjectWithTag("SoulsUI").transform.localScale.x < 2) {
             GameObject.FindGameObjectWithTag("SoulsUI").transform.localScale += new Vector3(0.06f, 0.06f, 0.06f); // o.1 of size every soul

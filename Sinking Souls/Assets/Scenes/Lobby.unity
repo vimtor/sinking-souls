@@ -1683,7 +1683,7 @@ Prefab:
     - target: {fileID: 114337623052856484, guid: 258b637205f84f34c91c424fca3067e4,
         type: 2}
       propertyPath: m_RescuedAlchemist
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114337623052856484, guid: 258b637205f84f34c91c424fca3067e4,
         type: 2}
@@ -3499,9 +3499,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   conditions:
-  - {fileID: 11400000, guid: 838bdf355b1ff8e48a96e19cf85e18ac, type: 2}
+  - {fileID: 11400000, guid: 4e1cf4e329b92b745b46917b8f0e8bd9, type: 2}
+  overlayingObjects:
+  - {fileID: 1163093161}
+  - {fileID: 725195495}
+  - {fileID: 755890215}
+  - {fileID: 706313047}
+  - {fileID: 1792192043}
   message: {fileID: 1256177528611318, guid: 016b2572aa54de9459d0bf7df2c61236, type: 2}
   dPad: {fileID: 1452545174651704, guid: 86b65de7730813c46a65474c7ee395c5, type: 2}
+  dpadAlphaHolder: 0
+  messageAlphaHolder: 0
   displaySpeed: 10
   dPadSpeed: 40
   dPadDuration: 10
@@ -5941,6 +5949,11 @@ Prefab:
     - target: {fileID: 4670789746511660, guid: f8da733cf7ebb044fa490f475da4e363, type: 2}
       propertyPath: m_LocalScale.z
       value: 2.1211786
+      objectReference: {fileID: 0}
+    - target: {fileID: 23865093999265314, guid: f8da733cf7ebb044fa490f475da4e363,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8da733cf7ebb044fa490f475da4e363, type: 2}

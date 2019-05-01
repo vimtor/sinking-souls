@@ -18,28 +18,28 @@ public class ChestBehaviour : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if(!isOpened) instantiatedButton = Instantiate(Button, canvas.transform, false);
+        if (other.tag == "Player") if (!isOpened) instantiatedButton = Instantiate(Button, canvas.transform, false);
     }
     
     private void OnTriggerStay(Collider other)
     {
-        if (!isOpened)
-        {
-            if (Input.GetButtonDown("BUTTON_A") || Input.GetKey(KeyCode.Return))
-            {
-                isOpened = true;
-                Destroy(instantiatedButton);
-                GetComponent<Animator>().SetTrigger("Open");
+        if (other.tag == "Player") {
+            if (!isOpened) {
+                if (Input.GetButtonDown("BUTTON_A") || Input.GetKey(KeyCode.Return)) {
+                    isOpened = true;
+                    Destroy(instantiatedButton);
+                    GetComponent<Animator>().SetTrigger("Open");
 
-                GiveContent();
+                    GiveContent();
 
+                }
             }
         }
     }
     
     private void OnTriggerExit(Collider other)
     {
-        if(instantiatedButton != null) instantiatedButton.GetComponent<popUpEffect>().destroy();
+        if(other.tag == "Player")if(instantiatedButton != null) instantiatedButton.GetComponent<popUpEffect>().destroy();
     }
     
     public void GiveContent() {
@@ -76,7 +76,7 @@ public class ChestBehaviour : MonoBehaviour {
         //if all unlocked give 50 souls
         Debug.Log("You Got: 50 souls");
 
-        GameController.instance.runSouls += 50;
+        GameController.instance.AddSouls(50);
         
     }
 

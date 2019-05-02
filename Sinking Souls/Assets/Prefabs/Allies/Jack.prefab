@@ -1762,6 +1762,7 @@ MonoBehaviour:
   lockedEnemy: {fileID: 0}
   originalColor: {r: 1, g: 1, b: 1, a: 1}
   gettingDamage: 0
+  deadButWaiting: 0
   repulsionVector: {x: 0, y: 0, z: 0}
   repulsionForce: 20
   repulsionTime: 0.4
@@ -1796,6 +1797,7 @@ MonoBehaviour:
   current: 0
   defaultLife: 300
   lockedDashed: 0
+  DeathLength: 5
 --- !u!114 &114399362326118040
 MonoBehaviour:
   m_ObjectHideFlags: 1

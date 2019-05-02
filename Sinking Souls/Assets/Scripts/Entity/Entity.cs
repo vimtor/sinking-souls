@@ -280,10 +280,10 @@ public class Entity : MonoBehaviour
 
     private void Update() {
     }
-
+    [HideInInspector]public bool deadButWaiting = false;
     private void OnTriggerEnter(Collider other)
     {
-        if (m_Hitted || dead) return;
+        if (m_Hitted || dead || deadButWaiting) return;
         switch (other.tag)
         {
             case "Weapon":

@@ -841,6 +841,8 @@ public class Player : Entity
         GameController.instance.roomEnemies = new List<GameObject>();
         if (ApplicationManager.Instance.state == ApplicationManager.GameState.TUTORIAL) ApplicationManager.Instance.ChangeScene(ApplicationManager.GameState.TUTORIAL);
         else ApplicationManager.Instance.ChangeScene(ApplicationManager.GameState.LOBBY);
+        Time.timeScale = 1f;
+
         Debug.Log("Generating");
     }
 

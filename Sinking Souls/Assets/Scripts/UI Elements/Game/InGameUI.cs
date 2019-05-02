@@ -41,8 +41,10 @@ public class InGameUI : MonoBehaviour
     private void Start()
     {
         //minimapCamera.transform.forward = GameController.instance.currentRoom.GetComponent<SpawnController>().spawnHolder.transform.GetChild(0).gameObject.transform.forward;
-        minimapCamera.transform.forward = new Vector3(GameObject.Find("Game Camera").transform.forward.x, 0, GameObject.Find("Game Camera").transform.forward.z);
-        minimapCamera.transform.Rotate(new Vector3(90, 0, 0));
+        if (minimapCamera != null) {
+            minimapCamera.transform.forward = new Vector3(GameObject.Find("Game Camera").transform.forward.x, 0, GameObject.Find("Game Camera").transform.forward.z);
+            minimapCamera.transform.Rotate(new Vector3(90, 0, 0));
+        }
         //Debug.Log(GameController.instance.player.transform.forward);
 
         playerRef = GameController.instance.player.GetComponent<Player>();

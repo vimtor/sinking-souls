@@ -44,6 +44,12 @@ public class Entity : MonoBehaviour
     {
         get { return m_WeaponHand; }
     }
+    public bool leftHanded;
+    [Tooltip("Where the other weapon will be instantiated.")]
+    [SerializeField] protected GameObject m_OtherHand;
+    public GameObject OtherHand {
+        get { return m_OtherHand; }
+    }
 
     protected BoxCollider m_WeaponCollider;
 
@@ -149,7 +155,8 @@ public class Entity : MonoBehaviour
 
     public void EquipWeapon()
     {
-        m_Weapon.Instantiate(m_WeaponHand, gameObject);
+        if(!leftHanded)m_Weapon.Instantiate(m_WeaponHand, gameObject);
+        else m_Weapon.Instantiate(m_OtherHand, gameObject);
     }
 
 

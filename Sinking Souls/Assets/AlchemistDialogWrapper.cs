@@ -96,7 +96,6 @@ public class AlchemistDialogWrapper : MonoBehaviour {
                         }
                     }
                 }
-                else if (Cursor.visible) ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
 
                 if (reset)
                 {

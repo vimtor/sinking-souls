@@ -147,7 +147,6 @@ public class SettingsMenu : MonoBehaviour
                         }
                     }
                 }
-                //else if (Cursor.visible) ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
 
 
                 Enable(selectorArr[selected]);

@@ -88,7 +88,6 @@ public class ButtonsController : MonoBehaviour {
                         }
                     }
                 }
-                else if (Cursor.visible) ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
 
 
                 butArr[selected].Select();      //Prevent EventSystem override

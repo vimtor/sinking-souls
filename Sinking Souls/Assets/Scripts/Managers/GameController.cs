@@ -282,7 +282,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if (!growing) {
+        if (!growing && GameObject.FindGameObjectWithTag("SoulsUI")) {
             if (GameObject.FindGameObjectWithTag("SoulsUI").transform.localScale.x > soulsUISize) {
                 GameObject.FindGameObjectWithTag("SoulsUI").transform.localScale -= new Vector3(1, 1, 1) * 0.7f * Time.deltaTime;
                 GameObject.FindGameObjectWithTag("SoulsUI").GetComponent<TextMeshProUGUI>().color += Color.white * 0.1f;

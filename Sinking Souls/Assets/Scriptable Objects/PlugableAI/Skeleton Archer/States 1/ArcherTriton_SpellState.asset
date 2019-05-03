@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd67c1b2fd6121b458816ae83710b563, type: 3}
+  m_Name: ArcherTriton_SpellState
+  m_EditorClassIdentifier: 
+  actions:
+  - {fileID: 11400000, guid: 96ee126d577a42c49b05cc90369ffa93, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: 7e7e54ece7faf5a409c092c8e472661f, type: 2}
+    trueState: {fileID: 11400000, guid: d41e6036426165640a902c2ef295625e, type: 2}
+    falseState: {fileID: 11400000, guid: 7d91ba9e1ce54ac4eb17b939717a7c1d, type: 2}
+  - decision: {fileID: 11400000, guid: 890e5dc4c1ce1f040851eec227209e84, type: 2}
+    trueState: {fileID: 11400000, guid: a5d0f1e136554d149bc4797c91cd9408, type: 2}
+    falseState: {fileID: 11400000, guid: d41e6036426165640a902c2ef295625e, type: 2}
+  - decision: {fileID: 11400000, guid: 03b09e6790c2e7547be752666ed92631, type: 2}
+    trueState: {fileID: 11400000, guid: ad452f2233e29a04cba875882cef0daf, type: 2}
+    falseState: {fileID: 11400000, guid: d41e6036426165640a902c2ef295625e, type: 2}

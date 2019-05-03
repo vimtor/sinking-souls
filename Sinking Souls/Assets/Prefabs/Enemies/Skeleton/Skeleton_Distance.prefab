@@ -850,7 +850,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1978115826758056}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.00000058114523}
-  m_LocalPosition: {x: 9.378641, y: 48.538544, z: 74.65331}
+  m_LocalPosition: {x: 14.04, y: -2.05, z: -15.17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4025215993919572}
@@ -1343,9 +1343,11 @@ MonoBehaviour:
   m_MaxHealth: 160
   m_HittedRecovery: 2
   m_Weapon: {fileID: 11400000, guid: f055b85f6cabc75468a04f4e0bb0a231, type: 2}
-  m_WeaponHand: {fileID: 1281017903852930}
+  m_WeaponHand: {fileID: 1858627997330810}
+  leftHanded: 1
+  m_OtherHand: {fileID: 1281017903852930}
   m_Abilities:
-  - {fileID: 11400000, guid: 3caa8f2416a9307479539e6cd9ae51f9, type: 2}
+  - {fileID: 11400000, guid: 6efd4a0b6fea31c4c874e998a97b604e, type: 2}
   m_HitParticles: {fileID: 1744851154924106, guid: 83dbb4b59e1254c4bac5e18986484a49,
     type: 2}
   m_HealParticles: {fileID: 1565164962391104, guid: 78ac0be5f22ba4840ab23af6fd80e2e1,
@@ -1355,6 +1357,7 @@ MonoBehaviour:
   lockedEnemy: {fileID: 0}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0
+  deadButWaiting: 0
   m_Souls: 20
   deathDuration: 3
   abilities: []
@@ -1371,7 +1374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27115a1663b5ebc4a9dbbeb6a6e5abcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CurrentState: {fileID: 11400000, guid: 6b660d7a7cae04040b337576943c6a08, type: 2}
+  m_CurrentState: {fileID: 11400000, guid: 7d91ba9e1ce54ac4eb17b939717a7c1d, type: 2}
   main: 0
   started: 0
   improvedChaseDirection: {x: 0, y: 0, z: 0}

@@ -533,7 +533,9 @@ public class Player : Entity
         fake_Forward = Quaternion.Lerp(fake_Forward, fakeRotation, Time.deltaTime * m_RotationDamping);
 
         //Rotation round the enemy
-        Quaternion rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
+        Vector3 direction = lockedEnemy.transform.position - transform.position;
+        direction.y = 0;
+        Quaternion rotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, Time.deltaTime * m_RotationDamping);
     }
 
@@ -815,15 +817,32 @@ public class Player : Entity
 
     #endregion
 
+    public float DeathLength = 1.5f;
 
+    private float timeSpeed = 1;
     public void CheckDead()
     {
         if (!(Health <= 0) || GameController.instance.godMode) return;
 
+        if (!deadButWaiting) {
+            StartCoroutine(WaitToRestart(DeathLength));
+            m_Animator.SetTrigger("Die");
+            m_PlayerState = PlayerState.PULLING; // if this does somethinf change to a empty State
+            GameObject.Find("Fade Plane").GetComponent<FadeEffect>().FadeOut(DeathLength - 0.15f);
+        }
+        Time.timeScale = 0.6f;
+        deadButWaiting = true;
+
+    }
+
+    IEnumerator WaitToRestart(float t) {
+        yield return new WaitForSecondsRealtime(t);
         GameController.instance.died = true;
         GameController.instance.roomEnemies = new List<GameObject>();
         if (ApplicationManager.Instance.state == ApplicationManager.GameState.TUTORIAL) ApplicationManager.Instance.ChangeScene(ApplicationManager.GameState.TUTORIAL);
         else ApplicationManager.Instance.ChangeScene(ApplicationManager.GameState.LOBBY);
+        Time.timeScale = 1f;
+
         Debug.Log("Generating");
     }
 

@@ -21,28 +21,11 @@ GameObject:
   - component: {fileID: 4387626498557486}
   - component: {fileID: 33526766685627410}
   - component: {fileID: 23132310911966658}
-  - component: {fileID: 114329790056604434}
   - component: {fileID: 54054604225123866}
-  - component: {fileID: 65858918762152350}
-  m_Layer: 16
+  - component: {fileID: 65926166246080702}
+  m_Layer: 12
   m_Name: SkeletonSpear
-  m_TagString: Ability
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1840222058788994
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4576453835043126}
-  - component: {fileID: 65896932254820806}
-  m_Layer: 16
-  m_Name: Head
-  m_TagString: Ability
+  m_TagString: Weapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,27 +36,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1245454010160446}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 94.712265, y: -9.3461895, z: -3.10312}
+  m_LocalRotation: {x: -0.6887572, y: 0.40177816, z: -0.35714155, w: 0.48645428}
+  m_LocalPosition: {x: -0.402, y: -0.085, z: 0.161}
   m_LocalScale: {x: 2, y: 2.1, z: 1}
-  m_Children:
-  - {fileID: 4576453835043126}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4576453835043126
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1840222058788994}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0000035762, y: -0, z: 1.627}
-  m_LocalScale: {x: 0.060435545, y: 0.03903954, z: 0.2443}
-  m_Children: []
-  m_Father: {fileID: 4387626498557486}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -22.527, y: 107.101006, z: -102.75101}
 --- !u!23 &23132310911966658
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -131,42 +100,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 1
---- !u!65 &65858918762152350
+--- !u!65 &65926166246080702
 BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1245454010160446}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.1, z: 0.35}
-  m_Center: {x: 0, y: 0, z: 1.43}
---- !u!65 &65896932254820806
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1840222058788994}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.9999999, y: 0.99999994, z: 1}
-  m_Center: {x: -0.0000038146973, y: -0.000000029802322, z: -0.0000009536743}
---- !u!114 &114329790056604434
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1245454010160446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c9e5e6ac4acc2d4b8d77494f2ca8ed5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Target: {fileID: 0}
-  fire: {fileID: 1006378858670784, guid: 4b0f025cca23c1143aa99d046a468550, type: 2}
-  fireDuration: 1
-  firingAngle: 45
+  m_Size: {x: 0.0924362, y: 0.048139922, z: 1.1066929}
+  m_Center: {x: 0.0034894645, y: 0.0024340127, z: 1.2268438}

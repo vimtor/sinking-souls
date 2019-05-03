@@ -22,7 +22,7 @@ public class ArcherDecision : Decision {
             return true;
         }
         else {// in sight
-            if (Vector3.Distance(controller.player.transform.position, controller.transform.position) > closeDistance) {// not close
+            if (Vector3.Distance(controller.player.transform.position, controller.transform.position) > closeDistance + 2) {// not close
                 controller.CurrentState.transitions[0].trueState = notCloseInSight;
                 return true;
             }else {// close

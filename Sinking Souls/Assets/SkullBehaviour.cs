@@ -23,6 +23,7 @@ public class SkullBehaviour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if (Vector3.Distance(GetComponent<AbilityHolder>().owner.transform.position, GameController.instance.player.transform.position) > Vector3.Distance(transform.position, GetComponent<AbilityHolder>().owner.transform.position) * 0.8f) lerp = 0.01f;
         GetComponent<Rigidbody>().velocity = Vector3.Lerp(GetComponent<Rigidbody>().velocity, (((GameController.instance.player.transform.position + (Vector3.up)*1.5f) - transform.position).normalized * speed) + new Vector3(0, (Mathf.Sin(Time.time * 5) * 6f), 0), lerp);
         
         if (transform.localScale.x < scale) {
@@ -44,6 +45,8 @@ public class SkullBehaviour : MonoBehaviour {
     private void OnTriggerEnter(Collider collision) {
 
         if(collision.gameObject == GetComponent<AbilityHolder>().owner && counter < 1) return;
+        if (collision.gameObject.tag == "Weapon") return;
+        Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + collision.gameObject.tag);
         Destroy(gameObject);
         GameObject part = Instantiate(particles);
         part.transform.position = transform.position;

@@ -20,6 +20,7 @@ public class Hook : MonoBehaviour {
         currentHook.GetComponent<hookBehaviour>().target = tpTo;
         currentHook.GetComponent<hookBehaviour>().player = gameObject;
         currentHook.GetComponent<hookBehaviour>().move = true;
+        GameController.instance.player.gameObject.layer = 10;//layer dash
     }
 
 	public void Throw()
@@ -90,6 +91,8 @@ public class Hook : MonoBehaviour {
                 transform.position = Vector3.MoveTowards(transform.position, tpTo.transform.position, step);
             }
             else {
+                GameController.instance.player.gameObject.layer = 9;//layer player
+
                 GetComponent<Player>().m_PlayerState = Player.PlayerState.MOVING;
                 GetComponent<Player>().lockedEnemy = tpTo;
                 tpTo = null;

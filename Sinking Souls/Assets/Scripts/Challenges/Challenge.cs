@@ -63,6 +63,12 @@ public abstract class Challenge : MonoBehaviour {
 
     }
 
+    public bool EnemiesAlive()
+    {
+        foreach (GameObject e in GameController.instance.roomEnemies) if (e.GetComponent<AIController>().aiActive) return true;
+
+        return false;
+    }
 
     /// <summary>
     /// Function called when the player enters the room

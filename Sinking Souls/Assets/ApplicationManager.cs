@@ -131,8 +131,20 @@ public class ApplicationManager : MonoBehaviour
                 break;
         }
 
+        StartCoroutine(WaitToChange(1, sceneName));
+        GameObject.Find("Fade Plane").GetComponent<FadeEffect>().FadeOut(1 - 0.15f);
+    }
+
+    IEnumerator WaitToChange(float t, string sceneName) {
+        yield return new WaitForSecondsRealtime(t);
         AudioManager.Instance.StopAll();
         StartCoroutine(LoadSceneAsync(sceneName));
+    }
+
+    IEnumerator FadeLoading(float t) {
+        yield return new WaitForSecondsRealtime(t);
+        GameObject.Find("Fade Plane").GetComponent<FadeEffect>().FadeOut(1 - 0.15f);
+
     }
 
     private IEnumerator LoadSceneAsync(string sceneName, float minLoadTime = 2.5f)
@@ -153,9 +165,12 @@ public class ApplicationManager : MonoBehaviour
         }
 
         // Instantiate the loading screen on the canvas.
-        Instantiate(loadingScreen, GameObject.Find("Canvas").transform);
+        GameObject loadingS = Instantiate(loadingScreen, GameObject.Find("Canvas").transform);
+        loadingS.transform.SetSiblingIndex(loadingS.transform.GetSiblingIndex()-1);
+        GameObject.Find("Fade Plane").GetComponent<FadeEffect>().FadeIn(1 - 0.15f);
 
         // Update the loading screen until isDone and minLoadTime.
+        StartCoroutine(FadeLoading(minLoadTime - 1));
         yield return new WaitForSecondsRealtime(minLoadTime);
         operation.allowSceneActivation = true;
 

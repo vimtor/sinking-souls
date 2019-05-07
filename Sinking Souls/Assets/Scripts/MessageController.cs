@@ -22,6 +22,7 @@ public class MessageController : MonoBehaviour {
     private MessageCondition currentCondition; // if weird things happen this can be the problem not restarting to null everiwhere
     private GameObject genericDialogue;
     public GameObject cinematic;
+    public GameObject LevelInfo;
 
     void Start () {
         foreach (MessageCondition condition in conditions) {
@@ -45,70 +46,85 @@ public class MessageController : MonoBehaviour {
         return false;
     }
 
+    bool checkLevelInfo() {
+        return (LevelInfo != null);
+    }
+
     private bool deactivatedMessage = false;
         // Update is called once per frame
     void Update () {
-        if (!activeOverlayingObject()) {
+        if(LevelInfo == null)LevelInfo = GameObject.Find("LevelInfo(Clone)");
+        if (!activeOverlayingObject() ) {
 
-
-            if (currentDPad != null) {
-                currentDPad.GetComponent<dPadUI>().onScreen = true;
-                currentDPad.GetComponent<Image>().color = new Color(1, 1, 1, dpadAlphaHolder);
+            if (checkLevelInfo()) {
+                LevelInfo.SetActive(true);
             }
-            if (currentMessage != null) {
-                currentMessage.GetComponent<DynamicMessageBhv>().onScreen = true;
+            else {
 
-                currentMessage.GetComponent<Image>().color = new Color(1, 1, 1, messageAlphaHolder);
-                currentMessage.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, messageAlphaHolder);
-                currentMessage.transform.GetChild(1).GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, messageAlphaHolder);
-                currentMessage.transform.GetChild(2).GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, messageAlphaHolder);
-            }
-            if (deactivatedMessage) {
-                genericDialogue.SetActive(true);
-                deactivatedMessage = false;
-            }
 
-            if (currentDPad == null && currentMessage == null) {
-                foreach (MessageCondition condition in conditions) {
-                    DisplayMessage(condition);
+
+                if (currentDPad != null) {
+                    currentDPad.GetComponent<dPadUI>().onScreen = true;
+                    currentDPad.GetComponent<Image>().color = new Color(1, 1, 1, dpadAlphaHolder);
                 }
-            }
+                if (currentMessage != null) {
+                    currentMessage.GetComponent<DynamicMessageBhv>().onScreen = true;
 
-            if (currentMessage != null) {
-
-                if (messageTimer >= duration || Input.GetKey(KeyCode.UpArrow) || InputManager.Dpad.y > 0 || InputManager.ButtonA) {
-                    messageTimer = -Time.deltaTime;
-                    currentMessage.GetComponent<DynamicMessageBhv>().destroy();
-                    currentMessage = null;
-                    currentCondition.reStart(false);
+                    currentMessage.GetComponent<Image>().color = new Color(1, 1, 1, messageAlphaHolder);
+                    currentMessage.transform.GetChild(0).GetComponent<Image>().color = new Color(1, 1, 1, messageAlphaHolder);
+                    currentMessage.transform.GetChild(1).GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, messageAlphaHolder);
+                    currentMessage.transform.GetChild(2).GetComponent<TextMeshProUGUI>().color = new Color(1, 1, 1, messageAlphaHolder);
+                }
+                if (deactivatedMessage) {
+                    genericDialogue.SetActive(true);
+                    deactivatedMessage = false;
                 }
 
-                messageTimer += Time.deltaTime;
-            }
-
-            if (currentDPad != null) {
-                if (dPadTimer >= dPadDuration) {
-                    dPadTimer = -Time.deltaTime;
-                    currentDPad.GetComponent<dPadUI>().destroy();
-                    waitingCondition.reStart(false);
-                    currentDPad = null;
-                }
-                else {
-                    if (InputManager.Dpad.y < 0 || Input.GetKey(KeyCode.R) || Input.GetKey(KeyCode.DownArrow)) {
-                        dPadTimer = -Time.deltaTime;
-                        currentDPad.GetComponent<dPadUI>().destroy();
-                        currentDPad = null;
-                        waitingCondition.completed = false;
-                        Show(waitingCondition);
+                if (currentDPad == null && currentMessage == null) {
+                    foreach (MessageCondition condition in conditions) {
+                        DisplayMessage(condition);
                     }
                 }
 
+                if (currentMessage != null) {
 
-                dPadTimer += Time.deltaTime;
+                    if (messageTimer >= duration || Input.GetKey(KeyCode.UpArrow) || InputManager.Dpad.y > 0 || InputManager.ButtonA) {
+                        messageTimer = -Time.deltaTime;
+                        currentMessage.GetComponent<DynamicMessageBhv>().destroy();
+                        currentMessage = null;
+                        currentCondition.reStart(false);
+                    }
+
+                    messageTimer += Time.deltaTime;
+                }
+
+                if (currentDPad != null) {
+                    if (dPadTimer >= dPadDuration) {
+                        dPadTimer = -Time.deltaTime;
+                        currentDPad.GetComponent<dPadUI>().destroy();
+                        waitingCondition.reStart(false);
+                        currentDPad = null;
+                    }
+                    else {
+                        if (InputManager.Dpad.y < 0 || Input.GetKey(KeyCode.R) || Input.GetKey(KeyCode.DownArrow)) {
+                            dPadTimer = -Time.deltaTime;
+                            currentDPad.GetComponent<dPadUI>().destroy();
+                            currentDPad = null;
+                            waitingCondition.completed = false;
+                            Show(waitingCondition);
+                        }
+                    }
+
+
+                    dPadTimer += Time.deltaTime;
+                }
             }
 
         }
         else {
+            if (checkLevelInfo()) {
+                LevelInfo.SetActive(false);
+            }
             if (currentDPad != null) {
                 currentDPad.GetComponent<dPadUI>().onScreen = false;
                 currentDPad.GetComponent<Image>().color = new Color(1, 1, 1, 0);
@@ -127,8 +143,7 @@ public class MessageController : MonoBehaviour {
                 genericDialogue.SetActive(false);
                 deactivatedMessage = true;
             }
-        }   
-       
+        }     
 	}
 
     private void DisplayMessage(MessageCondition condition) {

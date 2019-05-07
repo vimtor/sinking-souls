@@ -5,24 +5,30 @@ using UnityEngine;
 public class ChallengeManager : MonoBehaviour {
     public enum Challenges {
         Test,
-        NoDamage,
+        KillAllNoDamage,
         None,
+        DontUseThisOne
     }
-    public Challenges possibleChallenges;
+    public List<KeyValuePair<Challenges, float>> possibleChallenges;
     public bool alwaysUpdate;
 	// Use this for initialization
 	void Start () {
-        switch (possibleChallenges) {
+        Challenges possibleChallenge = Challenges.DontUseThisOne;
+        do {
+            KeyValuePair<Challenges, float> pc = possibleChallenges[Random.Range(0, possibleChallenges.Count)];
+            if (Random.Range(0, 100f) < pc.Value) possibleChallenge = pc.Key;
+            
+        } while (possibleChallenge == Challenges.DontUseThisOne);
+       
+        
+        switch (possibleChallenge) {
             case Challenges.Test:
                 gameObject.AddComponent<TestChallenge>();
                 GetComponent<TestChallenge>().updateAlways = alwaysUpdate;
             break;
-            case Challenges.NoDamage:
-                gameObject.AddComponent<NoDamageCHallenge>();
-                GetComponent<NoDamageCHallenge>().updateAlways = alwaysUpdate;
-                break;
-            case Challenges.None:
-
+            case Challenges.KillAllNoDamage:
+                gameObject.AddComponent<TestChallenge>();
+                GetComponent<TestChallenge>().updateAlways = alwaysUpdate;
             break;
 
         }

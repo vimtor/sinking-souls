@@ -17,20 +17,34 @@ public class FadeEffect : MonoBehaviour {
 	void Update () {
         if (fadeIn) {
             GetComponent<Image>().color = new Color(0, 0, 0, GetComponent<Image>().color.a - speed * Time.unscaledDeltaTime);
+            if (GetComponent<Image>().color.a <= 0) fadeIn = false;
+
         }
         if (fadeOut) {
             GetComponent<Image>().color = new Color(0, 0, 0, GetComponent<Image>().color.a + speed * Time.unscaledDeltaTime);
-            Debug.Log("Fade " + GetComponent<Image>().color.a);
-
+            if (GetComponent<Image>().color.a >= 1) fadeOut = false;
         }
     }
     public void FadeIn(float s) {
+        if (fadeOut || fadeIn) {
+            Debug.Log("Tonto");
+            return;
+        }
+        Debug.Log("Fade Inn Activated----------------------------------------------------");
+
         fadeIn = true;
         fadeOut = false;
-
+        GetComponent<Image>().color = new Color(0, 0, 0, 1);
         speed = 1/s;
     }
+
     public void FadeOut(float s) {
+        if (fadeIn || fadeOut) {
+            Debug.Log("Tonto1");
+            return;
+        }
+        GetComponent<Image>().color = new Color(0, 0, 0, 0);
+
         Debug.Log("Fade Out Activated");
         fadeIn = false;
         fadeOut = true;

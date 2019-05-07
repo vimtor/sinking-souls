@@ -435,6 +435,7 @@ GameObject:
   - component: {fileID: 114464857366083982}
   - component: {fileID: 114043043094569868}
   - component: {fileID: 114740735339306936}
+  - component: {fileID: 114474700269423964}
   m_Layer: 0
   m_Name: RoomC 1
   m_TagString: Room
@@ -4602,6 +4603,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 85a4186a846ac1f4cab55a85ecf187a1, type: 2}
   alreadySpawned: 0
   spawnPoints: []
+--- !u!114 &114474700269423964
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1414737616423854}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e673caea66c24b9498756580e2805427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alwaysUpdate: 0
 --- !u!114 &114485366686501774
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -1142,6 +1142,7 @@ GameObject:
   - component: {fileID: 114524657357751386}
   - component: {fileID: 114700078550211506}
   - component: {fileID: 114374495471325522}
+  - component: {fileID: 114756072436154536}
   m_Layer: 0
   m_Name: RoomE1
   m_TagString: Room
@@ -5609,6 +5610,18 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!114 &114756072436154536
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1811107158323396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e673caea66c24b9498756580e2805427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alwaysUpdate: 0
 --- !u!114 &114764872099052336
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -2388,6 +2388,7 @@ GameObject:
   - component: {fileID: 114315654887296268}
   - component: {fileID: 114592466744656348}
   - component: {fileID: 114214349484461590}
+  - component: {fileID: 114318584045086020}
   m_Layer: 0
   m_Name: RoomE
   m_TagString: Room
@@ -10710,6 +10711,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0a4bebe209149af4f971eddf59d636d2, type: 2}
   alreadySpawned: 0
   spawnPoints: []
+--- !u!114 &114318584045086020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1688627831093938}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e673caea66c24b9498756580e2805427, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alwaysUpdate: 0
 --- !u!114 &114322020922273398
 MonoBehaviour:
   m_ObjectHideFlags: 1

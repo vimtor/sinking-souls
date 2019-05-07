@@ -120,7 +120,7 @@ public class SaveData
 
 public class SaveTool
 {
-    [MenuItem("Window/Save Manager/Save current")]
+    //[MenuItem("Window/Save Manager/Save current")]
     public static void Save()
     {
         try
@@ -133,7 +133,7 @@ public class SaveTool
         }
     }
 
-    [MenuItem("Window/Save Manager/Delete current")]
+    //[MenuItem("Window/Save Manager/Delete current")]
     public static void Delete()
     {
         try

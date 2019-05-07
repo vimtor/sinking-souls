@@ -43,6 +43,7 @@ public class FadeEffect : MonoBehaviour {
             Debug.Log("Tonto1");
             return;
         }
+        if (GetComponent<Image>().color.a >= 1) return;
         GetComponent<Image>().color = new Color(0, 0, 0, 0);
 
         Debug.Log("Fade Out Activated");

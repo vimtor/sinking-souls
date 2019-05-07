@@ -17,14 +17,14 @@ public class NoDamageCHallenge : Challenge
         Damaged = false;
         initialLife = GameController.instance.player.GetComponent<Player>().Health;
         player = GameController.instance.player.GetComponent<Player>();
-        Debug.Log("No Damage Challenge Started");
+        Debug.Log("//////////////////////////////////////////////////////////////No Damage Challenge Started");
 
     }
 
     public override ChallengeState StartedUpdate()
     {
         if (initialLife > player.Health){
-            Debug.Log("Lost");
+            Debug.Log("//////////////////////////////////////////////////////////////Lost");
             return newState(false, false);//stop challenge and loose
         }
 
@@ -39,13 +39,13 @@ public class NoDamageCHallenge : Challenge
         if (player.Health < auxMaxHealth)
         {
             player.Heal((auxMaxHealth / 100) * 20); //Hela 20 % when win
-            Debug.Log("Winned and added life");
+            Debug.Log("//////////////////////////////////////////////////////////////Winned and added life");
 
         }
         else
         {
             GameController.instance.AddSouls(20);
-            Debug.Log("Winned and added Souls");
+            Debug.Log("//////////////////////////////////////////////////////////////Winned and added Souls");
 
         }
     }

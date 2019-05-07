@@ -156,7 +156,7 @@ public class GameController : MonoBehaviour
     {
         Debug.Log("Setting scene><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>");
         GameObject.Find("Fade Plane").GetComponent<Image>().color = new Color(0, 0, 0, 1);
-
+        Time.timeScale = 1;
         switch (scene)
         {
             case ApplicationManager.GameState.MAIN_MENU:

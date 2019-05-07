@@ -40,8 +40,12 @@ public abstract class Challenge : MonoBehaviour {
 
             if (!started && GameController.instance.currentRoom.gameObject == gameObject) {//call Initialize if the player just got inside the room
                                                                                            //better make it when teh doors close
-                Initialize();
-                started = true;
+                ///desplay message
+                if (EnemiesAlive())
+                {                                                                           
+                    Initialize();
+                    started = true;
+                }
             }
             if (started) {//if started call Update every frame
                 state = StartedUpdate();
@@ -65,7 +69,14 @@ public abstract class Challenge : MonoBehaviour {
 
     public bool EnemiesAlive()
     {
-        foreach (GameObject e in GameController.instance.roomEnemies) if (e.GetComponent<AIController>().aiActive) return true;
+        foreach (GameObject e in GameController.instance.roomEnemies)
+        {
+            if (e.GetComponent<AIController>().aiActive)
+            {
+                Debug.Log(e.name);
+                return true;
+            }
+        }
 
         return false;
     }

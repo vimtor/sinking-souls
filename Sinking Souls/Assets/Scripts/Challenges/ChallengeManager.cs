@@ -3,20 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ChallengeManager : MonoBehaviour {
+    [System.Serializable]
     public enum Challenges {
         Test,
         KillAllNoDamage,
+        TimeChallenge,
         None,
         DontUseThisOne
     }
-    public List<KeyValuePair<Challenges, float>> possibleChallenges;
-    public bool alwaysUpdate;
+
+    public Challenges[] possibleChallenges;
+    public float[] chance;
+
+    [Header("Time Challenge objects")]
+    public GameObject timeDisplay;
+    public Gradient colorGradient;
+
+    //////////////////////////////////////////////////////////////////////////public bool alwaysUpdate;
+    public KeyValuePair<float, float> test;
 	// Use this for initialization
 	void Start () {
         Challenges possibleChallenge = Challenges.DontUseThisOne;
         do {
-            KeyValuePair<Challenges, float> pc = possibleChallenges[Random.Range(0, possibleChallenges.Count)];
-            if (Random.Range(0, 100f) < pc.Value) possibleChallenge = pc.Key;
+            int i = Random.Range(0, possibleChallenges.Length);
+            Challenges pc = possibleChallenges[i];
+            if (Random.Range(0, 100f) < chance[i]) possibleChallenge = pc;
             
         } while (possibleChallenge == Challenges.DontUseThisOne);
        
@@ -24,12 +35,18 @@ public class ChallengeManager : MonoBehaviour {
         switch (possibleChallenge) {
             case Challenges.Test:
                 gameObject.AddComponent<TestChallenge>();
-                GetComponent<TestChallenge>().updateAlways = alwaysUpdate;
+                GetComponent<TestChallenge>().updateAlways = false;
             break;
             case Challenges.KillAllNoDamage:
-                gameObject.AddComponent<TestChallenge>();
-                GetComponent<TestChallenge>().updateAlways = alwaysUpdate;
+                gameObject.AddComponent<NoDamageCHallenge>();
+                GetComponent<NoDamageCHallenge>().updateAlways = false;
             break;
+            case Challenges.TimeChallenge:
+                gameObject.AddComponent<TimeChallenge>();
+                GetComponent<TimeChallenge>().updateAlways = false;
+                GetComponent<TimeChallenge>().timeDisplay = timeDisplay;
+                GetComponent<TimeChallenge>().colorGradient = colorGradient;
+                break;
 
         }
         Destroy(this);

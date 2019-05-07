@@ -103,6 +103,13 @@ public class GameController : MonoBehaviour
 
     private bool growing = false;
 
+    [HideInInspector]
+    public int upgradeCounts;
+
+    private Modifier equippedModifier;
+    private Ability equippedAbility;
+
+
     public void AddSouls(int ammount) {
         //runSouls += ammount;
         int soulsPerTick = 1;
@@ -185,6 +192,10 @@ public class GameController : MonoBehaviour
 
                 SetupGame();
                 player.GetComponent<Player>().Health = PlayerLifeHolder;
+                if (equippedAbility != null)
+                {
+                    player.GetComponent<Player>().Abilities[0] = equippedAbility;
+                }
                 GameObject.Find("Post Processing").gameObject.GetComponent<PostProcessVolume>().profile = postProcesingProfileLevel2;
 
                 if (GetComponent<LevelGenerator>().level.name != "DeathIsland")
@@ -229,6 +240,13 @@ public class GameController : MonoBehaviour
                 currentRoom = GameObject.Find("PlayerSpawn");
                 
                 SetupGame();
+
+                player.GetComponent<Player>().Weapon.modifier = equippedModifier;
+                if (equippedAbility != null)
+                {
+                    player.GetComponent<Player>().Abilities[0] = equippedAbility;
+                }
+
                 //restart life holder to max health an heal player
                 player.GetComponent<Player>().Heal();
                 PlayerLifeHolder = player.GetComponent<Player>().Health;
@@ -267,6 +285,13 @@ public class GameController : MonoBehaviour
                 #endregion
 
                 levelGenerator.tabernaSpawned = false;
+
+                var alchemistBehaviour = FindObjectOfType<AlchemistBehaviour>();
+                if (alchemistBehaviour != null)
+                {
+                    alchemistBehaviour.upgradeCounts = upgradeCounts;
+                }
+
                 SaveManager.Save();
                 break;
 
@@ -457,6 +482,20 @@ public class GameController : MonoBehaviour
         m_RescuedAlchemist = save.alchemist;
         m_RescuedBlacksmith = save.blacksmith;
         maxHealth = save.maxHealth;
+        upgradeCounts = save.upgradeCounts;
+
+        for (int i = 0; i < save.modifiersOwned.Length; i++)
+        {
+            modifiers[i].owned = save.modifiersOwned[i];
+        }
+
+        for (int i = 0; i < save.abilitiesOwned.Length; i++)
+        {
+            abilities[i].owned = save.abilitiesOwned[i];
+        }
+
+        equippedModifier = modifiers[save.equippedModifier];
+        equippedAbility = abilities[save.equippedAbility];
     }
 }
 

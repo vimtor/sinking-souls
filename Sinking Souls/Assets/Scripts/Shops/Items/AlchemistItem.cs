@@ -15,5 +15,7 @@ public class AlchemistItem : ShopItem
     protected override void BuyItem()
     {
         GameController.instance.player.GetComponent<Player>().Abilities[0] = ability;
+
+        SaveManager.Save();
     }
 }

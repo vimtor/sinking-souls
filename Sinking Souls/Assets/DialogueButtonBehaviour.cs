@@ -26,7 +26,7 @@ public class DialogueButtonBehaviour : MonoBehaviour, ISelectHandler, IDeselectH
     private void SelectButton()
     {
         AudioManager.Instance.PlayEffect(Random.value < 0.5f ? "MenuButton_1" : "MenuButton_2");
-        textMesh.text = '~' + textMesh.text.Remove(0, 1);
+        textMesh.text = '(' + textMesh.text.Remove(0, 1);
     }
 
     private void DeselectButton()

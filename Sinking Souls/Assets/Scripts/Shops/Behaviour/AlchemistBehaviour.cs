@@ -13,6 +13,8 @@ public class AlchemistBehaviour : ShopBehaviour<Ability>
     public int upgradeCost = 100;
     public float lifeIncrease = 1.1f;
     public float upgradeMultiplier = 1.1f;
+
+    public int upgradeCounts;
     public GameObject dialog;
 
     protected override GameObject Configure(GameObject item, Ability ability)
@@ -39,7 +41,9 @@ public class AlchemistBehaviour : ShopBehaviour<Ability>
 
     public void UpgradeLife()
     {
-        if (!GameController.instance.CanBuy(upgradeCost)) return;       
+        if (!GameController.instance.CanBuy(upgradeCost)) return;
+
+        upgradeCounts++;
         GameController.instance.lobbySouls -= upgradeCost;
         upgradeCost = (int)(upgradeCost * upgradeMultiplier);
         GameController.instance.player.GetComponent<Player>().MaxHealth *= lifeIncrease;
@@ -47,6 +51,7 @@ public class AlchemistBehaviour : ShopBehaviour<Ability>
         GameController.instance.maxHealth = GameController.instance.player.GetComponent<Player>().MaxHealth;
         GameController.instance.player.GetComponent<Player>().Heal();
         dialog.transform.GetChild(4).GetComponentInChildren<TextMeshProUGUI>().text = "  Upgrade life for " + upgradeCost + " s";
+
         SaveManager.Save();
     }
 }

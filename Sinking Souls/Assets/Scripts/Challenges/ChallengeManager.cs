@@ -5,8 +5,8 @@ using UnityEngine;
 public class ChallengeManager : MonoBehaviour {
     public enum Challenges {
         Test,
-        Other,
-        SomeMore
+        NoDamage,
+        None,
     }
     public Challenges possibleChallenges;
     public bool alwaysUpdate;
@@ -17,7 +17,11 @@ public class ChallengeManager : MonoBehaviour {
                 gameObject.AddComponent<TestChallenge>();
                 GetComponent<TestChallenge>().updateAlways = alwaysUpdate;
             break;
-            case Challenges.SomeMore:
+            case Challenges.NoDamage:
+                gameObject.AddComponent<NoDamageCHallenge>();
+                GetComponent<NoDamageCHallenge>().updateAlways = alwaysUpdate;
+                break;
+            case Challenges.None:
 
             break;
 

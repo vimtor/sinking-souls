@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: SkeletonSorcererCloth
-  m_Shader: {fileID: 4800000, guid: 9913c77db0cfdcb408b36054bb0715e9, type: 3}
+  m_Name: SkeletonMeleeClothe 1
+  m_Shader: {fileID: 4800000, guid: b99aa722844b0794bbd710701815f22c, type: 3}
   m_ShaderKeywords: _ALPHATEST_ON _NORMALMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,15 +19,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Texture2D_56F37D89:
-        m_Texture: {fileID: 2800000, guid: ab9d22e8a5fb61f4cb2bbf2c992668f4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 25eb0689b9af5004ea22936d93c2ef4f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Texture2D_E5C9BA3F:
-        m_Texture: {fileID: 2800000, guid: 75d362bb26559744c86b65b58f0a43eb, type: 3}
+        m_Texture: {fileID: 2800000, guid: 99873be184c566b4b9dd2b9e283645cb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: ab9d22e8a5fb61f4cb2bbf2c992668f4, type: 3}
+        m_Texture: {fileID: 2800000, guid: 25eb0689b9af5004ea22936d93c2ef4f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailAlbedoMap:
@@ -47,7 +47,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 75d362bb26559744c86b65b58f0a43eb, type: 3}
+        m_Texture: {fileID: 2800000, guid: 99873be184c566b4b9dd2b9e283645cb, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -62,10 +62,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_FE93E630_Texture:
-        m_Texture: {fileID: 2800000, guid: 29724396e64041d40a8c12c16fe24d12, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -73,13 +69,12 @@ Material:
     m_Floats:
     - Vector1_4C19D693: 0
     - Vector1_4E64F4A8: 0
-    - Vector1_5B17101E: 0.02
     - Vector1_ACFFB17: 0.5
     - _AlphaClip: 1
     - _Blend: 0
     - _BumpScale: 1
     - _Cull: 0
-    - _Cutoff: 0.296
+    - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _GlossMapScale: 1

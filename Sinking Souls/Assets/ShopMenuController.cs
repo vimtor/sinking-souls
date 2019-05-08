@@ -79,7 +79,7 @@ public class ShopMenuController : MonoBehaviour
             //Key Input
             if (time >= delay)
             {
-                if (InputManager.ButtonA || Input.GetKeyDown(KeyCode.Return) || (Physics.Raycast(ray, out hit) && Cursor.visible && Input.GetMouseButtonDown(0)))
+                if (InputManager.ButtonA || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.E) || (Physics.Raycast(ray, out hit) && Cursor.visible && Input.GetMouseButtonDown(0)))
                 {
                     InputManager.ButtonA = false;
                     ButtonEvents = itemArr[selected].onClick;

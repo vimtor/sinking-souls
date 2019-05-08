@@ -83,7 +83,7 @@ public class DialogueManager : MonoBehaviour
         characterName.text = dialogue.name;
 
         if (lastCoroutine != null) StopCoroutine(lastCoroutine);
-        lastCoroutine = StartCoroutine(TypeSentence(dialogue.message));
+        lastCoroutine = StartCoroutine(TypeSentence((dialogue.message)));
 
         // Update the camera if needed.
         if (dialogue.camera != null)
@@ -118,7 +118,7 @@ public class DialogueManager : MonoBehaviour
         characterName.text = dialogue.name;
 
         if (lastCoroutine != null) StopCoroutine(lastCoroutine);
-        lastCoroutine = StartCoroutine(TypeSentence(dialogue.message));
+        lastCoroutine = StartCoroutine(TypeSentence((dialogue.message)));
     }
 
     public void HideDialogue()
@@ -129,13 +129,19 @@ public class DialogueManager : MonoBehaviour
     private IEnumerator TypeSentence(string sentence)
     {
         messageContent.text = "";
-        var parsedSentence = ParseSentence(sentence);
+        var parsedSentence = sentence;
 
         AudioManager.Instance.PlayEffect("Dialogue");
 
         float time = 1 / Mathf.Pow(10, dialogueSpeed);
-        foreach (char letter in parsedSentence)
+        for (int i = 0; i < parsedSentence.Length; i++)
         {
+            string letter = parsedSentence[i].ToString();
+            if(letter == "|")
+            {
+                letter = "<size=40><color=#ff0000ff>" + ParseAux(letter + parsedSentence[i + 1]) + "</color></size>";
+                i++;
+            }
             messageContent.text += letter;
             yield return new WaitForSecondsRealtime(time);
         }
@@ -147,7 +153,18 @@ public class DialogueManager : MonoBehaviour
     {
         for (int i = 0; i < parseableSymbols.Length; i++)
         { 
-            var symbol = InputManager.Xbox_One_Controller == 1 ? controllerSymbols[i] : keyboardSymbols[i];
+            var symbol = InputManager.Xbox_One_Controller > 0 ? controllerSymbols[i] : keyboardSymbols[i];
+            sentence = sentence.Replace(parseableSymbols[i],  symbol );
+        }
+
+        return sentence;
+    }
+
+    private string ParseAux(string sentence)
+    {
+        for (int i = 0; i < parseableSymbols.Length; i++)
+        {
+            var symbol = InputManager.Xbox_One_Controller > 0 ? controllerSymbols[i] : keyboardSymbols[i];
             sentence = sentence.Replace(parseableSymbols[i], symbol);
         }
 

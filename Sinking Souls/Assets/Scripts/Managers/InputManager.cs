@@ -42,7 +42,7 @@ public class InputManager : MonoBehaviour {
     public static bool GetButtonB()
     {
         return Input.GetButtonDown("BUTTON_B") || Input.GetKeyDown(KeyCode.I);
-    }          
+    }
 
     private static bool m_ButtonY;
     public static bool ButtonY
@@ -71,7 +71,7 @@ public class InputManager : MonoBehaviour {
         set { m_ButtonRJ = value; }
     }
 
-    
+
     #endregion
 
     public static bool LeftJoystickZero() {
@@ -93,11 +93,11 @@ public class InputManager : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetButtonDown("BUTTON_A") || Input.GetKeyDown(KeyCode.U)) m_ButtonA = true;
-        if (Input.GetButtonDown("BUTTON_B") || Input.GetKeyDown(KeyCode.I)) m_ButtonB = true;
-        if (Input.GetButtonDown("BUTTON_X") || Input.GetKeyDown(KeyCode.O)) m_ButtonX = true; 
-        if (Input.GetButtonDown("BUTTON_Y") || Input.GetKeyDown(KeyCode.P)) m_ButtonY = true;
-        if (Input.GetButtonDown("BUTTON_RIGHTJOYSTICK") || Input.GetKeyDown(KeyCode.L)) m_ButtonRJ = true;
+        if (Input.GetButtonDown("BUTTON_A")) m_ButtonA = true;
+        if (Input.GetButtonDown("BUTTON_B")) m_ButtonB = true;
+        if (Input.GetButtonDown("BUTTON_X")) m_ButtonX = true;
+        if (Input.GetButtonDown("BUTTON_Y")) m_ButtonY = true;
+        if (Input.GetButtonDown("BUTTON_RIGHTJOYSTICK")) m_ButtonRJ = true;
 
         if (Input.GetAxis("BUTTON_RT") >= 0.5 || Input.GetKeyDown(KeyCode.F)) m_ButtonRT = true;
 
@@ -110,13 +110,9 @@ public class InputManager : MonoBehaviour {
 
         if (LeftJoystickZero()) LeftJoystick = new Vector2(Input.GetAxis("KEY_HORIZONTAL"), Input.GetAxis("KEY_VERTICAL"));
 
-        string[] names = Input.GetJoystickNames();
-        
-        for (int x = 0; x < names.Length; x++) {
-            if (!string.IsNullOrEmpty(names[x])) {
-                Xbox_One_Controller++;
-            }
-        }
+
+        if (Input.anyKey || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2)) Xbox_One_Controller = 0;
+        else if (m_ButtonA || m_ButtonB || m_ButtonX || m_ButtonY || m_ButtonRJ || m_ButtonRT || m_ButtonStart || LeftJoystick.magnitude != 0 || RightJoystick.magnitude != 0 || Dpad.magnitude != 0) Xbox_One_Controller = 1;
 
     }
 

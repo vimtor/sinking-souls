@@ -8354,7 +8354,7 @@ Prefab:
         type: 2}
       propertyPath: dialogues.Array.data[1].message
       value: As you might have realized, you can lock an enemy by attacking him or
-        by pressing the right joystick button when you are close to them.
+        by pressing the |RJ button when you are close to them.
       objectReference: {fileID: 0}
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
@@ -11576,7 +11576,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 347790237}
-  m_LocalRotation: {x: -0.00047282255, y: 0.34315634, z: 0.00017274154, w: 0.9392782}
+  m_LocalRotation: {x: -0.0004728235, y: 0.34315634, z: 0.00017274189, w: 0.9392782}
   m_LocalPosition: {x: -2.6000009, y: 0.9199991, z: 2.0599926}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -12658,7 +12658,7 @@ Prefab:
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
       propertyPath: dialogues.Array.data[1].message
-      value: 'I''ve given you a gift. Try pressing RT to use your ability, '
+      value: 'I''ve given you a gift. Try pressing |RT to use your ability, '
       objectReference: {fileID: 0}
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
@@ -36942,7 +36942,7 @@ Prefab:
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
       propertyPath: dialogues.Array.data[0].message
-      value: Nice, now press Y to pounce on the nearest enemy
+      value: Nice, now press |Y to pounce on the nearest enemy
       objectReference: {fileID: 0}
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
@@ -40141,7 +40141,7 @@ Prefab:
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
       propertyPath: dialogues.Array.data[1].message
-      value: To avoid them press B to roll
+      value: To avoid them press |B to roll
       objectReference: {fileID: 0}
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
@@ -40263,7 +40263,7 @@ Prefab:
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
       propertyPath: dialogues.Array.data[1].message
-      value: The first thing you need to know is that you can hit enemies with X
+      value: The first thing you need to know is that you can hit enemies with |X
       objectReference: {fileID: 0}
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
@@ -51027,13 +51027,18 @@ Prefab:
     m_Modifications:
     - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
         type: 2}
+      propertyPath: keyboardSymbols.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
+        type: 2}
       propertyPath: parseableSymbols.Array.size
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
         type: 2}
       propertyPath: controllerSymbols.Array.size
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4693109263414886, guid: e03f2561bcb9aa747918fa31aac25dcd, type: 2}
       propertyPath: m_LocalPosition.x
@@ -51105,7 +51110,77 @@ Prefab:
     - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
         type: 2}
       propertyPath: parseableSymbols.Array.data[0]
-      value: 
+      value: '|X'
+      objectReference: {fileID: 0}
+    - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
+        type: 2}
+      propertyPath: controllerSymbols.Array.data[0]
+      value: X
+      objectReference: {fileID: 0}
+    - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
+        type: 2}
+      propertyPath: keyboardSymbols.Array.data[0]
+      value: LeftClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
+        type: 2}
+      propertyPath: parseableSymbols.Array.data[1]
+      value: '|Y'
+      objectReference: {fileID: 0}
+    - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
+        type: 2}
+      propertyPath: controllerSymbols.Array.data[1]
+      value: Y
+      objectReference: {fileID: 0}
+    - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
+        type: 2}
+      propertyPath: keyboardSymbols.Array.data[1]
+      value: RightClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
+        type: 2}
+      propertyPath: parseableSymbols.Array.data[2]
+      value: '|RT'
+      objectReference: {fileID: 0}
+    - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
+        type: 2}
+      propertyPath: controllerSymbols.Array.data[2]
+      value: RT
+      objectReference: {fileID: 0}
+    - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
+        type: 2}
+      propertyPath: keyboardSymbols.Array.data[2]
+      value: F
+      objectReference: {fileID: 0}
+    - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
+        type: 2}
+      propertyPath: parseableSymbols.Array.data[3]
+      value: '|LJ'
+      objectReference: {fileID: 0}
+    - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
+        type: 2}
+      propertyPath: controllerSymbols.Array.data[3]
+      value: LJ
+      objectReference: {fileID: 0}
+    - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
+        type: 2}
+      propertyPath: keyboardSymbols.Array.data[3]
+      value: WASD
+      objectReference: {fileID: 0}
+    - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
+        type: 2}
+      propertyPath: controllerSymbols.Array.data[4]
+      value: RJ
+      objectReference: {fileID: 0}
+    - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
+        type: 2}
+      propertyPath: parseableSymbols.Array.data[4]
+      value: '|RJ'
+      objectReference: {fileID: 0}
+    - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
+        type: 2}
+      propertyPath: keyboardSymbols.Array.data[4]
+      value: Q
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e03f2561bcb9aa747918fa31aac25dcd, type: 2}
@@ -54066,7 +54141,7 @@ Prefab:
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
       propertyPath: dialogues.Array.data[1].message
-      value: Also, you should know that you can direct the hook with the left joystick.
+      value: Also, you should know that you can direct the hook with the |LJ.
       objectReference: {fileID: 0}
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}

@@ -9,7 +9,7 @@ public class Enemy : Entity {
     public int m_Souls;
     public float deathDuration = 1f;
     private float dashSpeed;
-
+    public bool reviveWhenDead;
     [HideInInspector] public Ability[] abilities;
 
 
@@ -23,6 +23,8 @@ public class Enemy : Entity {
     }
 
     private float deathCounter = 0;
+
+    public float downTp=1;
 
     private void Update()
     {
@@ -45,7 +47,7 @@ public class Enemy : Entity {
     {
         if (!dead)
         {
-
+            GameController.instance.AddSouls(m_Souls);
             StartCoroutine(WaitToDie(deathDuration));
             if (Animator != null) Animator.SetTrigger("Die");
             else {
@@ -58,15 +60,14 @@ public class Enemy : Entity {
             dead = true;
             GetComponent<AIController>().aiActive = false;
             //GetComponent<CapsuleCollider>().enabled = false;
-            GameController.instance.AddSouls(m_Souls);
             if (allie != null) {
                 GameObject all = Instantiate(allie);
                 all.GetComponent<AIController>().SetupAI();
                 all.transform.position = transform.position;
-            }
+            }                       
         }
-
     }
+
 
     IEnumerator fallToDie(float time) {
         yield return new WaitForEndOfFrame();
@@ -85,6 +86,9 @@ public class Enemy : Entity {
         }
         gameObject.layer = 20;
         yield return new WaitForSeconds(time);
-        if(DestroyOnDeath)Destroy(gameObject);
+        if (reviveWhenDead) {
+            if (GameController.instance.activeMage != null) GameController.instance.activeMage.GetComponent<SorcererReviveHelper>().revive(gameObject.name.Contains("Melee") ? SorcererReviveHelper.EnemyType.Mele : SorcererReviveHelper.EnemyType.Distance, transform.position);
+        }
+        if (DestroyOnDeath)Destroy(gameObject);
     }
 }

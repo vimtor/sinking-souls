@@ -154,7 +154,7 @@ public class GameController : MonoBehaviour
 
     public void SetupScene(ApplicationManager.GameState scene)
     {
-        GameObject.Find("Fade Plane").GetComponent<Image>().color = new Color(0, 0, 0, 1);
+        if(GameObject.Find("Fade Plane")) GameObject.Find("Fade Plane").GetComponent<Image>().color = new Color(0, 0, 0, 1);
         Time.timeScale = 1;
         switch (scene)
         {
@@ -331,7 +331,7 @@ public class GameController : MonoBehaviour
     private void Update()
     {
         if (waitToFade) {
-            GameObject.Find("Fade Plane").GetComponent<FadeEffect>().FadeIn(2 - 0.15f);
+            if(GameObject.Find("Fade Plane")) GameObject.Find("Fade Plane").GetComponent<FadeEffect>().FadeIn(2 - 0.15f);
             if (fadeCounter < 1 - 0.3f) {
                 fadeCounter += Time.unscaledDeltaTime;
             }
@@ -413,11 +413,15 @@ public class GameController : MonoBehaviour
             PlayerLifeHolder = player.GetComponent<Player>().Health;
         }
     }
-
+    public GameObject activeMage;
     bool checkPlayerdistAndEnemies() {
         if (currentRoom.GetComponent<doorController>().checkDistance()) {
             foreach (GameObject en in roomEnemies) {
-                if (currentRoom.GetComponent<doorController>().checkEnemyDistance(en)) en.GetComponent<AIController>().SetupAI();
+                if (currentRoom.GetComponent<doorController>().checkEnemyDistance(en)) {
+                    en.GetComponent<AIController>().SetupAI();
+                    if (en.GetComponent<SorcererReviveHelper>()) activeMage = en;
+                }
+               
             }
             return false;
         }

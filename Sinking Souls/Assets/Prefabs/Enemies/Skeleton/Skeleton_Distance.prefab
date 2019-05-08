@@ -850,7 +850,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1978115826758056}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.00000058114523}
-  m_LocalPosition: {x: 14.04, y: -2.05, z: -15.17}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4025215993919572}
@@ -1360,7 +1360,9 @@ MonoBehaviour:
   deadButWaiting: 0
   m_Souls: 20
   deathDuration: 3
+  reviveWhenDead: 1
   abilities: []
+  downTp: 1
   allie: {fileID: 0}
   DestroyOnDeath: 1
 --- !u!114 &114613715493896070

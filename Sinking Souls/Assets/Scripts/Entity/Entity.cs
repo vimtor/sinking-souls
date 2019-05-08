@@ -105,7 +105,9 @@ public class Entity : MonoBehaviour
 
     [HideInInspector] public Color originalColor;
     [HideInInspector] public bool gettingDamage = false;
-    
+
+   
+
 
     protected void OnStart()
     {
@@ -181,6 +183,7 @@ public class Entity : MonoBehaviour
 
     public void Heal()
     {
+        Health = 0;
         Heal(m_MaxHealth);
     }
     #endregion

@@ -23,6 +23,27 @@ public class BlacksmithBehaviour : ShopBehaviour<Modifier>
         return item;
     }
 
+    private bool hiding;
+    public override void UpdateMouse()
+    {
+        if (Math.Abs(InputManager.Mouse.magnitude) > 0.0f)
+        {
+            hiding = false;
+            Cursor.visible = true;
+        }
+        else if (!hiding && GameObject.Find("Blacksmith Shop").GetComponent<ShopMenuController>().hit.collider == null)
+        {
+            hiding = true;
+            StartCoroutine(HideMouse(3.0f));
+        }
+    }
+
+    private IEnumerator HideMouse(float time)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        if (hiding) Cursor.visible = false;
+    }
+
     public override void FillShop()
     {
         var modifiers = Array.FindAll(GameController.instance.modifiers, modifier => modifier.owned);

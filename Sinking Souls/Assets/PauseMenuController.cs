@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class PauseMenuController : MonoBehaviour {
 
@@ -50,6 +51,7 @@ public class PauseMenuController : MonoBehaviour {
 
         if (transform.Find("Pause Content").gameObject.activeInHierarchy)
         {
+            UpdateMouse();
             ray.origin = new Vector3(Input.mousePosition.x, Input.mousePosition.y, -100);
             ray.direction = new Vector3(0, 0, 1);
 
@@ -140,6 +142,27 @@ public class PauseMenuController : MonoBehaviour {
         butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlitedColor;
         Cursor.visible = false;
         time = 0;
+    }
+
+    private bool hiding;
+    public void UpdateMouse()
+    {
+        if (Math.Abs(InputManager.Mouse.magnitude) > 0.0f)
+        {
+            hiding = false;
+            Cursor.visible = true;
+        }
+        else if (!hiding && hit.collider == null)
+        {
+            hiding = true;
+            StartCoroutine(HideMouse(3.0f));
+        }
+    }
+
+    private IEnumerator HideMouse(float time)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        if (hiding) Cursor.visible = false;
     }
 
 }

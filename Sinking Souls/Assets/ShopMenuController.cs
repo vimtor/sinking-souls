@@ -88,6 +88,7 @@ public class ShopMenuController : MonoBehaviour
                 }
                 else if (DownInput()) MoveDown();
                 else if (UpInput()) MoveUp();
+                if (InputManager.ButtonB) Cursor.visible = false;
             }
             else if (InputManager.ButtonA) InputManager.ButtonA = false;
 

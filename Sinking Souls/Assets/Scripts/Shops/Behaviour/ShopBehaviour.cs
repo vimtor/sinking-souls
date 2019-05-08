@@ -24,7 +24,6 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
 
     public bool isOpen;
     private GameObject oldSelection;
-    private bool hiding;
 
     private Animator animator;
     private static readonly int kTalkParam = Animator.StringToHash("Talk");
@@ -102,6 +101,7 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
         else
         {
             //UpdateShop();
+            UpdateMouse();
             // Close the store.
             if (InputManager.GetButtonB() || Input.GetKeyDown(KeyCode.Escape))
             {
@@ -157,6 +157,7 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
         isOpen = true;
     }
 
+    public abstract void UpdateMouse();
 
     protected abstract GameObject Configure(GameObject item, T commodity);
 

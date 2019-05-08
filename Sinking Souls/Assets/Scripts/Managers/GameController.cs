@@ -154,12 +154,12 @@ public class GameController : MonoBehaviour
 
     public void SetupScene(ApplicationManager.GameState scene)
     {
-        Debug.Log("Setting scene><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><><>");
         GameObject.Find("Fade Plane").GetComponent<Image>().color = new Color(0, 0, 0, 1);
         Time.timeScale = 1;
         switch (scene)
         {
             case ApplicationManager.GameState.MAIN_MENU:
+                Time.timeScale = 1;
                 break;
 
             case ApplicationManager.GameState.TABERN:
@@ -175,6 +175,8 @@ public class GameController : MonoBehaviour
                 player.GetComponent<Player>().Heal();
                 PlayerLifeHolder = player.GetComponent<Player>().Health;
                 player.transform.Find("DeathIsland").gameObject.SetActive(false);
+                Cursor.visible = false;
+                Time.timeScale = 1;
 
             break;
 
@@ -217,6 +219,8 @@ public class GameController : MonoBehaviour
                     AudioManager.Instance.PlayEffect("Wind");
                     AudioManager.Instance.PlayMusic("DeathTheme");
                 }
+                Cursor.visible = false;
+                Time.timeScale = 1;
                 break;
 
             case ApplicationManager.GameState.TUTORIAL:
@@ -228,7 +232,8 @@ public class GameController : MonoBehaviour
                 SetupGame();
                 player.transform.Find("DeathIsland").gameObject.SetActive(false);
                 GameObject.Find("Post Processing").gameObject.GetComponent<PostProcessVolume>().profile = postProcesingProfileLevel1;
-
+                Cursor.visible = false;
+                Time.timeScale = 1;
                 break;
 
             case ApplicationManager.GameState.LOBBY:
@@ -299,7 +304,8 @@ public class GameController : MonoBehaviour
                 {
                     alchemistBehaviour.upgradeCounts = upgradeCounts;
                 }
-
+                Cursor.visible = false;
+                Time.timeScale = 1;
                 SaveManager.Save();
                 break;
 

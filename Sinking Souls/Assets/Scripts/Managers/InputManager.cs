@@ -118,7 +118,6 @@ public class InputManager : MonoBehaviour {
             }
         }
 
-        UpdateMouse();
     }
 
     IEnumerator CleanInput()
@@ -142,7 +141,7 @@ public class InputManager : MonoBehaviour {
         if (hiding) Cursor.visible = false;
     }
 
-    private void UpdateMouse()
+    public void UpdateMouse()
     {
         if (Mathf.Abs(Mouse.magnitude) > 0.0f)
         {

@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using TMPro;
+using System.Collections;
 
 
 public class AlchemistBehaviour : ShopBehaviour<Ability>
@@ -54,6 +55,28 @@ public class AlchemistBehaviour : ShopBehaviour<Ability>
 
         SaveManager.Save();
     }
+
+    private bool hiding;
+    public override void UpdateMouse()
+    {
+        if (Math.Abs(InputManager.Mouse.magnitude) > 0.0f)
+        {
+            hiding = false;
+            Cursor.visible = true;
+        }
+        else if (!hiding && GameObject.Find("Alchemist Shop").GetComponent<AilinShopMenuController>().hit.collider == null)
+        {
+            hiding = true;
+            StartCoroutine(HideMouse(3.0f));
+        }
+    }
+
+    private IEnumerator HideMouse(float time)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        if (hiding) Cursor.visible = false;
+    }
+
 }
     
        

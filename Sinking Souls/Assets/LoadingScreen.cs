@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LoadingScreen : MonoBehaviour
 {
@@ -13,4 +14,8 @@ public class LoadingScreen : MonoBehaviour
         image = GetComponent<Image>();
         image.sprite = possibleImages[Random.Range(0, possibleImages.Length)];
     }
+    private void Update() {
+        Debug.Log( "Im On "+ SceneManager.GetActiveScene().name);
+    }
+
 }

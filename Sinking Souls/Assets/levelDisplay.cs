@@ -32,7 +32,7 @@ public class levelDisplay : MonoBehaviour {
 
         if(time >= minimumDuration) {
             if(GameController.instance.player.GetComponent<Rigidbody>().velocity.magnitude > 0.01f) {
-                Debug.Log(GameController.instance.player.GetComponent<Rigidbody>().velocity.magnitude);
+
                 fade = true;
             }
         }

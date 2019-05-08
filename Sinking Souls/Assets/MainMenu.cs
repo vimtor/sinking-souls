@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
     public GameObject resumeButton;
 
     private bool hiding;
+    private bool hideForced;
 
     private void Start()
     {
@@ -16,6 +17,7 @@ public class MainMenu : MonoBehaviour
         {
             Destroy(resumeButton);
         }
+        hideForced = false;
 
         AudioManager.Instance.PlayMusic("TitleScreen");
     }
@@ -28,7 +30,7 @@ public class MainMenu : MonoBehaviour
             mainMenuContent.SetActive(true);
         }
 
-        UpdateMouse();
+        if(!hideForced) UpdateMouse();
     }
 
     // Hide cursor if not use it for certain time.
@@ -50,6 +52,12 @@ public class MainMenu : MonoBehaviour
             hiding = true;
             StartCoroutine(HideMouse(3.0f));
         }
+    }
+
+    public void ForceHide()
+    {
+        hideForced = true;
+        Cursor.visible = false;
     }
 
     public void Play()

@@ -16,5 +16,7 @@ public class ModifierItem : ShopItem
     {
         GameController.instance.player.GetComponent<Player>().EquipModifier(modifier);
         AudioManager.Instance.PlayEffect("Forge");
+
+        SaveManager.Save();
     }
 }

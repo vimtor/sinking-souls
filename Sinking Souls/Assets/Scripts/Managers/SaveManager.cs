@@ -25,7 +25,7 @@ public static class SaveManager
     {
         if (File.Exists(path))
         {
-            SaveData data = null;
+            SaveData data;
 
             using (var stream = new FileStream(path, FileMode.Open))
             {
@@ -35,11 +35,9 @@ public static class SaveManager
             Debug.Log("Data has been loaded.");
             return data;
         }
-        else
-        {
-            Debug.LogError("Save file not found in " + path);
-            return null;
-        }
+
+        Debug.LogError("Save file not found in " + path);
+        return null;
     }
 
     public static bool CheckFile()
@@ -64,6 +62,13 @@ public class SaveData
     public bool inTavern;
     public float maxHealth;
 
+    public int upgradeCounts;
+    public bool[] modifiersOwned;
+    public bool[] abilitiesOwned;
+
+    public int equippedModifier;
+    public int equippedAbility;
+
     public SaveData()
     {
         souls = GameController.instance.lobbySouls;
@@ -71,29 +76,64 @@ public class SaveData
         blacksmith = GameController.instance.m_RescuedBlacksmith;
         alchemist = GameController.instance.m_RescuedAlchemist;
         maxHealth = GameController.instance.player.GetComponent<Player>().MaxHealth;
+        upgradeCounts = GameController.instance.upgradeCounts;
 
-        // TODO: When tavern is a separate scene, change this to read inTavern of GameController.
+
+        modifiersOwned = new bool[GameController.instance.modifiers.Length];
+        var modifiers = GameController.instance.modifiers;
+        for (int i = 0; i < modifiers.Length; i++)
+        {
+            modifiersOwned[i] = modifiers[i].owned;
+        }
+
+
+        abilitiesOwned = new bool[GameController.instance.abilities.Length];
+        var abilities = GameController.instance.abilities;
+        for (int i = 0; i < abilities.Length; i++)
+        {
+            abilitiesOwned[i] = abilities[i].owned;
+        }
+
+        var player = GameController.instance.player.GetComponent<Player>();
+        for (int i = 0; i < modifiers.Length; i++)
+        {
+            if (modifiers[i] == player.Weapon.modifier)
+            {
+                equippedModifier = i;
+                break;
+            }
+        }
+
+        for (int i = 0; i < abilities.Length; i++)
+        {
+            if (abilities[i] == player.Abilities[0])
+            {
+                equippedAbility = i;
+                break;
+            }
+        }
+
         inTavern = false;
     }
 }
 
-#if UNITY_EDITOR
+
 public class SaveTool
 {
-    [MenuItem("Window/Save Manager/Save current")]
+    //[MenuItem("Window/Save Manager/Save current")]
     public static void Save()
     {
         try
         {
             SaveManager.Save();
         }
-        catch (Exception)
+        catch (Exception exception)
         {
-            Debug.LogError("You cannot save the current state in edit-mode.");
+            Debug.LogError(exception.Message);
         }
     }
 
-    [MenuItem("Window/Save Manager/Delete current")]
+    //[MenuItem("Window/Save Manager/Delete current")]
     public static void Delete()
     {
         try
@@ -106,4 +146,3 @@ public class SaveTool
         }
     }
 }
-#endif

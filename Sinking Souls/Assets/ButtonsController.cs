@@ -73,7 +73,6 @@ public class ButtonsController : MonoBehaviour {
                 //Mouse Input
                 if (Physics.Raycast(ray, out hit) && Cursor.visible)
                 {
-                    Debug.Log(hit.transform.gameObject.name);
                     if (hit.transform.gameObject.GetComponent<Button>() != butArr[selected])
                     {
                         butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = normalColor;

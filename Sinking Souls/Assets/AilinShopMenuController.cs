@@ -71,7 +71,7 @@ public class AilinShopMenuController : MonoBehaviour {
             if (!gameObject.activeSelf)
             {
                 reset = true;
-                time = 0;
+                time = 0;              
             }
             //Shop is open
             else
@@ -82,7 +82,7 @@ public class AilinShopMenuController : MonoBehaviour {
                 //Key Input
                 if (time >= delay)
                 {
-                    if (InputManager.ButtonA || Input.GetKeyDown(KeyCode.Return) || (Physics.Raycast(ray, out hit) && Cursor.visible && Input.GetMouseButtonDown(0)))
+                    if (InputManager.ButtonA || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.E) || (Physics.Raycast(ray, out hit) && Cursor.visible && Input.GetMouseButtonDown(0)))
                     {
                         InputManager.ButtonA = false;
                         ButtonEvents = itemArr[selected].onClick;
@@ -91,6 +91,7 @@ public class AilinShopMenuController : MonoBehaviour {
                     }
                     else if (DownInput()) MoveDown();
                     else if (UpInput()) MoveUp();
+                    if(InputManager.ButtonB) Cursor.visible = false;
                 }
                 else if (InputManager.ButtonA) InputManager.ButtonA = false;
 
@@ -211,8 +212,6 @@ public class AilinShopMenuController : MonoBehaviour {
         scroll.size = _size;
         scroll.value = 1 - ((float)scrollPos / (scroll.numberOfSteps - 1));   //1 - Because the scroll goes Bottom - Up
     }
-
-
 
     ///Movement
     void ScrollDown()

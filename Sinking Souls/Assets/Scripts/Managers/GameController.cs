@@ -103,6 +103,13 @@ public class GameController : MonoBehaviour
 
     private bool growing = false;
 
+    [HideInInspector]
+    public int upgradeCounts;
+
+    private Modifier equippedModifier;
+    private Ability equippedAbility;
+
+
     public void AddSouls(int ammount) {
         //runSouls += ammount;
         int soulsPerTick = 1;
@@ -140,11 +147,19 @@ public class GameController : MonoBehaviour
 
     }
 
+    IEnumerator ResumePlayer(float t) {
+        yield return new WaitForSecondsRealtime(t);
+        player.GetComponent<Player>().Resume();
+    }
+
     public void SetupScene(ApplicationManager.GameState scene)
     {
+        GameObject.Find("Fade Plane").GetComponent<Image>().color = new Color(0, 0, 0, 1);
+        Time.timeScale = 1;
         switch (scene)
         {
             case ApplicationManager.GameState.MAIN_MENU:
+                Time.timeScale = 1;
                 break;
 
             case ApplicationManager.GameState.TABERN:
@@ -160,6 +175,8 @@ public class GameController : MonoBehaviour
                 player.GetComponent<Player>().Heal();
                 PlayerLifeHolder = player.GetComponent<Player>().Health;
                 player.transform.Find("DeathIsland").gameObject.SetActive(false);
+                Cursor.visible = false;
+                Time.timeScale = 1;
 
             break;
 
@@ -185,6 +202,10 @@ public class GameController : MonoBehaviour
 
                 SetupGame();
                 player.GetComponent<Player>().Health = PlayerLifeHolder;
+                if (equippedAbility != null)
+                {
+                    player.GetComponent<Player>().Abilities[0] = equippedAbility;
+                }
                 GameObject.Find("Post Processing").gameObject.GetComponent<PostProcessVolume>().profile = postProcesingProfileLevel2;
 
                 if (GetComponent<LevelGenerator>().level.name != "DeathIsland")
@@ -198,6 +219,8 @@ public class GameController : MonoBehaviour
                     AudioManager.Instance.PlayEffect("Wind");
                     AudioManager.Instance.PlayMusic("DeathTheme");
                 }
+                Cursor.visible = false;
+                Time.timeScale = 1;
                 break;
 
             case ApplicationManager.GameState.TUTORIAL:
@@ -209,7 +232,8 @@ public class GameController : MonoBehaviour
                 SetupGame();
                 player.transform.Find("DeathIsland").gameObject.SetActive(false);
                 GameObject.Find("Post Processing").gameObject.GetComponent<PostProcessVolume>().profile = postProcesingProfileLevel1;
-
+                Cursor.visible = false;
+                Time.timeScale = 1;
                 break;
 
             case ApplicationManager.GameState.LOBBY:
@@ -229,6 +253,13 @@ public class GameController : MonoBehaviour
                 currentRoom = GameObject.Find("PlayerSpawn");
                 
                 SetupGame();
+
+                player.GetComponent<Player>().Weapon.modifier = equippedModifier;
+                if (equippedAbility != null)
+                {
+                    player.GetComponent<Player>().Abilities[0] = equippedAbility;
+                }
+
                 //restart life holder to max health an heal player
                 player.GetComponent<Player>().Heal();
                 PlayerLifeHolder = player.GetComponent<Player>().Health;
@@ -267,6 +298,14 @@ public class GameController : MonoBehaviour
                 #endregion
 
                 levelGenerator.tabernaSpawned = false;
+
+                var alchemistBehaviour = FindObjectOfType<AlchemistBehaviour>();
+                if (alchemistBehaviour != null)
+                {
+                    alchemistBehaviour.upgradeCounts = upgradeCounts;
+                }
+                Cursor.visible = false;
+                Time.timeScale = 1;
                 SaveManager.Save();
                 break;
 
@@ -278,88 +317,101 @@ public class GameController : MonoBehaviour
                 godMode = true;
                 break;
         }
-    }
 
+        if (player != null) {
+            player.GetComponent<Player>().Stop();
+            StartCoroutine(ResumePlayer((1 - 0.15f) / 2));
+        }
+
+        waitToFade = true;
+        fadeCounter = 0;
+    }
+    bool waitToFade = true;
+    float fadeCounter = 0;
     private void Update()
     {
-        if (!growing && GameObject.FindGameObjectWithTag("SoulsUI")) {
-            if (GameObject.FindGameObjectWithTag("SoulsUI").transform.localScale.x > soulsUISize) {
-                GameObject.FindGameObjectWithTag("SoulsUI").transform.localScale -= new Vector3(1, 1, 1) * 0.7f * Time.deltaTime;
-                GameObject.FindGameObjectWithTag("SoulsUI").GetComponent<TextMeshProUGUI>().color += Color.white * 0.1f;
-
+        if (waitToFade) {
+            GameObject.Find("Fade Plane").GetComponent<FadeEffect>().FadeIn(2 - 0.15f);
+            if (fadeCounter < 1 - 0.3f) {
+                fadeCounter += Time.unscaledDeltaTime;
             }
             else {
-                GameObject.FindGameObjectWithTag("SoulsUI").transform.localScale = new Vector3(1, 1, 1) * soulsUISize;
-                GameObject.FindGameObjectWithTag("SoulsUI").GetComponent<TextMeshProUGUI>().color = Color.white;
 
+                waitToFade = false;
             }
         }
+        else {
+            if (!growing && GameObject.FindGameObjectWithTag("SoulsUI")) {
+                if (GameObject.FindGameObjectWithTag("SoulsUI").transform.localScale.x > soulsUISize) {
+                    GameObject.FindGameObjectWithTag("SoulsUI").transform.localScale -= new Vector3(1, 1, 1) * 0.7f * Time.deltaTime;
+                    GameObject.FindGameObjectWithTag("SoulsUI").GetComponent<TextMeshProUGUI>().color += Color.white * 0.1f;
 
-        if (lobbySouls < 0) lobbySouls = 0;
-        if (runSouls < 0) runSouls = 0;
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            Debug.Log("God Mode: FALSE");
-            godMode = false;
-        }
+                }
+                else {
+                    GameObject.FindGameObjectWithTag("SoulsUI").transform.localScale = new Vector3(1, 1, 1) * soulsUISize;
+                    GameObject.FindGameObjectWithTag("SoulsUI").GetComponent<TextMeshProUGUI>().color = Color.white;
 
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-            Debug.Log("God Mode: TRUE");
-            godMode = true;
-        }
-
-        if (Input.GetKeyDown(KeyCode.F3))
-        {
-            player.transform.position = GetComponent<LevelGenerator>().lastRoom.GetComponent<DoorBehaviour>().nextDoor.transform.position - GetComponent<LevelGenerator>().lastRoom.GetComponent<DoorBehaviour>().nextDoor.transform.forward;
-            roomEnemies = new List<GameObject>();
-        }
-
-        if (Input.GetKeyDown(KeyCode.F4))
-        {
-            m_RescuedAlchemist = true;
-            m_RescuedBlacksmith = true;
-            GetComponent<LevelGenerator>().level = level2;
-        }
-
-        if (Input.GetKeyDown(KeyCode.F5))
-        {
-            lobbySouls += 100;
-        }
-
-        #region ENEMY CONTROLLER
-        if (ApplicationManager.Instance.state == ApplicationManager.GameState.MAIN_MENU) return;
-        if (ApplicationManager.Instance.state == ApplicationManager.GameState.LOBBY) return;
-
-        if (roomEnemies.Any())
-        {
-            if (player.GetComponent<Player>().lockedEnemy != null && player.GetComponent<Player>().lockedEnemy != mainEnemy)
-                mainEnemy = player.GetComponent<Player>().lockedEnemy;
-            else if (mainEnemy == null) mainEnemy = roomEnemies[UnityEngine.Random.Range(0, roomEnemies.Count)];
-
-
-            // Time for attack for causal enemies.
-            if (nextCasualTime < casualCounter)
-            {
-                casualCounter = 0;
-                nextCasualTime = UnityEngine.Random.Range(4, 6);
-                casualEnemy = roomEnemies[UnityEngine.Random.Range(0, roomEnemies.Count)];
+                }
             }
 
-            casualCounter += Time.deltaTime;
-        }
-        #endregion
-
-
-        if (currentRoom != null) {
-            if (currentRoom.GetComponent<doorController>() && currentRoom.GetComponent<doorController>().closing == true) {
-
-                checkPlayerdistAndEnemies();
+            if (lobbySouls < 0) lobbySouls = 0;
+            if (runSouls < 0) runSouls = 0;
+            if (Input.GetKeyDown(KeyCode.F1)) {
+                Debug.Log("God Mode: FALSE");
+                godMode = false;
             }
+
+            if (Input.GetKeyDown(KeyCode.F2)) {
+                Debug.Log("God Mode: TRUE");
+                godMode = true;
+            }
+
+            if (Input.GetKeyDown(KeyCode.F3)) {
+                player.transform.position = GetComponent<LevelGenerator>().lastRoom.GetComponent<DoorBehaviour>().nextDoor.transform.position - GetComponent<LevelGenerator>().lastRoom.GetComponent<DoorBehaviour>().nextDoor.transform.forward;
+                roomEnemies = new List<GameObject>();
+            }
+
+            if (Input.GetKeyDown(KeyCode.F4)) {
+                m_RescuedAlchemist = true;
+                m_RescuedBlacksmith = true;
+                GetComponent<LevelGenerator>().level = level2;
+            }
+
+            if (Input.GetKeyDown(KeyCode.F5)) {
+                lobbySouls += 100;
+            }
+
+            #region ENEMY CONTROLLER
+            if (ApplicationManager.Instance.state == ApplicationManager.GameState.MAIN_MENU) return;
+            if (ApplicationManager.Instance.state == ApplicationManager.GameState.LOBBY) return;
+
+            if (roomEnemies.Any()) {
+                if (player.GetComponent<Player>().lockedEnemy != null && player.GetComponent<Player>().lockedEnemy != mainEnemy)
+                    mainEnemy = player.GetComponent<Player>().lockedEnemy;
+                else if (mainEnemy == null) mainEnemy = roomEnemies[UnityEngine.Random.Range(0, roomEnemies.Count)];
+
+
+                // Time for attack for causal enemies.
+                if (nextCasualTime < casualCounter) {
+                    casualCounter = 0;
+                    nextCasualTime = UnityEngine.Random.Range(4, 6);
+                    casualEnemy = roomEnemies[UnityEngine.Random.Range(0, roomEnemies.Count)];
+                }
+
+                casualCounter += Time.deltaTime;
+            }
+            #endregion
+
+
+            if (currentRoom != null) {
+                if (currentRoom.GetComponent<doorController>() && currentRoom.GetComponent<doorController>().closing == true) {
+
+                    checkPlayerdistAndEnemies();
+                }
+            }
+
+            PlayerLifeHolder = player.GetComponent<Player>().Health;
         }
-
-        PlayerLifeHolder = player.GetComponent<Player>().Health;
-
     }
 
     bool checkPlayerdistAndEnemies() {
@@ -457,6 +509,20 @@ public class GameController : MonoBehaviour
         m_RescuedAlchemist = save.alchemist;
         m_RescuedBlacksmith = save.blacksmith;
         maxHealth = save.maxHealth;
+        upgradeCounts = save.upgradeCounts;
+
+        for (int i = 0; i < save.modifiersOwned.Length; i++)
+        {
+            modifiers[i].owned = save.modifiersOwned[i];
+        }
+
+        for (int i = 0; i < save.abilitiesOwned.Length; i++)
+        {
+            abilities[i].owned = save.abilitiesOwned[i];
+        }
+
+        equippedModifier = modifiers[save.equippedModifier];
+        equippedAbility = abilities[save.equippedAbility];
     }
 }
 

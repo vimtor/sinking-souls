@@ -106,7 +106,7 @@ public class DialogueManager : MonoBehaviour
 
         // Or wait unity the continue button is pressed.
         yield return new WaitForSecondsRealtime(0.1f);
-        yield return new WaitUntil(() => InputManager.GetButtonA());
+        yield return new WaitUntil(() => InputManager.GetButtonA() || Input.GetKeyDown(KeyCode.E) );
         StartCoroutine(DisplayDialogue());
     }
 

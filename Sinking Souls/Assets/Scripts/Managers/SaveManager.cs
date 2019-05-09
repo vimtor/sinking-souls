@@ -65,6 +65,7 @@ public class SaveData
     public int upgradeCounts;
     public bool[] modifiersOwned;
     public bool[] abilitiesOwned;
+    public bool[] conditionsTriggered;
 
     public int equippedModifier;
     public int equippedAbility;
@@ -78,17 +79,16 @@ public class SaveData
         maxHealth = GameController.instance.player.GetComponent<Player>().MaxHealth;
         upgradeCounts = GameController.instance.upgradeCounts;
 
-
-        modifiersOwned = new bool[GameController.instance.modifiers.Length];
         var modifiers = GameController.instance.modifiers;
+        modifiersOwned = new bool[modifiers.Length];
         for (int i = 0; i < modifiers.Length; i++)
         {
             modifiersOwned[i] = modifiers[i].owned;
         }
 
 
-        abilitiesOwned = new bool[GameController.instance.abilities.Length];
         var abilities = GameController.instance.abilities;
+        abilitiesOwned = new bool[abilities.Length];
         for (int i = 0; i < abilities.Length; i++)
         {
             abilitiesOwned[i] = abilities[i].owned;
@@ -113,14 +113,21 @@ public class SaveData
             }
         }
 
+        var conditions = GameController.instance.conditions;
+        conditionsTriggered = new bool[conditions.Length];
+        for (int i = 0; i < conditions.Length; i++)
+        {
+            conditionsTriggered[i] = conditions[i].completed;
+        }
+
         inTavern = false;
     }
 }
 
-
+#if UNITY_EDITOR
 public class SaveTool
 {
-    //[MenuItem("Window/Save Manager/Save current")]
+    [MenuItem("Window/Save Manager/Save current")]
     public static void Save()
     {
         try
@@ -133,7 +140,7 @@ public class SaveTool
         }
     }
 
-    //[MenuItem("Window/Save Manager/Delete current")]
+    [MenuItem("Window/Save Manager/Delete current")]
     public static void Delete()
     {
         try
@@ -146,3 +153,4 @@ public class SaveTool
         }
     }
 }
+#endif

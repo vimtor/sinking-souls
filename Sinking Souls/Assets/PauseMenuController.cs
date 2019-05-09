@@ -58,7 +58,7 @@ public class PauseMenuController : MonoBehaviour {
             //Key Input
             if (time >= delay)
             {
-                if (InputManager.ButtonA || Input.GetKeyDown(KeyCode.Return) || (Physics.Raycast(ray, out hit) && Cursor.visible && Input.GetMouseButtonDown(0)))
+                if (InputManager.ButtonA || Input.GetKeyDown(KeyCode.Return) || (Physics.Raycast(ray, out hit) && GameController.instance.cursor.GetComponent<mouseCursor>().visible && Input.GetMouseButtonDown(0)))
                 {
                     Debug.Log("Accesing");
                     InputManager.ButtonA = false;
@@ -71,7 +71,7 @@ public class PauseMenuController : MonoBehaviour {
             else if (InputManager.ButtonA) InputManager.ButtonA = false;
 
             //Mouse Input
-                if (Physics.Raycast(ray, out hit) && Cursor.visible)
+                if (Physics.Raycast(ray, out hit) && GameController.instance.cursor.GetComponent<mouseCursor>().visible)
             {
                 Debug.Log(hit.transform.gameObject.name);
                 if (hit.transform.gameObject.GetComponent<Button>() != butArr[selected])
@@ -131,6 +131,7 @@ public class PauseMenuController : MonoBehaviour {
         selected = (selected + 1) % butArr.Length;
         butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlitedColor;
         Cursor.visible = false;
+        GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
         time = 0;
     }
 
@@ -141,6 +142,7 @@ public class PauseMenuController : MonoBehaviour {
         else selected = butArr.Length - 1;
         butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlitedColor;
         Cursor.visible = false;
+        GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
         time = 0;
     }
 
@@ -150,7 +152,8 @@ public class PauseMenuController : MonoBehaviour {
         if (Math.Abs(InputManager.Mouse.magnitude) > 0.0f)
         {
             hiding = false;
-            Cursor.visible = true;
+            //Cursor.visible = true;
+            GameController.instance.cursor.GetComponent<mouseCursor>().Show();
         }
         else if (!hiding && hit.collider == null)
         {
@@ -162,7 +165,11 @@ public class PauseMenuController : MonoBehaviour {
     private IEnumerator HideMouse(float time)
     {
         yield return new WaitForSecondsRealtime(time);
-        if (hiding) Cursor.visible = false;
+        if (hiding)
+        {
+            Cursor.visible = false;
+            GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
+        }
     }
 
 }

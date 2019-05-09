@@ -123,6 +123,7 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
         shopCamera.SetActive(false);
 
         Cursor.visible = false;
+        GameController.instance.cursor.GetComponent<mouseCursor>().InstaHide();
         GameController.instance.player.GetComponent<Player>().Resume();
         animator.SetTrigger(kTalkParam);
 

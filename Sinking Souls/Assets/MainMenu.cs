@@ -37,7 +37,12 @@ public class MainMenu : MonoBehaviour
     private IEnumerator HideMouse(float time)
     {
         yield return new WaitForSeconds(time);
-        if (hiding) Cursor.visible = false;
+        if (hiding)
+        {
+            Cursor.visible = false;
+            GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
+
+        }
     }
 
     private void UpdateMouse()
@@ -45,7 +50,9 @@ public class MainMenu : MonoBehaviour
         if (Math.Abs(InputManager.Mouse.magnitude) > 0.0f)
         {
             hiding = false;
-            Cursor.visible = true;
+            //Cursor.visible = true;
+            GameController.instance.cursor.GetComponent<mouseCursor>().Show();
+
         }
         else if (!hiding && GetComponent<ButtonsController>().hit.collider == null)
         {
@@ -58,6 +65,8 @@ public class MainMenu : MonoBehaviour
     {
         hideForced = true;
         Cursor.visible = false;
+        GameController.instance.cursor.GetComponent<mouseCursor>().InstaHide();
+
     }
 
     public void Play()

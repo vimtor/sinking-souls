@@ -53,6 +53,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b1a216b87f73454bae7a4562d14bff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cursorPrefab: {fileID: 1150758109451770, guid: 4a9f15172ac7e154aaeb8042d0074cec,
+    type: 2}
+  cursor: {fileID: 0}
   mainEnemy: {fileID: 0}
   casualEnemy: {fileID: 0}
   nextCasualTime: 0
@@ -88,6 +91,7 @@ MonoBehaviour:
     type: 2}
   level1: {fileID: 11400000, guid: 5a1017c812d763441994ee36bb354230, type: 2}
   level2: {fileID: 11400000, guid: 9c5544fb1cddc45459aaef94280e956b, type: 2}
+  visitedTavern: 1
   died: 0
   inTavern: 0
   maxHealth: 300

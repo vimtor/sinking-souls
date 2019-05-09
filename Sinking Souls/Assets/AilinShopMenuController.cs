@@ -82,7 +82,7 @@ public class AilinShopMenuController : MonoBehaviour {
                 //Key Input
                 if (time >= delay)
                 {
-                    if (InputManager.ButtonA || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.E) || (Physics.Raycast(ray, out hit) && Cursor.visible && Input.GetMouseButtonDown(0)))
+                    if (InputManager.ButtonA || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.E) || (Physics.Raycast(ray, out hit) && GameController.instance.cursor.GetComponent<mouseCursor>().visible && Input.GetMouseButtonDown(0)))
                     {
                         InputManager.ButtonA = false;
                         ButtonEvents = itemArr[selected].onClick;
@@ -91,12 +91,17 @@ public class AilinShopMenuController : MonoBehaviour {
                     }
                     else if (DownInput()) MoveDown();
                     else if (UpInput()) MoveUp();
-                    if(InputManager.ButtonB) Cursor.visible = false;
+                    if (InputManager.ButtonB)
+                    {
+                        Cursor.visible = false;
+                        GameController.instance.cursor.GetComponent<mouseCursor>().InstaHide();
+
+                    }
                 }
                 else if (InputManager.ButtonA) InputManager.ButtonA = false;
 
                 //Mouse Input
-                if (Physics.Raycast(ray, out hit) && Cursor.visible)
+                if (Physics.Raycast(ray, out hit) && GameController.instance.cursor.GetComponent<mouseCursor>().visible)
                 {
                     Debug.Log(hit.transform.gameObject.name);
                     if (hit.transform.gameObject.GetComponent<Button>() != itemArr[selected])
@@ -192,6 +197,8 @@ public class AilinShopMenuController : MonoBehaviour {
         selected = (selected + 1) % itemArr.Length;
         Highlight(itemArr[selected]);
         Cursor.visible = false;
+        GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
+
         time = 0;
     }
 
@@ -201,6 +208,7 @@ public class AilinShopMenuController : MonoBehaviour {
         if (selected - 1 >= 0) selected--;
         else selected = itemArr.Length - 1;
         Highlight(itemArr[selected]);
+            GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
         Cursor.visible = false;
         time = 0;
     }

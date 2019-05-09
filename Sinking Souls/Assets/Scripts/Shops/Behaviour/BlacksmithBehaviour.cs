@@ -29,7 +29,7 @@ public class BlacksmithBehaviour : ShopBehaviour<Modifier>
         if (Math.Abs(InputManager.Mouse.magnitude) > 0.0f)
         {
             hiding = false;
-            Cursor.visible = true;
+            GameController.instance.cursor.GetComponent<mouseCursor>().Show();//Cursor.visible = true;
         }
         else if (!hiding && GameObject.Find("Blacksmith Shop").GetComponent<ShopMenuController>().hit.collider == null)
         {
@@ -41,7 +41,11 @@ public class BlacksmithBehaviour : ShopBehaviour<Modifier>
     private IEnumerator HideMouse(float time)
     {
         yield return new WaitForSecondsRealtime(time);
-        if (hiding) Cursor.visible = false;
+        if (hiding)
+        {
+            Cursor.visible = false;
+            GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
+        }
     }
 
     public override void FillShop()

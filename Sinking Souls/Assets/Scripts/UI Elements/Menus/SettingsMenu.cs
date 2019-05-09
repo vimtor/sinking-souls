@@ -131,7 +131,7 @@ public class SettingsMenu : MonoBehaviour
                 }
 
                 //Mouse Input
-                if (Physics.Raycast(ray, out hit) && Cursor.visible)
+                if (Physics.Raycast(ray, out hit) && GameController.instance.cursor.GetComponent<mouseCursor>().visible)
                 {
                     Debug.Log(hit.transform.gameObject.name);
                     if (hit.transform.gameObject != selectorArr[selected])
@@ -306,6 +306,7 @@ public class SettingsMenu : MonoBehaviour
         Disable(selectorArr[selected]);
         selected = (selected + 1) % selectorArr.Length;
         Cursor.visible = false;
+        GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
         time = 0;
 
     }
@@ -317,6 +318,7 @@ public class SettingsMenu : MonoBehaviour
         if (selected - 1 >= 0) selected--;
         else selected = selectorArr.Length - 1;
         Cursor.visible = false;
+        GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
         time = 0;
 
     }

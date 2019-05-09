@@ -52,7 +52,7 @@ public class MainMenuController : MonoBehaviour {
             //Key Input
             if (time >= delay)
             {
-                if (InputManager.ButtonA || Input.GetKeyDown(KeyCode.Return) || (Physics.Raycast(ray, out hit) && Cursor.visible && Input.GetMouseButtonDown(0)))
+                if (InputManager.ButtonA || Input.GetKeyDown(KeyCode.Return) || (Physics.Raycast(ray, out hit) && GameController.instance.cursor.GetComponent<mouseCursor>().visible && Input.GetMouseButtonDown(0)))
                 {
                     Debug.Log("Accesing");
                     InputManager.ButtonA = false;
@@ -64,7 +64,7 @@ public class MainMenuController : MonoBehaviour {
             }
 
             //Mouse Input
-            if (Physics.Raycast(ray, out hit) && Cursor.visible)
+            if (Physics.Raycast(ray, out hit) && GameController.instance.cursor.GetComponent<mouseCursor>().visible)
             {
                 Debug.Log(hit.transform.gameObject.name);
                 if (hit.transform.gameObject.GetComponent<Button>() != butArr[selected])
@@ -81,7 +81,7 @@ public class MainMenuController : MonoBehaviour {
                     }
                 }
             }
-            else if (Cursor.visible) ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+            else if (GameController.instance.cursor.GetComponent<mouseCursor>().visible) ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
 
 
             butArr[selected].Select();      //Prevent EventSystem override
@@ -119,6 +119,7 @@ public class MainMenuController : MonoBehaviour {
         selected = (selected + 1) % butArr.Length;
         butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlitedColor;
         Cursor.visible = false;
+        GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
         time = 0;
     }
 
@@ -129,6 +130,7 @@ public class MainMenuController : MonoBehaviour {
         else selected = butArr.Length - 1;
         butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlitedColor;
         Cursor.visible = false;
+        GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
         time = 0;
     }
 

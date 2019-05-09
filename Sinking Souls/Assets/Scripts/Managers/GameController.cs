@@ -11,6 +11,9 @@ using TMPro;
 
 public class GameController : MonoBehaviour
 {
+
+    public GameObject cursorPrefab;
+    [HideInInspector] public GameObject cursor;
     [Header("Enemies")]
     public GameObject mainEnemy;
     public GameObject casualEnemy;
@@ -162,6 +165,9 @@ public class GameController : MonoBehaviour
         {
             case ApplicationManager.GameState.MAIN_MENU:
                 Time.timeScale = 1;
+                cursor = Instantiate(cursorPrefab, GameObject.Find("Canvas").transform, false);
+                cursor.GetComponent<mouseCursor>().InstaHide();
+                if(InputManager.Xbox_One_Controller>=0) cursor.GetComponent<mouseCursor>().Show();
                 break;
 
             case ApplicationManager.GameState.TABERN:
@@ -179,6 +185,8 @@ public class GameController : MonoBehaviour
                 player.transform.Find("DeathIsland").gameObject.SetActive(false);
                 Cursor.visible = false;
                 Time.timeScale = 1;
+                cursor = Instantiate(cursorPrefab, GameObject.Find("Canvas").transform, false);
+                cursor.GetComponent<mouseCursor>().InstaHide();
 
             break;
 
@@ -224,6 +232,8 @@ public class GameController : MonoBehaviour
                 Cursor.visible = false;
                 Time.timeScale = 1;
                 GameController.instance.player.GetComponent<Player>().Resume();
+                cursor = Instantiate(cursorPrefab, GameObject.Find("Canvas").transform, false);
+                cursor.GetComponent<mouseCursor>().InstaHide();
                 break;
 
             case ApplicationManager.GameState.TUTORIAL:
@@ -237,6 +247,8 @@ public class GameController : MonoBehaviour
                 GameObject.Find("Post Processing").gameObject.GetComponent<PostProcessVolume>().profile = postProcesingProfileLevel1;
                 Cursor.visible = false;
                 Time.timeScale = 1;
+                cursor = Instantiate(cursorPrefab, GameObject.Find("Canvas").transform, false);
+                cursor.GetComponent<mouseCursor>().InstaHide();
                 break;
 
             case ApplicationManager.GameState.LOBBY:
@@ -311,6 +323,8 @@ public class GameController : MonoBehaviour
                 Time.timeScale = 1;
                 GameController.instance.player.GetComponent<Player>().Resume();
                 SaveManager.Save();
+                cursor = Instantiate(cursorPrefab, GameObject.Find("Canvas").transform, false);
+                cursor.GetComponent<mouseCursor>().InstaHide();
                 break;
 
             case ApplicationManager.GameState.ARENA:
@@ -321,6 +335,7 @@ public class GameController : MonoBehaviour
                 godMode = true;
                 break;
         }
+
 
         if (player != null) {
             player.GetComponent<Player>().Stop();

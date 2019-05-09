@@ -134,7 +134,11 @@ public class InputManager : MonoBehaviour {
     private IEnumerator HideMouse(float time)
     {
         yield return new WaitForSecondsRealtime(time);
-        if (hiding) Cursor.visible = false;
+        if (hiding)
+        {
+            Cursor.visible = false;
+            GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
+        }
     }
 
     public void UpdateMouse()
@@ -142,7 +146,8 @@ public class InputManager : MonoBehaviour {
         if (Mathf.Abs(Mouse.magnitude) > 0.0f)
         {
             hiding = false;
-            Cursor.visible = true;
+            //Cursor.visible = true;
+            GameController.instance.cursor.GetComponent<mouseCursor>().Show();
         }
         else if (!hiding)
         {

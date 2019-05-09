@@ -62,7 +62,8 @@ public class AlchemistBehaviour : ShopBehaviour<Ability>
         if (Math.Abs(InputManager.Mouse.magnitude) > 0.0f)
         {
             hiding = false;
-            Cursor.visible = true;
+            //Cursor.visible = true;
+            GameController.instance.cursor.GetComponent<mouseCursor>().Show();
         }
         else if (!hiding && GameObject.Find("Alchemist Shop").GetComponent<AilinShopMenuController>().hit.collider == null)
         {
@@ -74,7 +75,12 @@ public class AlchemistBehaviour : ShopBehaviour<Ability>
     private IEnumerator HideMouse(float time)
     {
         yield return new WaitForSecondsRealtime(time);
-        if (hiding) Cursor.visible = false;
+        if (hiding)
+        {
+            Cursor.visible = false;
+            GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
+
+        }
     }
 
 }

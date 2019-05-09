@@ -59,7 +59,7 @@ public class ButtonsController : MonoBehaviour {
                 //Key Input
                 if (time >= delay)
                 {
-                    if (InputManager.ButtonA || Input.GetKeyDown(KeyCode.Return) || (Physics.Raycast(ray, out hit) && Cursor.visible && Input.GetMouseButtonDown(0)))
+                    if (InputManager.ButtonA || Input.GetKeyDown(KeyCode.Return) || (Physics.Raycast(ray, out hit) && GameController.instance.cursor.GetComponent<mouseCursor>().visible && Input.GetMouseButtonDown(0)))
                     {
                         Debug.Log("Accesing");
                         InputManager.ButtonA = false;
@@ -71,7 +71,7 @@ public class ButtonsController : MonoBehaviour {
                 }
 
                 //Mouse Input
-                if (Physics.Raycast(ray, out hit) && Cursor.visible)
+                if (Physics.Raycast(ray, out hit) && GameController.instance.cursor.GetComponent<mouseCursor>().visible)
                 {
                     if (hit.transform.gameObject.GetComponent<Button>() != butArr[selected])
                     {
@@ -126,6 +126,7 @@ public class ButtonsController : MonoBehaviour {
         selected = (selected + 1) % butArr.Length;
         butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlitedColor;
         Cursor.visible = false;
+        GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
         time = 0;
     }
 
@@ -136,6 +137,7 @@ public class ButtonsController : MonoBehaviour {
         else selected = butArr.Length - 1;
         butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlitedColor;
         Cursor.visible = false;
+        GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
         time = 0;
     }
 

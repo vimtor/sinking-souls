@@ -82,7 +82,7 @@ public class DropdownBehaviour : MonoBehaviour
                 if (Input.mouseScrollDelta.y < 0) ScrollDown();
                 else if (Input.mouseScrollDelta.y > 0) ScrollUp();
 
-                if (Physics.Raycast(ray, out hit) && Cursor.visible && InputManager.Mouse.magnitude != 0)
+                if (Physics.Raycast(ray, out hit) && GameController.instance.cursor.GetComponent<mouseCursor>().visible && InputManager.Mouse.magnitude != 0)
                 {
                     //Debug.Log(hit.transform.gameObject.name);
                     if (hit.transform.gameObject != toggleArr[selected].gameObject)
@@ -184,6 +184,7 @@ public class DropdownBehaviour : MonoBehaviour
         SetScroll(selected);
         toggleArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlightedColor;
         Cursor.visible = false;
+        GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
         time = 0;
     }
 
@@ -195,6 +196,7 @@ public class DropdownBehaviour : MonoBehaviour
         SetScroll(selected);
         toggleArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlightedColor;
         Cursor.visible = false;
+        GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
         time = 0;
     }
 

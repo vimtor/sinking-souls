@@ -64,7 +64,7 @@ MonoBehaviour:
     type: 2}
   blueprint: {fileID: 1656587315307008, guid: 1a7131efd18afaf4cb4d1edaea296ef7, type: 2}
   m_RescuedBlacksmith: 1
-  m_RescuedAlchemist: 0
+  m_RescuedAlchemist: 1
   lobbySouls: 0
   runSouls: 0
   tabbernSoulsHolder: -1
@@ -79,6 +79,9 @@ MonoBehaviour:
   enhancers:
   - {fileID: 11400000, guid: 7637169d67cb3b942acf653409b02d2e, type: 2}
   - {fileID: 11400000, guid: e414054fa6f953d4997f4f7609e212c0, type: 2}
+  conditions:
+  - {fileID: 11400000, guid: 838bdf355b1ff8e48a96e19cf85e18ac, type: 2}
+  - {fileID: 11400000, guid: 4e1cf4e329b92b745b46917b8f0e8bd9, type: 2}
   postProcesingProfileLevel1: {fileID: 11400000, guid: 597ee8a88a343034589a943ece5b5c34,
     type: 2}
   postProcesingProfileLevel2: {fileID: 11400000, guid: 93072f2240c0c9841bb2c69d3250b20b,
@@ -93,6 +96,14 @@ MonoBehaviour:
   currentRoom: {fileID: 0}
   player: {fileID: 0}
   lobbySoulsHUD: {fileID: 0}
+  spawnProvabilty: 100
+  minimumPerLevel: 1
+  maximumPerLevel: 15
+  activeChests: 0
+  soulsUISize: 1
+  percentageOfKeepedSouls: 10
+  upgradeCounts: 0
+  activeMage: {fileID: 0}
 --- !u!114 &114646670468762960
 MonoBehaviour:
   m_ObjectHideFlags: 1

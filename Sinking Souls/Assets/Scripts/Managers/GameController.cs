@@ -42,6 +42,7 @@ public class GameController : MonoBehaviour
     public Modifier[] modifiers;
     public Ability[] abilities;
     public Enhancer[] enhancers;
+    public MessageCondition[] conditions;
 
     [Header("Levels")]
     public PostProcessProfile postProcesingProfileLevel1;
@@ -523,6 +524,11 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < save.abilitiesOwned.Length; i++)
         {
             abilities[i].owned = save.abilitiesOwned[i];
+        }
+
+        for (int i = 0; i < save.conditionsTriggered.Length; i++)
+        {
+            conditions[i].completed = save.conditionsTriggered[i];
         }
 
         equippedModifier = modifiers[save.equippedModifier];

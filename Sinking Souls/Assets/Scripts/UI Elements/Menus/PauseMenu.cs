@@ -32,11 +32,15 @@ public class PauseMenu : MonoBehaviour
             if (!isPaused)
             {
                 Pause();
+                Cursor.visible = false;
+                GameController.instance.cursor.GetComponent<mouseCursor>().InstaShow();
             }
             else
             {
                 settingsMenu.SetActive(false);
                 Resume();
+                Cursor.visible = false;
+                GameController.instance.cursor.GetComponent<mouseCursor>().InstaHide();
             }
         }
 
@@ -52,6 +56,11 @@ public class PauseMenu : MonoBehaviour
                 Resume();
             }
         }
+    }
+
+    public void HideCursor()
+    {
+        GameController.instance.cursor.GetComponent<mouseCursor>().InstaHide();
     }
 
     private void Pause()

@@ -26,7 +26,7 @@ public class FadeEffect : MonoBehaviour {
         }
     }
     public void FadeIn(float s) {
-        if (fadeOut || fadeIn) {
+        if (fadeIn) {
             Debug.Log("Tonto");
             return;
         }
@@ -39,8 +39,9 @@ public class FadeEffect : MonoBehaviour {
     }
 
     public void FadeOut(float s) {
-        if (fadeIn || fadeOut) {
-            Debug.Log("Tonto1");
+        if ( fadeOut) {
+           if(fadeIn) Debug.Log("Tonto11");
+            else Debug.Log("Tonto1o");
             return;
         }
         if (GetComponent<Image>().color.a >= 1) return;

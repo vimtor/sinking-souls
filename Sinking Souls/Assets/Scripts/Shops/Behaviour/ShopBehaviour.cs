@@ -68,7 +68,6 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
             {
                 InputManager.ButtonB = false;
                 dialoguing = false;
-
                 GameController.instance.player.GetComponent<Player>().Resume();
                 dialogueObject.SetActive(false);
             }

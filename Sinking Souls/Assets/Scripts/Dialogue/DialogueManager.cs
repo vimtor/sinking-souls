@@ -65,9 +65,11 @@ public class DialogueManager : MonoBehaviour
         inGameUI.SetActive(true);
 
         Debug.Log("I");
-        GameController.instance.player.GetComponent<Player>().Resume();
 
         conversation.Clear();
+        if (lastCoroutine != null) StopCoroutine(lastCoroutine);
+        GameController.instance.player.GetComponent<Player>().Resume();
+
     }
 
     private IEnumerator DisplayDialogue()
@@ -159,8 +161,9 @@ public class DialogueManager : MonoBehaviour
                 letter = letter = "<size=" + smallSize.ToString() + ">" + letter + "</size>";
             }
             messageContent.text += letter;
-            yield return new WaitForSecondsRealtime(time);
             GameController.instance.player.GetComponent<Player>().Stop();
+
+            yield return new WaitForSecondsRealtime(time);
 
         }
 

@@ -187,8 +187,30 @@ public class Player : Entity
         return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
     }
 
+    float stoppingVelocity;
+
     private void FixedUpdate()
     {
+        if (stopping)
+        {
+            if(SceneManager.GetActiveScene().name == "Lobby")
+            {
+                {
+                    GameController.instance.player.GetComponent<Rigidbody>().velocity -= (GameController.instance.player.GetComponent<Rigidbody>().velocity.normalized * stoppingVelocity) * 0.25f * Time.deltaTime;
+                    m_Animator.SetFloat(m_SpeedParam, 0, m_MovementDamping * 6.5f, Time.deltaTime);
+                    GameController.instance.player.GetComponent<Rigidbody>().velocity = new Vector3(GameController.instance.player.GetComponent<Rigidbody>().velocity.x, -2f, GameController.instance.player.GetComponent<Rigidbody>().velocity.z);
+                    AudioManager.Instance.Stop("Walk");
+                }
+
+            }
+            else
+            {
+                GameController.instance.player.GetComponent<Rigidbody>().velocity -= (GameController.instance.player.GetComponent<Rigidbody>().velocity.normalized * stoppingVelocity)*2f * Time.deltaTime;
+                m_Animator.SetFloat(m_SpeedParam, 0, m_MovementDamping * 1.25f, Time.deltaTime);
+                AudioManager.Instance.Stop("Walk");
+            }
+
+        }
         if (transform.position.y < -20) Health = -10;
         if (lockedEnemy != null && lockedEnemy.GetComponent<KlausBossAI>()) lockedEnemy = null;
         switch (Dodge) //change color
@@ -857,6 +879,13 @@ public class Player : Entity
         m_CanMove = false;
         m_Animator.SetFloat(m_SpeedParam, 0);
         AudioManager.Instance.Stop("Walk");
+    }
+    bool stopping;
+    public void StopForward()
+    {
+        m_CanMove = false;
+        stopping = true;
+        stoppingVelocity = GetComponent<Rigidbody>().velocity.magnitude;
     }
 
     public void EquipModifier(Modifier modifier)

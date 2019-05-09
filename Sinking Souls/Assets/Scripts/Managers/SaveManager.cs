@@ -70,6 +70,8 @@ public class SaveData
     public int equippedModifier;
     public int equippedAbility;
 
+    public bool visitedTavern;
+
     public SaveData()
     {
         souls = GameController.instance.lobbySouls;
@@ -78,6 +80,8 @@ public class SaveData
         alchemist = GameController.instance.m_RescuedAlchemist;
         maxHealth = GameController.instance.player.GetComponent<Player>().MaxHealth;
         upgradeCounts = GameController.instance.upgradeCounts;
+
+        visitedTavern = GameController.instance.visitedTavern;
 
         var modifiers = GameController.instance.modifiers;
         modifiersOwned = new bool[modifiers.Length];

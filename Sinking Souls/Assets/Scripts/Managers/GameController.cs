@@ -50,6 +50,7 @@ public class GameController : MonoBehaviour
 
     public LevelGeneratiorConfiguration level1;
     public LevelGeneratiorConfiguration level2;
+    public bool visitedTavern;
 
 
     [HideInInspector] public bool died;
@@ -222,6 +223,7 @@ public class GameController : MonoBehaviour
                 }
                 Cursor.visible = false;
                 Time.timeScale = 1;
+                GameController.instance.player.GetComponent<Player>().Resume();
                 break;
 
             case ApplicationManager.GameState.TUTORIAL:
@@ -307,6 +309,7 @@ public class GameController : MonoBehaviour
                 }
                 Cursor.visible = false;
                 Time.timeScale = 1;
+                GameController.instance.player.GetComponent<Player>().Resume();
                 SaveManager.Save();
                 break;
 
@@ -515,6 +518,8 @@ public class GameController : MonoBehaviour
         m_RescuedBlacksmith = save.blacksmith;
         maxHealth = save.maxHealth;
         upgradeCounts = save.upgradeCounts;
+
+        visitedTavern = save.visitedTavern;
 
         for (int i = 0; i < save.modifiersOwned.Length; i++)
         {

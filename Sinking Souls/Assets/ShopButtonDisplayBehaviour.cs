@@ -35,8 +35,8 @@ public class ShopButtonDisplayBehaviour : MonoBehaviour {
 
     bool openShop()
     {
-
-        return (GameObject.Find("Blacksmith Shop") != null || GameObject.Find("Alchemist Shop") != null || GameObject.Find("Alchemist Dialogue") != null);
+        
+        return (GameObject.Find("Blacksmith Shop") != null || GameObject.Find("Alchemist Shop") != null || GameObject.Find("Alchemist Dialogue") != null || GameObject.Find("Innkeeper Shop") != null);
     }
 
     // Update is called once per frame

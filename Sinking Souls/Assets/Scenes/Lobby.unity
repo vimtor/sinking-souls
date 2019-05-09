@@ -91,7 +91,7 @@ LightmapSettings:
     m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 112000002, guid: 8c7627b0eb295b249bc3238daf8c3a14,
     type: 2}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -697,9 +697,14 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 0.009999998
       objectReference: {fileID: 0}
+    - target: {fileID: 114001216078133474, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
+        type: 2}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 114546876213638332, guid: bb2bba5ecc1006644af4fd2bd3fb0b81, type: 2}
-    - {fileID: 114727007357373562, guid: bb2bba5ecc1006644af4fd2bd3fb0b81, type: 2}
+    - {fileID: 0}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: bb2bba5ecc1006644af4fd2bd3fb0b81, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &121975617 stripped
@@ -2095,81 +2100,14 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 23650782068067806, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
-        type: 2}
-      propertyPath: m_CastShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 23650782068067806, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
-        type: 2}
-      propertyPath: m_ReceiveShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 23650782068067806, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
-        type: 2}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 21169845099468922, guid: 6277c000738ab4b4688d75e5bce53e97,
-        type: 2}
-    - target: {fileID: 114001216078133474, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
-        type: 2}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: 21169845099468922, guid: 6277c000738ab4b4688d75e5bce53e97,
-        type: 2}
-    - target: {fileID: 114001216078133474, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
-        type: 2}
-      propertyPath: m_textAlignment
-      value: 514
-      objectReference: {fileID: 0}
-    - target: {fileID: 114001216078133474, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
-        type: 2}
-      propertyPath: m_isAlignmentEnumConverted
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114001216078133474, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
-        type: 2}
-      propertyPath: m_renderer
-      value: 
-      objectReference: {fileID: 1197666541}
     - target: {fileID: 33155929130335166, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
         type: 2}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 224896923941359052, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
-        type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -198.14499
-      objectReference: {fileID: 0}
     - target: {fileID: 114001216078133474, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
         type: 2}
-      propertyPath: m_firstOverflowCharacterIndex
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114001216078133474, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
-        type: 2}
-      propertyPath: m_textInfo.characterCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114001216078133474, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
-        type: 2}
-      propertyPath: m_textInfo.wordCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114001216078133474, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
-        type: 2}
-      propertyPath: m_textInfo.lineCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114001216078133474, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
-        type: 2}
-      propertyPath: m_textInfo.pageCount
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114001216078133474, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
-        type: 2}
-      propertyPath: m_textInfo.materialCount
+      propertyPath: m_havePropertiesChanged
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114001216078133474, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
@@ -2177,24 +2115,7 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114001216078133474, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
-        type: 2}
-      propertyPath: m_hasFontAssetChanged
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114001216078133474, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
-        type: 2}
-      propertyPath: m_fontSize
-      value: 675
-      objectReference: {fileID: 0}
-    - target: {fileID: 114001216078133474, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
-        type: 2}
-      propertyPath: m_fontSizeBase
-      value: 675
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114546876213638332, guid: bb2bba5ecc1006644af4fd2bd3fb0b81, type: 2}
-    - {fileID: 114727007357373562, guid: bb2bba5ecc1006644af4fd2bd3fb0b81, type: 2}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb2bba5ecc1006644af4fd2bd3fb0b81, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &654030304
@@ -3670,28 +3591,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1174951106}
   m_CullTransparentMesh: 0
---- !u!1 &1197666537 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1865655526336346, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
-    type: 2}
-  m_PrefabInternal: {fileID: 640682742}
---- !u!23 &1197666541 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 23650782068067806, guid: bb2bba5ecc1006644af4fd2bd3fb0b81,
-    type: 2}
-  m_PrefabInternal: {fileID: 640682742}
---- !u!114 &1197666543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1197666537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaa2cd8569661ab4585759b5588022d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apearingSpeed: 10
 --- !u!1001 &1206316723
 Prefab:
   m_ObjectHideFlags: 0

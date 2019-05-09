@@ -77,7 +77,7 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
         if (!isOpen)
         {
             // Open the store.
-            if (InputManager.GetButtonA() || Input.GetKeyDown(KeyCode.Return))
+            if (InputManager.GetButtonA() || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.E))
             {
                 if (isOpen) return;
                 InputManager.ButtonA = false;
@@ -100,10 +100,9 @@ public abstract class ShopBehaviour<T> : MonoBehaviour
         }
         else
         {
-            //UpdateShop();
             UpdateMouse();
             // Close the store.
-            if (InputManager.GetButtonB() || Input.GetKeyDown(KeyCode.Escape))
+            if (InputManager.GetButtonB() || Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.E))
             {
                 InputManager.ButtonB = false;
                 CloseShop();

@@ -885,6 +885,7 @@ public class Player : Entity
     {
         m_CanMove = false;
         stopping = true;
+        if (SceneManager.GetActiveScene().name == "Lobby") GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity.normalized * 12;
         stoppingVelocity = GetComponent<Rigidbody>().velocity.magnitude;
     }
 

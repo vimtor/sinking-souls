@@ -1751,6 +1751,8 @@ MonoBehaviour:
   m_HittedRecovery: 0.4
   m_Weapon: {fileID: 11400000, guid: 770641d31570a724f8f8eeb86cdada2f, type: 2}
   m_WeaponHand: {fileID: 1148404662069318}
+  leftHanded: 0
+  m_OtherHand: {fileID: 0}
   m_Abilities:
   - {fileID: 11400000, guid: fddf5f21314ce444ea3a0fee462174df, type: 2}
   m_HitParticles: {fileID: 1744851154924106, guid: 4862d1610ca1692499cea0263eb33ee9,
@@ -1777,11 +1779,11 @@ MonoBehaviour:
   dashTime: 0.6
   dodgeDelay: 0.7
   m_MovementDamping: 0.2
-  m_MovementSpeed: 9
+  m_MovementSpeed: 11
   lockDistance: 5
   minStepDist: 1.7
   maxStepDist: 3
-  m_MaxMovementSpeed: 7
+  m_MaxMovementSpeed: 9
   m_MovementRotationDamping: 50
   m_LockDashLength: 0.3
   m_DashMovementSpeed: 10

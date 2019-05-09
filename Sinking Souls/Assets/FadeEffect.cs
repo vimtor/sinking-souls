@@ -27,10 +27,8 @@ public class FadeEffect : MonoBehaviour {
     }
     public void FadeIn(float s) {
         if (fadeIn) {
-            Debug.Log("Tonto");
             return;
         }
-        Debug.Log("Fade Inn Activated----------------------------------------------------");
 
         fadeIn = true;
         fadeOut = false;
@@ -40,14 +38,11 @@ public class FadeEffect : MonoBehaviour {
 
     public void FadeOut(float s) {
         if ( fadeOut) {
-           if(fadeIn) Debug.Log("Tonto11");
-            else Debug.Log("Tonto1o");
             return;
         }
         if (GetComponent<Image>().color.a >= 1) return;
         GetComponent<Image>().color = new Color(0, 0, 0, 0);
 
-        Debug.Log("Fade Out Activated");
         fadeIn = false;
         fadeOut = true;
         speed = 1/s;

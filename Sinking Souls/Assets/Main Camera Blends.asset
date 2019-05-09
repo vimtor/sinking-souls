@@ -13,57 +13,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CustomBlends:
   - m_From: Game Camera
-    m_To: Galen Camera
+    m_To: CM vcam1
     m_Blend:
       m_Style: 1
-      m_Time: 2
-  - m_From: Game Camera
-    m_To: Ailin Camera
+      m_Time: 1
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+  - m_From: CM vcam1
+    m_To: CM vcam2
     m_Blend:
       m_Style: 1
-      m_Time: 2
-  - m_From: '**ANY CAMERA**'
+      m_Time: 1
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+  - m_From: CM vcam2
+    m_To: CM vcam3
+    m_Blend:
+      m_Style: 1
+      m_Time: 1
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+  - m_From: CM vcam3
     m_To: Game Camera
     m_Blend:
-      m_Style: 2
-      m_Time: 1
-  - m_From: Game Camera
-    m_To: Cutscene Camera
-    m_Blend:
-      m_Style: 0
-      m_Time: 2
-  - m_From: Cutscene Camera
-    m_To: Game Camera
-    m_Blend:
-      m_Style: 3
-      m_Time: 2
-  - m_From: Cutscene Camera
-    m_To: Cutscene Camera 2
-    m_Blend:
-      m_Style: 0
-      m_Time: 2
-  - m_From: Cutscene Camera 2
-    m_To: Game Camera
-    m_Blend:
-      m_Style: 1
-      m_Time: 2
-  - m_From: Game Camera
-    m_To: DialogueCam1
-    m_Blend:
       m_Style: 1
       m_Time: 1
-  - m_From: Game Camera
-    m_To: DialogueCam2
-    m_Blend:
-      m_Style: 1
-      m_Time: 1
-  - m_From: Game Camera
-    m_To: DialogueCam3
-    m_Blend:
-      m_Style: 1
-      m_Time: 1
-  - m_From: Game Camera
-    m_To: Innkeper Camera
-    m_Blend:
-      m_Style: 1
-      m_Time: 1
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4

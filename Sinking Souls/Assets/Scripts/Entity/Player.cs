@@ -848,6 +848,7 @@ public class Player : Entity
 
     public void Resume()
     {
+        Debug.Log("ResumedMovement");
         m_CanMove = true;
     }
 

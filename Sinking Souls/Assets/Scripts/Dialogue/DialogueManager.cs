@@ -52,6 +52,7 @@ public class DialogueManager : MonoBehaviour
         conversation = new Queue<Dialogue>(dialogues);
 
         GameController.instance.player.GetComponent<Player>().Stop();
+        Debug.Log("StartedConversation");
 
         StartCoroutine(DisplayDialogue());
     }
@@ -63,6 +64,7 @@ public class DialogueManager : MonoBehaviour
         if (lastCamera != null) lastCamera.SetActive(false);
         inGameUI.SetActive(true);
 
+        Debug.Log("I");
         GameController.instance.player.GetComponent<Player>().Resume();
 
         conversation.Clear();
@@ -126,24 +128,40 @@ public class DialogueManager : MonoBehaviour
         genericDialogue.SetActive(false);
     }
 
+    bool smallSizeMode = false;
+    public float smallSize = 35;
+
     private IEnumerator TypeSentence(string sentence)
     {
         messageContent.text = "";
         var parsedSentence = sentence;
-
         AudioManager.Instance.PlayEffect("Dialogue");
 
         float time = 1 / Mathf.Pow(10, dialogueSpeed);
         for (int i = 0; i < parsedSentence.Length; i++)
         {
             string letter = parsedSentence[i].ToString();
-            if(letter == "|")
+
+            if (letter == "#")
+            {
+                i++;
+                letter = parsedSentence[i].ToString();
+                smallSizeMode = !smallSizeMode;
+
+            }
+            if (letter == "|")
             {
                 letter = "<size=40><color=#ff0000ff>" + ParseAux(letter + parsedSentence[i + 1]) + "</color></size>";
                 i++;
             }
+            if (smallSizeMode)
+            {
+                letter = letter = "<size=" + smallSize.ToString() + ">" + letter + "</size>";
+            }
             messageContent.text += letter;
             yield return new WaitForSecondsRealtime(time);
+            GameController.instance.player.GetComponent<Player>().Stop();
+
         }
 
         AudioManager.Instance.Stop("Dialogue");

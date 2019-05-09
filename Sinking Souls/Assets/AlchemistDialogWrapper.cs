@@ -75,6 +75,14 @@ public class AlchemistDialogWrapper : MonoBehaviour {
                     }
                     else if (DownInput()) MoveDown();
                     else if (UpInput()) MoveUp();
+                    if (InputManager.ButtonB || Input.GetKeyDown(KeyCode.E))
+                    {
+                        InputManager.ButtonB = false;
+                        gameObject.SetActive(false);
+                        selected = 0;
+                        reset = true;
+                        time = 0;
+                    }
                     
                 }
                 else if (InputManager.ButtonA) InputManager.ButtonA = false;

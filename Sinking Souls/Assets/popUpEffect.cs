@@ -47,7 +47,7 @@ public class popUpEffect : MonoBehaviour {
             }
             else {
                 text.color = new Vector4(text.color.r, text.color.g, text.color.b, text.color.a + apearingSpeed * Time.deltaTime);
-
+                if (text.color.a >= 1) text.color = new Vector4(text.color.r, text.color.g, text.color.b, 1);
             }
         }
 

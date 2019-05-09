@@ -25,7 +25,7 @@ public class ChestBehaviour : MonoBehaviour {
     {
         if (other.tag == "Player") {
             if (!isOpened) {
-                if (Input.GetButtonDown("BUTTON_A") || Input.GetKey(KeyCode.Return)) {
+                if (Input.GetButtonDown("BUTTON_A") || Input.GetKey(KeyCode.E)) {
                     isOpened = true;
                     Destroy(instantiatedButton);
                     GetComponent<Animator>().SetTrigger("Open");

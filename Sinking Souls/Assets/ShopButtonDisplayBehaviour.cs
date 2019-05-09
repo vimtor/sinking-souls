@@ -4,56 +4,76 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class popUpEffect : MonoBehaviour {
+public class ShopButtonDisplayBehaviour : MonoBehaviour {
+
     bool isImage;
     Image image;
     TextMeshPro text;
     public float apearingSpeed = 30;
     bool fadeOut = false;
-	// Use this for initialization
-	void Start () {
-        if (GetComponent<Image>()) {
+    // Use this for initialization
+    void Start()
+    {
+        if (GetComponent<Image>())
+        {
             image = GetComponent<Image>();
             isImage = true;
         }
-        else {
+        else
+        {
             text = GetComponent<TextMeshPro>();
             isImage = false;
         }
-        if(isImage)
-        image.color = image.color * new Vector4(1, 1, 1, 0);
-        else {
+        if (isImage)
+            image.color = image.color * new Vector4(1, 1, 1, 0);
+        else
+        {
             text.color = text.color * new Vector4(1, 1, 1, 0);
 
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
-        if (isImage) {
-            if (fadeOut) {
+
+    bool openShop()
+    {
+
+        return (GameObject.Find("Blacksmith Shop") != null || GameObject.Find("Alchemist Shop") != null || GameObject.Find("Alchemist Dialogue") != null);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (isImage)
+        {
+            if (Vector3.Distance(GameController.instance.player.transform.position, transform.position) < 4)
+            {
                 image.color = new Vector4(image.color.r, image.color.g, image.color.b, image.color.a - apearingSpeed * Time.deltaTime);
-                if (image.color.a <= 0) Destroy(gameObject);
+                if (image.color.a <= 0) new Vector4(image.color.r, image.color.g, image.color.b, 0);
             }
-            else {
+            else
+            {
                 image.color = new Vector4(image.color.r, image.color.g, image.color.b, image.color.a + apearingSpeed * Time.deltaTime);
 
             }
         }
-        else {
-            if (fadeOut) {
+        else
+        {
+            if (Vector3.Distance(GameController.instance.player.transform.position, transform.position) > 4 || openShop())
+            {
                 text.color = new Vector4(text.color.r, text.color.g, text.color.b, text.color.a - apearingSpeed * Time.deltaTime);
-                if (text.color.a <= 0) Destroy(gameObject);
+                if (text.color.a <= 0) text.color = new Vector4(text.color.r, text.color.g, text.color.b, 0);
+                
             }
-            else {
+            else
+            {
                 text.color = new Vector4(text.color.r, text.color.g, text.color.b, text.color.a + apearingSpeed * Time.deltaTime);
                 if (text.color.a >= 1) text.color = new Vector4(text.color.r, text.color.g, text.color.b, 1);
             }
         }
-
+        Debug.Log(text.color.a);
     }
 
-    public void destroy() {
+    public void destroy()
+    {
         fadeOut = true;
     }
 }

@@ -153,8 +153,17 @@ public class DialogueManager : MonoBehaviour
             }
             if (letter == "|")
             {
-                letter = "<size=40><color=#ff0000ff>" + ParseAux(letter + parsedSentence[i + 1]) + "</color></size>";
                 i++;
+
+                int aux = i;
+                string sentenceToParse = "|";
+                while(parsedSentence[aux].ToString() != "|")
+                {
+                    sentenceToParse += parsedSentence[aux];
+                    aux++;
+                }
+                i = aux;
+                letter = "<size=40><color=#ff0000ff>" + ParseAux(sentenceToParse) + "</color></size>";
             }
             if (smallSizeMode)
             {
@@ -186,7 +195,7 @@ public class DialogueManager : MonoBehaviour
         for (int i = 0; i < parseableSymbols.Length; i++)
         {
             var symbol = InputManager.Xbox_One_Controller > 0 ? controllerSymbols[i] : keyboardSymbols[i];
-            sentence = sentence.Replace(parseableSymbols[i], symbol);
+            sentence = sentence.Replace("|" + parseableSymbols[i], symbol);
         }
 
         return sentence;

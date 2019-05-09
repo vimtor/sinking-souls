@@ -8354,7 +8354,7 @@ Prefab:
         type: 2}
       propertyPath: dialogues.Array.data[1].message
       value: As you might have realized, you can lock an enemy by attacking him or
-        by pressing the |RJ button when you are close to them.
+        by pressing the |RJ| button when you are close to them.
       objectReference: {fileID: 0}
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
@@ -8371,7 +8371,7 @@ Prefab:
         type: 2}
       propertyPath: dialogues.Array.data[2].message
       value: When you are locking an enemy you can point to any direction with the
-        joystick and press B to dodge.
+        |RJ| and press |B| to dodge.
       objectReference: {fileID: 0}
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
@@ -12658,7 +12658,7 @@ Prefab:
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
       propertyPath: dialogues.Array.data[1].message
-      value: 'I''ve given you a gift. Try pressing |RT to use your ability, '
+      value: 'I''ve given you a gift. Try pressing |RT| to use your ability, '
       objectReference: {fileID: 0}
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
@@ -36942,7 +36942,7 @@ Prefab:
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
       propertyPath: dialogues.Array.data[0].message
-      value: Nice, now press |Y to pounce on the nearest enemy
+      value: Nice, now press |Y| to pounce on the nearest enemy
       objectReference: {fileID: 0}
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
@@ -40311,7 +40311,7 @@ Prefab:
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
       propertyPath: dialogues.Array.data[1].message
-      value: To avoid them press |B to roll
+      value: To avoid them press |B| to roll
       objectReference: {fileID: 0}
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
@@ -40433,7 +40433,7 @@ Prefab:
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
       propertyPath: dialogues.Array.data[1].message
-      value: The first thing you need to know is that you can hit enemies with |X
+      value: The first thing you need to know is that you can hit enemies with |X|
       objectReference: {fileID: 0}
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
@@ -51198,17 +51198,17 @@ Prefab:
     - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
         type: 2}
       propertyPath: keyboardSymbols.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
         type: 2}
       propertyPath: parseableSymbols.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
         type: 2}
       propertyPath: controllerSymbols.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4693109263414886, guid: e03f2561bcb9aa747918fa31aac25dcd, type: 2}
       propertyPath: m_LocalPosition.x
@@ -51280,7 +51280,7 @@ Prefab:
     - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
         type: 2}
       propertyPath: parseableSymbols.Array.data[0]
-      value: '|X'
+      value: X
       objectReference: {fileID: 0}
     - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
         type: 2}
@@ -51295,7 +51295,7 @@ Prefab:
     - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
         type: 2}
       propertyPath: parseableSymbols.Array.data[1]
-      value: '|Y'
+      value: Y
       objectReference: {fileID: 0}
     - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
         type: 2}
@@ -51310,7 +51310,7 @@ Prefab:
     - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
         type: 2}
       propertyPath: parseableSymbols.Array.data[2]
-      value: '|RT'
+      value: RT
       objectReference: {fileID: 0}
     - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
         type: 2}
@@ -51325,7 +51325,7 @@ Prefab:
     - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
         type: 2}
       propertyPath: parseableSymbols.Array.data[3]
-      value: '|LJ'
+      value: LJ
       objectReference: {fileID: 0}
     - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
         type: 2}
@@ -51345,12 +51345,27 @@ Prefab:
     - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
         type: 2}
       propertyPath: parseableSymbols.Array.data[4]
-      value: '|RJ'
+      value: RJ
       objectReference: {fileID: 0}
     - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
         type: 2}
       propertyPath: keyboardSymbols.Array.data[4]
       value: Q
+      objectReference: {fileID: 0}
+    - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
+        type: 2}
+      propertyPath: parseableSymbols.Array.data[5]
+      value: B
+      objectReference: {fileID: 0}
+    - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
+        type: 2}
+      propertyPath: controllerSymbols.Array.data[5]
+      value: B
+      objectReference: {fileID: 0}
+    - target: {fileID: 114733314449499864, guid: e03f2561bcb9aa747918fa31aac25dcd,
+        type: 2}
+      propertyPath: keyboardSymbols.Array.data[5]
+      value: Space
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e03f2561bcb9aa747918fa31aac25dcd, type: 2}
@@ -54311,7 +54326,7 @@ Prefab:
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}
       propertyPath: dialogues.Array.data[1].message
-      value: Also, you should know that you can direct the hook with the |LJ.
+      value: Also, you should know that you can direct the hook with |LJ|.
       objectReference: {fileID: 0}
     - target: {fileID: 114235389876676640, guid: 60ce027ddd7738b449fc3b0c60325451,
         type: 2}

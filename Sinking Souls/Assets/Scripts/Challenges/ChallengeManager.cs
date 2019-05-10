@@ -36,16 +36,20 @@ public class ChallengeManager : MonoBehaviour {
             case Challenges.Test:
                 gameObject.AddComponent<TestChallenge>();
                 GetComponent<TestChallenge>().updateAlways = false;
+                GetComponent<TestChallenge>().challengeName = "Test Challenge";
             break;
             case Challenges.KillAllNoDamage:
                 gameObject.AddComponent<NoDamageCHallenge>();
                 GetComponent<NoDamageCHallenge>().updateAlways = false;
+                GetComponent<NoDamageCHallenge>().challengeName = "Take no damage!";
+                
             break;
             case Challenges.TimeChallenge:
                 gameObject.AddComponent<TimeChallenge>();
                 GetComponent<TimeChallenge>().updateAlways = false;
                 GetComponent<TimeChallenge>().timeDisplay = timeDisplay;
                 GetComponent<TimeChallenge>().colorGradient = colorGradient;
+                GetComponent<TimeChallenge>().challengeName = "Kill them fast!";
                 break;
 
         }

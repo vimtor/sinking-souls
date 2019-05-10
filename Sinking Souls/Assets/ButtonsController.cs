@@ -20,6 +20,7 @@ public class ButtonsController : MonoBehaviour {
     private Ray ray;
     public RaycastHit hit;
     public UnityEvent ButtonEvents;
+    public bool mouseOnButton = false;
 
 
 
@@ -37,6 +38,7 @@ public class ButtonsController : MonoBehaviour {
 
 	void Update () {
         //Init for pause menu
+       // hit.transform.gameObject = null;
        
         if (transform.Find("MainMenu Content").gameObject != null)
         {
@@ -59,12 +61,16 @@ public class ButtonsController : MonoBehaviour {
                 //Key Input
                 if (time >= delay)
                 {
-                    if (InputManager.ButtonA || Input.GetKeyDown(KeyCode.Return) || (Physics.Raycast(ray, out hit) && GameController.instance.cursor.GetComponent<mouseCursor>().visible && Input.GetMouseButtonDown(0)))
+                    if (InputManager.ButtonA || Input.GetKeyDown(KeyCode.Return) || (mouseOnButton && GameController.instance.cursor.GetComponent<mouseCursor>().visible && Input.GetMouseButtonDown(0)))
                     {
-                        Debug.Log("Accesing");
-                        InputManager.ButtonA = false;
-                        ButtonEvents = butArr[selected].onClick;
-                        ButtonEvents.Invoke();
+                        if (ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().currentSelectedGameObject != null)
+                        {
+                            Debug.Log("Accesing");
+                            InputManager.ButtonA = false;
+                            ButtonEvents = butArr[selected].onClick;
+                            ButtonEvents.Invoke();
+                        }
+                        
                     }
                     else if (DownInput()) MoveDown();
                     else if (UpInput()) MoveUp();
@@ -73,6 +79,7 @@ public class ButtonsController : MonoBehaviour {
                 //Mouse Input
                 if (Physics.Raycast(ray, out hit) && GameController.instance.cursor.GetComponent<mouseCursor>().visible)
                 {
+                    mouseOnButton = true;
                     if (hit.transform.gameObject.GetComponent<Button>() != butArr[selected])
                     {
                         butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = normalColor;
@@ -86,10 +93,23 @@ public class ButtonsController : MonoBehaviour {
                             }
                         }
                     }
+                    else butArr[selected].Select();
                 }
+                else if (GameController.instance.cursor.GetComponent<mouseCursor>().visible)
+                {
+                    ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+                    mouseOnButton = false;
+                }
+                Debug.Log(mouseOnButton);
 
 
-                butArr[selected].Select();      //Prevent EventSystem override
+
+                if (ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().currentSelectedGameObject != null)
+                {
+                    Debug.Log("EMCAGOENTOTLOCO");
+                    butArr[selected].Select();      //Prevent EventSystem override
+                }
+                else butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = normalColor;
 
 
 
@@ -127,6 +147,7 @@ public class ButtonsController : MonoBehaviour {
         butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlitedColor;
         Cursor.visible = false;
         GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
+        butArr[selected].Select();
         time = 0;
     }
 
@@ -138,6 +159,7 @@ public class ButtonsController : MonoBehaviour {
         butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlitedColor;
         Cursor.visible = false;
         GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
+        butArr[selected].Select();
         time = 0;
     }
 

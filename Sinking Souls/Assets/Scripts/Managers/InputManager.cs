@@ -65,6 +65,14 @@ public class InputManager : MonoBehaviour {
         set { m_ButtonStart = value; }
     }
 
+    private static bool m_ButtonSelect;
+    public static bool ButtonSelect
+    {
+        get { return m_ButtonSelect; }
+        set { m_ButtonSelect = value; }
+    }
+
+
     private static bool m_ButtonRJ;
     public static bool ButtonRJ {
         get { return m_ButtonRJ; }
@@ -102,6 +110,8 @@ public class InputManager : MonoBehaviour {
         if (Input.GetAxis("BUTTON_RT") >= 0.5 || Input.GetKeyDown(KeyCode.F)) m_ButtonRT = true;
 
         if (Input.GetButtonDown("START") || Input.GetKeyDown(KeyCode.Escape)) m_ButtonStart = true;
+        if (Input.GetButtonDown("SELECT")) m_ButtonSelect = true;
+        if (Input.GetButtonUp("SELECT")) m_ButtonSelect = false;
 
         LeftJoystick = new Vector2(Input.GetAxis("JOYSTICK_LH"), Input.GetAxis("JOYSTICK_LV"));
         RightJoystick = new Vector2(Input.GetAxis("JOYSTICK_RH"), Input.GetAxis("JOYSTICK_RV"));

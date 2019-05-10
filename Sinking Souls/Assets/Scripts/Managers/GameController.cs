@@ -104,14 +104,14 @@ public class GameController : MonoBehaviour
 
         Cursor.visible = false;
         levelGenerator = GetComponent<LevelGenerator>();
-        
+        visitedTavern = false;
+        upgradeCounts = 0;
     }
     Coroutine waitToStop;
 
     private bool growing = false;
 
-    [HideInInspector]
-    public int upgradeCounts;
+    public int upgradeCounts = 1;
 
     private Modifier equippedModifier;
     private Ability equippedAbility;
@@ -125,7 +125,7 @@ public class GameController : MonoBehaviour
             soulsPerTick = ammount / 20;
             ticks = 20;
         }
-        StartCoroutine(AddSoulRutine(0.1f, ticks, soulsPerTick));
+        if(ticks > 0) StartCoroutine(AddSoulRutine(0.1f, ticks, soulsPerTick));
     }
     IEnumerator AddSoulRutine(float t, int count, int soulsPerTick) {
 

@@ -146,7 +146,7 @@ public class AlchemistDialogWrapper : MonoBehaviour {
         //If this button have a price, check if the player can pay it
         if(but == itemArr[1])
         {
-            if (GameObject.Find("Ailin").GetComponent<AlchemistBehaviour>().upgradeCost > GameController.instance.lobbySouls) but.gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlightedUnavailableTextColor;
+            if (GameObject.Find("Ailin").GetComponent<AlchemistBehaviour>().currentPrice > GameController.instance.lobbySouls) but.gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlightedUnavailableTextColor;
             else but.gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlightedTextColor;
         }
         else but.gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlightedTextColor;

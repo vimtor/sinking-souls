@@ -11,12 +11,19 @@ using System.Collections;
 public class AlchemistBehaviour : ShopBehaviour<Ability>
 {
     [Header("Alchemist Upgrades")]
-    public int upgradeCost = 100;
+    public int upgradeCost = 400;
     public float lifeIncrease = 1.1f;
-    public float upgradeMultiplier = 1.1f;
+    public float upgradeMultiplier = 0.1f;
 
-    public int upgradeCounts;
+    public int upgradeCounts = 0;
+    public int currentPrice;
     public GameObject dialog;
+
+    public void Awake()
+    {
+        upgradeCounts = GameController.instance.GetComponent<GameController>().upgradeCounts;
+        currentPrice = (int)(upgradeCost + (upgradeCost * upgradeMultiplier * upgradeCounts));
+    }
 
     protected override GameObject Configure(GameObject item, Ability ability)
     {
@@ -37,21 +44,24 @@ public class AlchemistBehaviour : ShopBehaviour<Ability>
         foreach( Ability a in GameController.instance.abilities) {
             if (a.owned) SetupItem(a);
         }
+        dialog.transform.GetChild(4).GetComponentInChildren<TextMeshProUGUI>().text = "  Upgrade life for " + currentPrice + " s";
         //Array.ForEach(GameController.instance.abilities, ability => SetupItem(ability));
     }
 
     public void UpgradeLife()
     {
-        if (!GameController.instance.CanBuy(upgradeCost)) return;
+        if (!GameController.instance.CanBuy(currentPrice)) return;
 
+        GameController.instance.lobbySouls -= currentPrice;
         upgradeCounts++;
-        GameController.instance.lobbySouls -= upgradeCost;
-        upgradeCost = (int)(upgradeCost * upgradeMultiplier);
+        GameController.instance.GetComponent<GameController>().upgradeCounts = upgradeCounts;
+
+        currentPrice = (int)(upgradeCost + (upgradeCost * upgradeMultiplier * upgradeCounts));
         GameController.instance.player.GetComponent<Player>().MaxHealth *= lifeIncrease;
         GameController.instance.PlayerLifeHolder = GameController.instance.player.GetComponent<Player>().MaxHealth;
         GameController.instance.maxHealth = GameController.instance.player.GetComponent<Player>().MaxHealth;
         GameController.instance.player.GetComponent<Player>().Heal();
-        dialog.transform.GetChild(4).GetComponentInChildren<TextMeshProUGUI>().text = "  Upgrade life for " + upgradeCost + " s";
+        dialog.transform.GetChild(4).GetComponentInChildren<TextMeshProUGUI>().text = "  Upgrade life for " + currentPrice + " s";
 
         SaveManager.Save();
     }

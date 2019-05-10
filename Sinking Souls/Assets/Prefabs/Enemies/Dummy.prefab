@@ -467,6 +467,8 @@ MonoBehaviour:
   m_HittedRecovery: 2
   m_Weapon: {fileID: 11400000, guid: b7cf60aea94f0194498f03320e8fa5fd, type: 2}
   m_WeaponHand: {fileID: 0}
+  leftHanded: 0
+  m_OtherHand: {fileID: 0}
   m_Abilities: []
   m_HitParticles: {fileID: 1744851154924106, guid: 83dbb4b59e1254c4bac5e18986484a49,
     type: 2}
@@ -477,9 +479,12 @@ MonoBehaviour:
   lockedEnemy: {fileID: 0}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0
-  m_Souls: 10
+  deadButWaiting: 0
+  m_Souls: 0
   deathDuration: 1
+  reviveWhenDead: 0
   abilities: []
+  downTp: 1
   allie: {fileID: 0}
   DestroyOnDeath: 0
 --- !u!195 &195474965251734676

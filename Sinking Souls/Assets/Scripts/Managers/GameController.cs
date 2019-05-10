@@ -11,7 +11,8 @@ using TMPro;
 
 public class GameController : MonoBehaviour
 {
-
+    public GameObject ControlsMenu;
+    private GameObject InstantiatedControlsMenu;
     public GameObject cursorPrefab;
     [HideInInspector] public GameObject cursor;
     [Header("Enemies")]
@@ -187,6 +188,8 @@ public class GameController : MonoBehaviour
                 Time.timeScale = 1;
                 cursor = Instantiate(cursorPrefab, GameObject.Find("Canvas").transform, false);
                 cursor.GetComponent<mouseCursor>().InstaHide();
+                InstantiatedControlsMenu = Instantiate(ControlsMenu, GameObject.Find("Canvas").transform, false);
+                
 
             break;
 
@@ -234,7 +237,9 @@ public class GameController : MonoBehaviour
                 GameController.instance.player.GetComponent<Player>().Resume();
                 cursor = Instantiate(cursorPrefab, GameObject.Find("Canvas").transform, false);
                 cursor.GetComponent<mouseCursor>().InstaHide();
-                break;
+            InstantiatedControlsMenu = Instantiate(ControlsMenu, GameObject.Find("Canvas").transform, false);
+
+            break;
 
             case ApplicationManager.GameState.TUTORIAL:
                 inTavern = false;
@@ -249,7 +254,9 @@ public class GameController : MonoBehaviour
                 Time.timeScale = 1;
                 cursor = Instantiate(cursorPrefab, GameObject.Find("Canvas").transform, false);
                 cursor.GetComponent<mouseCursor>().InstaHide();
-                break;
+            InstantiatedControlsMenu = Instantiate(ControlsMenu, GameObject.Find("Canvas").transform, false);
+
+            break;
 
             case ApplicationManager.GameState.LOBBY:
                 extraLife = 0;
@@ -325,7 +332,9 @@ public class GameController : MonoBehaviour
                 SaveManager.Save();
                 cursor = Instantiate(cursorPrefab, GameObject.Find("Canvas").transform, false);
                 cursor.GetComponent<mouseCursor>().InstaHide();
-                break;
+            InstantiatedControlsMenu = Instantiate(ControlsMenu, GameObject.Find("Canvas").transform, false);
+
+            break;
 
             case ApplicationManager.GameState.ARENA:
                 currentRoom = GameObject.Find("Arena");

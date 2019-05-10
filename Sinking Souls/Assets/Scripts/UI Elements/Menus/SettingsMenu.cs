@@ -48,7 +48,7 @@ public class SettingsMenu : MonoBehaviour
     {
 
         AudioSetingText = transform.GetChild(1).GetComponentInChildren<TextMeshProUGUI>();
-
+        ESys = GameObject.Find("EventSystem");
         selectorArr = new GameObject[] { m_FullscreenToggle.gameObject, m_ResolutionsDropdown.gameObject, m_GraphicsDropdown.gameObject, m_MasterSlider.gameObject, m_EffectsSlider.gameObject, m_MusicSlider.gameObject, button };
 
         foreach(GameObject go in selectorArr)
@@ -146,10 +146,18 @@ public class SettingsMenu : MonoBehaviour
                             }
                         }
                     }
+                    else Enable(selectorArr[selected]);
+                }
+                else if (GameController.instance.cursor.GetComponent<mouseCursor>().visible)
+                {
+                    ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
                 }
 
-
-                Enable(selectorArr[selected]);
+                if (ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().currentSelectedGameObject != null)
+                {
+                    Enable(selectorArr[selected]);      //Prevent EventSystem override
+                }
+                else Disable(selectorArr[selected]);
 
                 //Alternative controls (don't use gamepad and mouse to prevent override)
                 if (Input.GetKeyDown(KeyCode.Return))
@@ -186,8 +194,6 @@ public class SettingsMenu : MonoBehaviour
         Enable(selectorArr[selected]);
         InputManager.ButtonA = false;
         InputManager.ButtonB = false;
-
-        Debug.Log("Exito");
     }
 
     void Enable(GameObject go)
@@ -237,6 +243,7 @@ public class SettingsMenu : MonoBehaviour
         }
         else if (go.GetComponent<Slider>())
         {
+            go.GetComponent<BoxCollider>().enabled = true;
             go.transform.parent.parent.GetChild(go.transform.parent.GetSiblingIndex() - 1).GetComponent<TextMeshProUGUI>().color = normalColor;
         }
 
@@ -262,6 +269,7 @@ public class SettingsMenu : MonoBehaviour
         else if (go.GetComponent<Slider>())
         {
             go.GetComponent<SliderBehaviour>().hided = true;
+            go.GetComponent<BoxCollider>().enabled = false;
             go.transform.parent.parent.GetChild(go.transform.parent.GetSiblingIndex() - 1).GetComponent<TextMeshProUGUI>().color = hidedColor;
         }
 
@@ -308,7 +316,7 @@ public class SettingsMenu : MonoBehaviour
         Cursor.visible = false;
         GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
         time = 0;
-
+        Enable(selectorArr[selected]);
     }
 
     void MoveUp()
@@ -320,7 +328,7 @@ public class SettingsMenu : MonoBehaviour
         Cursor.visible = false;
         GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
         time = 0;
-
+        Enable(selectorArr[selected]);
     }
 
 

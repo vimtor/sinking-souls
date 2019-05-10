@@ -93,7 +93,11 @@ public class ButtonsController : MonoBehaviour {
                             }
                         }
                     }
-                    else butArr[selected].Select();
+                    else
+                    {
+                        butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlitedColor;
+                        butArr[selected].Select();
+                    }
                 }
                 else if (GameController.instance.cursor.GetComponent<mouseCursor>().visible)
                 {
@@ -106,7 +110,6 @@ public class ButtonsController : MonoBehaviour {
 
                 if (ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().currentSelectedGameObject != null)
                 {
-                    Debug.Log("EMCAGOENTOTLOCO");
                     butArr[selected].Select();      //Prevent EventSystem override
                 }
                 else butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = normalColor;

@@ -31,16 +31,14 @@ public class DropdownBehaviour : MonoBehaviour
         dropdown = gameObject.GetComponent<TMP_Dropdown>();
         selected = 0;
         lastSelected = 0;
-        
+        ESys = GameObject.Find("EventSystem");
     }
 
     private void Update()
     {
-
         //Open dropdown
         if (dropdown.IsExpanded)
         {
-
             //Empty List
             if (toggleArr == null || toggleArr.Length == 0)
             {
@@ -61,30 +59,26 @@ public class DropdownBehaviour : MonoBehaviour
                     }
                 }
                 time = 0;
-                Debug.Log(scroll.value);
             }
             //Filled list 
             else
             {
-                Debug.Log(scroll.value);
                 //Key Inputs
                 if (time >= delay)
                 {
-                    Debug.Log("Te pille");
                     if (DownInput()) MoveDown();
                     else if (UpInput()) MoveUp();
                 }
-                else SetScroll(selected);
-                //Mouse Inputs
+                scroll.size = 0.2f;
+               //Mouse Inputs
                 ray.origin = new Vector3(Input.mousePosition.x, Input.mousePosition.y, -100);
                 ray.direction = new Vector3(0, 0, 1);
 
                 if (Input.mouseScrollDelta.y < 0) ScrollDown();
                 else if (Input.mouseScrollDelta.y > 0) ScrollUp();
 
-                if (Physics.Raycast(ray, out hit) && GameController.instance.cursor.GetComponent<mouseCursor>().visible && InputManager.Mouse.magnitude != 0)
+                if (Physics.Raycast(ray, out hit) && GameController.instance.cursor.GetComponent<mouseCursor>().visible)
                 {
-                    //Debug.Log(hit.transform.gameObject.name);
                     if (hit.transform.gameObject != toggleArr[selected].gameObject)
                     {
                         toggleArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = normalColor;
@@ -97,11 +91,27 @@ public class DropdownBehaviour : MonoBehaviour
                             }
                         }
                     }
+                    else
+                    {
+                        toggleArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlightedColor;
+                        toggleArr[selected].Select();
+                    }
+                    
                 }
-                //else if (Cursor.visible) ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+                else if (GameController.instance.cursor.GetComponent<mouseCursor>().visible)
+                {
 
-                toggleArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlightedColor;
-                toggleArr[selected].Select();
+                    ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+                }
+
+                if (ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().currentSelectedGameObject != null)
+                {
+                    toggleArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlightedColor;
+                    toggleArr[selected].Select();      //Prevent EventSystem override
+                    Debug.Log("Select");
+                }
+                else toggleArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = normalColor;
+
                 scroll.size = 0.2f;
                 //SetScroll(selected);
 
@@ -133,9 +143,6 @@ public class DropdownBehaviour : MonoBehaviour
             toggleArr = null;
             //label.text = toggleArr[lastSelected].gameObject.GetComponentInChildren<TextMeshProUGUI>().text;
         }
-
-        
-
         
     }
 
@@ -183,8 +190,9 @@ public class DropdownBehaviour : MonoBehaviour
         if (selected + 1 < dropdown.options.Count) selected++; // % dropdown.options.Count;
         SetScroll(selected);
         toggleArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlightedColor;
+        toggleArr[selected].Select();
         Cursor.visible = false;
-        GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
+        GameController.instance.cursor.GetComponent<mouseCursor>().Hide();     
         time = 0;
     }
 
@@ -195,6 +203,7 @@ public class DropdownBehaviour : MonoBehaviour
         //else selected = dropdown.options.Count - 1;
         SetScroll(selected);
         toggleArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlightedColor;
+        toggleArr[selected].Select();
         Cursor.visible = false;
         GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
         time = 0;

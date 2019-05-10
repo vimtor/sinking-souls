@@ -342,6 +342,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1461554115664786
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4257290828046836}
+  m_Layer: 11
+  m_Name: SelectedPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1500979219273518
 GameObject:
   m_ObjectHideFlags: 1
@@ -834,6 +849,19 @@ Transform:
   m_Father: {fileID: 4342408374091304}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4257290828046836
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1461554115664786}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.96, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4585892433092408}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4269246823633790
 Transform:
   m_ObjectHideFlags: 1
@@ -1080,12 +1108,13 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1722973802365516}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.00000035762784}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 31.961807, y: 2.908046, z: 40.57338}
   m_LocalScale: {x: 1.545, y: 1.545, z: 1.545}
   m_Children:
   - {fileID: 4269246823633790}
   - {fileID: 4182534773025890}
   - {fileID: 4476358405389190}
+  - {fileID: 4257290828046836}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 179.99998, z: 0}
@@ -1369,8 +1398,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eecd7ff4b5aca041b30e1fe1e2bcf66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Health: 1
-  m_MaxHealth: 1
+  m_Health: 230
+  m_MaxHealth: 230
   m_HittedRecovery: 2
   m_Weapon: {fileID: 11400000, guid: bc3662e2fbc958a48a1d9a85f4fa4db7, type: 2}
   m_WeaponHand: {fileID: 1014381115463040}

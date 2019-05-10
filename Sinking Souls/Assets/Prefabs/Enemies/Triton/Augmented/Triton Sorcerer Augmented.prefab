@@ -663,6 +663,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1996496797018008
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4823473191114708}
+  m_Layer: 0
+  m_Name: SelectedPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4014815023286926
 Transform:
   m_ObjectHideFlags: 1
@@ -808,11 +823,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1810732365431208}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.92195225, y: 8.983892, z: -9.918559}
+  m_LocalPosition: {x: 28.624035, y: 4.283881, z: 39.09836}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children:
   - {fileID: 4425664726101272}
   - {fileID: 4916216791794508}
+  - {fileID: 4823473191114708}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1109,6 +1125,19 @@ Transform:
   m_Father: {fileID: 4870202391078116}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4823473191114708
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1996496797018008}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.00000058114523}
+  m_LocalPosition: {x: 0, y: 2.365, z: 0}
+  m_LocalScale: {x: 0.83333325, y: 0.83333325, z: 0.83333325}
+  m_Children: []
+  m_Father: {fileID: 4228486046288868}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4870202391078116
 Transform:
   m_ObjectHideFlags: 1
@@ -1342,6 +1371,8 @@ MonoBehaviour:
   m_HittedRecovery: 2
   m_Weapon: {fileID: 11400000, guid: f8967da6af7eecb46a701f24718c6b7c, type: 2}
   m_WeaponHand: {fileID: 1766676501968370}
+  leftHanded: 0
+  m_OtherHand: {fileID: 0}
   m_Abilities:
   - {fileID: 11400000, guid: 075e944274d344d42874d606c7a7b65b, type: 2}
   - {fileID: 11400000, guid: 910557678ec1ab442912e87fbe90e0cf, type: 2}
@@ -1354,10 +1385,14 @@ MonoBehaviour:
   lockedEnemy: {fileID: 0}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0
+  deadButWaiting: 0
   m_Souls: 10
   deathDuration: 3
+  reviveWhenDead: 0
   abilities: []
+  downTp: 1
   allie: {fileID: 0}
+  DestroyOnDeath: 1
 --- !u!136 &136025378297339896
 CapsuleCollider:
   m_ObjectHideFlags: 1

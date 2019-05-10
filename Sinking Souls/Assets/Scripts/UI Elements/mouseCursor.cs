@@ -22,7 +22,7 @@ public class mouseCursor : MonoBehaviour {
 	}
 
 	void Update () {
-
+        if(image == null) image = GetComponent<Image>();
         if (Input.GetKeyDown(KeyCode.Y)) visible = !visible;
         if (visible)
         {
@@ -66,11 +66,13 @@ public class mouseCursor : MonoBehaviour {
 
     public void InstaHide()
     {
+        if (image == null) image = GetComponent<Image>();
         visible = false;
         image.color = new Vector4(image.color.r, image.color.g, image.color.b, 0);
     }
     public void InstaShow()
     {
+        if (image == null) image = GetComponent<Image>();
         visible = true;
         image.color = new Vector4(image.color.r, image.color.g, image.color.b, 1);
     }

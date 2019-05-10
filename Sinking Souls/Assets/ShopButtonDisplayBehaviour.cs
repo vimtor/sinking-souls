@@ -47,12 +47,12 @@ public class ShopButtonDisplayBehaviour : MonoBehaviour {
             if (Vector3.Distance(GameController.instance.player.transform.position, transform.position) < 4)
             {
                 image.color = new Vector4(image.color.r, image.color.g, image.color.b, image.color.a - apearingSpeed * Time.deltaTime);
-                if (image.color.a <= 0) new Vector4(image.color.r, image.color.g, image.color.b, 0);
+                if (image.color.a <= 0) image.color = new Vector4(image.color.r, image.color.g, image.color.b, 0);
             }
             else
             {
                 image.color = new Vector4(image.color.r, image.color.g, image.color.b, image.color.a + apearingSpeed * Time.deltaTime);
-
+                if (image.color.a >= 1) image.color = new Vector4(text.color.r, text.color.g, text.color.b, 1);
             }
         }
         else

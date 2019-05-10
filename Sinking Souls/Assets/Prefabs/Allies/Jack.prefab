@@ -313,6 +313,7 @@ GameObject:
   - component: {fileID: 54685272980931752}
   - component: {fileID: 114357467405385464}
   - component: {fileID: 114024374739647434}
+  - component: {fileID: 114854102934594794}
   m_Layer: 9
   m_Name: Jack
   m_TagString: Player
@@ -1811,6 +1812,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26926e58c0746543b95b79875286f0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114854102934594794
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1374338400793274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 800a1a15e0fa02743b95f809a43262b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InAnim: {fileID: 1189462479748152, guid: 41933649d2401704fbe03b13c0aa6278, type: 2}
+  OutAnim: {fileID: 1252157849784848, guid: 905e6e4f7d5ac004c87c9048c7426bd4, type: 2}
 --- !u!136 &136388384125499226
 CapsuleCollider:
   m_ObjectHideFlags: 1

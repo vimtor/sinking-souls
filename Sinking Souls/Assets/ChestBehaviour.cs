@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class ChestBehaviour : MonoBehaviour {
 
@@ -9,11 +11,18 @@ public class ChestBehaviour : MonoBehaviour {
     private GameObject instantiatedButton;
     public AnimationClip Open;
     private bool isOpened = false;
+    public GameObject ChestContentUI;
+    private GameObject UIHandler;
+    public int SoulsRecived = 50;
+    public bool show = false;
+    private float apearingSpeed = 10;
+    public float messageDuration = 6;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         canvas = transform.Find("ChestCanvas").gameObject;
         isOpened = false;
+        ChestContentUI = GameController.instance.GetComponent<GameController>().ChestContentUI;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -36,7 +45,35 @@ public class ChestBehaviour : MonoBehaviour {
             }
         }
     }
-    
+
+    public void Update()
+    {
+        if (!show)
+        {
+            Debug.Log("FADE OUTTTTTTTTTTTTTTTTTTTT");
+            UIHandler.GetComponent<Image>().color = new Vector4(UIHandler.GetComponent<Image>().color.r, UIHandler.GetComponent<Image>().color.g, UIHandler.GetComponent<Image>().color.b, UIHandler.GetComponent<Image>().color.a - apearingSpeed * Time.deltaTime);
+            UIHandler.GetComponentInChildren<TextMeshProUGUI>().color = new Vector4(UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.r, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.g, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.b, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.a - apearingSpeed * Time.deltaTime);
+            if (UIHandler.GetComponent<Image>().color.a <= 0)
+            {
+                UIHandler.GetComponent<Image>().color = new Vector4(UIHandler.GetComponent<Image>().color.r, UIHandler.GetComponent<Image>().color.g, UIHandler.GetComponent<Image>().color.b, 0);
+                UIHandler.GetComponentInChildren<TextMeshPro>().color = new Vector4(UIHandler.GetComponentInChildren<TextMeshPro>().color.r, UIHandler.GetComponentInChildren<TextMeshPro>().color.g, UIHandler.GetComponentInChildren<TextMeshPro>().color.b, 0);
+            }
+        }
+        else
+        {
+            Debug.Log("FADE IN");
+            UIHandler.GetComponent<Image>().color = new Vector4(UIHandler.GetComponent<Image>().color.r, UIHandler.GetComponent<Image>().color.g, UIHandler.GetComponent<Image>().color.b, UIHandler.GetComponent<Image>().color.a + apearingSpeed * Time.deltaTime);
+            UIHandler.GetComponentInChildren<TextMeshProUGUI>().color = new Vector4(UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.r, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.g, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.b, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.a + apearingSpeed * Time.deltaTime);
+
+            if (UIHandler.GetComponent<Image>().color.a >= 1)
+            {
+                UIHandler.GetComponent<Image>().color = new Vector4(UIHandler.GetComponent<Image>().color.r, UIHandler.GetComponent<Image>().color.g, UIHandler.GetComponent<Image>().color.b, 1);
+                UIHandler.GetComponentInChildren<TextMeshProUGUI>().color = new Vector4(UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.r, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.g, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.b, 1);
+            }
+
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if(other.tag == "Player")if(instantiatedButton != null) instantiatedButton.GetComponent<popUpEffect>().destroy();
@@ -44,11 +81,15 @@ public class ChestBehaviour : MonoBehaviour {
     
     public void GiveContent() {
         int rand = Random.Range(0, 2);
+        UIHandler = Instantiate(ChestContentUI, GameObject.Find("Canvas").transform, false);
+        ShowChest();
+        StartCoroutine(HideChest(messageDuration));
 
         if (rand == 0) {// give a modifier
             foreach (Modifier mod in GameController.instance.modifiers) {
                 if (!mod.owned) {
-                    Debug.Log("You Got: " + mod.name);
+                    UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "<color=#ffa500ff><size=40>" + mod.name + "</size></color> unlocked";
+                    //Debug.Log("You Got: " + mod.name);
                     mod.owned = true;
                     return;
                 }
@@ -57,8 +98,8 @@ public class ChestBehaviour : MonoBehaviour {
         //give a ability
         foreach (Ability ab in GameController.instance.abilities) {
             if (!ab.owned) {
-                Debug.Log("You Got: " + ab.name);
-
+                //Debug.Log("You Got: " + ab.name);
+                UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "<color=#ffa500ff><size=40>" + ab.name + "</size></color> unlocked";
                 ab.owned = true;
                 return;
             }
@@ -66,18 +107,30 @@ public class ChestBehaviour : MonoBehaviour {
         if(rand == 1) {
             foreach (Modifier mod in GameController.instance.modifiers) {
                 if (!mod.owned) {
-                    Debug.Log("You Got: " + mod.name);
-
+                    UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "<color=#ffa500ff><size=40>" + mod.name + "</size></color> unlocked";
                     mod.owned = true;
                     return;
                 }
             }
         }
         //if all unlocked give 50 souls
-        Debug.Log("You Got: 50 souls");
+        UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "<color=#008000ff><size=40>" + SoulsRecived + "</size></color> souls added";
 
-        GameController.instance.AddSouls(50);
-        
+        GameController.instance.AddSouls(SoulsRecived);
+    }
+
+    public void ShowChest()
+    {
+        show = true;
+    }
+
+    IEnumerator HideChest(float messageDuration)
+    {
+        yield return new WaitForSecondsRealtime(messageDuration);
+
+        show = false;
+        Destroy(UIHandler, 3f);
+
     }
 
 }

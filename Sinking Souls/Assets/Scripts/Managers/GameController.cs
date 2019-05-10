@@ -72,6 +72,7 @@ public class GameController : MonoBehaviour
     public int maximumPerLevel;
     public int activeChests = 0;
     public int soulsUISize;
+    public GameObject ChestContentUI;
 
     private LevelGenerator levelGenerator;
 

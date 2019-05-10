@@ -71,9 +71,8 @@ public class PauseMenuController : MonoBehaviour {
             else if (InputManager.ButtonA) InputManager.ButtonA = false;
 
             //Mouse Input
-                if (Physics.Raycast(ray, out hit) && GameController.instance.cursor.GetComponent<mouseCursor>().visible)
+            if (Physics.Raycast(ray, out hit) && GameController.instance.cursor.GetComponent<mouseCursor>().visible)
             {
-                Debug.Log(hit.transform.gameObject.name);
                 if (hit.transform.gameObject.GetComponent<Button>() != butArr[selected])
                 {
                     butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = normalColor;
@@ -87,7 +86,23 @@ public class PauseMenuController : MonoBehaviour {
                         }
                     }
                 }
+                else
+                {
+                    butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlitedColor;
+                    butArr[selected].Select();
+                }
             }
+            else if (GameController.instance.cursor.GetComponent<mouseCursor>().visible)
+            {
+                ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+            }
+
+            if (ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().currentSelectedGameObject != null)
+            {
+                butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlitedColor;
+                butArr[selected].Select();     //Prevent EventSystem override
+            }
+            else butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = normalColor;
 
             if (reset)
             {
@@ -98,8 +113,6 @@ public class PauseMenuController : MonoBehaviour {
                 reset = false;
                 time = 0;
             }
-            butArr[selected].Select();      //Prevent EventSystem override
-
 
 
             time += Time.unscaledDeltaTime;
@@ -130,6 +143,7 @@ public class PauseMenuController : MonoBehaviour {
         butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = normalColor;
         selected = (selected + 1) % butArr.Length;
         butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlitedColor;
+        butArr[selected].Select();
         Cursor.visible = false;
         GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
         time = 0;
@@ -141,6 +155,7 @@ public class PauseMenuController : MonoBehaviour {
         if (selected - 1 >= 0) selected--;
         else selected = butArr.Length - 1;
         butArr[selected].gameObject.GetComponentInChildren<TextMeshProUGUI>().color = highlitedColor;
+        butArr[selected].Select();
         Cursor.visible = false;
         GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
         time = 0;

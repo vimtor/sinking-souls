@@ -92,7 +92,6 @@ public class ShopMenuController : MonoBehaviour
                 {
                     Cursor.visible = false;
                     GameController.instance.cursor.GetComponent<mouseCursor>().InstaHide();
-
                 }
             }
             else if (InputManager.ButtonA) InputManager.ButtonA = false;
@@ -114,7 +113,27 @@ public class ShopMenuController : MonoBehaviour
                         }
                     }
                 }
+                else
+                {
+                    itemArr[selected].Select();
+                }
             }
+            else if (GameController.instance.cursor.GetComponent<mouseCursor>().visible)
+            {
+                ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
+            }
+
+            if (ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().currentSelectedGameObject != null)
+            {
+                //Highlight(itemArr[selected]);
+                itemArr[selected].Select();     //Prevent EventSystem override
+            }
+            else
+            {
+                Normalize(itemArr[selected]);
+            }
+
+
 
             if (reset)
             {
@@ -125,9 +144,6 @@ public class ShopMenuController : MonoBehaviour
                 reset = false;
                 time = 0;
             }
-            itemArr[selected].Select();      //Prevent EventSystem override
-
-
 
             time += Time.unscaledDeltaTime;
         }            
@@ -192,6 +208,7 @@ public class ShopMenuController : MonoBehaviour
         Normalize(itemArr[selected]);
         selected = (selected + 1) % itemArr.Length;
         Highlight(itemArr[selected]);
+        itemArr[selected].Select();
         Cursor.visible = false;
         GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
         time = 0;
@@ -203,6 +220,7 @@ public class ShopMenuController : MonoBehaviour
         if (selected - 1 >= 0) selected--;
         else selected = itemArr.Length - 1;
         Highlight(itemArr[selected]);
+        itemArr[selected].Select();
         Cursor.visible = false;
         GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
 

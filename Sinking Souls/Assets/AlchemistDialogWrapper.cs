@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class AlchemistDialogWrapper : MonoBehaviour {
 
@@ -60,6 +61,7 @@ public class AlchemistDialogWrapper : MonoBehaviour {
             //Shop is open
             else
             {
+                UpdateMouse();
                 ray.origin = new Vector3(Input.mousePosition.x, Input.mousePosition.y, -100);
                 ray.direction = new Vector3(0, 0, 1);
 
@@ -103,9 +105,27 @@ public class AlchemistDialogWrapper : MonoBehaviour {
                             }
                         }
                     }
+                    else
+                    {
+                        Highlight(itemArr[selected]);
+                    }
+                }
+                else if (GameController.instance.cursor.GetComponent<mouseCursor>().visible)
+                {
+                    ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
                 }
 
-                if (reset)
+                if (ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().currentSelectedGameObject != null)
+                {
+                    //Highlight(itemArr[selected]);
+                    Highlight(itemArr[selected]);     //Prevent EventSystem override
+                }
+                else
+                {
+                    Normalize(itemArr[selected]);
+                }
+
+            if (reset)
                 {
                     Normalize(itemArr[selected]);
                     selected = 0;
@@ -113,7 +133,6 @@ public class AlchemistDialogWrapper : MonoBehaviour {
                     reset = false;
                     time = 0;
                 }
-                Highlight(itemArr[selected]);      //Prevent EventSystem override
 
                 time += Time.unscaledDeltaTime;
             }
@@ -178,6 +197,32 @@ public class AlchemistDialogWrapper : MonoBehaviour {
         Cursor.visible = false;
         GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
         time = 0;
+    }
+
+    private bool hiding;
+    public void UpdateMouse()
+    {
+        if (Math.Abs(InputManager.Mouse.magnitude) > 0.0f)
+        {
+            hiding = false;
+            //Cursor.visible = true;
+            GameController.instance.cursor.GetComponent<mouseCursor>().Show();
+        }
+        else if (!hiding && hit.collider == null)
+        {
+            hiding = true;
+            StartCoroutine(HideMouse(3.0f));
+        }
+    }
+
+    private IEnumerator HideMouse(float time)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        if (hiding)
+        {
+            Cursor.visible = false;
+            GameController.instance.cursor.GetComponent<mouseCursor>().Hide();
+        }
     }
 
 }

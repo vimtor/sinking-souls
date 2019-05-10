@@ -390,6 +390,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1577489227226236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4703962594892314}
+  m_Layer: 0
+  m_Name: SelectedPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1602877740862086
 GameObject:
   m_ObjectHideFlags: 1
@@ -732,13 +747,14 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1818422814107234}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.874514, y: -0.00026377678, z: -4.4963245}
+  m_LocalPosition: {x: 29.90797, y: 2.8039005, z: 39.185272}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4790894859124366}
   - {fileID: 4982520016805172}
   - {fileID: 4672994621210892}
   - {fileID: 4131497458508888}
+  - {fileID: 4703962594892314}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1146,6 +1162,19 @@ Transform:
   m_Father: {fileID: 4127009317889830}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4703962594892314
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1577489227226236}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.00000058114523}
+  m_LocalPosition: {x: 0, y: 2.36, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4078688041711498}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4723009334750770
 Transform:
   m_ObjectHideFlags: 1
@@ -1401,6 +1430,8 @@ MonoBehaviour:
   m_HittedRecovery: 2
   m_Weapon: {fileID: 11400000, guid: b7cf60aea94f0194498f03320e8fa5fd, type: 2}
   m_WeaponHand: {fileID: 1944369658064376}
+  leftHanded: 0
+  m_OtherHand: {fileID: 0}
   m_Abilities: []
   m_HitParticles: {fileID: 1744851154924106, guid: 83dbb4b59e1254c4bac5e18986484a49,
     type: 2}
@@ -1411,10 +1442,14 @@ MonoBehaviour:
   lockedEnemy: {fileID: 0}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0
+  deadButWaiting: 0
   m_Souls: 9
   deathDuration: 3
+  reviveWhenDead: 0
   abilities: []
+  downTp: 1
   allie: {fileID: 0}
+  DestroyOnDeath: 1
 --- !u!114 &114485416827979652
 MonoBehaviour:
   m_ObjectHideFlags: 1

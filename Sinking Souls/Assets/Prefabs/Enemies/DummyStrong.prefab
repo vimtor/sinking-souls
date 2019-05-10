@@ -62,6 +62,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1777812334710862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4027278574318852}
+  m_Layer: 0
+  m_Name: SelectedPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1902743939390076
 GameObject:
   m_ObjectHideFlags: 1
@@ -118,6 +133,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4027278574318852
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1777812334710862}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.00000058114523}
+  m_LocalPosition: {x: 0, y: 0.0489, z: 0}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
+  m_Children: []
+  m_Father: {fileID: 4702601669094458}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4388155611550338
 Transform:
   m_ObjectHideFlags: 1
@@ -177,10 +205,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1934652393617584}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.240045, y: 0, z: -7.6730413}
+  m_LocalPosition: {x: 30.944103, y: 6.1715765, z: 37.363007}
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_Children:
   - {fileID: 4740377296732796}
+  - {fileID: 4027278574318852}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -499,19 +528,26 @@ MonoBehaviour:
   m_HittedRecovery: 2
   m_Weapon: {fileID: 11400000, guid: b7cf60aea94f0194498f03320e8fa5fd, type: 2}
   m_WeaponHand: {fileID: 0}
+  leftHanded: 0
+  m_OtherHand: {fileID: 0}
   m_Abilities: []
   m_HitParticles: {fileID: 1744851154924106, guid: 83dbb4b59e1254c4bac5e18986484a49,
     type: 2}
   m_HealParticles: {fileID: 1565164962391104, guid: 78ac0be5f22ba4840ab23af6fd80e2e1,
     type: 2}
+  m_Animator: {fileID: 0}
   dead: 0
   lockedEnemy: {fileID: 0}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0
+  deadButWaiting: 0
   m_Souls: 10
   deathDuration: 0
+  reviveWhenDead: 0
   abilities: []
+  downTp: 1
   allie: {fileID: 0}
+  DestroyOnDeath: 1
 --- !u!195 &195474965251734676
 NavMeshAgent:
   m_ObjectHideFlags: 1

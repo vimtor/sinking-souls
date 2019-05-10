@@ -13,6 +13,7 @@ public abstract class Challenge : MonoBehaviour {
     public bool done;
     public bool updateAlways;
     ChallengeState state;
+    public string challengeName;
 
     public ChallengeState newState(bool onGoing, bool winned = false) {
         ChallengeState state;
@@ -33,6 +34,10 @@ public abstract class Challenge : MonoBehaviour {
         state.onGoing = true;
     }
 	
+    void ShowCHallengeUI() {
+        GameController.instance.player.GetComponent<ShowChallengeUI>().Show(challengeName);
+    }
+
 	// Update is called once per frame
 	void Update () {
 
@@ -44,6 +49,7 @@ public abstract class Challenge : MonoBehaviour {
                 if (EnemiesAlive())
                 {                                                                           
                     Initialize();
+                    ShowCHallengeUI();
                     started = true;
                 }
             }

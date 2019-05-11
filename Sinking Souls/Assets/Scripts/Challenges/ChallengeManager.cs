@@ -27,7 +27,8 @@ public class ChallengeManager : MonoBehaviour {
         do {
             int i = Random.Range(0, possibleChallenges.Length);
             Challenges pc = possibleChallenges[i];
-            if (Random.Range(0, 100f) < chance[i]) possibleChallenge = pc;
+            float val = Random.Range(0, 100f);
+            if (val < chance[i]) possibleChallenge = pc;
             
         } while (possibleChallenge == Challenges.DontUseThisOne);
        
@@ -51,6 +52,9 @@ public class ChallengeManager : MonoBehaviour {
                 GetComponent<TimeChallenge>().colorGradient = colorGradient;
                 GetComponent<TimeChallenge>().challengeName = "Kill them fast!";
                 break;
+            case Challenges.None:
+            Debug.Log("NONE ON: " + gameObject.name);
+            break;
 
         }
         Destroy(this);

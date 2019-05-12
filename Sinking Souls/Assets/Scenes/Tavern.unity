@@ -1098,6 +1098,11 @@ Prefab:
       propertyPath: visitedTavern
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114337623052856484, guid: 258b637205f84f34c91c424fca3067e4,
+        type: 2}
+      propertyPath: lobbySouls
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 258b637205f84f34c91c424fca3067e4, type: 2}
   m_IsPrefabAsset: 0
@@ -6875,8 +6880,8 @@ MonoBehaviour:
   shopPanel: {fileID: 841471335}
   shopTitle: {fileID: 1307197458}
   shopItem: {fileID: 1286629185221048, guid: 6f3cbd245529c7444809643638b9f56c, type: 2}
-  cantPayTextColor: {r: 0, g: 0, b: 0, a: 0}
-  normalTextColor: {r: 0, g: 0, b: 0, a: 0}
+  cantPayTextColor: {r: 1, g: 0, b: 0, a: 1}
+  normalTextColor: {r: 1, g: 1, b: 1, a: 1}
   price: {fileID: 1307197456}
   remainingSouls: {fileID: 1307197454}
   interactRange: 5

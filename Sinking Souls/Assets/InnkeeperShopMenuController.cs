@@ -79,12 +79,16 @@ public class InnkeeperShopMenuController : MonoBehaviour {
             //Key Input
             if (time >= delay)
             {
-                if (InputManager.ButtonA || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.E) || (Physics.Raycast(ray, out hit) && GameController.instance.cursor.GetComponent<mouseCursor>().visible && Input.GetMouseButtonDown(0)))
+                if (InputManager.ButtonA || Input.GetKeyDown(KeyCode.Return) || (Physics.Raycast(ray, out hit) && GameController.instance.cursor.GetComponent<mouseCursor>().visible && Input.GetMouseButtonDown(0)))
                 {
                     InputManager.ButtonA = false;
-                    ButtonEvents = itemArr[selected].onClick;
-                    ButtonEvents.Invoke();
-                    Refresh();
+                    time = 0;
+                    if(ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().currentSelectedGameObject != null)
+                    {
+                        ButtonEvents = itemArr[selected].onClick;
+                        if(Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)) ButtonEvents.Invoke();
+                        Refresh();
+                    }                 
                 }
                 else if (DownInput()) MoveDown();
                 else if (UpInput()) MoveUp();
@@ -99,7 +103,6 @@ public class InnkeeperShopMenuController : MonoBehaviour {
             //Mouse Input
             if (Physics.Raycast(ray, out hit) && GameController.instance.cursor.GetComponent<mouseCursor>().visible)
             {
-                Debug.Log(hit.transform.gameObject.name);
                 if (hit.transform.gameObject.GetComponent<Button>() != itemArr[selected])
                 {
                     Normalize(itemArr[selected]);
@@ -118,8 +121,9 @@ public class InnkeeperShopMenuController : MonoBehaviour {
                     itemArr[selected].Select();
                 }
             }
-            else if (GameController.instance.cursor.GetComponent<mouseCursor>().visible)
+            else if (GameController.instance.cursor.GetComponent<mouseCursor>().visible && ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().currentSelectedGameObject != null)
             {
+                Normalize(itemArr[selected]);
                 ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
             }
 
@@ -130,7 +134,7 @@ public class InnkeeperShopMenuController : MonoBehaviour {
             }
             else
             {
-                Normalize(itemArr[selected]);
+                //Normalize(itemArr[selected]);
             }
 
 
@@ -163,15 +167,29 @@ public class InnkeeperShopMenuController : MonoBehaviour {
 
     void Highlight(Button item)
     {
-        //Is this item available?
-        if (item.gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color == normalTextColor) SetItemColor(item, highlightedTextColor, highlightedImageColor);
-        else SetItemColor(item, highlightedUnavailableTextColor, highlightedUnavailableImageColor);
+        Debug.Log("HIGHLIGHT____________");
+
+        int price = 0;
+        int.TryParse(item.gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text, out price);
+
+        //Actuallice item properties
+        if (GameController.instance.lobbySouls >= price) SetItemColor(item, highlightedTextColor, highlightedImageColor);   //Can buy
+        else SetItemColor(item, highlightedUnavailableTextColor, highlightedUnavailableImageColor);                         //Can not buy
+
     }
 
     void Normalize(Button item)
     {
-        if (item.gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color == highlightedTextColor) SetItemColor(item, normalTextColor, normalImageColor);
-        else SetItemColor(item, normalUnavailableTextColor, normalUnavailableImageColor);
+
+        Debug.Log("NORMALIZE---------------");
+        //Detect if the player can buy the item or it is too expensive
+        int price = 0;
+        int.TryParse(item.gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text, out price);
+
+        //Actuallice item properties
+        if (GameController.instance.lobbySouls >= price) SetItemColor(item, normalTextColor, normalImageColor);   //Can buy
+        else SetItemColor(item, normalUnavailableTextColor, normalUnavailableImageColor);                        //Can not buy
+
     }
 
     void Refresh()

@@ -9,9 +9,8 @@ public abstract class ShopItem : MonoBehaviour
     public void Buy()
     {
         if (!GameController.instance.CanBuy(price)) return;
-
-        BuyItem();
         GameController.instance.lobbySouls -= price;
+        BuyItem();
     }
 
     protected abstract void BuyItem();

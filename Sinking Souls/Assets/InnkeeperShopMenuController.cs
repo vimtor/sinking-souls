@@ -5,8 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
 
-public class ShopMenuController : MonoBehaviour
-{
+public class InnkeeperShopMenuController : MonoBehaviour {
 
     [Header("Configuration:")]
     public float delay;
@@ -18,7 +17,7 @@ public class ShopMenuController : MonoBehaviour
     public Color highlightedUnavailableTextColor;
     public Color normalUnavailableImageColor;
     public Color highlightedUnavailableImageColor;
-  
+
 
     private GameObject ESys;
 
@@ -147,7 +146,7 @@ public class ShopMenuController : MonoBehaviour
             }
 
             time += Time.unscaledDeltaTime;
-        }            
+        }
 
     }
 

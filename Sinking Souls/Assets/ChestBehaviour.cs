@@ -39,7 +39,8 @@ public class ChestBehaviour : MonoBehaviour {
                     Destroy(instantiatedButton);
                     GetComponent<Animator>().SetTrigger("Open");
 
-                    GiveContent();
+                    StartCoroutine(ShowContent(1.8f));
+                    //GiveContent();
 
                 }
             }
@@ -50,7 +51,6 @@ public class ChestBehaviour : MonoBehaviour {
     {
         if (!show)
         {
-            Debug.Log("FADE OUTTTTTTTTTTTTTTTTTTTT");
             UIHandler.GetComponent<Image>().color = new Vector4(UIHandler.GetComponent<Image>().color.r, UIHandler.GetComponent<Image>().color.g, UIHandler.GetComponent<Image>().color.b, UIHandler.GetComponent<Image>().color.a - apearingSpeed * Time.deltaTime);
             UIHandler.GetComponentInChildren<TextMeshProUGUI>().color = new Vector4(UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.r, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.g, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.b, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.a - apearingSpeed * Time.deltaTime);
             if (UIHandler.GetComponent<Image>().color.a <= 0)
@@ -61,7 +61,6 @@ public class ChestBehaviour : MonoBehaviour {
         }
         else
         {
-            Debug.Log("FADE IN");
             UIHandler.GetComponent<Image>().color = new Vector4(UIHandler.GetComponent<Image>().color.r, UIHandler.GetComponent<Image>().color.g, UIHandler.GetComponent<Image>().color.b, UIHandler.GetComponent<Image>().color.a + apearingSpeed * Time.deltaTime);
             UIHandler.GetComponentInChildren<TextMeshProUGUI>().color = new Vector4(UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.r, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.g, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.b, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.a + apearingSpeed * Time.deltaTime);
 
@@ -76,9 +75,10 @@ public class ChestBehaviour : MonoBehaviour {
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.tag == "Player")if(instantiatedButton != null) instantiatedButton.GetComponent<popUpEffect>().destroy();
+        if(other.tag == "Player") if(instantiatedButton != null) instantiatedButton.GetComponent<popUpEffect>().destroy();
     }
     
+ 
     public void GiveContent() {
         int rand = Random.Range(0, 2);
         UIHandler = Instantiate(ChestContentUI, GameObject.Find("Canvas").transform, false);
@@ -131,6 +131,13 @@ public class ChestBehaviour : MonoBehaviour {
         show = false;
         Destroy(UIHandler, 3f);
 
+    }
+
+    IEnumerator ShowContent(float t)
+    {
+        yield return new WaitForSeconds(t);
+
+        GiveContent();
     }
 
 }

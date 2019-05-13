@@ -99,6 +99,31 @@ public class InputManager : MonoBehaviour {
     public float cursorHideTime = 3.0f;
     private bool hiding;
 
+    bool keyboardUsed() {
+        return
+            Input.GetMouseButtonDown(0)             ||
+            Input.GetMouseButtonDown(1)             ||
+            Input.GetMouseButtonDown(2)             ||
+            Input.GetKeyDown(KeyCode.Space)         ||
+            Input.GetKeyDown(KeyCode.E)             ||
+            Input.GetKeyDown(KeyCode.F)             ||
+            Input.GetKeyDown(KeyCode.Escape)        ||
+            Input.GetKeyDown(KeyCode.Return)        ||
+            Input.GetKeyDown(KeyCode.W)             ||
+            Input.GetKeyDown(KeyCode.A)             ||
+            Input.GetKeyDown(KeyCode.S)             ||
+            Input.GetKeyDown(KeyCode.D)             ||
+            Input.GetKeyDown(KeyCode.Q)             ||
+            Input.GetKeyDown(KeyCode.DownArrow)     ||
+            Input.GetKeyDown(KeyCode.LeftArrow)     ||
+            Input.GetKeyDown(KeyCode.RightArrow)    ||
+            Input.GetKeyDown(KeyCode.UpArrow)       ||
+            Input.GetKeyDown(KeyCode.C)             ||
+            Input.GetKeyDown(KeyCode.X)             ||
+            Input.GetKeyDown(KeyCode.Tab);
+
+    }
+
     void Update()
     {
         if (Input.GetButtonDown("BUTTON_A")) m_ButtonA = true;
@@ -118,12 +143,12 @@ public class InputManager : MonoBehaviour {
         Dpad = new Vector2(Input.GetAxis("DPAD_H"), Input.GetAxis("DPAD_V"));
         Mouse = new Vector2(Input.GetAxis("MouseX"), Input.GetAxis("MouseY"));
 
+
+
+        if (keyboardUsed()) Xbox_One_Controller = 0;
+        else if ((m_ButtonA && !Input.GetMouseButton(0)) || m_ButtonB || m_ButtonX || m_ButtonY || m_ButtonRJ || m_ButtonRT || m_ButtonStart || LeftJoystick.magnitude != 0 || RightJoystick.magnitude != 0 || Dpad.magnitude != 0) Xbox_One_Controller = 1;
+
         if (LeftJoystickZero()) LeftJoystick = new Vector2(Input.GetAxis("KEY_HORIZONTAL"), Input.GetAxis("KEY_VERTICAL"));
-
-
-        if (Input.anyKey || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2)) Xbox_One_Controller = 0;
-        else if (m_ButtonA || m_ButtonB || m_ButtonX || m_ButtonY || m_ButtonRJ || m_ButtonRT || m_ButtonStart || LeftJoystick.magnitude != 0 || RightJoystick.magnitude != 0 || Dpad.magnitude != 0) Xbox_One_Controller = 1;
-
     }
 
     IEnumerator CleanInput()

@@ -86,7 +86,7 @@ public class InnkeeperShopMenuController : MonoBehaviour {
                     if(ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().currentSelectedGameObject != null)
                     {
                         ButtonEvents = itemArr[selected].onClick;
-                        if(Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButtonDown(0)) ButtonEvents.Invoke();
+                        ButtonEvents.Invoke();
                         Refresh();
                     }                 
                 }

@@ -566,5 +566,18 @@ public class GameController : MonoBehaviour
         equippedModifier = modifiers[save.equippedModifier];
         equippedAbility = abilities[save.equippedAbility];
     }
+
+    //value, start1, end1, new sratr, new end
+    public float Map(float s, float a1, float a2, float b1, float b2, bool forceLimit = false)
+    {
+        if(forceLimit)
+        {
+            if (s < a1) s = a1;
+            else if (s > a2) s = a2;
+        }
+
+        return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
+    }
+
 }
 

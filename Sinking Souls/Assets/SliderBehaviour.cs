@@ -107,7 +107,10 @@ public class SliderBehaviour : MonoBehaviour
         {
             Debug.Log("Pulsacion");
             pointArea.color = PressedPointColor;
-            barValue = gameObject.GetComponent<Slider>().value;
+            float distance = (Input.mousePosition.x - gameObject.transform.position.x);
+            barValue = GameController.instance.Map(distance, -113, 108, -80, 10, true);
+            Debug.Log(distance);
+            gameObject.GetComponent<Slider>().value = barValue;
         }
     }
 

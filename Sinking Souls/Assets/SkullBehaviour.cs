@@ -37,7 +37,7 @@ public class SkullBehaviour : MonoBehaviour {
             GameObject part = Instantiate(particles);
             part.transform.position = transform.position;
             Destroy(part, 0.6f);
-            AudioManager.Instance.PlayEffect("MagicBombExplosion");
+            AudioManager.Instance.Play("MagicBombExplosion");
         }
         counter += Time.deltaTime;
     }
@@ -52,6 +52,6 @@ public class SkullBehaviour : MonoBehaviour {
         Destroy(part, 0.6f);
 
 
-        AudioManager.Instance.PlayEffect("MagicBombExplosion");
+        AudioManager.Instance.Play("MagicBombExplosion");
     }
 }

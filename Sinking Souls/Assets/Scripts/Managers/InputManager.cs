@@ -101,26 +101,26 @@ public class InputManager : MonoBehaviour {
 
     bool keyboardUsed() {
         return
-            Input.GetMouseButtonDown(0)             ||
-            Input.GetMouseButtonDown(1)             ||
-            Input.GetMouseButtonDown(2)             ||
-            Input.GetKeyDown(KeyCode.Space)         ||
-            Input.GetKeyDown(KeyCode.E)             ||
-            Input.GetKeyDown(KeyCode.F)             ||
-            Input.GetKeyDown(KeyCode.Escape)        ||
-            Input.GetKeyDown(KeyCode.Return)        ||
-            Input.GetKeyDown(KeyCode.W)             ||
-            Input.GetKeyDown(KeyCode.A)             ||
-            Input.GetKeyDown(KeyCode.S)             ||
-            Input.GetKeyDown(KeyCode.D)             ||
-            Input.GetKeyDown(KeyCode.Q)             ||
-            Input.GetKeyDown(KeyCode.DownArrow)     ||
-            Input.GetKeyDown(KeyCode.LeftArrow)     ||
-            Input.GetKeyDown(KeyCode.RightArrow)    ||
-            Input.GetKeyDown(KeyCode.UpArrow)       ||
-            Input.GetKeyDown(KeyCode.C)             ||
-            Input.GetKeyDown(KeyCode.X)             ||
-            Input.GetKeyDown(KeyCode.Tab);
+            Input.GetMouseButton(0)             ||
+            Input.GetMouseButton(1)             ||
+            Input.GetMouseButton(2)             ||
+            Input.GetKeyDown(KeyCode.Space)     ||
+            Input.GetKey(KeyCode.E)             ||
+            Input.GetKey(KeyCode.F)             ||
+            Input.GetKey(KeyCode.Escape)        ||
+            Input.GetKey(KeyCode.Return)        ||
+            Input.GetKey(KeyCode.W)             ||
+            Input.GetKey(KeyCode.A)             ||
+            Input.GetKey(KeyCode.S)             ||
+            Input.GetKey(KeyCode.D)             ||
+            Input.GetKey(KeyCode.Q)             ||
+            Input.GetKey(KeyCode.DownArrow)     ||
+            Input.GetKey(KeyCode.LeftArrow)     ||
+            Input.GetKey(KeyCode.RightArrow)    ||
+            Input.GetKey(KeyCode.UpArrow)       ||
+            Input.GetKey(KeyCode.C)             ||
+            Input.GetKey(KeyCode.X)             ||
+            Input.GetKey(KeyCode.Tab);
 
     }
 

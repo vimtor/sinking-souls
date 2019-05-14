@@ -27,7 +27,9 @@ public class LobbyDoor : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         GameController.instance.player.GetComponent<Player>().StopForward();
-        AudioManager.Instance.StopAll();
+
+        AudioManager.Instance.StopAllEffects();
+        AudioManager.Instance.Fade("Waves", 2);
 
         switch (sceneToLoad)
         {

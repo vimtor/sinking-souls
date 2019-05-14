@@ -17,9 +17,10 @@ public class MainMenu : MonoBehaviour
         {
             Destroy(resumeButton);
         }
+
         hideForced = false;
 
-        AudioManager.Instance.PlayMusic("TitleScreen");
+        AudioManager.Instance.PlayFade("TitleScreen", 2, 0.15f);
     }
 
     private void Update()
@@ -72,7 +73,8 @@ public class MainMenu : MonoBehaviour
     public void Play()
     {
         GameController.instance.LoadGame();
-        AudioManager.Instance.PlayMusic("Soundtrack");
+
+        AudioManager.Instance.Fade("TitleScreen", 5);
 
         ApplicationManager.Instance.ChangeScene(ApplicationManager.GameState.LOBBY);
     }
@@ -82,6 +84,8 @@ public class MainMenu : MonoBehaviour
         GameController.instance.lobbySouls = 0;
         GameController.instance.m_RescuedAlchemist = false;
         GameController.instance.m_RescuedBlacksmith = false;
+
+        AudioManager.Instance.Fade("TitleScreen", 3);
 
         ApplicationManager.Instance.ChangeScene(ApplicationManager.GameState.TUTORIAL);
     }

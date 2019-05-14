@@ -52,7 +52,6 @@ public class CinematicManager : MonoBehaviour
         {
             reactivate = false;
             cutsceneWrapper.SetActive(true);
-            Debug.Log("Reactivated");
         }
 
         if (director.time == lastTime)

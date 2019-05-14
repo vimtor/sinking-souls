@@ -15,7 +15,6 @@ public class ChaseAction : Action
         float speed = Vector3.Magnitude(controller.navMeshAgent.velocity);
         if (Vector3.Distance(controller.transform.position, controller.player.transform.position) <= StartDistance)
         {
-            Debug.Log("pasoUno");
             controller.Animator.SetFloat("Speed", controller.player.GetComponent<Player>().map(Vector3.Distance(controller.transform.position, controller.player.transform.position) - StopDistance, 0, (StartDistance - StopDistance), 0, 1));
         }
         else controller.Animator.SetFloat("Speed", speed);

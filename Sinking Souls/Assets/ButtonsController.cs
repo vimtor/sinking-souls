@@ -104,7 +104,6 @@ public class ButtonsController : MonoBehaviour {
                     ESys.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
                     mouseOnButton = false;
                 }
-                Debug.Log(mouseOnButton);
 
 
 

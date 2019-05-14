@@ -85,7 +85,6 @@ public class doorController : MonoBehaviour
             {
                 if (closedDoor[i].transform.position.y < closedPosition) {
                     closedDoor[i].transform.position += Vector3.up * Time.deltaTime * speed;
-                    Debug.Log("Cerrando");
                     closing = true;
 
                 }

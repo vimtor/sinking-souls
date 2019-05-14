@@ -69,8 +69,8 @@ public class GameController : MonoBehaviour
 
     [Header("Chests")]
     public float spawnProvabilty;
-    public int minimumPerLevel;
-    public int maximumPerLevel;
+    public float spawnProvabiltySecondary;
+    public int activeSecondaryChests = 0;
     public int activeChests = 0;
     public int soulsUISize;
     public GameObject ChestContentUI;
@@ -202,6 +202,7 @@ public class GameController : MonoBehaviour
 
             case ApplicationManager.GameState.GAME:
                 activeChests = 0;
+                activeSecondaryChests = 0;
                 roomEnemies = new List<GameObject>();
                 foreach(Enhancer en in enhancers) {
                     en.price = en.basePrice;
@@ -266,7 +267,9 @@ public class GameController : MonoBehaviour
             break;
 
             case ApplicationManager.GameState.LOBBY:
-                extraLife = 0;
+                extraLife = 0;  
+                spawnProvabilty = (2 / (15f * 4f)) * 100;
+                spawnProvabiltySecondary = (5 / (15f * 4f)) * 100;
                 if (tabbernSoulsHolder != -1) {//if ultra feo por la mierda de sistema vol 2
                     runSouls = lobbySouls;
                     lobbySouls = tabbernSoulsHolder;
@@ -450,23 +453,18 @@ public class GameController : MonoBehaviour
     }
     public GameObject activeMage;
     bool checkPlayerdistAndEnemies() {
-        Debug.Log(1);
         if (currentRoom.GetComponent<doorController>().checkDistance()) {
-            Debug.Log(2);
             foreach (GameObject en in roomEnemies) {
-                Debug.Log(3);
                 if (currentRoom.GetComponent<doorController>().checkEnemyDistance(en)) {
-                    Debug.Log(4);
                     en.GetComponent<AIController>().SetupAI();
                     if (en.GetComponent<SorcererReviveHelper>())
                     {
-                        Debug.Log(5);
                         activeMage = en;
                     }
                 }
                
             }
-            Debug.Log(6);
+
             return false;
         }
         return false;

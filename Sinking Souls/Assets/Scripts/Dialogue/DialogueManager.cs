@@ -52,7 +52,6 @@ public class DialogueManager : MonoBehaviour
         conversation = new Queue<Dialogue>(dialogues);
 
         GameController.instance.player.GetComponent<Player>().Stop();
-        Debug.Log("StartedConversation");
 
         StartCoroutine(DisplayDialogue());
     }
@@ -64,7 +63,6 @@ public class DialogueManager : MonoBehaviour
         if (lastCamera != null) lastCamera.SetActive(false);
         inGameUI.SetActive(true);
 
-        Debug.Log("I");
 
         conversation.Clear();
         if (lastCoroutine != null) StopCoroutine(lastCoroutine);

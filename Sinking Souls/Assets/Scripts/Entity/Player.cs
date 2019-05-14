@@ -865,12 +865,11 @@ public class Player : Entity
         else ApplicationManager.Instance.ChangeScene(ApplicationManager.GameState.LOBBY);
         Time.timeScale = 1f;
 
-        Debug.Log("Generating");
+
     }
 
     public void Resume()
     {
-        Debug.Log("ResumedMovement");
         m_CanMove = true;
     }
 

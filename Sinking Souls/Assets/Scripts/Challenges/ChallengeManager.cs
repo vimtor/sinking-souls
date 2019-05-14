@@ -53,7 +53,6 @@ public class ChallengeManager : MonoBehaviour {
                 GetComponent<TimeChallenge>().challengeName = "Kill them fast!";
                 break;
             case Challenges.None:
-            Debug.Log("NONE ON: " + gameObject.name);
             break;
 
         }

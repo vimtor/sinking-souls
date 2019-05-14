@@ -129,7 +129,7 @@ public class Entity : MonoBehaviour
 
 
         // Other variables.
-        originalColor = transform.GetChild(1).GetComponent<Renderer>().material.color;
+        //originalColor = transform.GetChild(1).GetComponent<Renderer>().material.color;
 
         m_CurrentModifierState = new Dictionary<ModifierState, int>();
         for (int i = 0; i < 4; i++) m_CurrentModifierState[(ModifierState)i] = 0;
@@ -317,7 +317,7 @@ public class Entity : MonoBehaviour
 
                     if (other.GetComponent<WeaponHolder>().owner.tag == "Player") {
                         AudioManager.Instance.PlayEffect("Splash");
-                        Debug.Log("Fart");
+
                     }
 
                     if (other.name.Contains("Dagger")) {

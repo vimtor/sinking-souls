@@ -15,7 +15,6 @@ public class LoadingScreen : MonoBehaviour
         image.sprite = possibleImages[Random.Range(0, possibleImages.Length)];
     }
     private void Update() {
-        Debug.Log( "Im On "+ SceneManager.GetActiveScene().name);
     }
 
 }

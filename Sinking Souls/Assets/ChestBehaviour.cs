@@ -14,9 +14,11 @@ public class ChestBehaviour : MonoBehaviour {
     public GameObject ChestContentUI;
     private GameObject UIHandler;
     public int SoulsRecived = 50;
+    public int SoulsRecivedLight = 10;
     public bool show = false;
     private float apearingSpeed = 10;
     public float messageDuration = 6;
+    public bool LightChest = false;
 
     // Use this for initialization
     void Start () {
@@ -85,38 +87,48 @@ public class ChestBehaviour : MonoBehaviour {
         ShowChest();
         StartCoroutine(HideChest(messageDuration));
 
-        if (rand == 0) {// give a modifier
-            foreach (Modifier mod in GameController.instance.modifiers) {
-                if (!mod.owned) {
-                    UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "<color=#ffa500ff><size=40>" + mod.name + "</size></color> unlocked";
-                    //Debug.Log("You Got: " + mod.name);
-                    mod.owned = true;
+        if (!LightChest) {
+            if (rand == 0) {// give a modifier
+                foreach (Modifier mod in GameController.instance.modifiers) {
+                    if (!mod.owned) {
+                        UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "<color=#ffa500ff><size=40>" + mod.name + "</size></color> unlocked";
+                        //Debug.Log("You Got: " + mod.name);
+                        mod.owned = true;
+                        return;
+                    }
+                }
+            }
+            //give a ability
+            foreach (Ability ab in GameController.instance.abilities) {
+                if (!ab.owned) {
+                    //Debug.Log("You Got: " + ab.name);
+                    UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "<color=#ffa500ff><size=40>" + ab.name + "</size></color> unlocked";
+                    ab.owned = true;
                     return;
                 }
             }
-        }
-        //give a ability
-        foreach (Ability ab in GameController.instance.abilities) {
-            if (!ab.owned) {
-                //Debug.Log("You Got: " + ab.name);
-                UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "<color=#ffa500ff><size=40>" + ab.name + "</size></color> unlocked";
-                ab.owned = true;
-                return;
-            }
-        }
-        if(rand == 1) {
-            foreach (Modifier mod in GameController.instance.modifiers) {
-                if (!mod.owned) {
-                    UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "<color=#ffa500ff><size=40>" + mod.name + "</size></color> unlocked";
-                    mod.owned = true;
-                    return;
+            if (rand == 1) {
+                foreach (Modifier mod in GameController.instance.modifiers) {
+                    if (!mod.owned) {
+                        UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "<color=#ffa500ff><size=40>" + mod.name + "</size></color> unlocked";
+                        mod.owned = true;
+                        return;
+                    }
                 }
             }
-        }
-        //if all unlocked give 50 souls
-        UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "<color=#008000ff><size=40>" + SoulsRecived + "</size></color> souls added";
+            //if all unlocked give 50 souls
+            UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "<color=#008000ff><size=40>" + SoulsRecived + "</size></color> souls added";
 
-        GameController.instance.AddSouls(SoulsRecived);
+            GameController.instance.AddSouls(SoulsRecived);
+        }
+        else {
+            //if all unlocked give 50 souls
+            UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "<color=#008000ff><size=40>" + SoulsRecivedLight + "</size></color> souls added";
+
+            GameController.instance.AddSouls(SoulsRecivedLight);
+        }
+
+       
     }
 
     public void ShowChest()

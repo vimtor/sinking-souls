@@ -135,16 +135,17 @@ public class ApplicationManager : MonoBehaviour
         GameObject.Find("Fade Plane").GetComponent<FadeEffect>().FadeOut(1 - 0.15f);
     }
 
-    IEnumerator WaitToChange(float t, string sceneName) {
+    IEnumerator WaitToChange(float t, string sceneName)
+    {
         yield return new WaitForSecondsRealtime(t);
-        AudioManager.Instance.StopAll();
+        AudioManager.Instance.StopAllEffects();
         StartCoroutine(LoadSceneAsync(sceneName));
     }
 
-    IEnumerator FadeLoading(float t) {
+    IEnumerator FadeLoading(float t)
+    {
         yield return new WaitForSecondsRealtime(t);
         GameObject.Find("Fade Plane").GetComponent<FadeEffect>().FadeOut(1 - 0.15f);
-
     }
 
     private IEnumerator LoadSceneAsync(string sceneName, float minLoadTime = 2.5f)

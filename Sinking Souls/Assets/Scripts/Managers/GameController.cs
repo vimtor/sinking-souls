@@ -232,12 +232,12 @@ public class GameController : MonoBehaviour
                 {
                     player.transform.Find("DeathIsland").gameObject.SetActive(false);
                     GameObject.Find("Post Processing").gameObject.GetComponent<PostProcessVolume>().profile = postProcesingProfileLevel1;
-                    AudioManager.Instance.PlayMusic("TritonTheme");
+                    AudioManager.Instance.PlayFade("TritonTheme", 2, 0.1f);
                 }
                 else
                 {
-                    AudioManager.Instance.PlayEffect("Wind");
-                    AudioManager.Instance.PlayMusic("DeathTheme");
+                    AudioManager.Instance.PlayFade("Wind", 3, 0);
+                    AudioManager.Instance.PlayFade("DeathTheme", 5, 0.1f);
                 }
                 Cursor.visible = false;
                 Time.timeScale = 1;
@@ -274,7 +274,7 @@ public class GameController : MonoBehaviour
                 }
                 if (m_RescuedBlacksmith) GetComponent<LevelGenerator>().level = level1;
                 if (m_RescuedAlchemist) GetComponent<LevelGenerator>().level = level2;
-                AudioManager.Instance.PlayMusic("Waves");
+                AudioManager.Instance.PlayFade("Waves", 2, 0.1f);
 
                 inTavern = false;
 

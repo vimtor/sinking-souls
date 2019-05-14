@@ -132,7 +132,7 @@ public class InputManager : MonoBehaviour {
         if (Input.GetButtonDown("BUTTON_Y")) m_ButtonY = true;
         if (Input.GetButtonDown("BUTTON_RIGHTJOYSTICK")) m_ButtonRJ = true;
 
-        if (Input.GetAxis("BUTTON_RT") >= 0.5 || Input.GetKeyDown(KeyCode.F)) m_ButtonRT = true;
+        if (Input.GetAxis("BUTTON_RT") >= 0.5) m_ButtonRT = true;
 
         if (Input.GetButtonDown("START") || Input.GetKeyDown(KeyCode.Escape)) m_ButtonStart = true;
         if (Input.GetButtonDown("SELECT")) m_ButtonSelect = true;
@@ -146,8 +146,10 @@ public class InputManager : MonoBehaviour {
 
 
         if (keyboardUsed()) Xbox_One_Controller = 0;
-        else if ((m_ButtonA && !Input.GetMouseButton(0)) || m_ButtonB || m_ButtonX || m_ButtonY || m_ButtonRJ || m_ButtonRT || m_ButtonStart || LeftJoystick.magnitude != 0 || RightJoystick.magnitude != 0 || Dpad.magnitude != 0) Xbox_One_Controller = 1;
+        else if ((m_ButtonA && !Input.GetMouseButton(0)) || m_ButtonRJ && !Input.GetKey(KeyCode.E) || (m_ButtonB && !Input.GetKey(KeyCode.Space)) || m_ButtonX || m_ButtonY || m_ButtonRJ || (m_ButtonRT && !Input.GetKey(KeyCode.F)) || m_ButtonStart || LeftJoystick.magnitude != 0 || RightJoystick.magnitude != 0 || Dpad.magnitude != 0) Xbox_One_Controller = 1;
 
+        if(Input.GetKeyDown(KeyCode.F)) m_ButtonRT = true;
+        if (Input.GetKeyDown(KeyCode.E)) m_ButtonRJ = true;
         if (LeftJoystickZero()) LeftJoystick = new Vector2(Input.GetAxis("KEY_HORIZONTAL"), Input.GetAxis("KEY_VERTICAL"));
     }
 

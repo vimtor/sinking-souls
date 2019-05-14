@@ -75,6 +75,13 @@ public class GameController : MonoBehaviour
     public int soulsUISize;
     public GameObject ChestContentUI;
 
+    [Header("Destructibles parameters")]
+    public int AmphoraMinPerRoom;
+    public int AmphoraMaxPerRoom;
+
+    [Header("\n")]
+    public int percentageOfKeepedSouls;
+
     private LevelGenerator levelGenerator;
 
     public LevelGenerator LevelGenerator
@@ -82,7 +89,6 @@ public class GameController : MonoBehaviour
         get { return levelGenerator; }
     }
 
-    public int percentageOfKeepedSouls;
 
     private void Awake()
     {

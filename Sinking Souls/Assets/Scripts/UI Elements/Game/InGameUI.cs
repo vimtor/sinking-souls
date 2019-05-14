@@ -23,11 +23,11 @@ public class InGameUI : MonoBehaviour
     public float minimapHeight;
 
     [Header("Minimap Death Island")]
-    public float minimapSizeDead = 80.0f;
+    [HideInInspector] public float minimapSizeDead = 160.0f;
     public float iconSizeDead = 15.0f;
 
     [Header("Minimap Triton Island")]
-    public float minimapSizeTriton = 80.0f;
+    [HideInInspector] public float minimapSizeTriton = 80.0f;
     public float iconSizeTriton = 15.0f;
 
 

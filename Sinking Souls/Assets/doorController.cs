@@ -28,8 +28,8 @@ public class doorController : MonoBehaviour
     public bool checkEnemyDistance(GameObject en) {
 
         if (GameController.instance.m_RescuedAlchemist)
-            return Vector3.Distance(transform.position, en.transform.position) < 21; //Por que 38? porque lo digo yo
-        else return Vector3.Distance(transform.position, en.transform.position) < 12;
+            return Vector3.Distance(transform.position, en.transform.position) < 21;     //Death island
+        else return Vector3.Distance(transform.position, en.transform.position) < 12;    //Tritton island
 
     }
 

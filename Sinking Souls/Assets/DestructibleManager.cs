@@ -9,9 +9,7 @@ public class DestructibleManager : MonoBehaviour {
 	void Start () {
 
         for(int i = 0; i< transform.childCount; i++){
-            Debug.Log(gameObject.name + " child: " + transform.GetChild(i).gameObject.name);
             if(transform.GetChild(i).gameObject.GetComponent<DestructibleProp>()) {
-                Debug.Log("HAHAHAHAHAHAHAHHA");
                 amphoraDestructibles.Add(transform.GetChild(i).gameObject);
                 amphoraDestructibles[amphoraDestructibles.Count-1].SetActive(false);
                 if (spawnedAmphs < GameController.instance.AmphoraMinPerRoom){

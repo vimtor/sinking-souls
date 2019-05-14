@@ -46,7 +46,6 @@ public class SkullBehaviour : MonoBehaviour {
 
         if(collision.gameObject == GetComponent<AbilityHolder>().owner && counter < 1) return;
         if (collision.gameObject.tag == "Weapon") return;
-        Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + collision.gameObject.tag);
         Destroy(gameObject);
         GameObject part = Instantiate(particles);
         part.transform.position = transform.position;

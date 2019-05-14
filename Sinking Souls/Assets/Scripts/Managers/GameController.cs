@@ -450,14 +450,23 @@ public class GameController : MonoBehaviour
     }
     public GameObject activeMage;
     bool checkPlayerdistAndEnemies() {
+        Debug.Log(1);
         if (currentRoom.GetComponent<doorController>().checkDistance()) {
+            Debug.Log(2);
             foreach (GameObject en in roomEnemies) {
+                Debug.Log(3);
                 if (currentRoom.GetComponent<doorController>().checkEnemyDistance(en)) {
+                    Debug.Log(4);
                     en.GetComponent<AIController>().SetupAI();
-                    if (en.GetComponent<SorcererReviveHelper>()) activeMage = en;
+                    if (en.GetComponent<SorcererReviveHelper>())
+                    {
+                        Debug.Log(5);
+                        activeMage = en;
+                    }
                 }
                
             }
+            Debug.Log(6);
             return false;
         }
         return false;

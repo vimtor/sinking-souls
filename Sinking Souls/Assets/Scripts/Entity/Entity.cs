@@ -290,10 +290,11 @@ public class Entity : MonoBehaviour
 
     private void Update() {
     }
-    [HideInInspector]public bool deadButWaiting = false;
+    [HideInInspector] public bool deadButWaiting = false;
+    [HideInInspector] public bool noDamage = false;
     private void OnTriggerEnter(Collider other)
     {
-        if (m_Hitted || dead || deadButWaiting) return;
+        if (m_Hitted || dead || deadButWaiting || noDamage) return;
         switch (other.tag)
         {
             case "Weapon":

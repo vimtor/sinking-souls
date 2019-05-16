@@ -53,7 +53,10 @@ public class SorcererReviveHelper : MonoBehaviour {
                 //spawn effects and tp 
                 GameObject f = Instantiate(augmentedParticles, null, false);
                 Destroy(f, 5);
+                GetComponent<Entity>().noDamage = true;
+                holder.GetComponent<Entity>().noDamage = true;
                 f.transform.position = gameObject.transform.position; //mine
+                StartCoroutine(EnableDamage(holder));
                 GameObject efe = Instantiate(augmentedParticles, null, false);
                 Destroy(efe, 5);
                 efe.transform.position = holder.transform.position; //other
@@ -78,6 +81,13 @@ public class SorcererReviveHelper : MonoBehaviour {
     }
 
     private EnemyType type;
+
+    IEnumerator EnableDamage(GameObject other)
+    {
+        yield return new WaitForSecondsRealtime(1.4f);
+        GetComponent<Entity>().noDamage = false;
+        other.GetComponent<Entity>().noDamage = false;
+    }
 
     public void revive(EnemyType en, Vector3 pos) { //1
         if (GetComponent<Enemy>().dead) return;

@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4723902672703944}
   - component: {fileID: 136602521149550110}
   - component: {fileID: 114729467205870388}
-  - component: {fileID: 65176802253293308}
   m_Layer: 22
   m_Name: Amphora
   m_TagString: Untagged
@@ -52,14 +51,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1118329537917788}
-  m_LocalRotation: {x: 0.17216381, y: -0.65980387, z: 0.4862982, w: 0.5463814}
-  m_LocalPosition: {x: -0.69248015, y: -0.00026377678, z: -4.184674}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalRotation: {x: 0.33904982, y: -0.5916306, z: 0.6124841, w: 0.39985213}
+  m_LocalPosition: {x: -1.01, y: 0.572, z: -4.184674}
+  m_LocalScale: {x: 0.36525163, y: 0.36525163, z: 0.36525163}
   m_Children:
   - {fileID: 4777565225129768}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 56.084003, y: -82.789, z: 33.04}
+  m_LocalEulerAnglesHint: {x: 84.79, y: -39.534, z: 77.395004}
 --- !u!4 &4777565225129768
 Transform:
   m_ObjectHideFlags: 1
@@ -115,18 +114,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1574739899659806}
   m_Mesh: {fileID: 4300000, guid: 6e34f9f83884b27409dac1d07dea0152, type: 3}
---- !u!65 &65176802253293308
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1118329537917788}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.64, y: 1.56, z: 11.7}
-  m_Center: {x: 0, y: 3.19, z: 0}
 --- !u!114 &114729467205870388
 MonoBehaviour:
   m_ObjectHideFlags: 1

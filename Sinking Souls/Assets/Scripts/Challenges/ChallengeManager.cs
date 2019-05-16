@@ -9,6 +9,7 @@ public class ChallengeManager : MonoBehaviour {
         KillAllNoDamage,
         TimeChallenge,
         None,
+        NoBreakChallenge,// if you create a new one under here please
         DontUseThisOne
     }
 
@@ -31,36 +32,42 @@ public class ChallengeManager : MonoBehaviour {
             if (val < chance[i]) possibleChallenge = pc;
             
         } while (possibleChallenge == Challenges.DontUseThisOne);
-       
-        
+
+
         switch (possibleChallenge) {
             case Challenges.Test:
-                gameObject.AddComponent<TestChallenge>();
-                GetComponent<TestChallenge>().updateAlways = false;
-                GetComponent<TestChallenge>().challengeName = "Test Challenge";
+            gameObject.AddComponent<TestChallenge>();
+            GetComponent<TestChallenge>().updateAlways = false;
+            GetComponent<TestChallenge>().challengeName = "Test Challenge";
             break;
             case Challenges.KillAllNoDamage:
-                gameObject.AddComponent<NoDamageCHallenge>();
-                GetComponent<NoDamageCHallenge>().updateAlways = false;
-                GetComponent<NoDamageCHallenge>().challengeName = "Take no damage!";
-                
+            gameObject.AddComponent<NoDamageCHallenge>();
+            GetComponent<NoDamageCHallenge>().updateAlways = false;
+            GetComponent<NoDamageCHallenge>().challengeName = "Take no damage!";
+
             break;
             case Challenges.TimeChallenge:
-                gameObject.AddComponent<TimeChallenge>();
-                GetComponent<TimeChallenge>().updateAlways = false;
-                GetComponent<TimeChallenge>().timeDisplay = timeDisplay;
-                GetComponent<TimeChallenge>().colorGradient = colorGradient;
-                GetComponent<TimeChallenge>().challengeName = "Kill them fast!";
-                break;
+            gameObject.AddComponent<TimeChallenge>();
+            GetComponent<TimeChallenge>().updateAlways = false;
+            GetComponent<TimeChallenge>().timeDisplay = timeDisplay;
+            GetComponent<TimeChallenge>().colorGradient = colorGradient;
+            GetComponent<TimeChallenge>().challengeName = "Kill them fast!";
+            break;
+            case Challenges.NoBreakChallenge:
+            gameObject.AddComponent<NoBreakChallenge>();
+            GetComponent<NoBreakChallenge>().updateAlways = false;
+            GetComponent<NoBreakChallenge>().challengeName = "Don't break anything!";
+            break;
             case Challenges.None:
             break;
-
+            case Challenges.DontUseThisOne:
+            break;
         }
         Destroy(this);
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 }

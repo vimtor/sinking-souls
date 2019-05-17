@@ -200,6 +200,9 @@ public class Entity : MonoBehaviour
         GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
+    protected void setNoReact(int t) {
+        noReact = t < 1? false : true;
+    }
 
     protected void EnableCollider() { m_WeaponCollider.enabled = true; }
     protected void EnablePerfect()
@@ -247,11 +250,13 @@ public class Entity : MonoBehaviour
 
         m_Animator.SetFloat("HitX", hitPosition.x);
         m_Animator.SetFloat("HitY", hitPosition.z);
-        m_Animator.SetTrigger("React");
+        if (!noReact) {
+            m_Animator.SetTrigger("React");
+            if(m_WeaponCollider!=null) m_WeaponCollider.enabled = false;
+        }
         if (gameObject.tag == "Player") Time.timeScale = 0.1f;
         StartCoroutine(ContiuneGame(0.03f));
         StartCoroutine(ReactCoroutine());
-        if(m_WeaponCollider!=null) m_WeaponCollider.enabled = false;
     }
 
     private IEnumerator ContiuneGame(float t) {
@@ -292,6 +297,7 @@ public class Entity : MonoBehaviour
     }
     [HideInInspector] public bool deadButWaiting = false;
     [HideInInspector] public bool noDamage = false;
+    public bool noReact;
     private void OnTriggerEnter(Collider other)
     {
         if (m_Hitted || dead || deadButWaiting || noDamage) return;

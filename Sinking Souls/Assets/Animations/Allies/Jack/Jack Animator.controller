@@ -13,97 +13,97 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: SpellType
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Attack
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: React
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: WeaponType
     m_Type: 3
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Dash
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: HitX
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: HitY
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Speed
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: StepForward
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: JoystickX
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: JoystickY
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: LoockedEnemy
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Hook
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: EndHook
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: Die
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -1474,23 +1474,23 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 1102106422123242244}
-    m_Position: {x: 192, y: 276, z: 0}
+    m_Position: {x: 480, y: -132, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102911129979840914}
-    m_Position: {x: 360, y: 132, z: 0}
+    m_Position: {x: 624, y: -312, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102530330361108114}
-    m_Position: {x: 552, y: 408, z: 0}
+    m_Position: {x: 288, y: 108, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102418532693513890}
-    m_Position: {x: 821.49194, y: 109.71289, z: 0}
+    m_Position: {x: 648, y: 48, z: 0}
   m_ChildStateMachines:
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107438795121323896}
-    m_Position: {x: 480, y: -312, z: 0}
+    m_Position: {x: 792, y: -612, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107449877862100196}
-    m_Position: {x: 672, y: -180, z: 0}
+    m_Position: {x: 720, y: -480, z: 0}
   - serializedVersion: 1
     m_StateMachine: {fileID: 1107282441991370864}
     m_Position: {x: 180, y: -96, z: 0}
@@ -1508,7 +1508,7 @@ AnimatorStateMachine:
   - first: {fileID: 1107282441991370864}
     second: []
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 576, y: 288, z: 0}
+  m_AnyStatePosition: {x: 780, y: -216, z: 0}
   m_EntryPosition: {x: -132, y: -108, z: 0}
   m_ExitPosition: {x: -96, y: 408, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}

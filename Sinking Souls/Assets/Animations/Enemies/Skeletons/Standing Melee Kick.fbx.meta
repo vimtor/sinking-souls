@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d7cb3e95199c8c043b527eef489de526
+guid: c33990fe16ac0fe4eba95d40238cb532
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -87,7 +87,7 @@ ModelImporter:
     400078: mixamorig:Spine1
     400080: mixamorig:Spine2
     400082: //RootNode
-    7400000: Big_Attack
+    7400000: mixamo.com
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -118,61 +118,29 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Big_Attack
+      name: mixamo.com
       takeName: mixamo.com
       firstFrame: 0
-      lastFrame: 151
+      lastFrame: 85
       wrapMode: 0
-      orientationOffsetY: -11.38
+      orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 1
+      loopBlendOrientation: 0
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 1
+      loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
-      mirror: 1
+      mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.05896941
-        functionName: setNoReact
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: d86ef26c133eacd408bb7edb457b8c36,
-          type: 3}
-        floatParameter: 0
-        intParameter: 1
-        messageOptions: 0
-      - time: 0.25400457
-        functionName: EnableCollider
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: d86ef26c133eacd408bb7edb457b8c36,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.4347826
-        functionName: DisableCollider
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: d86ef26c133eacd408bb7edb457b8c36,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 0.65184045
-        functionName: setNoReact
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: d86ef26c133eacd408bb7edb457b8c36,
-          type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

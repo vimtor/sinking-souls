@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChestSpawnLogic : MonoBehaviour {
 
@@ -14,12 +15,13 @@ public class ChestSpawnLogic : MonoBehaviour {
     public float finalSize;
     public float growingSpeed = 10;
     public float acceleration = 100;
-    
+    public Texture smallChestT;
+    public Texture smallChestL;
     //public float rotatingSpeed;
     // Use this for initialization
     void Start () {
-        
-        parent = transform.parent.gameObject;
+
+        parent = transform.parent.gameObject;///error
         originalPosition = transform.position;
         transform.position = originalPosition + Vector3.down * 10000;
         
@@ -34,8 +36,11 @@ public class ChestSpawnLogic : MonoBehaviour {
             light = (Random.Range(0, 100) <= GameController.instance.spawnProvabiltySecondary);
             if (light) {
                 GameController.instance.activeSecondaryChests++;
-                transform.GetChild(0).gameObject.GetComponent<Renderer>().material.color = Color.magenta;
-                transform.GetChild(1).gameObject.GetComponent<Renderer>().material.color = Color.magenta;
+                ///////////
+                Debug.Log("Changed Texture");
+                transform.GetChild(0).gameObject.GetComponent<Renderer>().material.SetTexture("_MainTex", smallChestL);
+                transform.GetChild(1).gameObject.GetComponent<Renderer>().material.SetTexture("_MainTex", smallChestT);
+                ///////////
                 Debug.Log("Secondary Chest in: " + transform.parent.gameObject.name);
                 finalSize *= 0.8f;
             }

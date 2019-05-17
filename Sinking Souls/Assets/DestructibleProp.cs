@@ -11,8 +11,11 @@ public class DestructibleProp : MonoBehaviour {
 
     }
     private void OnCollisionEnter(Collision other) {
-        Debug.Log("Name:" + other.gameObject.name);
-        Debug.Log("Layer: " + other.gameObject.layer);
+        if (other.gameObject.tag == "Player" && other.gameObject.layer == 10) Destruct();
+    }
+
+    private void OnCollisionStay(Collision other)
+    {
         if (other.gameObject.tag == "Player" && other.gameObject.layer == 10) Destruct();
     }
 

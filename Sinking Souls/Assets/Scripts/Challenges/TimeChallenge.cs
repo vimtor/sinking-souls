@@ -34,7 +34,6 @@ public class TimeChallenge : Challenge
         }
         if (!EnemiesAlive())
         {
-            Debug.Log("PFDSOJKFSD:POFJKPSPODFJKSDPOIFJSP:OFIJA:PIFJDA:SPIF");
             //Destroy(display);
             return newState(false, true);
         }

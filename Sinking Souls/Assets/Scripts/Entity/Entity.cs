@@ -239,9 +239,8 @@ public class Entity : MonoBehaviour
 
     public void React(Vector3 hitterPosition)
     {
-
+        if (m_WeaponCollider != null) m_WeaponCollider.enabled = false;
         m_Hitted = true;
-
         Vector3 hitDirection = hitterPosition - transform.position;
         Vector3 hitPosition = Quaternion.Inverse(transform.rotation) * hitDirection.normalized;
 
@@ -251,7 +250,7 @@ public class Entity : MonoBehaviour
         if (gameObject.tag == "Player") Time.timeScale = 0.1f;
         StartCoroutine(ContiuneGame(0.03f));
         StartCoroutine(ReactCoroutine());
-        if(m_WeaponCollider!=null) m_WeaponCollider.enabled = false;
+        
     }
 
     private IEnumerator ContiuneGame(float t) {

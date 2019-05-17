@@ -746,8 +746,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1818422814107234}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 29.90797, y: 2.8039005, z: 39.185272}
+  m_LocalRotation: {x: -0, y: -0.9711493, z: -0, w: 0.23847249}
+  m_LocalPosition: {x: 4.0173635, y: -2.24, z: 1.8698597}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4790894859124366}
@@ -757,7 +757,7 @@ Transform:
   - {fileID: 4703962594892314}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -152.40701, z: 0}
 --- !u!4 &4096419608362684
 Transform:
   m_ObjectHideFlags: 1
@@ -1429,7 +1429,9 @@ MonoBehaviour:
   m_MaxHealth: 160
   m_HittedRecovery: 2
   m_Weapon: {fileID: 11400000, guid: b7cf60aea94f0194498f03320e8fa5fd, type: 2}
+  feetWeapon: {fileID: 0}
   m_WeaponHand: {fileID: 1944369658064376}
+  feet: {fileID: 0}
   leftHanded: 0
   m_OtherHand: {fileID: 0}
   m_Abilities: []
@@ -1443,6 +1445,8 @@ MonoBehaviour:
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0
   deadButWaiting: 0
+  noDamage: 0
+  noReact: 0
   m_Souls: 9
   deathDuration: 3
   reviveWhenDead: 0

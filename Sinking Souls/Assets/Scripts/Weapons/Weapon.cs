@@ -20,6 +20,8 @@ public class Weapon : ScriptableObject {
     [HideInInspector] public float damage;
     [HideInInspector] public GameObject weapon;
 
+    public bool feet = false;
+
     private Vector3 originalSize;
     private BoxCollider boxCollider;
     public BoxCollider BoxCollider

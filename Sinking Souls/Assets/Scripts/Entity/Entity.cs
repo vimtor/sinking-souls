@@ -37,13 +37,18 @@ public class Entity : MonoBehaviour
         get { return m_Weapon; }
         set { m_Weapon = value; }
     }
-
+    public Weapon feetWeapon;
+    //[HideInInspector]public GameObject m_weaponFeet;
     [Tooltip("Where the weapon will be instantiated.")]
     [SerializeField] protected GameObject m_WeaponHand;
     public GameObject WeaponHand
     {
         get { return m_WeaponHand; }
+        set { m_WeaponHand = value; }
+
     }
+    public GameObject feet;
+
     public bool leftHanded;
     [Tooltip("Where the other weapon will be instantiated.")]
     [SerializeField] protected GameObject m_OtherHand;
@@ -159,6 +164,8 @@ public class Entity : MonoBehaviour
     {
         if(!leftHanded)m_Weapon.Instantiate(m_WeaponHand, gameObject);
         else m_Weapon.Instantiate(m_OtherHand, gameObject);
+
+        if (feetWeapon != null) feetWeapon.Instantiate(feet, gameObject);
     }
 
 

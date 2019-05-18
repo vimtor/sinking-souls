@@ -413,7 +413,7 @@ public class LevelGenerator : MonoBehaviour
         instantiatedRoom.transform.position = realPosition - (new Vector3(15,0,15) * roomSize);
         instantiatedRoom.name = "Room_" + roomCount;
         instantiatedRoom.transform.parent = levelWrapper.transform;
-
+        instantiatedRoom.AddComponent<DestructibleManager>();
         switch (room.type){
             case Room.RoomType.COMBAT:
                 break;

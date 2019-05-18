@@ -8,7 +8,7 @@ public class ChestTextController : MonoBehaviour {
     public string controller;
 
 	// Use this for initialization
-	void Start () {
+	void Update () {
         if (InputManager.Xbox_One_Controller > 0)
         {
             if (GetComponent<TextMeshPro>()) GetComponent<TextMeshPro>().text = controller;
@@ -21,8 +21,4 @@ public class ChestTextController : MonoBehaviour {
         }
     }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

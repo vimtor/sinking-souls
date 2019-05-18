@@ -141,6 +141,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0.05896941
+        functionName: setNoReact
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: d86ef26c133eacd408bb7edb457b8c36,
+          type: 3}
+        floatParameter: 0
+        intParameter: 1
+        messageOptions: 0
       - time: 0.25400457
         functionName: EnableCollider
         data: 
@@ -151,6 +159,14 @@ ModelImporter:
         messageOptions: 0
       - time: 0.4347826
         functionName: DisableCollider
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: d86ef26c133eacd408bb7edb457b8c36,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.65184045
+        functionName: setNoReact
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: d86ef26c133eacd408bb7edb457b8c36,
           type: 3}

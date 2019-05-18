@@ -17,14 +17,13 @@ public class NoDamageCHallenge : Challenge
         Damaged = false;
         initialLife = GameController.instance.player.GetComponent<Player>().Health;
         player = GameController.instance.player.GetComponent<Player>();
-        Debug.Log("//////////////////////////////////////////////////////////////No Damage Challenge Started");
 
     }
 
     public override ChallengeState StartedUpdate()
     {
         if (initialLife > player.Health){
-            Debug.Log("//////////////////////////////////////////////////////////////Lost");
+
             return newState(false, false);//stop challenge and loose
         }
 

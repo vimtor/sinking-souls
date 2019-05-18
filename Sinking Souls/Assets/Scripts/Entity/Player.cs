@@ -269,7 +269,8 @@ public class Player : Entity
                     //    m_Rigidbody.velocity = Vector3.zero;
 
                     //    transform.rotation = Quaternion.LookRotation(lockedEnemy.transform.position - transform.position);
-                    //}
+                    gameObject.layer = LayerMask.NameToLayer("Player");
+                    Debug.Log("CAMBIO LAYER");
                     animate = animateShader.NONE;
                     current = 0;
                     tpPosition = Vector3.zero;
@@ -753,7 +754,7 @@ public class Player : Entity
             lockedEnemy = null;
 
             ChangeState(Dash, m_DashLength, PlayerState.DASHING, PlayerState.MOVING, false);
-
+            gameObject.layer = LayerMask.NameToLayer("Dash");
             return;
         }
         else
@@ -774,7 +775,7 @@ public class Player : Entity
                 AudioManager.Instance.PlayEffect("Teleport");
                 enemyPosition = lockedEnemy.transform.position;
                 tpPosition = spawnPosition;
-
+                gameObject.layer = LayerMask.NameToLayer("Dash");
                 return;
             }
             else
@@ -792,7 +793,7 @@ public class Player : Entity
                     AudioManager.Instance.PlayEffect("Teleport");
                     enemyPosition = lockedEnemy.transform.position;
                     tpPosition = spawnPosition;
-
+                    gameObject.layer = LayerMask.NameToLayer("Dash");
 
                     return;
                 }
@@ -811,7 +812,7 @@ public class Player : Entity
                         AudioManager.Instance.PlayEffect("Teleport");
                         enemyPosition = lockedEnemy.transform.position;
                         tpPosition = spawnPosition;
-
+                        gameObject.layer = LayerMask.NameToLayer("Dash");
 
                         return;
                     }
@@ -865,12 +866,11 @@ public class Player : Entity
         else ApplicationManager.Instance.ChangeScene(ApplicationManager.GameState.LOBBY);
         Time.timeScale = 1f;
 
-        Debug.Log("Generating");
+
     }
 
     public void Resume()
     {
-        Debug.Log("ResumedMovement");
         m_CanMove = true;
     }
 

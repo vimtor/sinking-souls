@@ -52,8 +52,10 @@ public class Enhancer : ScriptableObject
         }
 
         m_BuyNumber++;
-
-        price = (int)(basePrice * priceMultiplier * m_BuyNumber);
+        Debug.Log("ENTRA");
+        float priceAux = basePrice;
+        for (int i = 0; i < m_BuyNumber-1; i++) priceAux = (int)(priceAux * priceMultiplier);
+        price = (int)(priceAux * priceMultiplier);
         //enhancer = (int)(baseEnhancer * enhancerMultiplier * m_BuyNumber);
     }
 

@@ -23,11 +23,11 @@ public class InGameUI : MonoBehaviour
     public float minimapHeight;
 
     [Header("Minimap Death Island")]
-    public float minimapSizeDead = 80.0f;
+    [HideInInspector] public float minimapSizeDead = 160.0f;
     public float iconSizeDead = 15.0f;
 
     [Header("Minimap Triton Island")]
-    public float minimapSizeTriton = 80.0f;
+    [HideInInspector] public float minimapSizeTriton = 80.0f;
     public float iconSizeTriton = 15.0f;
 
 
@@ -117,6 +117,7 @@ public class InGameUI : MonoBehaviour
 
         var currentRoom = GameController.instance.currentRoom;
         currentRoom.GetComponent<doorController>().roomIcon.SetActive(true);
+        if (currentRoom.GetComponent<doorController>().roomIcon.transform.childCount > 0) currentRoom.GetComponent<doorController>().roomIcon.transform.GetChild(0).gameObject.SetActive(true);
         currentRoom.GetComponent<doorController>().roomUnknown.SetActive(false);
 
         var adjacentDoors = currentRoom.GetComponentsInChildren<DoorBehaviour>();

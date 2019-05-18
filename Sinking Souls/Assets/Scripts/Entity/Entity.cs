@@ -37,13 +37,18 @@ public class Entity : MonoBehaviour
         get { return m_Weapon; }
         set { m_Weapon = value; }
     }
-
+    public Weapon feetWeapon;
+    //[HideInInspector]public GameObject m_weaponFeet;
     [Tooltip("Where the weapon will be instantiated.")]
     [SerializeField] protected GameObject m_WeaponHand;
     public GameObject WeaponHand
     {
         get { return m_WeaponHand; }
+        set { m_WeaponHand = value; }
+
     }
+    public GameObject feet;
+
     public bool leftHanded;
     [Tooltip("Where the other weapon will be instantiated.")]
     [SerializeField] protected GameObject m_OtherHand;
@@ -52,6 +57,7 @@ public class Entity : MonoBehaviour
     }
 
     protected BoxCollider m_WeaponCollider;
+    protected BoxCollider m_feetCollider;
 
     [SerializeField] protected Ability[] m_Abilities;
     public Ability[] Abilities
@@ -121,6 +127,7 @@ public class Entity : MonoBehaviour
         EquipWeapon();
         // Get weapon collider reference to avoid errors when using animation events.
         m_WeaponCollider = m_Weapon.BoxCollider;
+        if (feetWeapon != null) m_feetCollider = feetWeapon.BoxCollider;
 
 
         // To avoid different prefabs accesing the same ability.
@@ -129,7 +136,7 @@ public class Entity : MonoBehaviour
 
 
         // Other variables.
-        originalColor = transform.GetChild(1).GetComponent<Renderer>().material.color;
+        //originalColor = transform.GetChild(1).GetComponent<Renderer>().material.color;
 
         m_CurrentModifierState = new Dictionary<ModifierState, int>();
         for (int i = 0; i < 4; i++) m_CurrentModifierState[(ModifierState)i] = 0;
@@ -159,6 +166,8 @@ public class Entity : MonoBehaviour
     {
         if(!leftHanded)m_Weapon.Instantiate(m_WeaponHand, gameObject);
         else m_Weapon.Instantiate(m_OtherHand, gameObject);
+
+        if (feetWeapon != null) feetWeapon.Instantiate(feet, gameObject);
     }
 
 
@@ -200,8 +209,14 @@ public class Entity : MonoBehaviour
         GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
+    protected void setNoReact(int t) {
+        noReact = t < 1? false : true;
+    }
 
-    protected void EnableCollider() { m_WeaponCollider.enabled = true; }
+    protected void EnableCollider(int feet = 0) {
+        if (feet == 1) m_feetCollider.enabled = true;
+        else m_WeaponCollider.enabled = true;
+    }
     protected void EnablePerfect()
     {
         transform.GetChild(2).GetComponent<BoxCollider>().enabled = true;
@@ -222,7 +237,10 @@ public class Entity : MonoBehaviour
         transform.GetChild(3).GetComponent<BoxCollider>().enabled = false;
 
     }
-    protected void DisableCollider() { m_WeaponCollider.enabled = false; }
+    protected void DisableCollider(int feet = 0) {
+        if (feet == 1) m_feetCollider.enabled = false;
+        else m_WeaponCollider.enabled = false;
+    }
 
     protected void UseAbility(int abilityID)
     {
@@ -234,24 +252,29 @@ public class Entity : MonoBehaviour
     protected void StopSound(string name)  { AudioManager.Instance.Stop(name);  }
     protected void PauseSound(string name) { AudioManager.Instance.Pause(name); }
     #endregion
-
+    [HideInInspector] public int consecutiveHits = 0;
     #region React Functions
 
     public void React(Vector3 hitterPosition)
     {
-
+        if (m_WeaponCollider != null)
+        {
+            m_WeaponCollider.enabled = false;
+            Debug.Log("Deactivated!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        }
         m_Hitted = true;
-
         Vector3 hitDirection = hitterPosition - transform.position;
         Vector3 hitPosition = Quaternion.Inverse(transform.rotation) * hitDirection.normalized;
 
         m_Animator.SetFloat("HitX", hitPosition.x);
         m_Animator.SetFloat("HitY", hitPosition.z);
-        m_Animator.SetTrigger("React");
+        if (!noReact) {
+            m_Animator.SetTrigger("React");
+            if(m_WeaponCollider!=null) m_WeaponCollider.enabled = false;
+        }
         if (gameObject.tag == "Player") Time.timeScale = 0.1f;
         StartCoroutine(ContiuneGame(0.03f));
         StartCoroutine(ReactCoroutine());
-        if(m_WeaponCollider!=null) m_WeaponCollider.enabled = false;
     }
 
     private IEnumerator ContiuneGame(float t) {
@@ -289,18 +312,21 @@ public class Entity : MonoBehaviour
     #endregion
 
     private void Update() {
+        noReact = false;
     }
-    [HideInInspector]public bool deadButWaiting = false;
+    [HideInInspector] public bool deadButWaiting = false;
+    [HideInInspector] public bool noDamage = false;
+    public bool noReact;
     private void OnTriggerEnter(Collider other)
     {
-        if (m_Hitted || dead || deadButWaiting) return;
+        if (m_Hitted || dead || deadButWaiting || noDamage) return;
         switch (other.tag)
         {
             case "Weapon":
                 if (other.GetComponent<WeaponHolder>().owner.tag != tag)
                 {
                     ApplyDamage(other.GetComponent<WeaponHolder>().holder.damage);
-
+                    consecutiveHits++;
                     GameObject hitParticles = Instantiate(m_HitParticles);
                     hitParticles.transform.position = other.transform.position + Vector3.Normalize((transform.position + Vector3.up) - (other.transform.position )) *2 ;
                     Destroy(hitParticles, 1);
@@ -317,7 +343,7 @@ public class Entity : MonoBehaviour
 
                     if (other.GetComponent<WeaponHolder>().owner.tag == "Player") {
                         AudioManager.Instance.PlayEffect("Splash");
-                        Debug.Log("Fart");
+
                     }
 
                     if (other.name.Contains("Dagger")) {
@@ -332,6 +358,8 @@ public class Entity : MonoBehaviour
                 {
                    
                     ApplyDamage(other.GetComponent<AbilityHolder>().holder.damage);
+                    consecutiveHits++;
+
                     React(other.transform.position);
                     ApplyModifier(other.gameObject.GetComponent<AbilityHolder>().holder.modifier);
                 }

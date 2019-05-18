@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.Audio;
+using System.Collections;
 
 public class AudioManager : MonoBehaviour
 {
@@ -81,17 +82,69 @@ public class AudioManager : MonoBehaviour
     {
         m_AudioMixer.SetFloat("MusicVolume", volume);
     }
+
+    public void Fade(string audioName, int seconds, float desiredVolume = 0.0f)
+    {
+        var sound = FindSound(audioName);
+        
+        StartCoroutine(Fade(sound.source, seconds, desiredVolume));
+    }
+
+    private IEnumerator Fade(AudioSource source, int seconds, float desiredVolume)
+    {
+        float initialVolume = source.volume;
+
+        for (float t = 0; t < seconds; t += 0.05f)
+        {
+            // Interpolate values between [0, seconds] to [0, 1] for the Mathf.Lerp function.
+            source.volume = Mathf.Lerp(initialVolume, desiredVolume, MapValue(t, 0, seconds, 0, 1));
+            yield return new WaitForSecondsRealtime(0.05f);
+        }
+    }
+
+    private float MapValue(float s, float a1, float a2, float b1, float b2)
+    {
+        return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
+    }
+
     #endregion
 
-    #region Audio Playing Functions
-    public void PlayEffect(string name)
+    Sound FindSound(string audioName)
     {
-        Sound soundToPlay = Array.Find(m_Effects, sound => sound.name == name);
+        var foundSound = Array.Find(m_Effects, sound => sound.name == audioName);
 
-        if (soundToPlay == null) {
-            Debug.LogWarning("Sound " + name + " not found");
+        if (foundSound != null) return foundSound;
+
+        foundSound = Array.Find(m_Music, sound => sound.name == audioName);
+
+        if (foundSound != null) return foundSound;
+
+        Debug.LogWarning("Sound named " + audioName + " not found.");
+        return null;
+    }
+
+    #region Audio Playing Functions
+
+    public void Play(string audioName)
+    {
+        Sound sound = FindSound(audioName);
+
+        if (sound.interruptible)
+        {
+            if (sound.source.isPlaying) sound.source.Stop();
+            sound.source.Play();
+
             return;
         }
+
+        sound.source.volume = sound.volume;
+        if (!sound.source.isPlaying) sound.source.Play();
+    }
+
+    [Obsolete("This is an deprecated method. Use Play() method instead.")]
+    public void PlayEffect(string audioName)
+    {
+        Sound soundToPlay = FindSound(audioName);
 
         if (soundToPlay.interruptible)
         {
@@ -101,52 +154,62 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
+        soundToPlay.source.volume = soundToPlay.volume;
         if (!soundToPlay.source.isPlaying) soundToPlay.source.Play();
     }
 
-    public void PlayMusic(string name)
+    [Obsolete("This is an deprecated method. Use Play() method instead.")]
+    public void PlayMusic(string audioName)
     {
-        Sound soundToPlay = Array.Find(m_Music, sound => sound.name == name);
+        Sound sound = FindSound(audioName);
 
-        if (soundToPlay == null)
-        {
-            Debug.LogWarning("Sound " + name + " not found");
-            return;
-        }
-
-        soundToPlay.source.Play();
+        sound.source.volume = sound.volume;
+        sound.source.Play();
     }
 
 
-    public void Pause(string name) {
+    public void Pause(string audioName) {
 
-        Sound soundToPlay = Array.Find(m_Effects, sound => sound.name == name);
+        Sound sound = FindSound(audioName);
 
-        if (soundToPlay == null) {
-            Debug.LogWarning("Sound" + name + " not found");
-            return;
-        }
-
-        soundToPlay.source.Pause();
+        sound.source.Pause();
     }
 
-    public void Stop(string name)
+    public void Stop(string audioName)
     {
-        Sound soundToPlay = Array.Find(m_Effects, sound => sound.name == name);
+        Sound sound = FindSound(audioName);
 
-        if (soundToPlay == null)
-        {
-            Debug.LogWarning("Sound" + name + " not found");
-            return;
-        }
-
-        soundToPlay.source.Stop();
+        sound.source.Stop();
     }
 
     public void StopAll()
     {
         Array.ForEach(m_Effects, sound => sound.source.Stop());
         Array.ForEach(m_Music, sound => sound.source.Stop());
+    }
+
+    public void StopAllEffects()
+    {
+        Array.ForEach(m_Effects, sound => sound.source.Stop());
+    }
+
+    public void PlayFade(string audioName, int seconds, float initialVolume, float finalVolume)
+    {
+        var sound = FindSound(audioName);
+
+        sound.source.volume = initialVolume;
+        sound.source.Play();
+        StartCoroutine(Fade(sound.source, seconds, finalVolume));
+    }
+
+    // Plays the audio from the initial volume to the volume specified in the inspector.
+    public void PlayFade(string audioName, int seconds, float initialVolume)
+    {
+        var sound = FindSound(audioName);
+
+        sound.source.volume = initialVolume;
+        sound.source.Play();
+        StartCoroutine(Fade(sound.source, seconds, sound.volume));
     }
     #endregion
 }

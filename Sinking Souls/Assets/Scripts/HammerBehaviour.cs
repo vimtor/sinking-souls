@@ -20,7 +20,7 @@ public class HammerBehaviour : MonoBehaviour {
         if (transform.GetComponentInParent<AIController>().CurrentState.name.Contains("Strong")) {
             strongAttack = true;
         }
-        else if (transform.GetComponentInParent<AIController>().CurrentState.name.Contains("Light")) {
+        else if (transform.GetComponentInParent<AIController>().CurrentState.name.Contains("Light") || transform.GetComponentInParent<AIController>().CurrentState.name.Contains("Kick")) {
             strongAttack = false;
 
         }

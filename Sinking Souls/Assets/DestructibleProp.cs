@@ -4,11 +4,23 @@ using UnityEngine;
 
 public class DestructibleProp : MonoBehaviour {
 
-	public GameObject destroyedVersion;	
+	public GameObject destroyedVersion;
 
-	void OnMouseDown ()
-	{
-		Instantiate(destroyedVersion, transform.position, transform.rotation);
-		Destroy(gameObject);	
-	}
+    private void OnTriggerEnter(Collider other) {
+        if(other.GetComponent<WeaponHolder>()) Destruct();
+
+    }
+    private void OnCollisionEnter(Collision other) {
+        if (other.gameObject.tag == "Player" && other.gameObject.layer == 10) Destruct();
+    }
+
+    private void OnCollisionStay(Collision other)
+    {
+        if (other.gameObject.tag == "Player" && other.gameObject.layer == 10) Destruct();
+    }
+
+    void Destruct() {
+        Instantiate(destroyedVersion, transform.position, transform.rotation);
+        Destroy(gameObject);
+    }
 }

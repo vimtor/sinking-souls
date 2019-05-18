@@ -20,6 +20,7 @@ public class MainMenuController : MonoBehaviour {
     private Ray ray;
     public RaycastHit hit;
     public UnityEvent ButtonEvents;
+    private int layerMask = (1 << 21);
 
 
 
@@ -27,7 +28,8 @@ public class MainMenuController : MonoBehaviour {
     {
         //Acces to necesary gameObjects
         ESys = GameObject.Find("EventSystem");
-
+        
+        layerMask = ~layerMask;
     }
 
 
@@ -64,7 +66,7 @@ public class MainMenuController : MonoBehaviour {
             }
 
             //Mouse Input
-            if (Physics.Raycast(ray, out hit) && GameController.instance.cursor.GetComponent<mouseCursor>().visible)
+            if (Physics.Raycast(ray.origin, ray.direction, out hit, Mathf.Infinity, layerMask) && GameController.instance.cursor.GetComponent<mouseCursor>().visible)
             {
                 Debug.Log(hit.transform.gameObject.name);
                 if (hit.transform.gameObject.GetComponent<Button>() != butArr[selected])

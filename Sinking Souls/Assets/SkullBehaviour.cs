@@ -37,7 +37,7 @@ public class SkullBehaviour : MonoBehaviour {
             GameObject part = Instantiate(particles);
             part.transform.position = transform.position;
             Destroy(part, 0.6f);
-            AudioManager.Instance.PlayEffect("MagicBombExplosion");
+            AudioManager.Instance.Play("MagicBombExplosion");
         }
         counter += Time.deltaTime;
     }
@@ -46,13 +46,12 @@ public class SkullBehaviour : MonoBehaviour {
 
         if(collision.gameObject == GetComponent<AbilityHolder>().owner && counter < 1) return;
         if (collision.gameObject.tag == "Weapon") return;
-        Debug.Log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + collision.gameObject.tag);
         Destroy(gameObject);
         GameObject part = Instantiate(particles);
         part.transform.position = transform.position;
         Destroy(part, 0.6f);
 
 
-        AudioManager.Instance.PlayEffect("MagicBombExplosion");
+        AudioManager.Instance.Play("MagicBombExplosion");
     }
 }

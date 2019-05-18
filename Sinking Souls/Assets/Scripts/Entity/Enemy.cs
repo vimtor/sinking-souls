@@ -28,6 +28,12 @@ public class Enemy : Entity {
 
     private void Update()
     {
+
+        if (consecutiveHits >= 3)
+        {
+            noReact = true;
+        }
+
         if (transform.position.y < -20) Health = -10;
 
         if (m_Health <= 0) Die();

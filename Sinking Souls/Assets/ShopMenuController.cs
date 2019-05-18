@@ -36,7 +36,7 @@ public class ShopMenuController : MonoBehaviour
     {
         //Acces to necesary gameObjects
         ESys = GameObject.Find("EventSystem");
-
+        selected = 0;
     }
 
 
@@ -54,7 +54,7 @@ public class ShopMenuController : MonoBehaviour
 
                 //Actuallice item properties
                 if (GameController.instance.lobbySouls >= price) SetItemColor(but, normalTextColor, normalImageColor);   //Can buy
-                else SetItemColor(but, normalUnavailableTextColor, normalUnavailableImageColor);                        //Can not buy
+                else SetItemColor(but, normalUnavailableTextColor, normalUnavailableImageColor);                         //Can not buy
 
             }
             if (!(itemArr == null || itemArr.Length == 0))
@@ -68,6 +68,7 @@ public class ShopMenuController : MonoBehaviour
         if (!gameObject.activeSelf)
         {
             reset = true;
+            selected = 0;
             time = 0;
         }
         //Shop is open

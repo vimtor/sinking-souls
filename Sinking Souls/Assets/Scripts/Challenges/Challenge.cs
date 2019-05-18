@@ -79,7 +79,6 @@ public abstract class Challenge : MonoBehaviour {
         {
             if (e.GetComponent<AIController>().aiActive)
             {
-                Debug.Log(e.name);
                 return true;
             }
         }

@@ -252,6 +252,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1297931460114764
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4129813042271566}
+  - component: {fileID: 65070070371249836}
+  m_Layer: 0
+  m_Name: Boot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1308871665933028
 GameObject:
   m_ObjectHideFlags: 1
@@ -795,6 +811,19 @@ Transform:
   m_Father: {fileID: 4584499967070074}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4129813042271566
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1297931460114764}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: -0.00000035762784}
+  m_LocalPosition: {x: -0.073, y: 0, z: -0}
+  m_LocalScale: {x: 0.59504, y: 0.363, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4585892433092408}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4154058658002410
 Transform:
   m_ObjectHideFlags: 1
@@ -1108,13 +1137,14 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1722973802365516}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: -0.00000035762784}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.2998724, y: -2.24, z: 1.4641857}
   m_LocalScale: {x: 1.545, y: 1.545, z: 1.545}
   m_Children:
   - {fileID: 4269246823633790}
   - {fileID: 4182534773025890}
   - {fileID: 4476358405389190}
   - {fileID: 4257290828046836}
+  - {fileID: 4129813042271566}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 179.99998, z: 0}
@@ -1340,6 +1370,18 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!65 &65070070371249836
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1297931460114764}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3, y: 0.3, z: 0.3}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95463220154250214
 Animator:
   serializedVersion: 3
@@ -1402,7 +1444,9 @@ MonoBehaviour:
   m_MaxHealth: 230
   m_HittedRecovery: 2
   m_Weapon: {fileID: 11400000, guid: bc3662e2fbc958a48a1d9a85f4fa4db7, type: 2}
+  feetWeapon: {fileID: 11400000, guid: 3d175ffc265e50d4b8577502710ddc49, type: 2}
   m_WeaponHand: {fileID: 1014381115463040}
+  feet: {fileID: 1907405167141652}
   leftHanded: 0
   m_OtherHand: {fileID: 0}
   m_Abilities: []
@@ -1416,6 +1460,8 @@ MonoBehaviour:
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0
   deadButWaiting: 0
+  noDamage: 0
+  noReact: 0
   m_Souls: 10
   deathDuration: 3
   reviveWhenDead: 1

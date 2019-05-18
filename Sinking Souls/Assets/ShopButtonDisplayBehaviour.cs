@@ -69,7 +69,6 @@ public class ShopButtonDisplayBehaviour : MonoBehaviour {
                 if (text.color.a >= 1) text.color = new Vector4(text.color.r, text.color.g, text.color.b, 1);
             }
         }
-        Debug.Log(text.color.a);
     }
 
     public void destroy()

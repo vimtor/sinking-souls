@@ -69,11 +69,18 @@ public class GameController : MonoBehaviour
 
     [Header("Chests")]
     public float spawnProvabilty;
-    public int minimumPerLevel;
-    public int maximumPerLevel;
+    public float spawnProvabiltySecondary;
+    public int activeSecondaryChests = 0;
     public int activeChests = 0;
     public int soulsUISize;
     public GameObject ChestContentUI;
+
+    [Header("Destructibles parameters")]
+    public int AmphoraMinPerRoom;
+    public int AmphoraMaxPerRoom;
+
+    [Header("\n")]
+    public int percentageOfKeepedSouls;
 
     private LevelGenerator levelGenerator;
 
@@ -82,7 +89,6 @@ public class GameController : MonoBehaviour
         get { return levelGenerator; }
     }
 
-    public int percentageOfKeepedSouls;
 
     private void Awake()
     {
@@ -196,6 +202,7 @@ public class GameController : MonoBehaviour
 
             case ApplicationManager.GameState.GAME:
                 activeChests = 0;
+                activeSecondaryChests = 0;
                 roomEnemies = new List<GameObject>();
                 foreach(Enhancer en in enhancers) {
                     en.price = en.basePrice;
@@ -226,12 +233,12 @@ public class GameController : MonoBehaviour
                 {
                     player.transform.Find("DeathIsland").gameObject.SetActive(false);
                     GameObject.Find("Post Processing").gameObject.GetComponent<PostProcessVolume>().profile = postProcesingProfileLevel1;
-                    AudioManager.Instance.PlayMusic("TritonTheme");
+                    AudioManager.Instance.PlayFade("TritonTheme", 2, 0.1f);
                 }
                 else
                 {
-                    AudioManager.Instance.PlayEffect("Wind");
-                    AudioManager.Instance.PlayMusic("DeathTheme");
+                    AudioManager.Instance.PlayFade("Wind", 3, 0);
+                    AudioManager.Instance.PlayFade("DeathTheme", 5, 0.1f);
                 }
                 Cursor.visible = false;
                 Time.timeScale = 1;
@@ -260,7 +267,9 @@ public class GameController : MonoBehaviour
             break;
 
             case ApplicationManager.GameState.LOBBY:
-                extraLife = 0;
+                extraLife = 0;  
+                spawnProvabilty = (2 / (15f * 4f)) * 100;
+                spawnProvabiltySecondary = (5 / (15f * 4f)) * 100;
                 if (tabbernSoulsHolder != -1) {//if ultra feo por la mierda de sistema vol 2
                     runSouls = lobbySouls;
                     lobbySouls = tabbernSoulsHolder;
@@ -268,7 +277,7 @@ public class GameController : MonoBehaviour
                 }
                 if (m_RescuedBlacksmith) GetComponent<LevelGenerator>().level = level1;
                 if (m_RescuedAlchemist) GetComponent<LevelGenerator>().level = level2;
-                AudioManager.Instance.PlayMusic("Waves");
+                AudioManager.Instance.PlayFade("Waves", 2, 0.1f);
 
                 inTavern = false;
 
@@ -448,10 +457,14 @@ public class GameController : MonoBehaviour
             foreach (GameObject en in roomEnemies) {
                 if (currentRoom.GetComponent<doorController>().checkEnemyDistance(en)) {
                     en.GetComponent<AIController>().SetupAI();
-                    if (en.GetComponent<SorcererReviveHelper>()) activeMage = en;
+                    if (en.GetComponent<SorcererReviveHelper>())
+                    {
+                        activeMage = en;
+                    }
                 }
                
             }
+
             return false;
         }
         return false;
@@ -566,5 +579,18 @@ public class GameController : MonoBehaviour
         equippedModifier = modifiers[save.equippedModifier];
         equippedAbility = abilities[save.equippedAbility];
     }
+
+    //value, start1, end1, new sratr, new end
+    public float Map(float s, float a1, float a2, float b1, float b2, bool forceLimit = false)
+    {
+        if(forceLimit)
+        {
+            if (s < a1) s = a1;
+            else if (s > a2) s = a2;
+        }
+
+        return b1 + (s - a1) * (b2 - b1) / (a2 - a1);
+    }
+
 }
 

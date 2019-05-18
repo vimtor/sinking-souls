@@ -99,6 +99,31 @@ public class InputManager : MonoBehaviour {
     public float cursorHideTime = 3.0f;
     private bool hiding;
 
+    bool keyboardUsed() {
+        return
+            Input.GetMouseButton(0)             ||
+            Input.GetMouseButton(1)             ||
+            Input.GetMouseButton(2)             ||
+            Input.GetKeyDown(KeyCode.Space)     ||
+            Input.GetKey(KeyCode.E)             ||
+            Input.GetKey(KeyCode.F)             ||
+            Input.GetKey(KeyCode.Escape)        ||
+            Input.GetKey(KeyCode.Return)        ||
+            Input.GetKey(KeyCode.W)             ||
+            Input.GetKey(KeyCode.A)             ||
+            Input.GetKey(KeyCode.S)             ||
+            Input.GetKey(KeyCode.D)             ||
+            Input.GetKey(KeyCode.Q)             ||
+            Input.GetKey(KeyCode.DownArrow)     ||
+            Input.GetKey(KeyCode.LeftArrow)     ||
+            Input.GetKey(KeyCode.RightArrow)    ||
+            Input.GetKey(KeyCode.UpArrow)       ||
+            Input.GetKey(KeyCode.C)             ||
+            Input.GetKey(KeyCode.X)             ||
+            Input.GetKey(KeyCode.Tab);
+
+    }
+
     void Update()
     {
         if (Input.GetButtonDown("BUTTON_A")) m_ButtonA = true;
@@ -107,7 +132,7 @@ public class InputManager : MonoBehaviour {
         if (Input.GetButtonDown("BUTTON_Y")) m_ButtonY = true;
         if (Input.GetButtonDown("BUTTON_RIGHTJOYSTICK")) m_ButtonRJ = true;
 
-        if (Input.GetAxis("BUTTON_RT") >= 0.5 || Input.GetKeyDown(KeyCode.F)) m_ButtonRT = true;
+        if (Input.GetAxis("BUTTON_RT") >= 0.5) m_ButtonRT = true;
 
         if (Input.GetButtonDown("START") || Input.GetKeyDown(KeyCode.Escape)) m_ButtonStart = true;
         if (Input.GetButtonDown("SELECT")) m_ButtonSelect = true;
@@ -118,12 +143,14 @@ public class InputManager : MonoBehaviour {
         Dpad = new Vector2(Input.GetAxis("DPAD_H"), Input.GetAxis("DPAD_V"));
         Mouse = new Vector2(Input.GetAxis("MouseX"), Input.GetAxis("MouseY"));
 
+
+
+        if (keyboardUsed()) Xbox_One_Controller = 0;
+        else if ((m_ButtonA && !Input.GetMouseButton(0)) || m_ButtonRJ && !Input.GetKey(KeyCode.E) || (m_ButtonB && !Input.GetKey(KeyCode.Space)) || m_ButtonX || m_ButtonY || m_ButtonRJ || (m_ButtonRT && !Input.GetKey(KeyCode.F)) || m_ButtonStart || LeftJoystick.magnitude != 0 || RightJoystick.magnitude != 0 || Dpad.magnitude != 0) Xbox_One_Controller = 1;
+
+        if(Input.GetKeyDown(KeyCode.F)) m_ButtonRT = true;
+        if (Input.GetKeyDown(KeyCode.E)) m_ButtonRJ = true;
         if (LeftJoystickZero()) LeftJoystick = new Vector2(Input.GetAxis("KEY_HORIZONTAL"), Input.GetAxis("KEY_VERTICAL"));
-
-
-        if (Input.anyKey || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2)) Xbox_One_Controller = 0;
-        else if (m_ButtonA || m_ButtonB || m_ButtonX || m_ButtonY || m_ButtonRJ || m_ButtonRT || m_ButtonStart || LeftJoystick.magnitude != 0 || RightJoystick.magnitude != 0 || Dpad.magnitude != 0) Xbox_One_Controller = 1;
-
     }
 
     IEnumerator CleanInput()

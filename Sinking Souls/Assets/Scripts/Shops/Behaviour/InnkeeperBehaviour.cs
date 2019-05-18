@@ -31,7 +31,7 @@ public class InnkeeperBehaviour : ShopBehaviour<Enhancer>
             GameController.instance.cursor.GetComponent<mouseCursor>().Show();
 
         }
-        else if (!hiding && GameObject.Find("Innkeeper Shop").GetComponent<ShopMenuController>().hit.collider == null)
+        else if (!hiding && GameObject.Find("Innkeeper Shop").GetComponent<InnkeeperShopMenuController>().hit.collider == null)
         {
             hiding = true;
             StartCoroutine(HideMouse(3.0f));

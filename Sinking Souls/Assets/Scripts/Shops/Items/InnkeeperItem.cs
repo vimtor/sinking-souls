@@ -18,7 +18,6 @@ public class InnkeeperItem : ShopItem
         enhancer.Use();
         price = enhancer.price;
         transform.Find("Price").GetComponent<TextMeshProUGUI>().text = price.ToString();
-
         AudioManager.Instance.PlayEffect("TavernItem");
     }
 }

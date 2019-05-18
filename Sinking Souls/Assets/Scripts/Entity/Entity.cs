@@ -312,6 +312,7 @@ public class Entity : MonoBehaviour
     #endregion
 
     private void Update() {
+        noReact = false;
     }
     [HideInInspector] public bool deadButWaiting = false;
     [HideInInspector] public bool noDamage = false;

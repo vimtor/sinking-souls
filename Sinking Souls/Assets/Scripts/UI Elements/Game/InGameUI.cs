@@ -117,6 +117,7 @@ public class InGameUI : MonoBehaviour
 
         var currentRoom = GameController.instance.currentRoom;
         currentRoom.GetComponent<doorController>().roomIcon.SetActive(true);
+        if (currentRoom.GetComponent<doorController>().roomIcon.transform.childCount > 0) currentRoom.GetComponent<doorController>().roomIcon.transform.GetChild(0).gameObject.SetActive(true);
         currentRoom.GetComponent<doorController>().roomUnknown.SetActive(false);
 
         var adjacentDoors = currentRoom.GetComponentsInChildren<DoorBehaviour>();

@@ -17,10 +17,13 @@ public class SkeletonMeleeAttackDecision : Decision {
         if (Random.Range(0f,100f) <= 35) controller.CurrentState.transitions[0].trueState = strongAttack;
         else controller.CurrentState.transitions[0].trueState = lightAttack;
 
-        if (controller.GetComponent<Entity>().consecutiveHits >= kickHitsInterval)
-        {
-            controller.CurrentState.transitions[0].trueState = kick;
-            controller.GetComponent<Entity>().consecutiveHits = 0;
+        if (controller.GetComponent<Entity>().consecutiveHits >= kickHitsInterval) { 
+            controller.GetComponent<Entity>().noReact = true;
+            if(Vector3.Distance(controller.player.transform.position, controller.transform.position) < 2)
+            {
+                controller.CurrentState.transitions[0].trueState = kick;
+                controller.GetComponent<Entity>().consecutiveHits = 0;
+            }
         }
 
         return true;

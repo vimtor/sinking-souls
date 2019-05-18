@@ -57,6 +57,7 @@ public class Entity : MonoBehaviour
     }
 
     protected BoxCollider m_WeaponCollider;
+    protected BoxCollider m_feetCollider;
 
     [SerializeField] protected Ability[] m_Abilities;
     public Ability[] Abilities
@@ -126,6 +127,7 @@ public class Entity : MonoBehaviour
         EquipWeapon();
         // Get weapon collider reference to avoid errors when using animation events.
         m_WeaponCollider = m_Weapon.BoxCollider;
+        if (feetWeapon != null) m_feetCollider = feetWeapon.BoxCollider;
 
 
         // To avoid different prefabs accesing the same ability.
@@ -211,7 +213,10 @@ public class Entity : MonoBehaviour
         noReact = t < 1? false : true;
     }
 
-    protected void EnableCollider() { m_WeaponCollider.enabled = true; }
+    protected void EnableCollider(int feet = 0) {
+        if (feet == 1) m_feetCollider.enabled = true;
+        else m_WeaponCollider.enabled = true;
+    }
     protected void EnablePerfect()
     {
         transform.GetChild(2).GetComponent<BoxCollider>().enabled = true;
@@ -232,7 +237,10 @@ public class Entity : MonoBehaviour
         transform.GetChild(3).GetComponent<BoxCollider>().enabled = false;
 
     }
-    protected void DisableCollider() { m_WeaponCollider.enabled = false; }
+    protected void DisableCollider(int feet = 0) {
+        if (feet == 1) m_feetCollider.enabled = false;
+        else m_WeaponCollider.enabled = false;
+    }
 
     protected void UseAbility(int abilityID)
     {
@@ -244,12 +252,16 @@ public class Entity : MonoBehaviour
     protected void StopSound(string name)  { AudioManager.Instance.Stop(name);  }
     protected void PauseSound(string name) { AudioManager.Instance.Pause(name); }
     #endregion
-
+    [HideInInspector] public int consecutiveHits = 0;
     #region React Functions
 
     public void React(Vector3 hitterPosition)
     {
-        if (m_WeaponCollider != null) m_WeaponCollider.enabled = false;
+        if (m_WeaponCollider != null)
+        {
+            m_WeaponCollider.enabled = false;
+            Debug.Log("Deactivated!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        }
         m_Hitted = true;
         Vector3 hitDirection = hitterPosition - transform.position;
         Vector3 hitPosition = Quaternion.Inverse(transform.rotation) * hitDirection.normalized;
@@ -313,7 +325,7 @@ public class Entity : MonoBehaviour
                 if (other.GetComponent<WeaponHolder>().owner.tag != tag)
                 {
                     ApplyDamage(other.GetComponent<WeaponHolder>().holder.damage);
-
+                    consecutiveHits++;
                     GameObject hitParticles = Instantiate(m_HitParticles);
                     hitParticles.transform.position = other.transform.position + Vector3.Normalize((transform.position + Vector3.up) - (other.transform.position )) *2 ;
                     Destroy(hitParticles, 1);
@@ -345,6 +357,8 @@ public class Entity : MonoBehaviour
                 {
                    
                     ApplyDamage(other.GetComponent<AbilityHolder>().holder.damage);
+                    consecutiveHits++;
+
                     React(other.transform.position);
                     ApplyModifier(other.gameObject.GetComponent<AbilityHolder>().holder.modifier);
                 }

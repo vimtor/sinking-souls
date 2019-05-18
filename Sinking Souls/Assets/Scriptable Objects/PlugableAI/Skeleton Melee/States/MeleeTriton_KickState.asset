@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd67c1b2fd6121b458816ae83710b563, type: 3}
+  m_Name: MeleeTriton_KickState
+  m_EditorClassIdentifier: 
+  actions:
+  - {fileID: 11400000, guid: 4021ce83104e1bc45bd439f7569c8598, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: 1c32e375d562a2e4190cbd98de2ebc57, type: 2}
+    trueState: {fileID: 11400000, guid: 0a1d20f012c8eab48acc398c1478efc8, type: 2}
+    falseState: {fileID: 11400000, guid: 0a1d20f012c8eab48acc398c1478efc8, type: 2}
+  - decision: {fileID: 11400000, guid: 1caf1d4cb665aaa4ba6476850b3267e2, type: 2}
+    trueState: {fileID: 11400000, guid: 549d91b502f474b4d8f72e7807524898, type: 2}
+    falseState: {fileID: 11400000, guid: 0a1d20f012c8eab48acc398c1478efc8, type: 2}

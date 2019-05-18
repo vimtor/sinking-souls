@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd67c1b2fd6121b458816ae83710b563, type: 3}
+  m_Name: MeleeTriton_KickState 1
+  m_EditorClassIdentifier: 
+  actions:
+  - {fileID: 11400000, guid: 6794f7a810cb0834994bfa47bf969147, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: 7342691f5c7f0e544853a5d04f879c00, type: 2}
+    trueState: {fileID: 11400000, guid: 4e32a6caaab141046977b7710d0afa05, type: 2}
+    falseState: {fileID: 11400000, guid: ebca3d2bb8e19e54cb24e740dd0c37cb, type: 2}
+  - decision: {fileID: 11400000, guid: ecda18bc01cb1aa40a67c456a24b9029, type: 2}
+    trueState: {fileID: 11400000, guid: fcb8635c20b1cf649a70780cccd079b4, type: 2}
+    falseState: {fileID: 11400000, guid: ebca3d2bb8e19e54cb24e740dd0c37cb, type: 2}
+  - decision: {fileID: 11400000, guid: 078a53d3d58357148b0287653601f443, type: 2}
+    trueState: {fileID: 11400000, guid: ebca3d2bb8e19e54cb24e740dd0c37cb, type: 2}
+    falseState: {fileID: 11400000, guid: 8f118dbb5d5029643a200fe5a55c8712, type: 2}

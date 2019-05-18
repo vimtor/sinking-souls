@@ -1429,9 +1429,9 @@ MonoBehaviour:
   m_MaxHealth: 160
   m_HittedRecovery: 2
   m_Weapon: {fileID: 11400000, guid: b7cf60aea94f0194498f03320e8fa5fd, type: 2}
-  feetWeapon: {fileID: 0}
+  feetWeapon: {fileID: 11400000, guid: 3d175ffc265e50d4b8577502710ddc49, type: 2}
   m_WeaponHand: {fileID: 1944369658064376}
-  feet: {fileID: 0}
+  feet: {fileID: 1632022362583548}
   leftHanded: 0
   m_OtherHand: {fileID: 0}
   m_Abilities: []
@@ -1444,6 +1444,7 @@ MonoBehaviour:
   lockedEnemy: {fileID: 0}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0
+  consecutiveHits: 0
   deadButWaiting: 0
   noDamage: 0
   noReact: 0

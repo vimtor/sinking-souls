@@ -487,10 +487,18 @@ public class Player : Entity
     {
         // In the future change this to add force and put materials with friction in them.
         // m_Rigidbody.MovePosition(transform.position + transform.forward * m_MovementSpeed * m_Direction.magnitude * Time.fixedDeltaTime);
+
         Vector3 velocity = m_Rigidbody.velocity;
         velocity.y = 0;
+        
         Vector3 aux = transform.forward.normalized * InputManager.LeftJoystick.magnitude * m_MovementSpeed;
-        m_Rigidbody.velocity = new Vector3(aux.x,-2,aux.z);
+        m_Rigidbody.velocity = new Vector3(aux.x, -2, aux.z);
+        
+        //if(velocity.magnitude < m_MaxMovementSpeed)
+        //{
+        //    m_Rigidbody.AddForce(transform.forward.normalized * InputManager.LeftJoystick.magnitude * m_MovementSpeed * 20);
+        //}
+
     }
 
     private void CombatMove()

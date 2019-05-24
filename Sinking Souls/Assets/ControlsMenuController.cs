@@ -6,6 +6,9 @@ using TMPro;
 
 public class ControlsMenuController : MonoBehaviour {
 
+    public float timePressed = 0;
+    public bool stayOpen = false;
+
     GameObject Controller;
     GameObject X;
     GameObject A;
@@ -46,7 +49,11 @@ public class ControlsMenuController : MonoBehaviour {
 	// Use this for initialization
 
     public void ShowController() {
-        if (GameObject.Find("Pause Content") || GameObject.Find("Settings Menu")) return;
+        if (GameObject.Find("Pause Content") || GameObject.Find("Settings Menu"))
+        {
+            Debug.Log("Bingo");
+            return;
+        }
         GetComponent<Image>().color = original;
         KeyBoard.SetActive(false);
         Controller.SetActive(true);
@@ -123,8 +130,24 @@ public class ControlsMenuController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey(KeyCode.Tab)) ShowKeyboard();
-        else if (InputManager.ButtonSelect) ShowController();
-        else HideAll();
+        if (Input.GetKey(KeyCode.Tab))
+        {
+            if (timePressed == 0.0f) stayOpen = !stayOpen;
+            else if (timePressed > 0.23f) stayOpen = false;
+            timePressed += Time.unscaledDeltaTime;
+            ShowKeyboard();
+        }
+        else if (InputManager.ButtonSelect)
+        {
+            if (timePressed == 0.0f) stayOpen = !stayOpen;
+            else if (timePressed > 0.23f) stayOpen = false;
+            timePressed += Time.unscaledDeltaTime;
+            ShowController();
+        }
+        else
+        {
+            timePressed = 0;
+            if(!stayOpen) HideAll();
+        }
     }
 }

@@ -26,16 +26,18 @@ public class NoDodgeChallenge : Challenge
         return newState(true);
     }
 
-    public override void Win()
+    public override string Win()
     {
         float auxMaxHealth = player.MaxHealth + GameController.instance.extraLife;
         if (player.Health < auxMaxHealth)
         {
             player.Heal((auxMaxHealth / 100) * 20); //Hela 20 % when win
+            return "20% life heal";
         }
         else
         {
             GameController.instance.AddSouls(20);
+            return "20 Souls";
         }
     }
 }

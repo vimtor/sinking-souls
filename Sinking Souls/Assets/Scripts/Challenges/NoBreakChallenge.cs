@@ -53,9 +53,9 @@ public class NoBreakChallenge : Challenge {
         }
     }
 
-    public override void Win() {
-        Debug.Log("WIIIIN");
-
+    public override string Win() {
+        GameController.instance.AddSouls(15);
+        return "15 Souls";
     }
 
 }

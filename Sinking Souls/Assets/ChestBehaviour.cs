@@ -117,13 +117,13 @@ public class ChestBehaviour : MonoBehaviour {
                 }
             }
             //if all unlocked give 50 souls
-            UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "<color=#008000ff><size=40>" + SoulsRecived + "</size></color> souls added";
+            UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "<color=#00ff48><size=40>" + SoulsRecived + "</size></color> souls added";
 
             GameController.instance.AddSouls(SoulsRecived);
         }
         else {
             //if all unlocked give 50 souls
-            UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "<color=#008000ff><size=40>" + SoulsRecivedLight + "</size></color> souls added";
+            UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "<color=#00ff48><size=40>" + SoulsRecivedLight + "</size></color> souls added";
 
             GameController.instance.AddSouls(SoulsRecivedLight);
         }

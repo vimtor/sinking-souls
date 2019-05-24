@@ -13,6 +13,8 @@ public class ChallengeManager : MonoBehaviour {
         DontUseThisOne
     }
 
+    public GameObject UIMessage;
+
     public Challenges[] possibleChallenges;
     public float[] chance;
 
@@ -24,6 +26,7 @@ public class ChallengeManager : MonoBehaviour {
     public KeyValuePair<float, float> test;
 	// Use this for initialization
 	void Start () {
+        UIMessage = GameController.instance.GetComponent<GameController>().ChestContentUI;
         Challenges possibleChallenge = Challenges.DontUseThisOne;
         do {
             int i = Random.Range(0, possibleChallenges.Length);
@@ -39,25 +42,32 @@ public class ChallengeManager : MonoBehaviour {
             gameObject.AddComponent<TestChallenge>();
             GetComponent<TestChallenge>().updateAlways = false;
             GetComponent<TestChallenge>().challengeName = "Test Challenge";
-            break;
+            GetComponent<TestChallenge>().Message =UIMessage;
+                break;
             case Challenges.KillAllNoDamage:
             gameObject.AddComponent<NoDamageCHallenge>();
             GetComponent<NoDamageCHallenge>().updateAlways = false;
             GetComponent<NoDamageCHallenge>().challengeName = "Take no damage!";
+            GetComponent<NoDamageCHallenge>().Message = UIMessage;
 
-            break;
+
+                break;
             case Challenges.TimeChallenge:
             gameObject.AddComponent<TimeChallenge>();
             GetComponent<TimeChallenge>().updateAlways = false;
             GetComponent<TimeChallenge>().timeDisplay = timeDisplay;
             GetComponent<TimeChallenge>().colorGradient = colorGradient;
             GetComponent<TimeChallenge>().challengeName = "Kill them fast!";
-            break;
+            GetComponent<TimeChallenge>().Message = UIMessage;
+
+                break;
             case Challenges.NoBreakChallenge:
             gameObject.AddComponent<NoBreakChallenge>();
             GetComponent<NoBreakChallenge>().updateAlways = false;
             GetComponent<NoBreakChallenge>().challengeName = "Don't break anything!";
-            break;
+            GetComponent<NoBreakChallenge>().Message = UIMessage;
+
+                break;
             case Challenges.None:
             break;
             case Challenges.DontUseThisOne:

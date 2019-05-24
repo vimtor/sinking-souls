@@ -1373,7 +1373,9 @@ MonoBehaviour:
   m_MaxHealth: 200
   m_HittedRecovery: 2
   m_Weapon: {fileID: 11400000, guid: b7cf60aea94f0194498f03320e8fa5fd, type: 2}
+  feetWeapon: {fileID: 0}
   m_WeaponHand: {fileID: 1815614265456928}
+  feet: {fileID: 0}
   leftHanded: 0
   m_OtherHand: {fileID: 0}
   m_Abilities:
@@ -1387,7 +1389,10 @@ MonoBehaviour:
   lockedEnemy: {fileID: 0}
   originalColor: {r: 0, g: 0, b: 0, a: 0}
   gettingDamage: 0
+  consecutiveHits: 0
   deadButWaiting: 0
+  noDamage: 0
+  noReact: 0
   m_Souls: 10
   deathDuration: 3
   reviveWhenDead: 0
@@ -1439,7 +1444,12 @@ MonoBehaviour:
   distance: {fileID: 1978115826758056, guid: 5a01ce453bb2d394f9f8d54ac6124cab, type: 2}
   instantiated: {fileID: 0}
   particles: {fileID: 1547316304616906, guid: 0b58c2a0a2b2d0b409035b70520885de, type: 2}
-  magic: {fileID: 1268084365415362, guid: df7cc66922065ab438c06c0aa7af4c11, type: 2}
+  magic: {fileID: 1268084365415362, guid: b0ed31add3fc57643a2dcf7fb8df8af3, type: 2}
+  augmented: 0
+  augmentedMagic: {fileID: 0}
+  augmentedParticles: {fileID: 0}
+  closeDistance: 0
+  time: 0
 --- !u!136 &136063798724150306
 CapsuleCollider:
   m_ObjectHideFlags: 1

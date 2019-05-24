@@ -29,8 +29,9 @@ public class TestChallenge : Challenge {
         return newState(true);
     }
 
-    public override void Win() {
+    public override string Win() {
         Debug.Log("Winned");
+        return "the fuck";
 
     }
 }

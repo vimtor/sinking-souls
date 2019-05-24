@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public struct ChallengeState {
     public bool winned;
@@ -14,6 +16,11 @@ public abstract class Challenge : MonoBehaviour {
     public bool updateAlways;
     ChallengeState state;
     public string challengeName;
+    private bool showMessage;
+    private GameObject UIHandler;
+    public GameObject Message;
+
+    public float apearingSpeed = 10;
 
     public ChallengeState newState(bool onGoing, bool winned = false) {
         ChallengeState state;
@@ -57,10 +64,17 @@ public abstract class Challenge : MonoBehaviour {
                 state = StartedUpdate();
                 if (state.onGoing == false) {
                     if (state.winned) {
-                        Win();
+                        string winMss = Win();
+                        showMessage = true;
+                        UIHandler = Instantiate(Message, GameObject.Find("Canvas").transform, false);
+                        UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "Challenge reward: " + "<color=#00ff48><size=40>" + winMss +"</size></color>";
                     }
                     else {
                         Loose();
+                        showMessage = true;
+                        UIHandler = Instantiate(Message, GameObject.Find("Canvas").transform, false);
+                        UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "Challenge <color=#ff0000><size=40>lost" + "</size></color>";
+
                     }
                     started = false;
                     done = true;
@@ -71,6 +85,38 @@ public abstract class Challenge : MonoBehaviour {
 
         }
 
+        if (!showMessage)
+        {
+            UIHandler.GetComponent<Image>().color = new Vector4(UIHandler.GetComponent<Image>().color.r, UIHandler.GetComponent<Image>().color.g, UIHandler.GetComponent<Image>().color.b, UIHandler.GetComponent<Image>().color.a - apearingSpeed * Time.deltaTime);
+            UIHandler.GetComponentInChildren<TextMeshProUGUI>().color = new Vector4(UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.r, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.g, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.b, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.a - apearingSpeed * Time.deltaTime);
+            if (UIHandler.GetComponent<Image>().color.a <= 0)
+            {
+                UIHandler.GetComponent<Image>().color = new Vector4(UIHandler.GetComponent<Image>().color.r, UIHandler.GetComponent<Image>().color.g, UIHandler.GetComponent<Image>().color.b, 0);
+                UIHandler.GetComponentInChildren<TextMeshPro>().color = new Vector4(UIHandler.GetComponentInChildren<TextMeshPro>().color.r, UIHandler.GetComponentInChildren<TextMeshPro>().color.g, UIHandler.GetComponentInChildren<TextMeshPro>().color.b, 0);
+            }
+
+        }
+        else
+        {
+            UIHandler.GetComponent<Image>().color = new Vector4(UIHandler.GetComponent<Image>().color.r, UIHandler.GetComponent<Image>().color.g, UIHandler.GetComponent<Image>().color.b, UIHandler.GetComponent<Image>().color.a + apearingSpeed * Time.deltaTime);
+            UIHandler.GetComponentInChildren<TextMeshProUGUI>().color = new Vector4(UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.r, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.g, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.b, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.a + apearingSpeed * Time.deltaTime);
+
+            if (UIHandler.GetComponent<Image>().color.a >= 1)
+            {
+                UIHandler.GetComponent<Image>().color = new Vector4(UIHandler.GetComponent<Image>().color.r, UIHandler.GetComponent<Image>().color.g, UIHandler.GetComponent<Image>().color.b, 1);
+                UIHandler.GetComponentInChildren<TextMeshProUGUI>().color = new Vector4(UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.r, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.g, UIHandler.GetComponentInChildren<TextMeshProUGUI>().color.b, 1);
+                StartCoroutine(HideMessagito(2.2f));
+            }
+
+        }
+
+    }
+
+    IEnumerator HideMessagito(float t)
+    {
+        yield return new WaitForSecondsRealtime(t);
+        showMessage = false;
+        Destroy(UIHandler, 5);
     }
 
     public bool EnemiesAlive()
@@ -112,7 +158,7 @@ public abstract class Challenge : MonoBehaviour {
     /// <summary>
     /// function called when the ChallengState returns a winn
     /// </summary>
-    public abstract void Win();
+    public abstract string Win();
 
     /// <summary>
     /// function called when the ChallengState returns a failed

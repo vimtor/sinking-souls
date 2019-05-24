@@ -19,6 +19,9 @@ public class TimeChallenge : Challenge
         display = Instantiate(timeDisplay);
         display.transform.position = GameController.instance.currentRoom.transform.position + (Vector3.up * 2);
         originalScale = display.transform.localScale;
+        maxTime = 0;
+        foreach (GameObject e in GameController.instance.roomEnemies) if (e.GetComponent<AIController>().aiActive) maxTime += 3.5f;    
+
     }
 
     public override void LevelStart(){}
@@ -42,9 +45,10 @@ public class TimeChallenge : Challenge
         return newState(true);
     }
 
-    public override void Win()
+    public override string Win()
     {
         GameController.instance.AddSouls(10);
+        return "10 Souls";
     }
 
     public void updateTimer()

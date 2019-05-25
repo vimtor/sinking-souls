@@ -98,6 +98,7 @@ public class SaveData
             abilitiesOwned[i] = abilities[i].owned;
         }
 
+        equippedModifier = -1; // If the player as no modifier equipped.
         var player = GameController.instance.player.GetComponent<Player>();
         for (int i = 0; i < modifiers.Length; i++)
         {

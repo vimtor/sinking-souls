@@ -576,7 +576,8 @@ public class GameController : MonoBehaviour
             conditions[i].completed = save.conditionsTriggered[i];
         }
 
-        equippedModifier = modifiers[save.equippedModifier];
+
+        equippedModifier = save.equippedModifier == -1 ? null : modifiers[save.equippedModifier];
         equippedAbility = abilities[save.equippedAbility];
     }
 

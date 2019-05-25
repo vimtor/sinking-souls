@@ -76,6 +76,7 @@ public class doorController : MonoBehaviour
         if (!playSound)
         {
             playSound = true;
+
             AudioManager.Instance.PlayEffect("Wall");
         }
         
@@ -111,6 +112,7 @@ public class doorController : MonoBehaviour
         if (!playSound)
         {
             playSound = true;
+
             AudioManager.Instance.PlayEffect("Wall");
         }
 

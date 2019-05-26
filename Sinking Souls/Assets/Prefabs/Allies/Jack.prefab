@@ -817,7 +817,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1374338400793274}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 167.94978, y: 115.273224, z: -17.425549}
+  m_LocalPosition: {x: -289.00964, y: 2506.235, z: 1041.4563}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4536631011766726}
@@ -1752,7 +1752,9 @@ MonoBehaviour:
   m_MaxHealth: 300
   m_HittedRecovery: 0.4
   m_Weapon: {fileID: 11400000, guid: 770641d31570a724f8f8eeb86cdada2f, type: 2}
+  feetWeapon: {fileID: 0}
   m_WeaponHand: {fileID: 1148404662069318}
+  feet: {fileID: 0}
   leftHanded: 0
   m_OtherHand: {fileID: 0}
   m_Abilities:
@@ -1766,7 +1768,10 @@ MonoBehaviour:
   lockedEnemy: {fileID: 0}
   originalColor: {r: 1, g: 1, b: 1, a: 1}
   gettingDamage: 0
+  consecutiveHits: 0
   deadButWaiting: 0
+  noDamage: 0
+  noReact: 0
   repulsionVector: {x: 0, y: 0, z: 0}
   repulsionForce: 20
   repulsionTime: 0.4

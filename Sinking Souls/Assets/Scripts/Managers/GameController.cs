@@ -307,10 +307,10 @@ public class GameController : MonoBehaviour
                 else
                 {
                     lobbySouls += runSouls;
-                    Debug.Log("Did some souls adding");
-                    var pickedModifiers = Array.FindAll(modifiers, modifier => modifier.picked);
-                    Array.ForEach(pickedModifiers, modifier => modifier.owned = true);
+                    Debug.Log("Did some souls adding");                
                 }
+                var pickedModifiers = Array.FindAll(modifiers, modifier => modifier.picked);
+                Array.ForEach(pickedModifiers, modifier => modifier.owned = true);
                 runSouls = 0;
 
                 Array.ForEach(modifiers, modifier => modifier.picked = false);

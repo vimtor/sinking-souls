@@ -676,7 +676,6 @@ GameObject:
   - component: {fileID: 33706101353026208}
   - component: {fileID: 23729503030440472}
   - component: {fileID: 64287146292602014}
-  - component: {fileID: 114268883888848312}
   m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
@@ -891,7 +890,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1922337867100356}
   m_LocalRotation: {x: 0, y: -1, z: -0, w: -0.00000035762784}
-  m_LocalPosition: {x: 0, y: 21, z: 0}
+  m_LocalPosition: {x: 0, y: 15, z: 0}
   m_LocalScale: {x: 0.8, y: 0.9, z: 0.8}
   m_Children: []
   m_Father: {fileID: 4585892433092408}
@@ -1489,18 +1488,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &114268883888848312
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1922337867100356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13b4f192e0394c54bbf7639f4011da16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DeathIslandScale: 2
 --- !u!114 &114406150575090080
 MonoBehaviour:
   m_ObjectHideFlags: 1

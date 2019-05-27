@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33657751279325978}
   - component: {fileID: 23843779819018432}
   - component: {fileID: 64808134171046914}
-  - component: {fileID: 114704495891984844}
   m_Layer: 15
   m_Name: Plane
   m_TagString: Untagged
@@ -929,8 +928,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1046270847839504}
   m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.00000058114523}
-  m_LocalPosition: {x: 0, y: 21, z: 0}
-  m_LocalScale: {x: 1.2, y: 1, z: 1.2}
+  m_LocalPosition: {x: 0, y: 15, z: 0}
+  m_LocalScale: {x: 1.3, y: 1, z: 1.3}
   m_Children: []
   m_Father: {fileID: 4763679382973530}
   m_RootOrder: 4
@@ -1180,7 +1179,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1433701496171982}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.00000058114523}
-  m_LocalPosition: {x: -277.5, y: 2762.9062, z: 1024.6}
+  m_LocalPosition: {x: 77.729774, y: 1298.7218, z: -994.1615}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4316032422982494}
@@ -1489,18 +1488,6 @@ MonoBehaviour:
   downTp: 1
   allie: {fileID: 0}
   DestroyOnDeath: 1
---- !u!114 &114704495891984844
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1046270847839504}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13b4f192e0394c54bbf7639f4011da16, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DeathIslandScale: 2
 --- !u!114 &114789314485064872
 MonoBehaviour:
   m_ObjectHideFlags: 1

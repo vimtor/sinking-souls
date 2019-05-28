@@ -19,7 +19,9 @@ public class DestructibleProp : MonoBehaviour {
         if (other.gameObject.tag == "Player" && other.gameObject.layer == 10) Destruct();
     }
 
-    void Destruct() {
+    void Destruct()
+    {
+        AudioManager.Instance.Play(Random.value < 0.5 ? "BreakingJar01" : "BreakingJar02");
         Instantiate(destroyedVersion, transform.position, transform.rotation);
         Destroy(gameObject);
     }

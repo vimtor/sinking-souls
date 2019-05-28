@@ -40,7 +40,7 @@ public class ChestBehaviour : MonoBehaviour {
                     isOpened = true;
                     Destroy(instantiatedButton);
                     GetComponent<Animator>().SetTrigger("Open");
-
+                    AudioManager.Instance.Play("ChestOpen");
                     StartCoroutine(ShowContent(1.8f));
                     //GiveContent();
 

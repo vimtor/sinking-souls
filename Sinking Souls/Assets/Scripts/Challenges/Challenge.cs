@@ -56,6 +56,7 @@ public abstract class Challenge : MonoBehaviour {
                 if (EnemiesAlive())
                 {                                                                           
                     Initialize();
+                    AudioManager.Instance.Play("ChallengeStart");
                     ShowCHallengeUI();
                     started = true;
                 }
@@ -65,12 +66,14 @@ public abstract class Challenge : MonoBehaviour {
                 if (state.onGoing == false) {
                     if (state.winned) {
                         string winMss = Win();
+                        AudioManager.Instance.Play("ChallengeWin");
                         showMessage = true;
                         UIHandler = Instantiate(Message, GameObject.Find("Canvas").transform, false);
                         UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "Challenge reward: " + "<color=#00ff48><size=40>" + winMss +"</size></color>";
                     }
                     else {
                         Loose();
+                        AudioManager.Instance.Play("ChallengeLose");
                         showMessage = true;
                         UIHandler = Instantiate(Message, GameObject.Find("Canvas").transform, false);
                         UIHandler.GetComponentInChildren<TextMeshProUGUI>().text = "Challenge <color=#ff0000><size=40>lost" + "</size></color>";

@@ -93,7 +93,7 @@ public class SorcererReviveHelper : MonoBehaviour {
         if (GetComponent<Enemy>().dead) return;
         
             GetComponent<Animator>().SetTrigger("ReviveSomeone");
-
+            AudioManager.Instance.Play("Revive");
             StartCoroutine(CastMagic(en, pos));
      
 

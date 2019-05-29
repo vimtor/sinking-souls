@@ -31,6 +31,7 @@ public class RagePilarsBehaviour : MonoBehaviour {
 
     IEnumerator spawnPillar(float t) {
         yield return new WaitForSeconds(t);
+        
         GameObject p = Instantiate(pilar);
         p.AddComponent<AbilityHolder>().holder = GetComponent<AbilityHolder>().holder;
         p.GetComponent<AbilityHolder>().owner = GetComponent<AbilityHolder>().owner;

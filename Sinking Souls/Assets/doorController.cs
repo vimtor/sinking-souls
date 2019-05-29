@@ -18,6 +18,8 @@ public class doorController : MonoBehaviour
     private bool playSound;
     private bool opened;
 
+    private int doorTimesFix = 0;
+
     private void Start()
     {
         if (speed == 0) speed = 2.25f;
@@ -77,9 +79,8 @@ public class doorController : MonoBehaviour
         {
             playSound = true;
 
-            AudioManager.Instance.PlayEffect("Wall");
+            AudioManager.Instance.Play("Wall");
         }
-        
 
         if (checkDistance()) {
             for (int i = 0; i < closedDoor.Count; i++)// GameObject door in closedDoor
@@ -113,7 +114,15 @@ public class doorController : MonoBehaviour
         {
             playSound = true;
 
-            AudioManager.Instance.PlayEffect("Wall");
+            // Number of times the this function gets call at the start of the level.
+            if (doorTimesFix < 15)
+            {
+                doorTimesFix++;
+            }
+            else
+            {
+                AudioManager.Instance.Play("Wall");
+            }
         }
 
         foreach (GameObject door in closedDoor)

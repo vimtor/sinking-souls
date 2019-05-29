@@ -85,4 +85,14 @@ public class CinematicManager : MonoBehaviour
         GameController.instance.player.GetComponent<Player>().Resume();
         isPlaying = false;
     }
+
+    public void EmergencyStop()
+    {
+        inGameInterface.SetActive(true);
+        blackFrames.SetActive(false);
+        GameController.instance.player.SetActive(true);
+        GameController.instance.player.GetComponent<Player>().Resume();
+        isPlaying = false;
+        cutsceneWrapper.SetActive(false);
+    }
 }

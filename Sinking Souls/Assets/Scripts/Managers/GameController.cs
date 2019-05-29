@@ -56,6 +56,7 @@ public class GameController : MonoBehaviour
     public LevelGeneratiorConfiguration level2;
     public bool visitedTavern;
 
+    public bool visitedLobby { get; set; }
 
     [HideInInspector] public bool died;
     [HideInInspector] public bool inTavern;
@@ -419,6 +420,31 @@ public class GameController : MonoBehaviour
                 lobbySouls += 100;
             }
 
+            if (Input.GetKeyDown(KeyCode.F6))
+            {
+                lobbySouls = 0;
+                runSouls = 0;
+                m_RescuedAlchemist = false;
+                m_RescuedBlacksmith = true;
+                maxHealth = 300;
+                upgradeCounts = 0;
+
+                visitedTavern = false;
+                visitedLobby = false;
+
+                equippedModifier =  null;
+                equippedAbility = abilities[0];
+                Debug.Log("EMERGENCY SAVE");
+                SaveManager.Save();
+            }
+            if (Input.GetKeyDown(KeyCode.F7))
+            {
+                foreach(GameObject en in roomEnemies)
+                {
+                    en.GetComponent<Entity>().Health = 0;
+                }
+            }
+
             #region ENEMY CONTROLLER
             if (ApplicationManager.Instance.state == ApplicationManager.GameState.MAIN_MENU) return;
             if (ApplicationManager.Instance.state == ApplicationManager.GameState.LOBBY) return;
@@ -482,11 +508,20 @@ public class GameController : MonoBehaviour
     private void SpawnPlayer()
     {
         player = Instantiate(playerPrefab);
-        if (!currentRoom.GetComponent<SpawnController>()) player.transform.position = currentRoom.transform.position;
-        else {
-            player.transform.position = currentRoom.GetComponent<SpawnController>().spawnHolder.transform.GetChild(0).gameObject.transform.position;
-            player.transform.rotation = currentRoom.GetComponent<SpawnController>().spawnHolder.transform.GetChild(0).gameObject.transform.rotation;
+        if (SceneManager.GetActiveScene().name == "Lobby" && !visitedLobby)
+        {
+            player.transform.position = new Vector3(3.8f, 0, -1.75f);
+            player.transform.rotation = Quaternion.Euler(0, -38.033f, 0);
+        }
+        else
+        {
+            if (!currentRoom.GetComponent<SpawnController>()) player.transform.position = currentRoom.transform.position;
+            else
+            {
+                player.transform.position = currentRoom.GetComponent<SpawnController>().spawnHolder.transform.GetChild(0).gameObject.transform.position;
+                player.transform.rotation = currentRoom.GetComponent<SpawnController>().spawnHolder.transform.GetChild(0).gameObject.transform.rotation;
 
+            }
         }
     }
 
@@ -560,6 +595,7 @@ public class GameController : MonoBehaviour
         upgradeCounts = save.upgradeCounts;
 
         visitedTavern = save.visitedTavern;
+        visitedLobby = save.visitedLobby;
 
         for (int i = 0; i < save.modifiersOwned.Length; i++)
         {

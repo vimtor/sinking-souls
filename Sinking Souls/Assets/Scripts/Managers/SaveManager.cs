@@ -71,6 +71,7 @@ public class SaveData
     public int equippedAbility;
 
     public bool visitedTavern;
+    public bool visitedLobby;
 
     public SaveData()
     {
@@ -78,10 +79,12 @@ public class SaveData
         runSouls = GameController.instance.runSouls;
         blacksmith = GameController.instance.m_RescuedBlacksmith;
         alchemist = GameController.instance.m_RescuedAlchemist;
-        maxHealth = GameController.instance.player.GetComponent<Player>().MaxHealth;
+        if (GameController.instance.player != null) maxHealth = GameController.instance.player.GetComponent<Player>().MaxHealth;
+        else maxHealth = GameController.instance.maxHealth;
         upgradeCounts = GameController.instance.upgradeCounts;
 
         visitedTavern = GameController.instance.visitedTavern;
+        visitedLobby = GameController.instance.visitedLobby;
 
         var modifiers = GameController.instance.modifiers;
         modifiersOwned = new bool[modifiers.Length];
@@ -99,25 +102,31 @@ public class SaveData
         }
 
         equippedModifier = -1; // If the player as no modifier equipped.
-        var player = GameController.instance.player.GetComponent<Player>();
-        for (int i = 0; i < modifiers.Length; i++)
+        if (GameController.instance.player)
         {
-            if (modifiers[i] == player.Weapon.modifier)
+            var player = GameController.instance.player.GetComponent<Player>();
+            for (int i = 0; i < modifiers.Length; i++)
             {
-                equippedModifier = i;
-                break;
+                if (modifiers[i] == player.Weapon.modifier)
+                {
+                    equippedModifier = i;
+                    break;
+                }
+            }
+
+            for (int i = 0; i < abilities.Length; i++)
+            {
+                if (abilities[i] == player.Abilities[0])
+                {
+                    equippedAbility = i;
+                    break;
+                }
             }
         }
-
-        for (int i = 0; i < abilities.Length; i++)
+        else
         {
-            if (abilities[i] == player.Abilities[0])
-            {
-                equippedAbility = i;
-                break;
-            }
+            equippedAbility = 0;
         }
-
         var conditions = GameController.instance.conditions;
         conditionsTriggered = new bool[conditions.Length];
         for (int i = 0; i < conditions.Length; i++)

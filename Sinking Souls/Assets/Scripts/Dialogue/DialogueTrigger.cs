@@ -4,6 +4,7 @@ public class DialogueTrigger : MonoBehaviour
 {
     public Dialogue[] dialogues;
     public bool Tavern = false;
+    public bool lobby = false;
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
@@ -14,7 +15,6 @@ public class DialogueTrigger : MonoBehaviour
             if (GameController.instance.visitedTavern)
             {
                 Destroy(gameObject);
-                Debug.Log("Hola?");
                 GameController.instance.player.GetComponent<Player>().Resume();
                 return;
             }
@@ -22,7 +22,23 @@ public class DialogueTrigger : MonoBehaviour
             {
 
                 GameController.instance.visitedTavern = true;
-                //SaveManager.Save();
+                SaveManager.Save();
+            }
+        }
+        if (lobby)
+        {
+            if (GameController.instance.visitedLobby)
+            {
+                Destroy(gameObject);
+                GameController.instance.player.GetComponent<Player>().Resume();
+                return;
+            }
+            else
+            {
+
+                GameController.instance.visitedLobby = true;
+                SaveManager.Save();
+                Destroy(GameObject.Find("Bubble"));
             }
         }
 

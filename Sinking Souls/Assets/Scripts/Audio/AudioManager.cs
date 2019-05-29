@@ -83,15 +83,19 @@ public class AudioManager : MonoBehaviour
         m_AudioMixer.SetFloat("MusicVolume", volume);
     }
 
-    public void Fade(string audioName, int seconds, float desiredVolume = 0.0f)
+
+
+    public void Fade(string audioName, int seconds, float desiredVolume = 0.0f, bool stopAfter = true)
     {
-        var sound = FindSound(audioName);
-        
-        StartCoroutine(Fade(sound.source, seconds, desiredVolume));
+        StartCoroutine(Fade(FindSound(audioName), seconds, desiredVolume, stopAfter));
     }
 
-    private IEnumerator Fade(AudioSource source, int seconds, float desiredVolume)
+    private IEnumerator Fade(Sound sound, int seconds, float desiredVolume, bool stopAfter)
     {
+        sound.fading = true;
+        AudioSource source = sound.source;
+
+
         float initialVolume = source.volume;
 
         for (float t = 0; t < seconds; t += 0.05f)
@@ -99,6 +103,13 @@ public class AudioManager : MonoBehaviour
             // Interpolate values between [0, seconds] to [0, 1] for the Mathf.Lerp function.
             source.volume = Mathf.Lerp(initialVolume, desiredVolume, MapValue(t, 0, seconds, 0, 1));
             yield return new WaitForSecondsRealtime(0.05f);
+        }
+
+        sound.fading = false;
+
+        if (stopAfter)
+        {
+            source.Stop();
         }
     }
 
@@ -184,8 +195,28 @@ public class AudioManager : MonoBehaviour
 
     public void StopAll()
     {
-        Array.ForEach(m_Effects, sound => sound.source.Stop());
-        Array.ForEach(m_Music, sound => sound.source.Stop());
+        Array.ForEach(m_Effects, sound =>
+        {
+            if(!sound.fading) sound.source.Stop();
+        });
+
+        Array.ForEach(m_Music, sound =>
+        {
+            if (!sound.fading) sound.source.Stop();
+        });
+    }
+
+    public void FadeAll(int seconds)
+    {
+        Array.ForEach(m_Effects, sound =>
+        {
+            if (!sound.fading) Fade(sound.name, seconds);
+        });
+
+        Array.ForEach(m_Music, sound =>
+        {
+            if (!sound.fading) Fade(sound.name, seconds);
+        });
     }
 
     public void StopAllEffects()
@@ -199,7 +230,7 @@ public class AudioManager : MonoBehaviour
 
         sound.source.volume = initialVolume;
         sound.source.Play();
-        StartCoroutine(Fade(sound.source, seconds, finalVolume));
+        StartCoroutine(Fade(sound, seconds, finalVolume, false));
     }
 
     // Plays the audio from the initial volume to the volume specified in the inspector.
@@ -209,7 +240,7 @@ public class AudioManager : MonoBehaviour
 
         sound.source.volume = initialVolume;
         sound.source.Play();
-        StartCoroutine(Fade(sound.source, seconds, sound.volume));
+        StartCoroutine(Fade(sound, seconds, sound.volume, false));
     }
     #endregion
 }

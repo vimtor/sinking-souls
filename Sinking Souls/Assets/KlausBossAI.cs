@@ -107,6 +107,7 @@ public class KlausBossAI : MonoBehaviour {
                 { ///rotate the stick
                     forward = Quaternion.Euler(new Vector3(0, swepingSpeed * Time.deltaTime, 0)) * forward;
                     targget[i] = gameObject.transform.position + Vector3.up * 1.5f + (firstDistance * forward.normalized) + forward.normalized * swordOffset * i;
+                    AudioManager.Instance.Play("KlausSweep");
                 }
                 ////move acording to targget///////////////////
                 float speed = flyingSpeed;

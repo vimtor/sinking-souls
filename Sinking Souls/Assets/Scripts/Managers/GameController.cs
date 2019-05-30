@@ -251,6 +251,8 @@ public class GameController : MonoBehaviour
             break;
 
             case ApplicationManager.GameState.TUTORIAL:
+                AudioManager.Instance.PlayFade("TritonTheme", 5, 0f);
+
                 inTavern = false;
                 runSouls = 0;
 

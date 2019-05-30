@@ -72,6 +72,8 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator DisplayDialogue()
     {
+        AudioManager.Instance.Play("Dialogue");
+
         // End conversation if the dialogue has ended.
         if (conversation.Count == 0)
         {
@@ -110,6 +112,8 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.1f);
         yield return new WaitUntil(() => InputManager.GetButtonA() || Input.GetKeyDown(KeyCode.E) );
         StartCoroutine(DisplayDialogue());
+
+        AudioManager.Instance.Stop("Dialogue");
     }
 
     public void DisplayDialogue(Dialogue dialogue)
@@ -133,9 +137,10 @@ public class DialogueManager : MonoBehaviour
 
     private IEnumerator TypeSentence(string sentence)
     {
+        AudioManager.Instance.Play("Dialogue");
+
         messageContent.text = "";
         var parsedSentence = sentence;
-        AudioManager.Instance.PlayEffect("Dialogue");
 
         float time = 1 / Mathf.Pow(10, dialogueSpeed);
         for (int i = 0; i < parsedSentence.Length; i++)

@@ -140,6 +140,8 @@ public class AudioManager : MonoBehaviour
     {
         Sound sound = FindSound(audioName);
 
+        sound.source.volume = sound.volume;
+
         if (sound.interruptible)
         {
             if (sound.source.isPlaying) sound.source.Stop();
@@ -148,8 +150,27 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        sound.source.volume = sound.volume;
+        if (sound.multiple)
+        {
+            if (sound.source.isPlaying)
+            {
+                StartCoroutine(PlayTemporary(sound));
+            }
+        }
+
         if (!sound.source.isPlaying) sound.source.Play();
+    }
+
+    private IEnumerator PlayTemporary(Sound sound)
+    {
+        var source = gameObject.AddComponent<AudioSource>();
+        source.clip = sound.clip;
+
+        source.Play();
+
+        yield return new WaitUntil(() => !source.isPlaying);
+
+        Destroy(source);
     }
 
     [Obsolete("This is an deprecated method. Use Play() method instead.")]

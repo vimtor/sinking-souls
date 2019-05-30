@@ -63,6 +63,9 @@ public class KlausBossAI : MonoBehaviour {
 
     private void Start() {
         started = false;
+
+        AudioManager.Instance.PlayFade("KlausTheme", 15, -5);
+        AudioManager.Instance.Fade("DeathTheme", 2);
     }
 
     public void SetupAI()
@@ -104,6 +107,7 @@ public class KlausBossAI : MonoBehaviour {
                 { ///rotate the stick
                     forward = Quaternion.Euler(new Vector3(0, swepingSpeed * Time.deltaTime, 0)) * forward;
                     targget[i] = gameObject.transform.position + Vector3.up * 1.5f + (firstDistance * forward.normalized) + forward.normalized * swordOffset * i;
+                    AudioManager.Instance.Play("KlausSweep");
                 }
                 ////move acording to targget///////////////////
                 float speed = flyingSpeed;
@@ -435,6 +439,11 @@ public class KlausBossAI : MonoBehaviour {
                     swords[i].GetComponent<SwordBehaviour>().dead = true;
 
                 }
+
+
+                AudioManager.Instance.PlayFade("DeathTheme", 10, 0);
+                AudioManager.Instance.Fade("KlausTheme", 15);
+
                 ApplicationManager.Instance.FinishGame();
             }
             else

@@ -63,6 +63,9 @@ public class KlausBossAI : MonoBehaviour {
 
     private void Start() {
         started = false;
+
+        AudioManager.Instance.PlayFade("KlausTheme", 15, -5);
+        AudioManager.Instance.Fade("DeathTheme", 2);
     }
 
     public void SetupAI()
@@ -435,6 +438,11 @@ public class KlausBossAI : MonoBehaviour {
                     swords[i].GetComponent<SwordBehaviour>().dead = true;
 
                 }
+
+
+                AudioManager.Instance.PlayFade("DeathTheme", 10, 0);
+                AudioManager.Instance.Fade("KlausTheme", 15);
+
                 ApplicationManager.Instance.FinishGame();
             }
             else

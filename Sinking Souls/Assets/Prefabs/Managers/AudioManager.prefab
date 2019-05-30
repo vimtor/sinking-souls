@@ -71,6 +71,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: MenuButton_2
@@ -79,6 +80,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: MenuButton_Click
@@ -87,6 +89,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: Attack_1
@@ -95,6 +98,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: Attack_2
@@ -103,6 +107,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: BombExplosion
@@ -111,6 +116,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: Forge
@@ -119,6 +125,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: Walk
@@ -127,6 +134,7 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: Splash
@@ -135,6 +143,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 1
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: Wall
@@ -143,6 +152,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: Wind
@@ -151,22 +161,25 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: BowPreparing
     clip: {fileID: 8300000, guid: add197495d5e58248b16a00441251053, type: 3}
-    volume: 0.4
+    volume: 0.33
     pitch: 1
     loop: 0
     interruptible: 0
+    multiple: 1
     source: {fileID: 0}
     fading: 0
   - name: BowShoot
     clip: {fileID: 8300000, guid: 204ff6ebb195763428a3cdbda43b6e33, type: 3}
-    volume: 0.4
+    volume: 0.338
     pitch: 1
     loop: 0
     interruptible: 0
+    multiple: 1
     source: {fileID: 0}
     fading: 0
   - name: Lock
@@ -175,6 +188,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: PlayerHit
@@ -183,6 +197,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 1
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: Teleport
@@ -191,6 +206,7 @@ MonoBehaviour:
     pitch: 1.35
     loop: 0
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: Unlock
@@ -199,6 +215,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: TavernItem
@@ -207,14 +224,16 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: SpearThrow
     clip: {fileID: 8300000, guid: 10701352556b93e449328af9d15c7937, type: 3}
-    volume: 1
+    volume: 0.49
     pitch: 1
     loop: 0
     interruptible: 0
+    multiple: 1
     source: {fileID: 0}
     fading: 0
   - name: Dialogue
@@ -223,6 +242,7 @@ MonoBehaviour:
     pitch: 1.125
     loop: 0
     interruptible: 1
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: MagicBombExplosion
@@ -230,7 +250,8 @@ MonoBehaviour:
     volume: 0.5
     pitch: 1
     loop: 0
-    interruptible: 1
+    interruptible: 0
+    multiple: 1
     source: {fileID: 0}
     fading: 0
   - name: BreakingJar01
@@ -239,6 +260,7 @@ MonoBehaviour:
     pitch: 1.2
     loop: 0
     interruptible: 1
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: BreakingJar02
@@ -247,6 +269,7 @@ MonoBehaviour:
     pitch: 1.2
     loop: 0
     interruptible: 1
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: ChestOpen
@@ -255,6 +278,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 1
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: ChallengeStart
@@ -263,6 +287,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 1
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: ChallengeWin
@@ -271,6 +296,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 1
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: ChallengeLose
@@ -279,6 +305,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 1
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: Revive
@@ -286,7 +313,8 @@ MonoBehaviour:
     volume: 0.6
     pitch: 1
     loop: 0
-    interruptible: 1
+    interruptible: 0
+    multiple: 1
     source: {fileID: 0}
     fading: 0
   - name: AilinBallCharge
@@ -295,6 +323,7 @@ MonoBehaviour:
     pitch: 1.1
     loop: 0
     interruptible: 1
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: AilinBallThrow
@@ -303,6 +332,7 @@ MonoBehaviour:
     pitch: 1.1
     loop: 0
     interruptible: 1
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: AilinWave
@@ -311,6 +341,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 1
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: AilinLaser
@@ -319,6 +350,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 1
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: AilinColumn
@@ -327,6 +359,7 @@ MonoBehaviour:
     pitch: 1.5
     loop: 0
     interruptible: 0
+    multiple: 1
     source: {fileID: 0}
     fading: 0
   - name: KlausSweep
@@ -335,6 +368,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: KlausBigSword
@@ -343,6 +377,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: KlausSmallSword
@@ -351,6 +386,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: KlausArrow
@@ -359,6 +395,7 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: KlausHitSword
@@ -367,6 +404,25 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     interruptible: 0
+    multiple: 0
+    source: {fileID: 0}
+    fading: 0
+  - name: WaterSplash
+    clip: {fileID: 8300000, guid: 2075a08c2bd4f194ca5c17cd2cbc5677, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    interruptible: 0
+    multiple: 1
+    source: {fileID: 0}
+    fading: 0
+  - name: TritonStab
+    clip: {fileID: 8300000, guid: b5b05ab1b3104eb4fa73f8d151799d81, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 0
+    interruptible: 0
+    multiple: 1
     source: {fileID: 0}
     fading: 0
   m_Music:
@@ -376,6 +432,7 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: Waves
@@ -384,6 +441,7 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: TitleScreen
@@ -392,6 +450,7 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: DeathTheme
@@ -400,6 +459,7 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0
   - name: KlausTheme
@@ -408,5 +468,6 @@ MonoBehaviour:
     pitch: 1
     loop: 1
     interruptible: 0
+    multiple: 0
     source: {fileID: 0}
     fading: 0

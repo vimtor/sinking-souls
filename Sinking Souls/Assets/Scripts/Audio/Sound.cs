@@ -15,6 +15,7 @@ public class Sound
 
     public bool loop;
     public bool interruptible;
+    public bool multiple;
 
     [HideInInspector] public AudioSource source;
     [HideInInspector] public bool fading;

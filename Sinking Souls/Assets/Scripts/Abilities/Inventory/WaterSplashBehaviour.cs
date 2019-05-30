@@ -39,6 +39,9 @@ public class WaterSplashBehaviour : MonoBehaviour {
         
         // After the delay enable the hit box and destroy the game object.
         yield return new WaitForSecondsRealtime(delay);
+
+        AudioManager.Instance.Play("WaterSplash");
+
         boxCollider.enabled = true;
         Destroy(gameObject, 0.3f);
     }

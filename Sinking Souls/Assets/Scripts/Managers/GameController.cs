@@ -11,6 +11,7 @@ using TMPro;
 
 public class GameController : MonoBehaviour
 {
+    public GameObject chestButton;
     public GameObject ControlsMenu;
     private GameObject InstantiatedControlsMenu;
     public GameObject cursorPrefab;

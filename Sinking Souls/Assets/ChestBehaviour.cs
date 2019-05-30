@@ -25,6 +25,7 @@ public class ChestBehaviour : MonoBehaviour {
         canvas = transform.Find("ChestCanvas").gameObject;
         isOpened = false;
         ChestContentUI = GameController.instance.GetComponent<GameController>().ChestContentUI;
+        Button = GameController.instance.chestButton;
     }
 
     private void OnTriggerEnter(Collider other)

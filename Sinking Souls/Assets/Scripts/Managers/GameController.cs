@@ -271,9 +271,9 @@ public class GameController : MonoBehaviour
             break;
 
             case ApplicationManager.GameState.LOBBY:
-                extraLife = 0;  
-                spawnProvabilty = (2 / (15f * 4f)) * 100;
-                spawnProvabiltySecondary = (5 / (15f * 4f)) * 100;
+                extraLife = 0;
+                spawnProvabilty = 50;//(2 / (15f * 4f)) * 100;
+                spawnProvabiltySecondary = 50;// (5 / (15f * 4f)) * 100;
                 if (tabbernSoulsHolder != -1) {//if ultra feo por la mierda de sistema vol 2
                     runSouls = lobbySouls;
                     lobbySouls = tabbernSoulsHolder;

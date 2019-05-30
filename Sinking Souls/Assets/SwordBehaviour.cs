@@ -89,6 +89,7 @@ public class SwordBehaviour : MonoBehaviour {
             life -= other.GetComponent<WeaponHolder>().holder.damage;
             hitCounter = 1;
             Debug.Log("Hit");
+            AudioManager.Instance.Play("KlausHitSword");
         }
 
         
@@ -98,6 +99,7 @@ public class SwordBehaviour : MonoBehaviour {
                 stopAttack();
                 inactive = true;
                 inactivePosition = transform.position + transform.forward * 0.7f;
+                AudioManager.Instance.Play("KlausSmallSword");
             }
         }
         else 
@@ -111,6 +113,7 @@ public class SwordBehaviour : MonoBehaviour {
                     StartCoroutine(restablishShake(0.2f));
                 }
 
+                AudioManager.Instance.Play("KlausBigSword");
             }
         }else {
             if (other.tag == "Ground" && dead) {
@@ -182,6 +185,7 @@ public class SwordBehaviour : MonoBehaviour {
     private void arrowAttackLogic(float time) {
         if(forwardLaunchCounter < time) {
             GetComponent<Rigidbody>().velocity = transform.forward * forwardSpeed * speedMultiplier;
+            AudioManager.Instance.Play("KlausArrow");
             activateAttack();
         }
         else {

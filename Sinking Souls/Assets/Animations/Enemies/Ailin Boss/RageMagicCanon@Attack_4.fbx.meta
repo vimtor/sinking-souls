@@ -141,6 +141,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0.27799228
+        functionName: PlaySound
+        data: AilinLaser
+        objectReferenceParameter: {fileID: 11500000, guid: d86ef26c133eacd408bb7edb457b8c36,
+          type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.29549116
         functionName: UseAbility
         data: 
@@ -148,6 +156,14 @@ ModelImporter:
           type: 3}
         floatParameter: 0
         intParameter: 5
+        messageOptions: 0
+      - time: 0.703942
+        functionName: FadeSound
+        data: AilinLaser
+        objectReferenceParameter: {fileID: 11500000, guid: d86ef26c133eacd408bb7edb457b8c36,
+          type: 3}
+        floatParameter: 0
+        intParameter: 1
         messageOptions: 0
       transformMask: []
       maskType: 3

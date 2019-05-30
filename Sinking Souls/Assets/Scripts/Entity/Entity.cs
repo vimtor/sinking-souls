@@ -250,6 +250,7 @@ public class Entity : MonoBehaviour
 
     protected void PlaySound(string name)  { AudioManager.Instance.PlayEffect(name);  }
     protected void StopSound(string name)  { AudioManager.Instance.Stop(name);  }
+    protected void FadeSound(int seconds, string name) { AudioManager.Instance.Fade(name, seconds); }
     protected void PauseSound(string name) { AudioManager.Instance.Pause(name); }
     #endregion
     [HideInInspector] public int consecutiveHits = 0;

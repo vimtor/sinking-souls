@@ -155,6 +155,8 @@ public class ApplicationManager : MonoBehaviour
 
         currentlyLoading = true;
 
+        AudioManager.Instance.StopAll();
+
         // Load scene and disable scene change until minLoadTime.
         var operation = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Single);
         operation.allowSceneActivation = false;

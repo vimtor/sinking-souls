@@ -35,6 +35,10 @@ public class AilinAIAsistant : MonoBehaviour {
 
         var healthbar = Instantiate(bossHealthbar, GameObject.Find("Canvas").transform);
         healthbar.GetComponent<AilinBossHealthbar>().ailin = GetComponent<Enemy>();
+
+
+        AudioManager.Instance.PlayFade("KlausTheme", 5, 0);
+        AudioManager.Instance.Fade("TritonTheme", 2);
     }
 	
 	
@@ -63,6 +67,12 @@ public class AilinAIAsistant : MonoBehaviour {
                 rageDurationCounter = 0;
                 firstAttack = false;
             }
+        }
+
+        if (GetComponent<Entity>().Health < 0)
+        {
+            AudioManager.Instance.PlayFade("TritonTheme", 5, 0);
+            AudioManager.Instance.Fade("KlausTheme", 2);
         }
 	}
 

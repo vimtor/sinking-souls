@@ -16,6 +16,7 @@ public class SpawnPilar : MonoBehaviour {
         var main1 = GetComponent<ParticleSystem>().main;
         var main2 = transform.GetChild(0).GetComponent<ParticleSystem>().main;
         main1.startLifetime = main2.startLifetime = AuraLifespan;
+        AudioManager.Instance.Play("AilinColumn");
     }
 
     void Update () {

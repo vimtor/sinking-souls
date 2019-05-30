@@ -17,4 +17,5 @@ public class Sound
     public bool interruptible;
 
     [HideInInspector] public AudioSource source;
+    [HideInInspector] public bool fading;
 }
